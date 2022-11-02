@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_student_invoice_portrait_document">
+			<t t-call="odoocms_fee.cms_layout">
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+                <!--
+                <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)" />
+                   -->
+
+                <div class="page">
+                    <t t-call="odoocms_fee.cms_receipt_copy">
+                        <t t-set="copy_name">University Copy</t>
+                    </t>
+                    <div class="row mb0 mt0 zero_min_height">
+                        &#9986;.....&#9986;....................................................................................<span t-esc="o.download_time"/>....................................................................................
+                    </div>
+
+                    <t t-call="odoocms_fee.cms_receipt_copy">
+                        <t t-set="copy_name">Bank Copy</t>
+                    </t>
+
+                    <div class="row mb0 mt0 zero_min_height">
+                        &#9986;.....&#9986;....................................................................................<span t-esc="o.download_time"/>....................................................................................
+                    </div>
+
+                    <t t-call="odoocms_fee.cms_receipt_copy">
+                        <t t-set="copy_name">Department Copy</t>
+                    </t>
+                    <div class="row mb0 mt0 zero_min_height">
+                        &#9986;.....&#9986;....................................................................................<span t-esc="o.download_time"/>....................................................................................
+                    </div>
+
+                    <t t-call="odoocms_fee.cms_receipt_copy">
+                        <t t-set="copy_name">CMS Copy</t>
+                    </t>
+                    <div class="row mb0 mt0 zero_min_height">
+                        &#9986;.....&#9986;....................................................................................<span t-esc="o.download_time"/>....................................................................................
+                    </div>
+                    <t t-call="odoocms_fee.cms_receipt_copy">
+                        <t t-set="copy_name">Student Copy</t>
+                    </t>
+                </div>
+            </t>
+
+        </template>
+
+        <template id="odoocms_fee.cms_receipt_copy">
+            <div class="row">
+                 <div class="col-3 mb2">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+
+                 <div class="col-9" name="company_address">
+                    <div t-field="company.partner_id"
+                        t-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="margin-top:16px;">
+                     <b>
+                        <span t-if="o.move_type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                        <span t-if="o.move_type == 'out_refund'">Credit Note</span>
+                        <span t-field="o.name"/>
+                    </b>
+                </div>
+                <div class="col-6 text-right" style="margin-top:16px;"><t t-esc="copy_name"/></div>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div t-if="o.receipt_type_ids" class="col-8">
+                    <t t-foreach="o.receipt_type_ids" t-as="rec">
+                        <span t-esc="rec.name"/><span>,</span>
+                    </t>
+                </div>
+                 <div t-if="o.student_id" class="col-4 pull-right  text-right">
+                     <span t-field="o.student_id.code"></span> | <span t-field="o.student_id.name"></span>
+                </div>
+            </div>
+
+            <div style="font-size:12px;" class="row mt4 mb0">
+                <div class="col-auto mw-100 mb-2" t-if="o.name">
+                    <strong>Description:</strong>
+
+                    <p class="m-0" t-field="o.name"/>
+                </div>
+                <div class="col-auto mw-100 mb-2" t-if="o.invoice_date">
+                    <strong>Invoice Date:</strong>
+                    <p class="m-0" t-field="o.invoice_date"/>
+                </div>
+                <div class="col-auto mw-100 mb-2" t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state in ('open', 'unpaid','in_payment', 'paid')" name="due_date">
+                    <strong>Due Date:</strong>
+                    <p class="m-0" t-field="o.invoice_date_due"/>
+                </div>
+                <div class="col-auto mw-500 mb-2" t-if="o.student_id">
+                    <strong>Program:</strong>
+                    <p class="m-0" t-field="o.student_id.program_id.name"/>
+                </div>
+                <div class="col-auto mw-100 mb-2" t-if="o.student_id">
+                    <strong>Term:</strong>
+                    <p class="m-0" t-field="o.term_id.name"/>
+                </div>
+                <!-- SARFRAZ 14-11-2020-->
+<!--                <div class="col-auto mw-100 mb-2" t-if="o.applicant_id">-->
+<!--                    <strong>Program:</strong>-->
+<!--                    <p class="m-0" t-field="o.applicant_id.program_id.name"/>-->
+<!--                </div>-->
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Account:</strong>
+                    <p class="m-0">UBL-MCA No.252487965</p>
+                </div>
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Branch:</strong>
+                    <p class="m-0">(Any-UBL)</p>
+                </div>
+                <div class="col-auto mw-100 mb-2">
+                    <strong>Self Finance Existing Enrollments</strong>
+                </div>
+                <div class="col-auto mw-100 mb-2" t-if="o.waiver_ids">
+                    <strong>Fee Waiver:</strong>
+                    <p class="m-0">
+                        <t t-foreach="o.waiver_ids" t-as="waiver_id">
+                            <span t-esc="waiver_id.name"/>,
+                        </t>
+                    </p>
+                    <span t-field="o.waiver_amount" t-if="o.waiver_amount"/>
+                </div>
+                <!--
+                <div class="col-auto mw-100 mb-2" t-if="o.student_id" name="term">
+                    <strong>Customer Code:</strong>
+                    <p class="m-0" t-field="o.student_id.academic_semester_id.name"/>
+                </div>
+                -->
+            </div>
+
+            <table class="table table-sm o_main_table">
+                <thead>
+                    <tr style="font-size:12px;">
+                        <th class="text-left">Description:</th>
+                        <th class="text-right">
+                            <span>Amount</span>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="invoice_tbody">
+                    <t t-set="waiver_amt" t-value="o.waiver_amount"/>
+                    <t t-set="actual_amt" t-value="o.amount_untaxed"/>
+                    <t t-set="amountwowaiver" t-value="actual_amt+waiver_amt"/>
+                    <tr>
+                        <td name="account_invoice_line_name">
+                              <t t-if="'Rechecking' in o.receipt_type_ids.name">
+                     <p class="m-0" t-field="o.invoice_line_ids.name"/>
+                    </t>
+                            Dues and Fees</td>
+                        <td class="text-right">
+                             <span t-esc="amountwowaiver"/>
+                        </td>
+                    </tr>
+                    <tr t-if="o.total_fine>0">
+                        <td name="account_invoice_line_name">Fine</td>
+                        <td class="text-right">
+                             <span t-esc="o.total_fine"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!--<div class="clearfix">-->
+                <div id="total" class="row">
+                    <div class="col-4 ml-auto">
+                        <table class="table table-sm">
+
+                            <tr class="border-black o_total">
+                                <td><strong>Total</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_total_with_fine"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            <!-- </div> -->
+
+
+            <p class="mb0" style="font-size:10px;">
+                <b>Note: </b> <span t-if="o.narration"><t t-raw="o.narration"/></span>
+            </p>
+        </template>
+
+
+        <template id="student_report_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="odoocms_fee.report_student_invoice_portrait_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <!--
+        <template id="account.report_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-if="(o.type in ('in_invoice', 'in_refund'))" t-call="account.report_invoice_document" t-lang="lang"/>
+                    <t t-if="(o.type not in ('in_invoice', 'in_refund'))" t-call="odoocms_fee.report_student_invoice_portrait_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+        -->
+
+         <template id="account.report_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-call="account.report_invoice_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="account.report_invoice_with_payments">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                    <t t-if="(o.move_type in ('out_invoice','out_refund','in_invoice', 'in_refund'))" t-call="account.report_invoice_document_with_payments" t-lang="lang"/>
+                   <!-- <t t-if="(o.type not in ('in_invoice', 'in_refund'))" t-call="odoocms_fee.report_student_invoice_portrait_document" t-lang="lang"/>-->
+                </t>
+            </t>
+        </template>
+
+
+
+        <template id="odoocms_fee.cms_layout">
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+
+        <template id="base.contact_name">
+            <div t-if="'name' in fields">
+                <t t-if="object.name">
+                    <span itemprop="name" t-esc="name"/>
+                </t>
+                <t t-if="'last_name' in fields and object.last_name">
+                    <span itemprop="name" t-esc="object.last_name"/>
+                </t>
+                <t t-if="not object.name and object.parent_name">
+                    <span itemprop="name" t-esc="object.parent_name"/>
+                </t>
+                <t t-if="options.get('country_image') and 'country_id' in fields and object.country_id and object.country_id.image">
+                    <span t-field="object.country_id.image" t-options='{"widget": "image", "class": "country_flag"}'/>
+                </t>
+            </div>
+        </template>
+
+    </data>
+
+
+
+</odoo>

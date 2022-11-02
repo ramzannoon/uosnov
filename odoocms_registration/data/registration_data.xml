@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="mail_act_cross_registration" model="mail.activity.type">
+            <field name="name">Cross Registration (1st)</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_course_registration_cross"/>
+            <field name="category">approval</field>
+            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+            <field name="post_function">record.action_1st_approval()</field>
+            <field name="cancel_function">record.action_cancel()</field>
+            <field name="module_category_id" ref="module_category_odoocms_registration"/>
+        </record>
+
+        <record id="mail_act_cross_registration2" model="mail.activity.type">
+            <field name="name">Cross Registration (2nd)</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_course_registration_cross"/>
+            <field name="category">approval</field>
+            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+            <field name="post_function">record.action_approval()</field>
+            <field name="cancel_function">record.action_cancel()</field>
+            <field name="module_category_id" ref="module_category_odoocms_registration"/>
+        </record>
+
+        <record id="mail_act_term_defer" model="mail.activity.type">
+            <field name="name">Term Defer Approval</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_student_term_defer"/>
+            <field name="category">approval</field>
+            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+            <field name="prev_function">record.action_approve()</field>
+<!--            <field name="cancel_function">record.revisit_result()</field>-->
+            <field name="module_category_id" ref="module_category_odoocms_registration"/>
+        </record>
+
+        <record id="mail_act_course_withdraw" model="mail.activity.type">
+            <field name="name">Course Withdraw Approval</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_student_course_drop"/>
+            <field name="category">approval</field>
+<!--            <field name="post_fnc">record.action_approve()</field>-->
+<!--            <field name="cancel_fnc">record.action_cancel()</field>-->
+        </record>
+
+
+        <record id="mail_act_course_delete" model="mail.activity.type">
+            <field name="name">CMS User - Courses Delete</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_student_course_delete"/>
+             <field name="category">approval</field>
+<!--            <field name="post_fnc">record.action_approve()</field>-->
+<!--            <field name="cancel_fnc">record.action_cancel()</field>-->
+        </record>
+
+        <record id="mail_act_paper_rechecking" model="mail.activity.type">
+            <field name="name">Student Paper Rechecking Request</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_student_course_delete"/>
+             <field name="category">approval</field>
+<!--            <field name="post_fnc">record.action_approve()</field>-->
+<!--            <field name="cancel_fnc">record.action_cancel()</field>-->
+        </record>
+
+    </data>
+</odoo>

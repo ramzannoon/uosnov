@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="odoocms_room_generate_wiz_view" model="ir.ui.view">
+            <field name="name">odoocms.room.generate.wiz.view</field>
+            <field name="model">odoocms.room.generate.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Rooms Generate Wizard">
+                    <p>
+                        <b>
+                            <span style="color:black;">
+                                <u>!!!NOTE!!!</u>
+                            </span>
+                        </b>
+                    </p>
+
+                    <p>
+                        This Wizard will Generate the Room For the Hostel Management System From
+                        <b>
+                            <span style="color:green;">Starting Number to End Number</span>
+                        </b>
+                        .
+                        <br/>
+
+                        Name Prefix Will be Used for the Rooms Name, For Example if you enter the prefix as
+                        <b>
+                            <span style="color:green;">"ROOM#"</span>
+                        </b>
+                        then names will
+                        <br/>
+                        be like
+                        <b>
+                            <span style="color:red;">Room#1, Room2, Room#3</span>
+                        </b>
+                        etc. If Prefix is
+                        <b>
+                            <span style="color:green;">'RM#'</span>
+                        </b>
+                        then it will be
+                        <b>
+                            <span style="color:red;">RM#01,RM02</span>
+                        </b>
+                        etc.
+                        <br/>
+
+                    </p>
+                    <group>
+                        <group>
+                            <field name="name_prefix" required="1"/>
+                            <field name="name_postfix_length" required="1"/>
+                        </group>
+                        <group>
+                            <field name="start_num" required="1"/>
+                            <field name="end_num" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_shift_student" string="Generate Rooms" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_room_generate_wiz" model="ir.actions.act_window">
+            <field name="name">Rooms Generation</field>
+            <field name="res_model">odoocms.room.generate.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_room_generate_wiz"
+                name="Rooms Generation"
+                action="action_odoocms_room_generate_wiz"
+                parent="menu_odoocms_hostel_rooms_config"
+                sequence="30"/>
+
+    </data>
+</odoo>

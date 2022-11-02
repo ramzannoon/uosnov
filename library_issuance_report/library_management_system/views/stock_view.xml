@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_stock_library_tree" model="ir.ui.view">
+            <field name="name">stock.library.tree</field>
+            <field name="model">stock.library</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Library" editable="bottom">
+                    <field name="media_id"/>
+                    <field name="location_id"/>
+                    <field name="inventory_quantity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_library_action" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.library</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+    </data>
+</odoo>

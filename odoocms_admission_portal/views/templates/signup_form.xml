@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="web_signup" name="Signup">
+		<t t-call="website.layout">
+			<t t-set="html_data" t-value="{'style': 'height: 100%;'}"/>
+			<t t-set="body_classname" t-value="'bg-nust'"/>
+			<t t-set="no_header" t-value="True"/>
+			<t t-set="no_footer" t-value="True"/>
+			<style type="text/css">
+				header {
+				left: 0;
+				top: 0;
+				width: 100%;
+				padding-top: 0;
+				background-position: bottom center!important;
+				background-size: cover!important;
+				background-attachment: fixed!important;
+				}
+				header.full-height {
+				height: 0vh;
+				}
+				body {
+				}
+				.bg-nust {
+				background-color: #E8DCDC;
+				}
+				.nav-bg {
+				background: #1e3d75;
+				background: linear-gradient(-169deg, #1e3d75; 0%, #65445C; 100%);
+				}
+				.pb-1, .py-1 {
+				padding-bottom: 0.25rem !important;
+				}
+				.pt-1, .py-1 {
+				padding-top: 0.25rem !important;
+				}
+				.btn-nust {
+				color: #fff;
+				background-color: #1e3d75;
+				border-color: #1e3d75;
+				}
+
+				@media (min-width: 768px) {
+				wrapwrap {
+				padding: 0 0%;
+				}
+				}
+			</style>
+
+			<nav class="navbar navbar-expand-md navbar-dark nav-bg">
+				<div class="container-fluid">
+					<div class="py-1">
+						<a class="navbar-brand ml-3 d-none d-md-block" style="font-weight: 500; font-size: 30px">
+							<!--							<img src="/odoocms_assets/static/img/iac-logo.png" style="width: 50px; height: 50px; position: fixed;" alt="Logo" class="img-fluid"/>-->
+							<span style="color:white; font-style: italic; font-weight: bold;" t-field="res_company.name"/>
+						</a>
+						<a class="navbar-brand ml-3 d-block d-sm-none" href="index.html" style="font-weight: 500;">Institute For Art &amp; Culture</a>
+					</div>
+
+					<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbars04" aria-controls="navbars04" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"/>
+					</button>
+
+				</div>
+			</nav>
+
+			<body style="background:#E6CCA6 url(/odoocms_assets/static/img/building.png); background-position: center; background-repeat: no-repeat; background-size: cover;">
+				<div class="container-fluid">
+					<div class="row m-3">
+						<div class="col-md-4 rounded my-3 p-2  shadow mx-auto bg-white mt-4" style="border-radius: 0.5rem !important;">
+							<div class="text-center">
+								<div class="row">
+									<div style="width:35%;"/>
+									<div style="width:30%;">
+										<span class="o_company_logo" t-field="res_company.logo"
+											  t-options="{'widget': 'image'}"
+											  t-att-alt="'Logo of %s' % res_company.name"
+											  t-att-title="res_company.name"/>
+									</div>
+									<div style="width:35%;"/>
+								</div>
+								<h3 class="text-center text-muted"><b>Sign Up</b></h3>
+							</div>
+							<form class="p-2 custom-signup" style="max-width: 400px; position: relative; auto; margin: 25px auto;" role="form" t-attf-action="/web/signup" method="post" onsubmit="this.action = this.action + location.hash">
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+									<label for="db" class="col-form-label">Database</label>
+									<div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+										<input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+										<span class="input-group-append">
+											<a role="button" href="/web/database/selector" class="btn btn-secondary" style="background-color:#00548d;">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"/></a>
+										</span>
+									</div>
+								</div>
+
+								<div class="form-group field-signup_name">
+									<label class="text-muted" style="font-size:small">Full Name *</label>
+									<input type="text" placeholder="Enter Your Full Name" name="signup_name" t-att-value="signup_name" id="signup_name" t-attf-class="form-control bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+									<label class="text-muted" style="font-size:small">Full Name is required</label>
+								</div>
+
+								<div class="form-group row" style="font-size:small">
+									<div class="col-md-12">
+										<span><b>Note:</b> Please enter your name as per Matric and O' level Certificate</span>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-6 form-group field-signup_email">
+										<label class="text-muted" style="font-size:small">Email *</label>
+										<input type="text" placeholder="Enter Valid Email" name="signup_email" t-att-value="signup_email" id="signup_email" t-attf-class="form-control bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+									</div>
+									<div class="col-6 form-group field-signup_phone">
+										<label class="text-muted" style="font-size:small">Cell No *</label>
+										<input type="text" placeholder="Phone" name="signup_phone" t-att-value="signup_phone" id="signup_phone" t-attf-class="form-control bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-6 form-group field-signup_cnic">
+										<label class="text-muted" style="font-size:small">CNIC or B-Form No *</label>
+										<input type="text" placeholder="00000-0000000-0" name="signup_cnic" t-att-value="signup_cnic" id="signup_cnic" t-attf-class="form-control bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+									</div>
+									<div class="col-6 form-group field-signup_hear_about_us">
+										<label class="text-muted" style="font-size:small">How did you hear about us?</label>
+										<select name="hear_about_us" t-attf-class="form-control" required="required">
+											<option value="iac_web">IAC Website</option>
+											<option value="newspaper">Newspaper</option>
+											<option value="through_email">Through Email</option>
+											<option value="through_sms">Through SMS</option>
+											<option value="billboards">Billboards</option>
+											<option value="television_radio">Television/Radio</option>
+											<option value="education_expo">Education Expo</option>
+											<option value="friend_and_family">Friend and Family</option>
+											<option value="social_media">Social Media</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-6 form-group field-signup_password">
+										<label class="text-muted" style="font-size:small">Password *</label>
+										<input type="password" placeholder="Password" name="signup_password" id="signup_password" t-attf-class="form-control mt-2 bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if signup else None" maxlength="4096"/>
+									</div>
+									<div class="col-6 form-group field-signup_confirm_password">
+										<label class="text-muted" style="font-size:small">Re-enter Password *</label>
+										<input type="password" placeholder="Confirm Password" name="signup_confirm_password" id="signup_confirm_password" t-attf-class="form-control mt-2 bg-light rounded py-2 #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if signup else None" maxlength="4096"/>
+									</div>
+								</div>
+
+								<p class="alert alert-danger" t-if="error" role="alert">
+									<t t-esc="error"/>
+								</p>
+								<p class="alert alert-success" t-if="message" role="status">
+									<t t-esc="message"/>
+								</p>
+
+								<button class="btn btn-nust btn-block py-3 mt-4" name="action_signup" type="object">Sign Up</button>
+								<label class="mt-4" style="color:gray; font-size:small">If have an account then Login below</label>
+								<a class="btn btn-nust btn-block py-3" href="/web/login">
+									<i class="material-icons">Login</i>
+								</a>
+								<input type="hidden" name="redirect" t-att-value="redirect"/>
+							</form>
+						</div>
+					</div>
+					<div class="row" style="color:white">
+						<small class="mt-2 text-center mx-auto">
+							Developed by Infinite Digital Transformation<br/>
+							Lahore, Pakistan 2022© All right reserved.
+						</small>
+					</div>
+				</div>
+			</body>
+
+		</t>
+	</template>
+</odoo>

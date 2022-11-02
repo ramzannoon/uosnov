@@ -1,0 +1,1426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="addmission_registration" name="Admission page">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="pt8 pb8">
+                        <div class="container">
+                            <div class="row s_nb_column_fixed" style="text-align: center;">
+                                <div class="col-lg-12 s_title pt16 pb16">
+                                    <h1>Online Application Form for Admission</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="container oe_website_sale" style="background:#cedae766">
+                    <div class="col-md-12" style="margin-top:30px">
+                        <form action="/application_registration/submit" enctype="multipart/form-data" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div style="background-color:#b8c2cb; padding:10px">
+                                <span><b>APPLICANT’S PERSONAL INFORMATION</b></span>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="first_name">First Name:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="first_name" id="first_name" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="middle_name">Middle Name:</label>
+                                    <input type="text" class="form-control" name="middle_name" id="middle_name"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="last_name">Last Name:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="last_name" id="last_name" required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <span><b>Note:</b> Please enter your name as per Matric and O' level Certificate</span>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="cnic">CNIC/ B-form No:<span style="color:red">*</span></label>
+                                    <input type="cnic" class="form-control" name="cnic" id="cnic" placeholder="Please enter CNIC with dashes" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="phone">Cell No:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="student_mobile" id="student_mobile" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="email">Email:<span style="color:red">*</span></label>
+                                    <input type="email" class="form-control" name="email" id="email" required="true" placeholder="Please enter valid email"/>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="dob">Date of Birth:<span style="color:red">*</span></label>
+                                    <input type="date" class="form-control" name="dob" required="true" id="dob"/>
+                                    <!--                                    <input type="date" class="form-control" name="dob" required="true" id="dob" onChange="dateIsValid()"/>-->
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="nationality_id">Nationality:<span style="color:red">*</span></label>
+                                    <select name="nationality_id" t-attf-class="form-control" required="True">
+                                        <option value=""></option>
+                                        <t t-foreach="country_ids or []" t-as="country">
+                                            <option t-att-value="country.id">
+                                                <t t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="gender">Gender:<span style="color:red">*</span></label>
+                                    <select name="gender" t-attf-class="form-control" required="True">
+                                        <option value="m">Male</option>
+                                        <option value="f">Female</option>
+                                        <option value="o">Transgender</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="religion_id">Religion:<span style="color:red">*</span></label>
+                                    <select name="religion_id" t-attf-class="form-control" required="True">
+                                        <option value="">Religion</option>
+                                        <t t-foreach="religion_ids or []" t-as="religion">
+                                            <option t-att-value="religion.id">
+                                                <t t-esc="religion.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="hafiz">Hafiz-e-Quran:<span style="color:red">*</span></label>
+                                    <select name="gender" t-attf-class="form-control" required="True">
+                                        <option value="n">NO</option>
+                                        <option value="y">Yes</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="background-color:#b8c2cb; padding:10px">
+                                <span><b>FATHER’S / GUARDIAN’S INFORMATION</b></span>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="father_name">Father’s/Guardian’s Name :<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="father_name" id="father_name" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="father_cnic">CNIC No :<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="father_cnic" placeholder="Please enter CNIC with dashes" id="father_cnic" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="father_email">Email (If Any):</label>
+                                    <input type="father_email" class="form-control" name="father_email" id="father_email"/>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="phone">Father’s/Guardian’s Cell No:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="father_mobile" id="father_mobile" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="father_occupation">Father’s/Guardian’s Occupation:<span style="color:red">*</span></label>
+                                    <input type="text" class="form-control" name="father_occupation" id="father_occupation" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="father_income">Monthly Salary/Income:</label>
+                                    <input type="text" class="form-control" name="father_income" id="father_income"/>
+                                </div>
+                            </div>
+
+                            <div style="background-color:#b8c2cb; padding:10px">
+                                <span><b>CONTACT INFORMATION</b></span>
+                            </div>
+
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <label for="present_address">Postal/Present Address:<span style="color:red">*</span></label>
+                                    <input type="present_address" class="form-control" name="present_address" id="present_address" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="present_city">City:<span style="color:red">*</span></label>
+                                    <input type="present_city" class="form-control" name="present_city" id="present_city" required="true" />
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="present_province_id">Province:<span style="color:red">*</span></label>
+                                    <select name="present_province_id" t-attf-class="form-control" required="True">
+                                        <option value="">Province</option>
+                                        <t t-foreach="province_ids or []" t-as="province">
+                                            <option t-att-value="province.id">
+                                                <t t-esc="province.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="country_id">Country:<span style="color:red">*</span></label>
+                                    <select name="country_id" t-attf-class="form-control" required="True">
+                                        <option value=""></option>
+                                        <t t-foreach="country_ids or []" t-as="country">
+                                            <option t-att-value="country.id">
+                                                <t t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="option option-blue">
+                                        <input type="checkbox" name="is_same_address" id="is_same_address"
+                                               onclick="isSameAddressHide()"
+                                               t-att-disabled="readonly"/>
+                                        <!--                                               onclick="isSameAddress()"-->
+                                        <!--                                               t-att-checked="student.is_same_address"-->
+                                        <span class="checkbox"/>
+                                        Same as Present
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="permanent_address_check">
+                                <div class="form-group row" style="margin-top:10px">
+                                    <div class="col-md-4">
+                                        <label for="permanent_address">Permanent Address:</label>
+                                        <input type="permanent_address" class="form-control" name="permanent_address" id="permanent_address"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="city_permanent">City:</label>
+                                        <input type="city_permanent" class="form-control" name="city_permanent" id="city_permanent"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="permanent_province_id">Province:</label>
+                                        <select name="permanent_province_id" t-attf-class="form-control">
+                                            <option value="">Province</option>
+                                            <t t-foreach="province_ids or []" t-as="province">
+                                                <option t-att-value="province.id">
+                                                    <t t-esc="province.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="permanent_country_id">Country:</label>
+                                        <select name="permanent_country_id" t-attf-class="form-control">
+                                            <option value=""></option>
+                                            <t t-foreach="country_ids or []" t-as="country">
+                                                <option t-att-value="country.id">
+                                                    <t t-esc="country.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="emergency_contact">Person to be informed in case of emergency (Preferably from Lahore):<span style="color:red">*</span></label>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="margin-top:10px">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="emergency_name" id="emergency_name" placeholder="Name" required="True"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="relation" id="relation" placeholder="Relation" required="True"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="emergency_contact" id="emergency_contact" placeholder="Contact" required="True"/>
+                                </div>
+                            </div>
+
+                            <div style="background-color:#b8c2cb; padding:10px">
+                                <span><b>ACADEMIC RECORD</b></span>
+                            </div>
+
+                            <div>
+                                <legend style="display:block; color: #0393DC"><h4>Matric / O-Levels</h4></legend>
+                                <!-- Metric Degree and Passing Year -->
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label for="university">Degree<span style="color: red">*</span></label>
+                                        <br/>
+                                        <select id="matric_degree" name="matric_degree" t-attf-class="form-control" onchange="onchange_matric_o_level()" required="True">
+                                            <option value="O-Level"
+                                                    t-att-selected="matric_education and matric_education[0].degree_level == 'O-Level'"
+                                                    t-att-disabled="readonly and matric_education and matric_education[0].degree_level != 'O-Level'">
+                                                O-Level
+                                            </option>
+                                            <option value="Matric"
+                                                    t-att-selected="(not matric_education) or (matric_education[0].degree_level and matric_education[0].degree_level == 'Matric')"
+                                                    t-att-disabled="readonly and matric_education and matric_education[0].degree_level != 'Matric'">
+                                                Matric
+                                            </option>
+                                        </select>
+                                        <i class="arrow double"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="university">Passing Year<span style="color: red">*</span></label>
+                                        <br/>
+                                        <select id="matric_pass_year" name="matric_pass_year" t-attf-class="form-control" required="True">
+                                            <t t-foreach="matric_sessions" t-as="session">
+                                                <option t-att-value="session.name"
+                                                        t-att-selected="matric_education and matric_education[0].year == session.name"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].year != session.name">
+                                                    <span t-esc="session.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                        <i class="arrow double"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="matric_result_awaiting">Result Awaiting</label>
+                                        <br/>
+                                        <input type="checkbox" name="matric_result_awaiting" id="matric_result_awaiting"/>
+                                    </div>
+                                </div>
+                                <div id="matric_div">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="matric_board">Board</label>
+                                            <select id="matric_board" name="matric_board" t-attf-class="form-control" required="True">
+                                                <t t-foreach="boards" t-as="board">
+                                                    <option t-att-value="board.name"
+                                                            t-att-selected="matric_education and matric_education[0].board == board.name"
+                                                            t-att-disabled="readonly and matric_education[0].board != board.name">
+                                                        <span t-esc="board.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <i class="arrow double"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="university">Group</label>
+                                            <select id="matric_subject" t-attf-class="form-control" name="matric_subject">
+                                                <option value="Arts"
+                                                        t-att-selected="matric_education and matric_education[0].subjects == 'Arts'"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].subjects != 'Arts'">
+                                                    Arts
+                                                </option>
+                                                <option value="Science"
+                                                        t-att-selected="matric_education and matric_education[0].subjects == 'Science'"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].subjects != 'Science'">
+                                                    Science
+                                                </option>
+                                            </select>
+                                            <i class="arrow double"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="matric_roll_no">Roll No:<span style="color: red">*</span></label>
+                                            <input type="number" class="form-control" name="matric_roll_no" id="matric_roll_no" required="True"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4" id="div_matric_total_marks">
+                                            <label for="university">Total Marks</label>
+                                            <br/>
+                                            <input min="1" type="number"
+                                                   name="matrictotalmarks" id="matrictotalmarks"
+                                                   placeholder="Total marks" class="gui-input"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="matric_education and matric_education[0].total_marks or ''"
+                                                   onChange="onchange_matric_marks()"
+                                                   t-att-readonly="readonly"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_matric_obtained_marks">
+                                            <label for="university">Obtained Marks</label>
+                                            <br/>
+                                            <input type="number"
+                                                   name="matricobtainedmarks" id="matricobtainedmarks"
+                                                   placeholder="Obtained marks" class="gui-input"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="matric_education and matric_education[0].obtained_marks or 0"
+                                                   onChange="onchange_matric_marks()"
+                                                   t-att-readonly="readonly"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_matric_percentage">
+                                            <label for="university">Percentage</label>
+                                            <br/>
+                                            <input type="number"
+                                                   step="0.01" name="matricpercentage" id="matricpercentage"
+                                                   placeholder="Percentage"
+                                                   class="gui-input"
+                                                   t-attf-class="form-control"
+                                                   required="true" readonly="True" min="0"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="o-level_div">
+                                    <legend style="margin-bottom:5px; color: #0393DC"><h4>Please provide no of grades obtained (in case of O-Level)</h4></legend>
+                                    <!-- Number of A,B,C Grades -->
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="middle_name">A* Grades</label>
+                                            <select name="grade_aa" id="grade_aa" t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_aa != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_aa == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_aa != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">A Grades</label>
+                                            <select name="grade_a" id="grade_a" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_a != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_a == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_a != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">B Grades</label>
+                                            <select name="grade_b" id="grade_b" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_b == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_b != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">C Grades</label>
+                                            <select name="grade_c" id="grade_c" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_c == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_c != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Number of D,E,F & G Grades -->
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="middle_name">D Grades</label>
+                                            <select name="grade_d" id="grade_d" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_d == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_d != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">E Grades</label>
+                                            <select name="grade_e" id="grade_e" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_e != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_e == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_e != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">F Grades</label>
+                                            <select name="grade_f" id="grade_f" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_f != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_f == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_f != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="grade_g">G Grades</label>
+                                            <select name="grade_g" id="grade_g" t-attf-class="form-control">
+                                                <!--                                                onchange="compute_grades_total()">-->
+                                                <option value="0"
+                                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_g != '0'">
+                                                    None
+                                                </option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="matric_education and matric_education[0].grade_g == grade"
+                                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_g != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Total Marks, Obtained Marks & Percentage -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>IBCC Equivalence Marks</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4" id="div_olevel_total_marks">
+                                            <label for="name">Total Marks</label>
+                                            <br/>
+                                            <input type="number" min="0"
+                                                   name="o-level-totalmarks" id="o-level-totalmarks"
+                                                   class="gui-input"
+                                                   onChange="onchange_olevel_marks()"
+                                                   t-attf-class="form-control"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_olevel_obtained_marks">
+                                            <label for="name">Obtained Marks</label>
+                                            <br/>
+                                            <input type="number" min="0"
+                                                   name="o-level-obtainedmarks" id="o-level-obtainedmarks"
+                                                   class="gui-input"
+                                                   onChange="onchange_olevel_marks()"
+                                                   t-attf-class="form-control"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_olevel_percentage">
+                                            <label for="name">Percentage</label>
+                                            <br/>
+                                            <input type="number"
+                                                   step="0.01" name="o-level-percentage" id="o-level-percentage"
+                                                   placeholder="Percentage"
+                                                   class="gui-input"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="matric_education and matric_education[0].percentage or ''"
+                                                   required="true" readonly="True" min="0"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="intermdiate_a_level_div">
+                                <legend style="display:block; color: #0393DC"><h4>Intermediate / A-Levels</h4></legend>
+                                <div class="row" name="degree_year">
+                                    <div class="col-md-4">
+                                        <label for="university">Degree</label>
+                                        <select id="inter_degree" name="inter_degree" t-attf-class="form-control" onchange="onchange_inter_a_level()">
+                                            <option value="Intermediate"
+                                                    t-att-selected="inter_education and inter_education[0].degree_level == 'Intermediate'"
+                                                    t-att-disabled="readonly and inter_education and inter_education[0].degree_level != 'Intermediate'">
+                                                Intermediate
+                                            </option>
+                                            <option value="A-Level"
+                                                    t-att-selected="inter_education and inter_education[0].degree_level == 'A-Level'"
+                                                    t-att-disabled="readonly and inter_education and inter_education[0].degree_level != 'A-Level'">
+                                                A-Level
+                                            </option>
+                                        </select>
+                                        <i class="arrow double"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="university">Passing Year</label>
+                                        <select class="fields_req" onchange="inter_pass_year_check(this.value)"
+                                                id="inter_pass_year" name="inter_pass_year" t-attf-class="form-control"
+                                                t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">
+                                            <t t-foreach="inter_sessions" t-as="session">
+                                                <option t-att-value="session.name"
+                                                        t-att-selected="inter_education and inter_education[0].year == session.name"
+                                                        t-att-disabled="readonly and inter_education and inter_education[0].year != session.name">
+                                                    <span t-esc="session.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                        <i class="arrow double"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="inter_result_awaiting">Result Awaiting</label>
+                                        <br/>
+                                        <input type="checkbox" name="inter_result_awaiting" id="inter_result_awaiting"/>
+                                    </div>
+                                </div>
+
+                                <div id="intermediate_div">
+                                    <div class="row" name="board_specialization">
+                                        <div class="col-md-4">
+                                            <label for="university">Board/Institute</label>
+                                            <select class="fields_req" id="inter_board" name="inter_board"
+                                                    t-attf-class="form-control"
+                                                    t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">
+                                                <t t-foreach="boards" t-as="board">
+                                                    <option t-att-value="board.name"
+                                                            t-att-selected="inter_education and inter_education[0].board == board.name"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].board != board.name">
+                                                        <span t-esc="board.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <i class="arrow double"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="university">Subject/Specialization</label>
+                                            <select class="fields_req" id="inter_subject"
+                                                    t-attf-class="form-control" name="inter_subject"
+                                                    onchange="onchange_inter_subjects()">
+                                                <t t-foreach="degree_ids" t-as="degree">
+                                                    <option t-att-value="degree.id">
+                                                        <t t-esc="degree.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                            <i class="arrow double"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="inter_roll_no">Roll No:<span style="color: red">*</span></label>
+                                            <input type="number" class="form-control" name="inter_roll_no" id="inter_roll_no" required="True"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" name="inter_total_obtained">
+                                        <div class="col-md-4" id="div_inter_total_marks">
+                                            <label for="university">Total Marks<span style="color: red">*</span></label>
+                                            <br/>
+                                            <input min="0" type="number"
+                                                   name="intertotalmarks" id="intertotalmarks"
+                                                   placeholder="Total Marks" class="gui-input fields_req"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="inter_education and inter_education[0].total_marks"
+                                                   t-att-readonly="readonly"
+                                                   t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                                   onChange="onchange_inter_marks()"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_inter_obtained_marks">
+                                            <label for="university">Obtained Marks<span style="color: red">*</span></label>
+                                            <br/>
+                                            <input min="0" type="number"
+                                                   name="interbtainedmarks" id="interbtainedmarks"
+                                                   placeholder="Obtained marks" class="gui-input fields_req"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="inter_education and inter_education[0].obtained_marks"
+                                                   t-att-readonly="readonly"
+                                                   t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                                   onChange="onchange_inter_marks()"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_inter_percentage">
+                                            <label for="university">Percentage<span style="color: red">*</span></label>
+                                            <br/>
+                                            <input max="100" type="number" step="0.01"
+                                                   name="interpercentage" id="interpercentage"
+                                                   placeholder="Percentage" class="gui-input fields_req"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="inter_education and inter_education[0].percentage"
+                                                   t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                                   readonly="True"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="a_level_div">
+                                    <legend style="margin-bottom:10px;font-size:16px; display:block; color: #0393DC">
+                                        <h4>Please provide no of grades obtained (in case of A-Level)</h4>
+                                    </legend>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="middle_name">A* Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_aa" id="a_level_grade_aa"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_aa == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_aa != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">A Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_a" id="a_level_grade_a"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_a == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_a != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">B Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_b" id="a_level_grade_b"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_b == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_b != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">C Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_c" id="a_level_grade_c"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_c == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_c != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="middle_name">D Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_d" id="a_level_grade_d"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_d == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_d != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">E Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_e" id="a_level_grade_e"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_e == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_e != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="middle_name">F Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_f" id="a_level_grade_f"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_f == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_f != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="grade_g">G Grades</label>
+                                            <br/>
+                                            <select name="a_level_grade_g" id="a_level_grade_g"
+                                                    t-attf-class="form-control">
+                                                <!--                                                    onchange="compute_grades_inter_total()">-->
+                                                <option value="0">None</option>
+                                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"
+                                                   t-as="grade">
+                                                    <option t-att-value="grade"
+                                                            t-att-selected="inter_education and inter_education[0].a_level_grade_g == grade"
+                                                            t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_g != grade">
+                                                        <span t-esc="grade"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Total Marks, Obtained Marks & Percentage -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>IBCC Equivalence Marks</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4" id="div_olevel_total_marks">
+                                            <label for="name">Total Marks</label>
+                                            <br/>
+                                            <input type="number" min="0"
+                                                   name="a-level-totalmarks" id="a-level-totalmarks"
+                                                   class="gui-input"
+                                                   onChange="onchange_alevel_marks()"
+                                                   t-attf-class="form-control"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_olevel_obtained_marks">
+                                            <label for="name">Obtained Marks</label>
+                                            <br/>
+                                            <input type="number" min="0"
+                                                   name="a-level-obtainedmarks" id="a-level-obtainedmarks"
+                                                   class="gui-input"
+                                                   onChange="onchange_alevel_marks()"
+                                                   t-attf-class="form-control"/>
+                                        </div>
+                                        <div class="col-md-4" id="div_olevel_percentage">
+                                            <label for="name">Percentage</label>
+                                            <br/>
+                                            <input type="number"
+                                                   step="0.01" name="a-level-percentage" id="a-level-percentage"
+                                                   placeholder="Percentage"
+                                                   class="gui-input"
+                                                   t-attf-class="form-control"
+                                                   t-att-value="matric_education and matric_education[0].percentage or ''"
+                                                   required="true" readonly="True" min="0"/>
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="row">-->
+                                    <!--                                        <div class="col-md-4" id="div_alevel_total_marks">-->
+                                    <!--                                            <label for="name">Total Marks</label>-->
+                                    <!--                                            <br/>-->
+                                    <!--                                            <label class="field prepend-icon">-->
+                                    <!--                                                <input min="1" type="text"-->
+                                    <!--                                                       name="a_level_total" id="a_level_total" class="gui-input fields_req"-->
+                                    <!--                                                       t-attf-class="form-control"-->
+                                    <!--                                                       t-att-value="inter_education and inter_education[0].a_level_total or 1"-->
+                                    <!--                                                       readonly="True"-->
+                                    <!--                                                       t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"/>-->
+                                    <!--                                            </label>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col-md-4" id="div_alevel_obtained_marks">-->
+                                    <!--                                            <label for="name">Obtained Marks</label>-->
+                                    <!--                                            <br/>-->
+                                    <!--                                            <input type="text"-->
+                                    <!--                                                   name="a_level_obtained" id="a_level_obtained" class="gui-input fields_req"-->
+                                    <!--                                                   readonly="True"-->
+                                    <!--                                                   t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                                    <!--                                                   t-attf-class="form-control"-->
+                                    <!--                                                   t-att-value="inter_education and inter_education[0].a_level_obtained or 0"/>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col-md-4" id="div_alevel_percentage">-->
+                                    <!--                                            <label for="name">Percentage</label>-->
+                                    <!--                                            <input max="100" type="text"-->
+                                    <!--                                                   name="a_level_percentage" id="a_level_percentage"-->
+                                    <!--                                                   class="gui-input fields_req"-->
+                                    <!--                                                   readonly="True"-->
+                                    <!--                                                   t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                                    <!--                                                   t-attf-class="form-control"-->
+                                    <!--                                                   t-att-value="inter_education and inter_education[0].a_level_percentage or 0"/>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+
+                            <div style="background-color:#b8c2cb; padding:10px; margin-top:10px">
+                                <span><b>DEGREE APPLIED FOR (In case you want to apply for more than one degree, please give your priority as 1, 2, 3 ….)</b></span>
+                            </div>
+
+                            <div class="form-group row o_website_form_required_custom">
+                                <div class="col-md-4">
+                                    <label for="program_id_1">Choice 1:<span style="color:red">*</span></label>
+                                    <select name="program_id_1" id="program_id_1" t-attf-class="form-control" required="true">
+                                        <t t-foreach="admission_class_ids or []" t-as="program">
+                                            <option t-att-value="program.id" required="true">
+                                                <t t-esc="program.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="program_id_2">Choice 2:<span style="color:red">*</span></label>
+                                    <select name="program_id_2" id="program_id_2" t-attf-class="form-control" required="true">
+                                        <t t-foreach="admission_class_ids or []" t-as="program">
+                                            <option t-att-value="program.id">
+                                                <t t-esc="program.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="program_id_3">Choice 3:<span style="color:red">*</span></label>
+                                    <select name="program_id_3" id="program_id_3" t-attf-class="form-control" required="true">
+                                        <t t-foreach="admission_class_ids or []" t-as="program">
+                                            <option t-att-value="program.id">
+                                                <t t-esc="program.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-top:10px">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12" style="background-color: black; color: white; padding:4px">
+                                            <span><b>DECLARATION BY THE APPLICANT</b></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" style="background-color: #b8c2cb">
+                                            <span>I hearby solemnly declare.</span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color: #b8c2cb">
+                                        <div class="col-md-1">
+                                            <span>✔</span>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <span>
+                                                <b>THAT</b> the particulars filled in the application for admission are true to the best of my knowledge and I shall be
+                                                responsible for any misstatement therein.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color: #b8c2cb">
+                                        <div class="col-md-1">
+                                            <span>✔</span>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <span>
+                                                <b>THAT</b> I shall abide by the rules, regulations and conditions of Admission and Post Admission tenure.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="background-color: #b8c2cb">
+                                        <div class="col-md-1">
+                                            <span>✔</span>
+                                        </div>
+                                        <div class="col-md-11">
+                                            <span>
+                                                <b>Result awaiting applicants;</b> THAT I undertake to submit original/attested
+                                                copies of my Intermediate/A’ Level results to the Registrar’s Office as
+                                                soon as the result is declared. If I fail to fulfill the eligibility
+                                                criteria for admission, Institute has the right to cancel/terminate my
+                                                admission.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <span>
+                                        <b>NOTE:</b> Click finalize and submit, only when you are ready to submit the
+                                        application. Once the application form is submitted, you will NOT be able
+                                        to edit your application/information.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="photo">Passport Size Photo<span style="color:red">*</span></label>
+                                    <br/>
+                                    <input type="file" name="photo" required="true" accept="image/*"/>
+                                </div>
+                                <!--                                <div class="col-md-6 o_website_form_required_custom">-->
+                                <!--                                    <label for="attachment">Domicile<span style="color:red">*</span></label>-->
+                                <!--                                    <br/>-->
+                                <!--                                    <input type="file" name="domicile_img" multiple="true" required="true" accept="image/*"/>-->
+                                <!--                                </div>-->
+                            </div>
+                            <!--                            <div class="form-group row">-->
+                            <!--                                <div class="col-md-6">-->
+                            <!--                                    <label for="attachment">CNIC Photo Front<span style="color:red">*</span></label>-->
+                            <!--                                    <br/>-->
+                            <!--                                    <input type="file" name="cnic_front_img" multiple="true" required="true" accept="image/*"/>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-md-6">-->
+                            <!--                                    <label for="attachment">CNIC Photo Back<span style="color:red">*</span></label>-->
+                            <!--                                    <br/>-->
+                            <!--                                    <input type="file" name="cnic_back_img" multiple="true" required="true" accept="image/*"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                            <div class="form-group row">-->
+                            <!--                                <div class="col-md-6">-->
+                            <!--                                    <label for="attachment">Matric / O-Levels Certificate<span style="color:red">*</span></label>-->
+                            <!--                                    <br/>-->
+                            <!--                                    <input type="file" name="matric_certificate" multiple="true" required="true" accept="image/*"/>-->
+                            <!--                                </div>-->
+                            <!--                                <div class="col-md-6">-->
+                            <!--                                    <label for="attachment">Intermediate / A-Levels Certificate<span style="color:red">*</span></label>-->
+                            <!--                                    <br/>-->
+                            <!--                                    <input type="file" name="inter_certificate" multiple="true" required="true" accept="image/*"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <div class="col-md-12" style="text-align: end;">
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 20px;">Finalize &amp; Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="application_form_success" name="Application Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <table style="width:100%">
+                            <tr>
+                                <th style="padding:12px">Dear <span t-esc='application.name'/>,</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span style="padding:12px">Thank you for submitting Online Admission Form</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%; margin-top:20px">
+                            <tr>
+                                <td style="width:50%; border:1px solid black">
+                                    <span><strong>Application ID: </strong><span t-esc='application.application_no'/></span>
+                                </td>
+                                <td style="width:20%; border:1px solid black">
+                                    <span>Admission Form</span>
+                                </td>
+                                <td class="text-center" style="width:30%; border:1px solid black; background-color:#00A09D">
+                                    <a t-attf-href="/download/admission_form/#{application.id}" class="btn btn-primary" style="width:100%">Download and Print</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 30px;">
+                        <table style="width:100%">
+                            <tr>
+                                <th style="width:25%; background-color: #cccccc; border:1px solid black; padding: 6px">Challan #</th>
+                                <th style="width:15%; background-color: #cccccc; border:1px solid black; padding: 6px">Status</th>
+                                <th style="width:15%; background-color: #cccccc; border:1px solid black; padding: 6px">Due Date</th>
+                                <th style="width:15%; background-color: #cccccc; border:1px solid black; padding: 6px">Amount</th>
+                                <th class="text-center" style="width:30%; background-color: #cccccc; border:1px solid black; padding: 6px">Fee Voucher (Bank Challan Form)</th>
+                            </tr>
+                            <tr>
+                                <td style="border:1px solid black;">
+                                    <span t-esc='application.application_no'/>
+                                </td>
+                                <td style="border:1px solid black; color:red">
+                                    <t t-if="application.fee_voucher_state == 'no'">
+                                        <span>Not Downloaded Yet</span>
+                                    </t>
+                                    <t t-if="application.fee_voucher_state == 'download'">
+                                        <span>Not Uploaded Yet</span>
+                                    </t>
+                                    <t t-if="application.fee_voucher_state == 'upload0'">
+                                        <span>Fee Submitted</span>
+                                    </t>
+                                    <t t-if="application.fee_voucher_state == 'upload'">
+                                        <span>Not Verified Yet</span>
+                                    </t>
+                                    <t t-if="application.fee_voucher_state == 'verify'">
+                                        <span>Verified</span>
+                                    </t>
+                                    <t t-if="application.fee_voucher_state == 'unverify'">
+                                        <span>Un-Verified</span>
+                                    </t>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-field="application.register_id.challan_due_date"/>
+                                </td>
+                                <td style="border:1px solid black;">
+                                    <span t-esc="'{0:,.2f}'.format(application.register_id.challan_amount) or '-'"/>
+                                </td>
+                                <td class="text-center" style="border:1px solid black; background-color:#00A09D">
+                                    <a t-attf-href="/download/admission_challan_form/#{application.id}" class="btn btn-primary" style="width:100%">Download and Print</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 30px;">
+                        <table style="width:100%">
+                            <tr class="text-center">
+                                <th style="background-color:#00A09D; padding:8px; color:white">
+                                    <span>DEADLINE FOR FEE SUBMISSION: <span t-field="application.register_id.challan_due_date"/></span>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 30px;">
+                        <div class="row">
+                            <div class="col-12">
+                                <span><strong>The next step, you should follow:</strong></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1">
+                                <span>✔</span>
+                            </div>
+                            <div class="col-11">
+                                <span>
+                                    Download and take print of Challan Form and <i><b>deposit admission processing fee (PKR 1000/) to any
+                                    branch of Faysal Bank across Pakistan).</b></i> Keep the depositor’s copy of your paid challan form for your
+                                    personal record and upload scanned copy of your bank deposit slip below. <b><u>The candidate will receive an
+                                    entry test slip after confirmation of the payment in the bank.</u></b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    <div class="row col-md-12" style="width:100%; margin-top: 30px;">-->
+                    <!--                        <div class="col-8">-->
+                    <!--                            <label for="attachment">Kindly upload scanned copy of your bank deposit slip<span style="color:red">*</span></label>-->
+                    <!--                            <br/>-->
+                    <!--                            <input name="voucher_image" id="voucher_image" type="file"-->
+                    <!--                                   onChange="showVoucherPreview(this);"-->
+                    <!--                                   t-att-readonly="readonly"-->
+                    <!--                                   accept="image/x-png,image/gif,image/jpeg,image/jpg"/>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="col-4" style="margin-top:10px">-->
+                    <!--                            <t t-if="application.voucher_image">-->
+                    <!--                                <img id="voucher_image_preview" onclick="document.getElementById('voucher_modal').style.display='block'"-->
+                    <!--                                     class="documents_images"-->
+                    <!--                                     t-att-src="'data:image/png;base64,%s' % to_text(application.voucher_image)"/>-->
+                    <!--                            </t>-->
+                    <!--                            <t t-if="not application.voucher_image">-->
+                    <!--                                <img id="voucher_image_preview"-->
+                    <!--                                     onclick="document.getElementById('voucher_modal2').style.display='block'"-->
+                    <!--                                     class="documents_images" src=""/>-->
+                    <!--                            </t>-->
+                    <!--                        </div>-->
+                    <!--                        <div id="voucher_modal" class="w3-modal"-->
+                    <!--                             onclick="this.style.display='none'">-->
+                    <!--                            <div class="w3-modal-content w3-animate-zoom">-->
+                    <!--                                <img t-att-src="'data:image/png;base64,%s' % to_text(application.voucher_image)"-->
+                    <!--                                     style="width:100%"/>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div id="voucher_modal2" class="w3-modal"-->
+                    <!--                             onclick="this.style.display='none'">-->
+                    <!--                            <div class="w3-modal-content w3-animate-zoom">-->
+                    <!--                                <img id='voucher_modal_image_preview' src=""-->
+                    <!--                                     style="width:100%"/>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
+                    <!--                        <div class="col-2">-->
+                    <!--                            <label for="phone"/>-->
+                    <!--                            <label class="field prepend-icon">-->
+                    <!--                                <input type="button" name="voucher_detail_submit"-->
+                    <!--                                       id="voucher_detail_submit" class="btn btn-primary"-->
+                    <!--                                       value="Submit Voucher Details"-->
+                    <!--                                       onclick="save_voucher_details()"-->
+                    <!--                                       t-att-readonly="readonly"/>-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <form action="/admission/registration/challan/submit" enctype="multipart/form-data" method="post">
+                            <div class="row col-12" style="width:100%; margin-top: 30px;">
+                                <div class="col-4">
+                                    <label for="phone">Enter Challan, Deposit Slip or Ref. #</label>
+                                    <br/>
+                                    <label class="field prepend-icon">
+                                        <input type="text" name="voucher_number" id="voucher_number"
+                                               class="gui-input" t-att-value="application.voucher_number"
+                                               required="True" t-att-readonly="readonly"/>
+                                        <span class="field-icon"/>
+                                    </label>
+                                </div>
+
+                                <div class="col-4">
+                                    <label for="phone">Deposit Date*</label>
+                                    <br/>
+                                    <label class="field prepend-icon">
+                                        <input type="date" name="voucher_date"
+                                               id="voucher_date" class="gui-input"
+                                               t-att-value="application.voucher_date" required="true"
+                                               t-att-readonly="readonly"/>
+                                        <span class="field-icon"/>
+                                    </label>
+                                </div>
+                                <div class="col-4">
+                                    <label for="phone">Deposit Amount*</label>
+                                    <br/>
+                                    <label class="field prepend-icon">
+                                        <input type="number" min="0"
+                                               name="voucher_amount"
+                                               id="voucher_amount" class="gui-input"
+                                               t-att-value="application.voucher_amount" required="true"
+                                               t-att-readonly="readonly"/>
+                                        <span class="field-icon"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <div style="display: flex;">
+                                <div class="col-md-9 o_website_form_required_custom">
+                                    <label for="attachment">Kindly upload scanned copy of your bank deposit slip<span style="color:red">*</span></label>
+                                    <input type="file" name="challan_img" required="true" accept="image/*"/>
+                                </div>
+                                <div class="col-md-3 text-right" style="text-align: end;">
+                                    <button class="btn btn-primary" style="width:100%" name="submit_voucher_button">Submit Voucher Details</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style="width:100%; margin-top: 30px;font-size:16px; padding: 36px" class="text-center">
+                        <span>
+                            <strong>
+                                For further questions or clarifications, please reach out to our admissions team on our
+                                <br/>
+                                UAN number (042) 111-111-822 Monday to Friday 09:00 am – 05:00 pm.
+                            </strong>
+                        </span>
+                    </div>
+                    <!--                    <div class="col-md-12" style="margin-top: 20px;">-->
+                    <!--                        <form action="/admission/registration/challan/submit" enctype="multipart/form-data" method="post">-->
+                    <!--                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                    <!--                            <div class="alert alert-success" style="display: flex;">-->
+                    <!--                                <div class="col-md-10 o_website_form_required_custom">-->
+                    <!--                                    <label for="attachment">Upload Paid Challan<span style="color:red">*</span></label>-->
+                    <!--                                    <input type="file" name="challan_img" multiple="true" required="true" accept="image/*"/>-->
+                    <!--                                </div>-->
+                    <!--                                <div class="col-md-2 text-right" style="text-align: end;">-->
+                    <!--                                    <button class="btn btn-primary" style="width:100%" name="button_back">Submit</button>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </form>-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="application_challan_success" name="Application Challan Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="alert alert-success" style="display: flex;">
+                            <div class="col-md-8">
+                                <h3>Thank You! <i class="fa fa-thumbs-up" title="Likes"/></h3>
+                                <p>For Submitting Application</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="admission_close_message" name="Message">
+        <t t-call="website.layout">
+            <body style="background:#6c757d">
+                <div id="wrap">
+                    <div class="oe_structure">
+                        <div class="container text-center" style="background:#b7bbbf; padding:20px">
+                            <h3>Online Admissions Applications Will Open From <span t-esc="date" t-options="{'widget': 'date'}"/></h3>
+                            <h3>You Can Contact IAC Admission Office For Further Information</h3>
+                            <h5><span t-field="res_company.email"/></h5>
+                            <h5>UAN: <span t-field="res_company.phone"/></h5>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </t>
+    </template>
+
+    <!--    <template id="addmission_registration" name="Admission page">-->
+    <!--        <t t-call="website.layout">-->
+    <!--            <style>-->
+    <!--                .wrap-1{-->
+    <!--                max-width: 75%;-->
+    <!--                }-->
+    <!--                .smart-steps .wizard > .steps a {-->
+    <!--                position: relative;-->
+    <!--                font-family: 'Open Sans', sans-serif;-->
+    <!--                font-size: 11px;-->
+    <!--                font-weight: bold;-->
+    <!--                }-->
+    <!--                .stp-six .wizard > .steps > ul > li {-->
+    <!--                width: 100%;-->
+    <!--                }-->
+    <!--                element.style {-->
+    <!--                }-->
+    <!--                .steps-theme-blue .wizard > .steps .done a, .steps-theme-blue .wizard > .steps .done a:hover,-->
+    <!--                .steps-theme-blue .wizard > .steps .done a:active, .steps-theme-blue .wizard > .steps .done:before,-->
+    <!--                .steps-theme-blue .wizard > .steps .done .number {-->
+    <!--                background: #0393DC;-->
+    <!--                color: #fff;-->
+    <!--                }-->
+    <!--                .smart-steps .wizard > .steps a, .smart-steps .wizard > .steps a:hover, .smart-steps .wizard > .steps-->
+    <!--                a:active {-->
+    <!--                height: 54px;-->
+    <!--                line-height: 14px;-->
+    <!--                padding-left: 2em;-->
+    <!--                padding-top: 0.8em;-->
+    <!--                padding-right: 2em;-->
+    <!--                }-->
+    <!--                .capital_letters{-->
+    <!--                text-transform: uppercase;-->
+    <!--                }-->
+    <!--            </style>-->
+    <!--            &lt;!&ndash;            <body class="woodbg">&ndash;&gt;-->
+    <!--            <body style="background:#E6CCA6 url(/odoocms_admission_portal/static/images/web_bg.jpg); background-position: top; background-repeat: no-repeat;">-->
+    <!--                <div class="smart-wrap">-->
+    <!--                    <div class="smart-forms smart-container wrap-1">-->
+    <!--                        <div id="short_links">-->
+    <!--                            <a class="btn btn-light" id="close-eligibility-criteria"-->
+    <!--                               onclick="document.getElementById('eligibility-criteria').style.display='block';">-->
+    <!--                                View Eligibility Criteria-->
+    <!--                            </a>-->
+    <!--                            <a t-if="students.state in ('confirm')" class="btn btn-light"-->
+    <!--                               href="/admission/test_center/form">-->
+    <!--                                Select Test Center.-->
+    <!--                            </a>-->
+    <!--                            <a t-if="students.state in ('confirm')" class="btn btn-light"-->
+    <!--                               href="/cbt/demo/home">-->
+    <!--                                Demo Entry Test.-->
+    <!--                            </a>-->
+    <!--                        </div>-->
+    <!--                        <div class="form-body theme-blue smart-steps steps-progress steps-theme-blue stp-six">-->
+    <!--                            <div t-if="not students.date_of_birth" id="eligibility-criteria" class="w3-modal cms-modal"-->
+    <!--                                 style="display:block">-->
+    <!--                                &lt;!&ndash; Modal content &ndash;&gt;-->
+    <!--                                <div class="w3-modal-content cms-modal-content">-->
+    <!--                                    <div class="modal-header cms-modal-header">-->
+    <!--                                        <h2>Eligibility Criteria</h2>-->
+    <!--                                        <span class="close" id="close-eligibility-criteria"-->
+    <!--                                              onclick="document.getElementById('eligibility-criteria').style.display='none';">-->
+    <!--                                            X-->
+    <!--                                        </span>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="modal-body cms-modal-body">-->
+    <!--                                        <div class="frm-row">-->
+    <!--                                            <div class="section colm colm12">-->
+    <!--                                                <img style="width:100%; height:100%"-->
+    <!--                                                     t-att-src="image_data_uri(register[0].eligibility_criteria_image)"-->
+    <!--                                                     t-if="register[0].eligibility_criteria_image"-->
+    <!--                                                     alt="Eligibility Criteria"/>-->
+    <!--                                                <img style="width:100%; height:100%"-->
+    <!--                                                     src="/odoocms_admission_portal/static/images/eligiblity_criteria.png"-->
+    <!--                                                     t-if="not register[0].eligibility_criteria_image"-->
+    <!--                                                     alt="Eligibility Criteria"/>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <div t-if="students.date_of_birth" id="eligibility-criteria" class="w3-modal cms-modal"-->
+    <!--                                 style="display:none">-->
+    <!--                                &lt;!&ndash; Modal content &ndash;&gt;-->
+    <!--                                <div class="w3-modal-content cms-modal-content">-->
+    <!--                                    <div class="modal-header cms-modal-header">-->
+    <!--                                        <h2>Eligibility Criteria</h2>-->
+    <!--                                        <span class="close" id="close-eligibility-criteria"-->
+    <!--                                              onclick="document.getElementById('eligibility-criteria').style.display='none';">-->
+    <!--                                            X-->
+    <!--                                        </span>-->
+    <!--                                    </div>-->
+    <!--                                    <div class="modal-body cms-modal-body">-->
+    <!--                                        <div class="frm-row">-->
+    <!--                                            <div class="section colm colm12">-->
+    <!--                                                <img style="width:100%; height:100%"-->
+    <!--                                                     t-att-src="image_data_uri(register[0].eligibility_criteria_image)"-->
+    <!--                                                     t-if="register[0].eligibility_criteria_image"-->
+    <!--                                                     alt="Eligibility Criteria"/>-->
+    <!--                                                <img style="width:100%; height:100%"-->
+    <!--                                                     src="/odoocms_admission_portal/static/images/eligiblity_criteria.png"-->
+    <!--                                                     t-if="not register[0].eligibility_criteria_image"-->
+    <!--                                                     alt="Eligibility Criteria"/>-->
+    <!--                                            </div>-->
+    <!--                                        </div>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                            <t t-foreach="students" t-as="student">-->
+    <!--                                <div id="profile_photo_loading">-->
+    <!--                                    <div>-->
+    <!--                                        <img src="/odoocms_admission_portal/static/images/loading.gif"/>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                                <form method="post" action="#" id="odoocms_admission_portal" role="application"-->
+    <!--                                      class="wizard clearfix" novalidate="novalidate">-->
+    <!--                                    <input type="hidden" name='step_number' id='step_number'-->
+    <!--                                           t-att-value="student.step_number or 1"/>-->
+
+    <!--                                    <t t-foreach="steps" t-as="step">-->
+    <!--                                        <t t-call="{{step.template.key}}">-->
+    <!--                                            <t t-set="step_sequence" t-value="step.sequence"/>-->
+    <!--                                            <t t-set="step_name" t-value="step.name"/>-->
+    <!--                                        </t>-->
+    <!--                                    </t>-->
+
+    <!--                                    <input type="hidden" id="student_step_status" t-att-value="student.step_number"/>-->
+    <!--                                    &lt;!&ndash; <t t-if="student.step_number >= 6">&ndash;&gt;-->
+
+    <!--                                    &lt;!&ndash;   </t>&ndash;&gt;-->
+    <!--                                </form>-->
+    <!--                            </t>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </body>-->
+    <!--        </t>-->
+    <!--    </template>-->
+</odoo>

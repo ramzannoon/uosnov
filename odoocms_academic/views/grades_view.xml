@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="odoocms_grade_histo_tree" model="ir.ui.view">
+            <field name="name">odoocms.grade.histo.tree</field>
+            <field name="model">odoocms.grade.histo</field>
+            <field name="arch" type="xml">
+                <tree string='Grade Histogram' create="false" edit="true" delete="false">
+                    <field name="name"/>
+                    <field name="low_per"/>
+                    <field name="high_per"/>
+                    <field name="grade_class_id"/>
+                    <field name="batch_id"/>
+                    <field name="event"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_grade_histo_form" model="ir.ui.view">
+            <field name="name">odoocms.grade.histo.form</field>
+            <field name="model">odoocms.grade.histo</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: A" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="event" readonly="1"/>
+                                <field name="low_per" readonly="0"/>
+                                <field name="high_per" readonly="0"/>
+                            </group>
+                            <group>
+                                <field name="grade_class_id" readonly="1"/>
+                                <field name="batch_id" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="odoocms_grade_histo_search" model="ir.ui.view">
+            <field name="name">odoocms.grade.histo.search</field>
+            <field name="model">odoocms.grade.histo</field>
+            <field name="arch" type="xml">
+            <search string="Course Histogram">
+                <field name="name" string="Course" filter_domain="[('name','ilike',self)]"/>
+                <separator/>
+                <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Program Batch" domain="[]" name="batch" context="{'group_by':'batch_id'}" />
+                        <filter string="Grade Class" domain="[]" name="grade_class" context="{'group_by':'grade_class_id'}" />
+                        <filter string="Event" domain="[]" name="event" context="{'group_by':'event'}" />
+                    </group>
+
+            </search>
+            </field>
+        </record>
+
+
+        <record id="odoocms_grade_tree" model="ir.ui.view">
+            <field name="name">odoocms.grade.tree</field>
+            <field name="model">odoocms.grade</field>
+            <field name="arch" type="xml">
+                <tree string='Grade Setup'>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="domain" widget="domaintree" options="{'model': 'odoocms.program', 'in_dialog': True}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_grade_form" model="ir.ui.view">
+            <field name="name">odoocms.grade.form</field>
+            <field name="model">odoocms.grade</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: Grades Setup for UG"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="domain" widget="domain" options="{'model': 'odoocms.program', 'in_dialog': True}"/>
+                        </group>
+                        <notebook>
+                            <page name="lines" string="Grades">
+                                <field name="line_ids">
+                                    <tree editable="bottom">
+                                        <field name="name" placeholder="Eg: A"/>
+                                        <field name="low_per"/>
+                                        <field name="high_per"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_grade_histo" model="ir.actions.act_window">
+            <field name="name">Grades Histogram</field>
+            <field name="res_model">odoocms.grade.histo</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="context">{
+                'search_default_batch':1,
+                'search_default_grade_class':1,
+                'search_default_event':1,
+            }</field>
+            <!--            <field name="domain">[('class_id','=',False)]</field>-->
+        </record>
+
+        <record id="action_odoocms_grade" model="ir.actions.act_window">
+            <field name="name">Grades Setup</field>
+            <field name="res_model">odoocms.grade</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <!--            <field name="domain">[('class_id','=',False)]</field>-->
+        </record>
+
+        <menuitem
+                id="academic_grade_histo_menu"
+                parent="menu_odoocms_academic_main"
+                name="Grades Histogram"
+                action="action_odoocms_grade_histo"
+                sequence="30"/>
+
+        <menuitem
+                id="academic_grade_menu"
+                parent="menu_odoocms_academic_configuration"
+                name="Grades Setup"
+                action="action_odoocms_grade"
+                sequence="40"/>
+
+    </data>
+</odoo>

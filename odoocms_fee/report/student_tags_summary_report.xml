@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_student_tags_summary_report_form" model="ir.ui.view">
+            <field name="name">student.tags.summary.report.form</field>
+            <field name="model">student.tags.summary.report</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Student Tags Summary Report">
+                    <p>
+                        This Wizard will generate Student Tags Summary Report.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="report_type" required="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="make_excel" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_student_tags_summary_report" model="ir.actions.act_window">
+            <field name="name">Student Tags Summary Report</field>
+            <field name="res_model">student.tags.summary.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_student_tags_summary_report"
+                name="Student Tags Summary Report"
+                action="action_student_tags_summary_report"
+                parent="odoocms_fee.menu_fee_reports"
+                sequence="350"/>
+    </data>
+</odoo>

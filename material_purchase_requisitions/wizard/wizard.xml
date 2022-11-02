@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="purchase_req_vendor_wiz" model="ir.ui.view">
+        <field name="name">purchase.req.vendor.wiz</field>
+        <field name="model">purchase.req.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Purchase Req Wiz">
+                <sheet>
+                    <group>
+                        <field name="vendor_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="partner_id" invisible="1"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                               domain="[('id', 'in', vendor_ids)]"/>
+                        <field name="partner_ids" widget="many2many_tags"
+                               options="{'no_quick_create':True, 'no_create_edit': True}"
+                               domain="[('id', 'in', vendor_ids)]"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="request_stock" string="Create PO" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--    <record id="purchase_req_vendor_wiz" model="ir.actions.act_window">-->
+    <!--        <field name="name">Purchase Req Vendor</field>-->
+    <!--        <field name="res_model">purchase.req.wiz</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="target">new</field>-->
+    <!--    </record>-->
+
+
+</odoo>

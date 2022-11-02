@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <!-- Wizard Form -->
+        <record id="issuance_report_wizard" model="ir.ui.view">
+            <field name="name">issuance_report_wizard</field>
+            <field name="model">issuance.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    <group name="group_top">
+                        <group name="group_left">
+                            <field name="date_from"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="print_pdf_report" type="object" string="Print PDF" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action For Wizard -->
+        <record id="issuance_report_action" model="ir.actions.act_window">
+            <field name="name">Issuance Report</field>
+            <field name="res_model">issuance.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="issuance_report_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Declaring parent menu item in accounts -->
+        <menuitem id="library_reports_parent_menu"
+                  name="Reports"
+                  parent="library_management_system.menu_op_library_root"
+                  sequence="25"/>
+
+        <!-- Declaring child menu  -->
+        <menuitem id="reports_issuance_child_menu"
+                  name="issuance Reports"
+                  parent="library_reports_parent_menu"
+                  action="issuance_report_action"
+                  sequence="1"/>
+
+    </data>
+</odoo>

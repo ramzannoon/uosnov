@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_act_refund_fee_submit" model="mail.activity.type">
+        <field name="name">Refund Approvel</field>
+        <field name="icon">fa-sun-o</field>
+        <field name="res_model_id" ref="model_odoocms_fee_refund_request"/>
+    </record>
+
+    <record id="mail_request_to_approve_hod" model="mail.activity.type">
+        <field name="name">Refund Approvel HOD</field>
+        <field name="icon">fa-sun-o</field>
+        <field name="res_model_id" ref="model_odoocms_fee_refund_request"/>
+        <field name="post_function">record.approve_refund()</field>
+        <!--        <field name="default_next_type_id" ref="mail_request_approved_cms" />-->
+        <!--        <field name="default" eval="True"/>-->
+        <!--        <field name="description">Refund Request</field>-->
+    </record>
+
+    <record id="mail_request_approved_cms" model="mail.activity.type">
+        <field name="name">Refund Approvel CMS</field>
+        <field name="res_model_id" ref="model_odoocms_fee_refund_request"/>
+        <!--        <field name="default" eval="True"/>-->
+        <field name="post_function">record.action_cms_process()</field>
+        <!--        <field name="description">refund Request approved</field>-->
+    </record>
+
+    <record id="mail_request_approved_account" model="mail.activity.type">
+        <field name="name">Refund Request Account</field>
+        <field name="res_model_id" ref="model_odoocms_fee_refund_request"/>
+        <!--        <field name="default" eval="True"/>-->
+        <field name="post_function">record.action_account_process()</field>
+        <!--        <field name="description">Refund Request rejected</field>-->
+    </record>
+
+    <!--For Adjustment    -->
+    <record id="mail_adjustment_request_to_approve_hod" model="mail.activity.type">
+        <field name="name">Adjustment Approvel HOD</field>
+        <field name="icon">fa-sun-o</field>
+        <field name="res_model_id" ref="model_odoocms_fee_adjustment_request"/>
+        <field name="post_function">record.approve_refund()</field>
+        <!--            <field name="default_next_type_id" ref="mail_request_approved_cms" />-->
+        <!--        <field name="default" eval="True"/>-->
+        <!--        <field name="description">Adjustment Request</field>-->
+
+    </record>
+    <record id="mail_adjustment_request_approved_cms" model="mail.activity.type">
+        <field name="name">Adjustment Approvel CMS</field>
+        <field name="res_model_id" ref="model_odoocms_fee_adjustment_request"/>
+        <!--        <field name="default" eval="True"/>-->
+        <field name="post_function">record.action_cms_process()</field>
+        <!--        <field name="description">Adjustment Request</field>-->
+    </record>
+
+
+</odoo>

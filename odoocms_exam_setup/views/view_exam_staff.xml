@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_exam_staff_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.staff.tree</field>
+        <field name="model">odoocms.exam.staff</field>
+        <field name="arch" type="xml">
+            <tree string="Staff">
+                <field name="first_name"/>
+                <field name="last_name"/>
+                <field name="gender" optional="show"/>
+                <field name="blood_group" optional="hide"/>
+                <field name="date_of_birth" optional="hide"/>
+                <field name="emergency_email" optional="hide"/>
+                <field name="emergency_mobile" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_exam_staff_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.staff.form</field>
+        <field name="model">odoocms.exam.staff</field>
+        <field name="arch" type="xml">
+            <form string="Staff">
+
+                <sheet>
+                    <div class="oe_title">
+
+                        <label for="first_name" class="oe_edit_only" string="Staff Name"/>
+                        <h2>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="first_name" required="1"
+                                               placeholder="First Name"/>
+                                    </td>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="last_name" placeholder="Last Name"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page string="Personal Information" name="personal_information">
+                            <group>
+                                <group>
+                                    <field name="father_name"/>
+                                    <field name="gender" required="1"/>
+                                    <field name="religion_id"/>
+                                    <field name="marital_status"/>
+                                    <field name="nationality"/>
+                                    <field name="nationality_name" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="cnic"
+                                           attrs="{
+                                            'invisible':['|',('nationality','=',False),('nationality_name','!=','Pakistan')]
+                                     }"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="blood_group"/>
+                                </group>
+                                <group>
+                                    <label for="emergency_contact" string="Emergency Contact"/>
+                                    <div name="div_address">
+                                        <field name="emergency_contact" placeholder="Name..."/>
+                                        <field name="emergency_mobile" placeholder="Mobile"/>
+                                        <field name="emergency_email" placeholder="Email"/>
+                                        <field name="emergency_address" placeholder="Address..."/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group name="amenity_info">
+                            </group>
+                        </page>
+
+                        <page string="Contact Details">
+                            <group>
+                                <group>
+                                    <field name="emergency_email" widget="email"/>
+                                </group>
+                                <group>
+                                    <field name="emergency_mobile" widget="phone"/>
+                                    <field name="emergency_contact" widget="phone"/>
+                                </group>
+                            </group>
+                            <group>
+
+
+                                <group name="permanent_address">
+                                    <label for="per_state_id" string="Permanent Address"/>
+                                    <div name="div_address">
+                                        <div class="address_format">
+                                            <field name="per_state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                        </div>
+                                        <field name="per_country_id" placeholder="Country" string="Country"
+                                               class="oe_no_button" options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Visa Information" name="visa_info"
+                              attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')]}">
+                            <group>
+                                <group>
+
+                                </group>
+                                <group name="academic_semester">
+
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_exam_tag_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.tag.tree</field>
+        <field name="model">odoocms.exam.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Staff Tags">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_exam_tag_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.tag.form</field>
+        <field name="model">odoocms.exam.tag</field>
+        <field name="arch" type="xml">
+            <form string="Exam Tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                            <field name="color"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_exam_staff" model="ir.actions.act_window">
+        <field name="name">Exam Center Staff</field>
+        <field name="res_model">odoocms.exam.staff</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Staff Here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_exam_tag" model="ir.actions.act_window">
+        <field name="name">Exam Tags</field>
+        <field name="res_model">odoocms.exam.tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Tag Here.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_exam_staff"
+              name="Exam Staff"
+              parent="odoocms_exam_setup.menu_exam_setup_configuration"
+              action="action_exam_staff"
+              sequence="3"/>
+
+    <menuitem id="menu_exam_tag"
+              name="Exam Tag"
+              parent="odoocms_exam_setup.menu_exam_setup_configuration"
+              action="action_exam_tag"
+              sequence="4"/>
+
+</odoo>
+

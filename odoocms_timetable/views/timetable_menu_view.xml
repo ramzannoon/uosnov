@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="menu_odoocms_timetable_root"
+            name="Timetables"
+            groups="odoocms.group_cms_manager"
+            web_icon="odoocms_timetable,static/description/icon.png"
+            sequence="16"/>
+
+    <menuitem
+            id="menu_odoocms_timetable_main"
+            name="Timetable"
+            parent="menu_odoocms_timetable_root"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_odoocms_timetable_report"
+            name="Reports"
+            parent="menu_odoocms_timetable_root"
+            sequence="150"/>
+
+    <menuitem
+            id="menu_odoocms_timetable_configuration"
+            name="Configuration"
+            parent="menu_odoocms_timetable_root"
+            sequence="200"/>
+
+
+</odoo>
+

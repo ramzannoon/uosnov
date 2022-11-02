@@ -1,0 +1,88 @@
+<odoo>
+
+	<template id ="odoocms_fee.student_fin_report_summary_report">
+			<t t-call="web.basic_layout">
+                <style>
+                    #invoice-report {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+
+                    #invoice-report td, #invoice-report th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #invoice-report tr:hover {background-color: #ddd;}
+
+                    #invoice-report th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #17134e;
+                      color: white;
+                    }
+                </style>
+
+                <div class="page" style="font-size: 16px; padding:10px ">
+
+                    <div class="row" style="padding:5px; margin-bottom:15px;">
+                        <div class="col col-1">
+                            <img alt="..." width="100px" height="100px" class="rounded mb-2 img-thumbnail" t-att-src="image_data_uri(partner.company_id.logo)" t-if="partner.company_id.logo" />
+                        </div>
+                        <div class="col col-11">
+                            <div class="row" style="padding-left:18px;">
+                                <span t-esc="partner.company_id.name" t-if="partner.company_id.name"/>
+                            </div>
+
+                            <div class="row" style="font-size:25px; font-weight:bold">
+                                <div class="col col-12" style="text-align:left">
+                                <span>Student Financial Report Summary</span>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <t t-if="financial_summary_list">
+                        <t t-foreach="len(financial_summary_list)" t-as="full_list">
+                        <div class="row">
+                            <div class="col col-6">
+                                <span>Student ID:</span>&#160;&#160;&#160;&#160;<span t-esc="financial_summary_list[full_list]['student_id']"/>
+                            </div>
+                            <div class="col col-6" style="text-align:right">
+                                <span>Student Name:</span>&#160;&#160;&#160;&#160;<span t-esc="financial_summary_list[full_list]['student_name']"/>
+                            </div>
+                            <div class="col col-6">
+                                <span>Career:</span>&#160;&#160;&#160;&#160;<span t-esc="financial_summary_list[full_list]['career']"/>
+                            </div>
+                            <div class="col col-6" style="text-align:right">
+                                <span>Program:</span>&#160;&#160;&#160;&#160;<span t-esc="financial_summary_list[full_list]['program']"/>
+                            </div>
+                        </div>
+
+                        <table id="invoice-report" style="margin-bottom:3em">
+                             <tr>
+                                 <th style="width:20%">Account</th>
+                                 <th style="width:45%">Amount</th>
+                             </tr>
+                             <t t-foreach="len(financial_summary_list[full_list]['invoice_lines'])" t-as="inv">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="financial_summary_list[full_list]['invoice_lines'][inv]['account']" /></td>
+                                     <td><span t-esc="financial_summary_list[full_list]['invoice_lines'][inv]['amount']" /></td>
+                                 </tr>
+                             </t>
+                            <tr>
+                                <td style="text-weight:bold" colspan="2">Grand Total</td>
+                            </tr>
+                         </table>
+                    </t>
+                    </t>
+                </div>
+
+            </t>
+    </template>
+
+</odoo>

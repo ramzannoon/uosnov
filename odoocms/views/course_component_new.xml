@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="course_component_tree" model="ir.ui.view">
+        <field name="name">course.component.lines.tree</field>
+        <field name="model">course.component.lines</field>
+        <field name="arch" type="xml">
+            <tree string="Student Tags">
+                <field name="component_id"/>
+                <field name="credit_hours"/>
+                <field name="credit_contacts"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="course_component_form" model="ir.ui.view">
+        <field name="name">course.component.lines.form</field>
+        <field name="model">course.component.lines</field>
+        <field name="arch" type="xml">
+            <form string="Student Tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="component_id"/>
+                            <field name="credit_hours"/>
+                            <field name="credit_contacts"/>
+                        </group>
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_course_component" model="ir.actions.act_window">
+        <field name="name">Course Component</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">course.component.lines</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First Tag here.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+            id="menu_course_component"
+            parent="menu_odoocms_configuration"
+            name="Course Component"
+            action="action_course_component"
+            sequence="120"/>
+
+</odoo>

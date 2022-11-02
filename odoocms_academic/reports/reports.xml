@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+			id="action_report_student_curriculum_batches"
+			string="Student curriculum batches"
+			model="odoocms.student.curriculm.wiz"
+			report_type="qweb-html"
+			name="odoocms_academic.report_student_curriculum_batches"
+			file="odoocms_academic.report_student_curriculum_batches"
+			menu="False"/>
+
+    </data>
+</odoo>

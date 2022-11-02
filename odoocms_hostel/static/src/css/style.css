@@ -1,0 +1,25 @@
+/*for transcript design*/
+.transcript {
+  border-collapse: collapse;
+  width: 100%;
+  border:1px solid;
+}
+
+.transcript td {
+  border-right: 1px solid;
+  padding: 3px;
+}
+
+.transcript-div{
+  display: block; float: left; margin: auto;
+  width: 48%;
+  padding: 1%;
+}
+.tr-tb-head{
+  text-align:center;
+}
+
+.tr-tb-footer{
+  text-align:center;
+  border:1px solid;
+}

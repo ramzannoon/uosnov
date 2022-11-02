@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_general_travel_request_kanban" model="ir.ui.view">
+            <field name="name">emp.general.request.kanban</field>
+            <field name="model">emp.general.request</field>
+            <field name="arch" type="xml">
+                <kanban class="odoocms_travel_kanban">
+                    <field name="name"/>
+
+
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click  o_res_partner_kanban">
+
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+
+                                    <ul>
+                                        <li>
+                                            Name:
+                                            <field name="name"/>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="view_general_travel_request_form" model="ir.ui.view">
+            <field name="name">emp.general.request.form</field>
+            <field name="model">emp.general.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_general_travel_request_tree" model="ir.ui.view">
+            <field name="name">emp.general.request.tree</field>
+            <field name="model">emp.general.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_general_travel_request">
+            <field name="name">General Travel Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">emp.general.request</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    General Travel Request
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_hr_employee_general"
+                name="General Requests"
+                action="action_general_travel_request"
+                parent="hr.menu_human_resources_configuration"
+        />
+
+
+        <record id="view_equipment_request_form" model="ir.ui.view">
+            <field name="name">emp.general.request.form</field>
+            <field name="model">emp.general.request</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+
+
+                        </group>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_equipment_request_tree" model="ir.ui.view">
+            <field name="name">emp.general.request.tree</field>
+            <field name="model">emp.general.request</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_equipment_request">
+            <field name="name">General Travel Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">emp.general.request</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    General Travel Request
+                </p>
+            </field>
+        </record>
+
+
+
+
+        <menuitem
+                id="menu_hr_employee_general"
+                name="Generic Request"
+                action="action_equipment_request"
+                parent="hr.menu_human_resources_configuration"/>
+
+
+        <!--        menu_human_resources_configuration_employee-->
+
+
+    </data>
+</odoo>
+
+
+        <!--        <template id="product_quick_view_extended" inherit_id="website_sale.product">-->
+        <!--            <xpath expr="//t[@t-call='website.layout']" position="inside">-->
+        <!--                <xpath expr="//div[@id='product_details']" position="after">-->
+        <!--                    <div>-->
+        <!--                        <a t-att-href="'/report/pdf/catalogue_download?product_id=%s' % product.id">-->
+        <!--                            <button type="button" class="btn btn-primary btn-lg mt8 js_check_product a-submit"-->
+        <!--                                    style="margin-left: 847px;margin-bottom: 82px;">Download Catalogue-->
+        <!--                            </button>-->
+        <!--                        </a>-->
+        <!--                    </div>-->
+        <!--                </xpath>-->
+        <!--            </xpath>-->
+        <!--        </template>-->
+

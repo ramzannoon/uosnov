@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- Term Wise Grade Changed	-->
+		<report
+			id="action_report_exam_setup_datesheet"
+			string="Date Sheet Report"
+			model="odoocms.exam.control"
+			report_type="qweb-html"
+			name="odoocms_exam_setup.exam_setup_datesheet_report"
+			file="odoocms_exam_setup.exam_setup_datesheet_report"
+			menu="False"
+			/>
+		<report
+			id="action_report_exam_sitting_plan"
+			string="Sitting Plan Report"
+			model="odoocms.exam.control"
+			report_type="qweb-html"
+			name="odoocms_exam_setup.exam_sitting_plan_report"
+			file="odoocms_exam_setup.exam_ssitting_plan_report"
+			menu="False"
+			/>
+		<report
+			id="action_report_exam_center_student"
+			string="Center Student Report"
+			model="odoocms.exam.control"
+			report_type="qweb-html"
+			name="odoocms_exam_setup.exam_center_student_report"
+			file="odoocms_exam_setup.exam_center_student_report"
+			menu="False"
+			/>
+	</data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--   <template id="portal_my_home_menu_registration" name="Portal layout : registration menu entries" inherit_id="portal.portal_breadcrumbs" priority="25">
+    <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+      <li >
+        <a  t-attf-href="/Admissions/add?{{ keep_query() }}">Registration</a>
+        <t t-else="">Registration</t>
+      </li>
+    
+    </xpath>
+  </template> -->
+
+ <!--  <template id="portal_my_home_menu_registration" name="your name" inherit_id="portal.portal_breadcrumbs" priority="25">
+    <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+        <li >
+            <span  t-esc="quotation_count"/>
+            <a href="/my/records/portal"> Portal Form</a>
+        </li>
+    </xpath>
+</template> -->
+   <template id="portal_my_home_registration" name="Portal My Home : registration entry" inherit_id="portal.portal_my_home" priority="25">
+    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+        <t  t-call="portal.portal_docs_entry">
+           <t t-set="title">Registration</t>
+            <t t-set="url" t-value="'/Admissions'"/>
+            
+        </t>
+           
+       
+    </xpath>
+  </template>
+
+ 
+</odoo>

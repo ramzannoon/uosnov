@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Templates for Batch Entry Test -->
+        <record id="custom_mail_template_batch_entry_test" model="mail.template">
+            <field name="name">Batch Entry Test: Confirmation Email</field>
+            <field name="model_id" ref="odoocms_admission.model_batch_entry_test"/>
+            <field name="subject">Entry Test Date</field>
+            <field name="email_from">cms@uom.edu.pk</field>
+            <field name="email_to">${object.student_application_emails |safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                    </p>
+                </div>
+            </field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_odoocms_application_merit_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.form.inherit</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_merit_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//header" position="inside">
+                    <button name="verify_applicant" type="object" class="oe_highlight"
+                            string="Verify" groups="base.group_user"
+                            help="Click to verify the applicant if it is valid"
+                            attrs="{'invisible': ['|',('state', '!=','draft'),'|',('voucher_image', '=',False),('voucher_status', '!=',False)]}"
+                    />
+                    <button name="reject_applicant" type="object" class="oe_highlight"
+                            string="Reject" groups="base.group_user"
+                            help="Click to reject the applicant if it is not valid"
+                            attrs="{'invisible': ['|',('state', '!=','draft'),'|',('voucher_image', '=',False),('voucher_status', '!=',False)]}"
+                    />
+                    <button name="univerify_applicant" type="object" class="oe_highlight"
+                            string="Unverify" groups="odoocms_admission.group_admission_special"
+                            help="Click to reset the states!"
+                            attrs="{'invisible': [('state', '=','draft')]}"
+                    />
+                    <button name="mark_absent" type="object" class="oe_highlight"
+                            string="Absent" groups="odoocms_admission.group_admission_special"
+                            attrs="{'invisible': [('state', '!=','draft')]}" confirm="Are you sure to mark the applicant as Absent?"
+                    />
+                </xpath>
+                <!--                <xpath expr="//header/button[@name = ' ( odoocms_admission.action_odoocms_merit_status ) d']" position="attributes">-->
+                <!--                    <attribute name="groups">odoocms_admission.group_admission_special</attribute>-->
+                <!--                </xpath>-->
+                <xpath expr="//notebook[1]" position="inside">
+                    <page name="voucher_details" string="Voucher Details">
+                        <group>
+                            <group>
+                                <field name="voucher_status" readonly="1"/>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="voucher_number"/>
+                                <field name="date_voucher"/>
+                                <field name="date_submission" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="voucher_image" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name = 'application_id']" position="before">
+                    <field name="rural_quota_id" invisible="1"/>
+                    <field name="forces_quota_id" invisible="1"/>
+                    <field name="dae_quota_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//notebook/page/field/tree" position="replace">
+                    <tree edit="false" delete="false" create="false">
+                        <field name="program_id"/>
+                        <field name="preference"/>
+                        <field name="program_merit_number" attrs="{'column_invisible':[('parent.dae_quota_id','!=',False)]}"/>
+                        <field name="seats" attrs="{'column_invisible':[('parent.dae_quota_id','!=',False)]}"/>
+
+                        <field name="quota_id" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.rural_quota_id','=',False)]}"/>
+                        <field name="quota_number" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.rural_quota_id','=',False)]}"/>
+                        <field name="quota_seats" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.rural_quota_id','=',False)]}"/>
+
+                        <field name="quota_id2" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.forces_quota_id','=',False)]}"/>
+                        <field name="quota_number2" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.forces_quota_id','=',False)]}"/>
+                        <field name="quota_seats2" attrs="{'column_invisible':['|',('parent.dae_quota_id','!=',False),('parent.forces_quota_id','=',False)]}"/>
+
+                        <field name="dae_quota_id" attrs="{'column_invisible':[('parent.dae_quota_id','=',False)]}"/>
+                        <field name="dae_quota_number" attrs="{'column_invisible':[('parent.dae_quota_id','=',False)]}"/>
+                        <field name="dae_seats" attrs="{'column_invisible':[('parent.dae_quota_id','=',False)]}"/>
+                        <field name="selected"/>
+
+                    </tree>
+                </xpath>
+                <xpath expr="//sheet//group[@name='program_merit_number_group']" position="replace">
+                    <group name="program_merit_number_group">
+                        <field name="merit_register_id" readonly="1"/>
+                        <field name="merit_number" readonly="1"/>
+                        <field name="program_merit_number" readonly="1"/>
+                    </group>
+                    <!--                    <field name="program_merit_number" readonly="1" attrs="{'invisible':[('application_id.dae_quota_id','!=',False)]}"/>-->
+                </xpath>
+                <!--<xpath expr="//sheet/group[@name='quota_details_group']" position="replace">
+                    <field name="admission_on_quota" readonly="1"/>
+                    <field name="quota_id" readonly="1" attrs="{'invisible':[('admission_on_quota','=',False)]}"/>
+                    <field name="quota_number" readonly="1" attrs="{'invisible':[('admission_on_quota','=',False)]}"/>
+                </xpath>-->
+            </data>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_merit_tree_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.tree.inherit</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_merit_tree"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name = 'merit_number']" position="after">
+                    <field name="total_aggregates"/>
+                </xpath>
+                <xpath expr="//field[@name = 'entryID']" position="replace">
+                    <field name="application_no"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_merit_search_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.search.inherit</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_merit_search"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name = 'entryID']" position="replace">
+                    <field name="application_no"/>
+                </xpath>
+                <xpath expr="//filter[@name = 'new_register']" position="after">
+                    <filter string="Voucher Uploaded" name="voucher_uploaded" domain="[('voucher_image','!=',False)]"/>
+                    <filter string="Voucher Not Uploaded" name="voucher_not_uploaded" domain="[('voucher_image','=',False)]"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_odoocms_merit_register_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.merit.register.form.inherit</field>
+        <field name="model">odoocms.merit.register</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_merit_register_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//form/sheet" position="before">
+                    <header>
+                        <button name="make_open" states="draft" type="object" string="Send Mail" class="oe_highlight"/>
+                        <button name="back_to_draft" states="open" type="object" string="Back To Draft" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open" />
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name = 'date_list']" position="after">
+                    <field name="date_end" required="1" attrs="{'readonly':[('next_merit_register_id','!=',False)]}"/>
+                </xpath>
+                <xpath expr="//notebook/page/field/tree/field[@name='application_id']" position="after">
+                    <field name="total_aggregates"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+
+</odoo>

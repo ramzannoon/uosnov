@@ -1,0 +1,2206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="pdf_report_layout">
+            <div class="header row">
+                <div class="col-4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="width:40%;height:100px;"/>
+                </div>
+                <div class="col-4" style="text-align:center;">
+                    <strong><span t-esc="company.name" /></strong><br/><br/>
+                    <strong>Aged Receivable and Payable Report</strong><br/>
+                    <strong><span t-esc="date" /> </strong>
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <span>Report Date </span>
+                    <span t-esc="context_timestamp(datetime.datetime.today()).strftime('%d/%m/%Y')"/>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+            <div class="footer row">
+                <div class="col-6 float-left">
+                    <span>Printed by: </span>
+                    <span style="border-bottom:2px dotted;"><t t-esc="user.name"/></span>
+                </div>
+                <div class="col-6" style="text-align:right;">
+                    <span>Page</span>
+                    <span class="page" />
+                    /
+                    <span class="topage" />
+                </div>
+            </div>
+        </template>
+
+        <template id="aged_rece_pay_temp_id">
+            <t t-call="web.html_container">
+                <t t-call="aged_receivable_payable.pdf_report_layout">
+                    <div class="page">
+                        <style type="text/css">
+                            <![CDATA[
+                            @font-face {
+                                font-family: 'calibiri_bold';
+                                font-weight: bold;
+                                font-style: bold;
+                                src: url('/aged_receivable_payable/static/src/fonts/calibri_bold.ttf')
+                                format('truetype');
+                                    }
+					            ]]>
+                        </style>
+                        <style type="text/css">
+                            .header_name{
+                            font-family: 'calibiri_bold';
+                            font-size:18px;
+                            font-weight: bold;
+                            }
+                            @media (min-width: 1200px) {
+                            .report-wrapper {
+                            width: 100%;
+                            }
+                            }
+                            @media (min-width: 992px) {
+                            .report-wrapper {
+                            width: 100%;
+                            }
+                            }
+                            @media (min-width: 768px) {
+                            .report-wrapper {
+                            width: 100%;
+                            }
+                            }
+                            .clearfloat {
+                            clear: both;
+                            float: none;
+                            width: 100%;
+                            height: 1px;
+                            display: block;
+                            }
+                            .report-wrapper {
+                            width: 100%;
+                            font-size: 13px;
+                            }
+                            table {
+                            width: 100%;
+                            border-spacing: 0px;
+                            border: 1px solid black;
+                            }
+                            table tr th {
+                            text-align: center;
+                            padding: 3px 0px 0px 3px;
+                            border-right: 1px solid black;
+                            border-bottom: 1px solid black;
+                            }
+                            table tr td {
+                            text-align: center;
+                            padding: 3px 0px 0px 3px;
+                            border-right: 1px solid #c1c1c1;
+                            }
+                            table tr td:last-child,
+                            table tr th:last-child {
+                            border-right: none
+                            }
+                            table tr:last-child td {
+                            border-bottom: none
+                            }
+                            table tr:nth-child(even)
+                            {
+                            background-color: #dee2e6;
+                            }
+                            table tr th {
+                            text-align: center;
+                            }
+                            h2 {
+                            text-align: center;
+                            font-size: 35px;
+                            text-decoration: underline;
+                            }
+                            .tile {
+                            display: inline-block;
+                            width: 100px;
+                            text-align: center;
+                            background: #a64f8e;
+                            color: #fff;
+                            padding: 2px 5px;
+                            }
+                            .space {
+                            min-width: 100px;
+                            max-width: 100px;
+                            width: 100px;
+                            }
+                        </style>
+
+                        <div class="report-wrapper">
+                            <t t-if="rece_type == 1">
+                                <br class="clearfloat" />
+                                <div style="float:left; width: 100%;margin-bottom:30px">
+                                    <table>
+                                        <thead>
+                                            <tr style="border-bottom:1 px solid black; border-top: hidden;border-left: hidden;border-right: hidden; font-size:16px">
+                                                <th class="text-left" colspan="19"><b>Aged Receivable</b></th>
+                                            </tr>
+                                            <tr t-attf-style="background:#8EA9DB">
+                                                <th style="text-align:left;padding-left:1px;color:white;"><strong>Partner</strong></th>
+                                                <th style="text-align:left;padding-left:1px;color:white;"><strong>Invoice Date</strong></th>
+                                                <th style="text-align:left;padding-left:1px;color:white;"><strong>Journal</strong></th>
+                                                <th style="text-align:left;padding-left:1px;color:white;"><strong>Account</strong></th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="as_of"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="one"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="two"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="three"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="four"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="five"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="six"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="seven"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="eight"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="nine"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="ten"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="eleven"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="twelve"/></strong>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <strong><span t-esc="older"/></strong>
+                                                </th>
+                                                <strong><th style="text-align:left;padding-left:1px;color:white;">Total</th></strong>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="main_data" t-as="rec">
+                                                <tr t-attf-style="font-weight:bold">
+                                                    <td style="text-align:left;padding-left:1px">
+                                                        <span t-esc="rec['name']"></span>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['as_of_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['as_of_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['as_of_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['one_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['one_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['one_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['one_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['one_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['one_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['two_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['two_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['two_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['two_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['two_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['two_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['three_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['three_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['three_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['three_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['three_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['three_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['four_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['four_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['four_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['four_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['four_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['four_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['five_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['five_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['five_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['five_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['five_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['five_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['six_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['six_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['six_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['six_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['six_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['six_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['seven_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['seven_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['seven_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['eight_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eight_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eight_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['nine_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['nine_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['nine_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['ten_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['ten_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['ten_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['eleven_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eleven_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eleven_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['twelve_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['twelve_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['twelve_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['older_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['older_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['older_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['older_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['older_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['older_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['tot_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['tot_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['tot_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                                <t t-if="with_detail != false">
+                                                    <t t-foreach="rec['as_of_inv_list']" t-as="as_of">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="as_of['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:3px">
+                                                                <span t-esc="get_date_format(as_of['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:3px">
+                                                                <span t-esc="as_of['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:3px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <t t-if="as_of['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(as_of['residual']))"/>
+                                                                </t>
+                                                                <t t-if="as_of['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(as_of['residual']))"/>
+                                                                </t>
+                                                                <t t-if="as_of['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(as_of['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['one_inv_list']" t-as="one">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="one['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(one['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="one['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="one['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(one['residual']))"/>
+                                                                </t>
+                                                                <t t-if="one['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(one['residual']))"/>
+                                                                </t>
+                                                                <t t-if="one['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(one['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['two_inv_list']" t-as="two">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="two['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(two['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="two['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="two['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(two['residual']))"/>
+                                                                </t>
+                                                                <t t-if="two['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(two['residual']))"/>
+                                                                </t>
+                                                                <t t-if="two['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(two['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['three_inv_list']" t-as="three">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="three['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(three['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="three['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="three['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(three['residual']))"/>
+                                                                </t>
+                                                                <t t-if="three['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(three['residual']))"/>
+                                                                </t>
+                                                                <t t-if="three['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(three['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['four_inv_list']" t-as="four">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="four['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(four['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="four['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="four['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(four['residual']))"/>
+                                                                </t>
+                                                                <t t-if="four['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(four['residual']))"/>
+                                                                </t>
+                                                                <t t-if="four['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(four['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['five_inv_list']" t-as="five">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="five['number']"/>
+
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(five['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="five['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="five['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(five['residual']))"/>
+                                                                </t>
+                                                                <t t-if="five['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(five['residual']))"/>
+                                                                </t>
+                                                                <t t-if="five['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(five['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['six_inv_list']" t-as="six">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="six['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(six['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="six['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="six['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(six['residual']))"/>
+                                                                </t>
+                                                                <t t-if="six['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(six['residual']))"/>
+                                                                </t>
+                                                                <t t-if="six['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(six['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['seven_inv_list']" t-as="seven">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="seven['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(seven['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="seven['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="seven['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(seven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="seven['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(seven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="seven['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(seven['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['eight_inv_list']" t-as="eight">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="eight['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(eight['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eight['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="eight['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eight['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eight['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eight['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eight['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(eight['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['nine_inv_list']" t-as="nine">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="nine['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(nine['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="nine['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="nine['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(nine['residual']))"/>
+                                                                </t>
+                                                                <t t-if="nine['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(nine['residual']))"/>
+                                                                </t>
+                                                                <t t-if="nine['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(nine['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['ten_inv_list']" t-as="ten">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="ten['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(ten['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="ten['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="ten['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(ten['residual']))"/>
+                                                                </t>
+                                                                <t t-if="ten['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(ten['residual']))"/>
+                                                                </t>
+                                                                <t t-if="ten['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(ten['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['eleven_inv_list']" t-as="eleven">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="eleven['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(eleven['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eleven['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="eleven['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eleven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eleven['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eleven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eleven['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(eleven['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['twelve_inv_list']" t-as="twelve">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="twelve['number']"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(twelve['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="twelve['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="twelve['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(twelve['residual']))"/>
+                                                                </t>
+                                                                <t t-if="twelve['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(twelve['residual']))"/>
+                                                                </t>
+                                                                <t t-if="twelve['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(twelve['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['older_inv_list']" t-as="older">
+                                                        <tr>
+                                                            <td style="text-align:left;padding-left:15px">
+                                                                <span t-esc="older['number']"/>
+
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="get_date_format(older['date_due'])"/>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="older['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['cust_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:right;padding-left:1px">
+                                                                <t t-if="older['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(older['residual']))"/>
+                                                                </t>
+                                                                <t t-if="older['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(older['residual']))"/>
+                                                                </t>
+                                                                <t t-if="older['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(older['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+
+                                            <tr t-attf-style="font-weight:bold;page-break-inside:avoid;">
+                                                <td colspan="4" style="text-align:center;padding-left:1px">
+                                                    <strong><span>Total</span></strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px;">
+                                                    <strong>
+                                                        <t t-if="as_of_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(as_of_tot))"></span>
+                                                        </t>
+                                                        <t t-if="as_of_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(as_of_tot))"></span>
+                                                        </t>
+                                                        <t t-if="as_of_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(as_of_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="one_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(one_tot))"></span>
+                                                        </t>
+                                                        <t t-if="one_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(one_tot))"></span>
+                                                        </t>
+                                                        <t t-if="one_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(one_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="two_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(two_tot))"></span>
+                                                        </t>
+                                                        <t t-if="two_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(two_tot))"></span>
+                                                        </t>
+                                                        <t t-if="two_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(two_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="three_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(three_tot))"></span>
+                                                        </t>
+                                                        <t t-if="three_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(three_tot))"></span>
+                                                        </t>
+                                                        <t t-if="three_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(three_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="four_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(four_tot))"></span>
+                                                        </t>
+                                                        <t t-if="four_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(four_tot))"></span>
+                                                        </t>
+                                                        <t t-if="four_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(four_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="five_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(five_tot))"></span>
+                                                        </t>
+                                                        <t t-if="five_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(five_tot))"></span>
+                                                        </t>
+                                                        <t t-if="five_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(five_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="six_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(six_tot))"></span>
+                                                        </t>
+                                                        <t t-if="six_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(six_tot))"></span>
+                                                        </t>
+                                                        <t t-if="six_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(six_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="seven_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(seven_tot))"></span>
+                                                        </t>
+                                                        <t t-if="seven_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(seven_tot))"></span>
+                                                        </t>
+                                                        <t t-if="seven_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(seven_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="eight_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eight_tot))"></span>
+                                                        </t>
+                                                        <t t-if="eight_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eight_tot))"></span>
+                                                        </t>
+                                                        <t t-if="eight_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(eight_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="nine_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(nine_tot))"></span>
+                                                        </t>
+                                                        <t t-if="nine_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(nine_tot))"></span>
+                                                        </t>
+                                                        <t t-if="nine_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(nine_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="ten_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(ten_tot))"></span>
+                                                        </t>
+                                                        <t t-if="ten_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(ten_tot))"></span>
+                                                        </t>
+                                                        <t t-if="ten_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(ten_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="eleven_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eleven_tot))"></span>
+                                                        </t>
+                                                        <t t-if="eleven_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eleven_tot))"></span>
+                                                        </t>
+                                                        <t t-if="eleven_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(eleven_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="twelve_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(twelve_tot))"></span>
+                                                        </t>
+                                                        <t t-if="twelve_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(twelve_tot))"></span>
+                                                        </t>
+                                                        <t t-if="twelve_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(twelve_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="older_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(older_tot))"></span>
+                                                        </t>
+                                                        <t t-if="older_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(older_tot))"></span>
+                                                        </t>
+                                                        <t t-if="older_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(older_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="tot_amt_tot &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(tot_amt_tot))"></span>
+                                                        </t>
+                                                        <t t-if="tot_amt_tot == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(tot_amt_tot))"></span>
+                                                        </t>
+                                                        <t t-if="tot_amt_tot &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(tot_amt_tot*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+
+                            <t t-if="pay_type == 1">
+                                <div style="float:left; width: 100%;margin-bottom:10px">
+                                    <table>
+                                        <thead>
+                                            <tr style="border-bottom:1 px solid black; border-top: hidden;border-left: hidden;border-right: hidden; font-size:16px">
+                                                <th class="text-left" colspan="19"><b>Aged Payable</b></th>
+                                            </tr>
+                                            <tr t-attf-style="background:#8EA9DB">
+                                                <th style="text-align:left;padding-left:1px;color:white;">Partner</th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">Invoice Date</th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">Journal</th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">Account</th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="as_of_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="one_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="two_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="three_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="four_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="five_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="six_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="seven_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="eight_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="nine_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="ten_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="eleven_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="twelve_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">
+                                                    <span t-esc="older_pay"/>
+                                                </th>
+                                                <th style="text-align:left;padding-left:1px;color:white;">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <t t-foreach="main_data_pay" t-as="rec">
+                                                <tr t-attf-style="font-weight:bold;page-break-inside:avoid;">
+                                                    <td style="text-align:left;padding-left:1px">
+                                                        <span t-esc="rec['name']"></span>
+                                                    </td>
+                                                    <td/>
+                                                    <td/>
+                                                    <td/>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['as_of_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['as_of_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['as_of_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['as_of_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['one_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['one_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['one_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['one_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['one_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['one_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+
+                                                        <t t-if="rec['two_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['two_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['two_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['two_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['two_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['two_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+
+                                                        <t t-if="rec['three_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['three_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['three_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['three_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['three_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['three_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['four_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['four_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['four_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['four_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['four_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['four_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['five_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['five_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['five_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['five_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['five_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['five_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['six_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['six_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['six_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['six_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['six_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['six_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['seven_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['seven_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['seven_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['seven_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['eight_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eight_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eight_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['eight_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['nine_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['nine_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['nine_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['nine_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['ten_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['ten_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['ten_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['ten_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['eleven_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eleven_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['eleven_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['eleven_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['twelve_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['twelve_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['twelve_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['twelve_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['older_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['older_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['older_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['older_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['older_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['older_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                    <td style="text-align:right;padding-left:1px">
+                                                        <t t-if="rec['tot_amt'] &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['tot_amt'] == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']))"/>
+                                                        </t>
+                                                        <t t-if="rec['tot_amt']  &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(rec['tot_amt']*-1))"/>)
+                                                        </t>
+                                                    </td>
+                                                </tr>
+
+                                                <t t-if="with_detail != false">
+                                                    <t t-foreach="rec['as_of_inv_list']" t-as="as_of">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <span t-esc="as_of['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <span t-esc="conversion_date(as_of['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <span t-esc="as_of['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:right;padding-left:3px">
+                                                                <t t-if="as_of['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(as_of['residual']))"/>
+                                                                </t>
+                                                                <t t-if="as_of['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(as_of['residual']))"/>
+                                                                </t>
+                                                                <t t-if="as_of['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(as_of['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['one_inv_list']" t-as="one">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="one['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(one['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="one['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="one['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(one['residual']))"/>
+                                                                </t>
+                                                                <t t-if="one['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(one['residual']))"/>
+                                                                </t>
+                                                                <t t-if="one['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(one['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['two_inv_list']" t-as="two">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="two['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(two['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="two['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="two['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(two['residual']))"/>
+                                                                </t>
+                                                                <t t-if="two['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(two['residual']))"/>
+                                                                </t>
+                                                                <t t-if="two['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(two['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['three_inv_list']" t-as="three">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="three['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(three['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="three['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="three['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(three['residual']))"/>
+                                                                </t>
+                                                                <t t-if="three['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(three['residual']))"/>
+                                                                </t>
+                                                                <t t-if="three['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(three['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['four_inv_list']" t-as="four">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="four['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(four['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="four['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="four['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(four['residual']))"/>
+                                                                </t>
+                                                                <t t-if="four['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(four['residual']))"/>
+                                                                </t>
+                                                                <t t-if="four['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(four['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['five_inv_list']" t-as="five">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="five['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(five['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="five['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="five['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(five['residual']))"/>
+                                                                </t>
+                                                                <t t-if="five['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(five['residual']))"/>
+                                                                </t>
+                                                                <t t-if="five['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(five['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['six_inv_list']" t-as="six">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="six['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(six['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="six['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="six['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(six['residual']))"/>
+                                                                </t>
+                                                                <t t-if="six['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(six['residual']))"/>
+                                                                </t>
+                                                                <t t-if="six['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(six['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['seven_inv_list']" t-as="seven">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="seven['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(seven['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="seven['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="seven['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(seven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="seven['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(seven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="seven['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(seven['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['eight_inv_list']" t-as="eight">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eight['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(eight['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eight['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="eight['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eight['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eight['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eight['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eight['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(eight['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['nine_inv_list']" t-as="nine">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="nine['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(nine['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="nine['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="nine['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(nine['residual']))"/>
+                                                                </t>
+                                                                <t t-if="nine['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(nine['residual']))"/>
+                                                                </t>
+                                                                <t t-if="nine['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(nine['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['ten_inv_list']" t-as="ten">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="ten['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(ten['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="ten['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="ten['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(ten['residual']))"/>
+                                                                </t>
+                                                                <t t-if="ten['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(ten['residual']))"/>
+                                                                </t>
+                                                                <t t-if="ten['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(ten['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['eleven_inv_list']" t-as="eleven">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eleven['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(eleven['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="eleven['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="eleven['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eleven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eleven['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(eleven['residual']))"/>
+                                                                </t>
+                                                                <t t-if="eleven['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(eleven['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['twelve_inv_list']" t-as="twelve">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="twelve['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(twelve['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="twelve['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="twelve['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(twelve['residual']))"/>
+                                                                </t>
+                                                                <t t-if="twelve['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(twelve['residual']))"/>
+                                                                </t>
+                                                                <t t-if="twelve['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(twelve['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+
+                                                    <t t-foreach="rec['older_inv_list']" t-as="older">
+                                                        <tr t-attf-style="page-break-inside:avoid;">
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="older['number']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="conversion_date(older['date_due'])"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="older['jrnl_code']"></span>
+                                                            </td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <span t-esc="rec['ven_code']"></span>
+                                                            </td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td>-</td>
+                                                            <td style="text-align:left;padding-left:1px">
+                                                                <t t-if="older['residual'] &gt; 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(older['residual']))"/>
+                                                                </t>
+                                                                <t t-if="older['residual'] == 0">
+                                                                    <span t-esc="'{0:,.2f}'.format(float(older['residual']))"/>
+                                                                </t>
+                                                                <t t-if="older['residual']  &lt; 0">
+                                                                    (<span t-esc="'{0:,.2f}'.format(float(older['residual']*-1))"/>)
+                                                                </t>
+                                                            </td>
+                                                            <td>-</td>
+                                                        </tr>
+                                                    </t>
+                                                </t>
+                                            </t>
+
+                                            <tr t-attf-style="font-weight:bold;page-break-inside:avoid;">
+                                                <td colspan="4" style="text-align:center;padding-left:1px">
+                                                    <strong><span>Total</span></strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="as_of_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(as_of_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="as_of_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(as_of_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="as_of_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(as_of_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="one_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(one_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="one_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(one_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="one_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(one_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="two_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(two_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="two_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(two_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="two_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(two_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="three_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(three_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="three_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(three_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="three_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(three_tot_pay*-1))"></span>)
+                                                        </t>
+
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="four_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(four_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="four_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(four_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="four_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(four_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="five_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(five_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="five_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(five_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="five_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(five_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="six_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(six_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="six_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(six_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="six_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(six_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="seven_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(seven_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="seven_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(seven_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="seven_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(seven_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="eight_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eight_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="eight_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eight_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="eight_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(eight_tot_pay*-1))"></span>)
+                                                        </t>
+
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="nine_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(nine_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="nine_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(nine_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="nine_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(nine_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="ten_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(ten_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="ten_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(ten_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="ten_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(ten_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="eleven_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eleven_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="eleven_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(eleven_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="eleven_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(eleven_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="twelve_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(twelve_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="twelve_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(twelve_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="twelve_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(twelve_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+                                                        <t t-if="older_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(older_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="older_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(older_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="older_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(older_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                                <td style="text-align:right;padding-left:1px">
+                                                    <strong>
+
+                                                        <t t-if="tot_amt_tot_pay &gt; 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(tot_amt_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="tot_amt_tot_pay == 0">
+                                                            <span t-esc="'{0:,.2f}'.format(float(tot_amt_tot_pay))"></span>
+                                                        </t>
+                                                        <t t-if="tot_amt_tot_pay &lt; 0">
+                                                            (<span t-esc="'{0:,.2f}'.format(float(tot_amt_tot_pay*-1))"></span>)
+                                                        </t>
+                                                    </strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </t>
+                        </div><!--end of report wrapper-->
+                    </div><!--end of page -->
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

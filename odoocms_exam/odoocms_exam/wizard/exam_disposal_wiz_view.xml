@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="odoocms_exam_disposal_wiz_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.disposal.wiz.form</field>
+        <field name="model">odoocms.exam.disposal.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Apply Disposal Rules">
+                <group>
+                    <field name="batch_term_ids"
+                           options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}" widget="many2many_tags"/>
+
+                </group>
+                <footer>
+                    <button name="apply_disposal_rules" string="Apply Rules" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+<!--    <act_window-->
+<!--            id="act_odoocms_exam_disposal_apply"-->
+<!--            name="Apply Disposal Rules"-->
+<!--            res_model="odoocms.exam.disposal.wiz"-->
+<!--            binding_model="odoocms.batch"-->
+<!--            view_mode="form"-->
+<!--            binding_views="list,form"-->
+<!--            target="new"-->
+<!--    />-->
+
+    <record id="action_odoocms_exam_disposal" model="ir.actions.act_window">
+        <field name="name">Apply Disposal Rules</field>
+        <field name="res_model">odoocms.exam.disposal.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_exam_disposal"
+            parent="odoocms_academic.menu_odoocms_academic_result"
+            name="Apply Disposal Rules"
+            action="action_odoocms_exam_disposal"
+            sequence="270"/>
+
+</odoo>

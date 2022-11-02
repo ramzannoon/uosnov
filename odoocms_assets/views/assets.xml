@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id='assets_student_portal_hu' name='Student Portal Assets for HU' inherit_id="odoocms_web.assets_aarsol_portal">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/odoocms_student_portal_hu/static/css/custom.css"/>
+        </xpath>
+    </template>
+
+</odoo>

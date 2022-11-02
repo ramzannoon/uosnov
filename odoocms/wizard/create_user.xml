@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<!-- Student Login -->
+		<record id="view_odoocms_odoocms_student_create_user_wiz" model="ir.ui.view">
+			<field name="name">odoocms.student.user.wiz</field>
+			<field name="model">odoocms.student.user.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Create Student User">
+					<notebook>
+						<page string="Students">
+							<group>
+								<field name="student_ids" colspan="4" nolabel="1">
+									<tree string="Students">
+										<field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="email"/>
+										<field name="mobile"/>
+										<field name="program_id" />
+										<field name="semester_id" />
+										<field name="state" invisible="1"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+
+					<footer>
+						<button name="create_user" string="Create User" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<!-- Faculty Login -->
+		<record id="view_odoocms_create_faculty_user_wiz" model="ir.ui.view">
+			<field name="name">odoocms.faculty.user.wiz</field>
+			<field name="model">odoocms.faculty.user.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Create Faculty User">
+					<notebook>
+						<page string="Faculty">
+							<group>
+								<field name="faculty_ids" colspan="4" nolabel="1">
+									<tree string="Faculty Staff">
+										<field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="work_email"/>
+										<field name="mobile_phone"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+					<footer>
+						<button name="create_user" string="Create User" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_create_student_user_wiz"
+				name="Create Users"
+				binding_model="odoocms.student"
+				res_model="odoocms.student.user.wiz"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+		<act_window
+				id="act_odoocms_create_faculty_user_wiz"
+				name="Create User"
+				binding_model="odoocms.faculty.staff"
+				res_model="odoocms.faculty.user.wiz"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.attendance</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Odoo Attendance"
+                     string="OdooCMS Attendance"
+                     data-key="odoocms_attendance"
+                     groups="odoocms_attendance.group_attendance_manager,odoocms.group_cms_manager">
+                    <h2>OdooCMS Attendance</h2>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different setting for Attendances Module.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="attendance_req_per" />
+                                    <field name="attendance_req_per"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Attendance Percentage required.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_attendance'}</field>
+    </record>
+
+</odoo>

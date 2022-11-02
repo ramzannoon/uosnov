@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+	<data>
+        
+        <record id="view_public_holidays_tree" model="ir.ui.view">
+            <field name="name">odoocms.holidays.public.tree</field>
+            <field name="model">odoocms.holidays.public</field>
+            <field name="arch" type="xml">
+                <tree string="Public Holidays">
+                    <field name="name"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="action_public_holidays_view" model="ir.actions.act_window">-->
+<!--            <field name="name">Public Holidays</field>-->
+<!--            <field name="res_model">odoocms.holidays.public</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--        </record>-->
+<!--        -->
+<!--        <menuitem action="action_public_holidays_view"-->
+<!--                  id="menu_public_holidays_view"-->
+<!--                  parent="hr.menu_human_resources_configuration"-->
+<!--                  sequence="20"/>-->
+        
+    </data>
+</odoo>

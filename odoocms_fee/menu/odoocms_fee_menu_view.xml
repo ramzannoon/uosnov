@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="menu_odoocms_fee_root"
+            name="Student Fee"
+            groups="odoocms.group_cms_user"
+            web_icon="odoocms_fee,static/description/icon.png"
+            sequence="11"/>
+
+    <menuitem
+            id="menu_odoocms_student_fee_main"
+            name="Student Fee"
+            parent="menu_odoocms_fee_root"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_fee_ad_hoc_charges_main"
+            parent="menu_odoocms_student_fee_main"
+            name="Ad hoc Charges"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+            sequence="100"/>
+
+
+    <menuitem
+            id="menu_fee_deletion_log"
+            parent="menu_odoocms_student_fee_main"
+            name="Deletion Logs"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="500"/>
+
+    <menuitem
+            id="menu_student_cpr_detail"
+            parent="menu_odoocms_student_fee_main"
+            name="Student CPR Detail"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="600"
+            active="False"/>
+
+    <menuitem
+            id="menu_odoocms_student_fee_payment_main"
+            name="Fee Payments"
+            parent="menu_odoocms_fee_root"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+            sequence="50"/>
+
+    <menuitem
+            id="menu_odoocms_advance_fee_payment_main"
+            name="Advance Payments"
+            parent="menu_odoocms_student_fee_payment_main"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="500"
+            active="False"/>
+
+    <menuitem
+            id="menu_student_fee_request_root"
+            name="Student Requests"
+            parent="menu_odoocms_fee_root"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+            sequence="60"/>
+
+    <menuitem
+            id="menu_fee_reports"
+            parent="menu_odoocms_fee_root"
+            name="Reports"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="90"/>
+
+
+    <menuitem
+            id="menu_fee_configuration"
+            parent="menu_odoocms_fee_root"
+            name="Configuration"
+            groups="odoocms_fee.group_fee_manager"
+            sequence="500"/>
+
+    <menuitem
+            id="menu_fee_configuration_setup"
+            parent="menu_fee_configuration"
+            name="Fee Setup"
+            groups="odoocms_fee.group_fee_manager"
+            sequence="10"/>
+
+    <menuitem
+            id="menu_fee_configuration_waivers"
+            parent="menu_fee_configuration"
+            name="Fee Waivers"
+            groups="odoocms_fee.group_fee_manager"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_fee_configuration_refunds"
+            parent="menu_fee_configuration"
+            name="Fee Refunds"
+            groups="odoocms_fee.group_fee_manager"
+            sequence="50"/>
+
+    <menuitem
+            id="menu_fee_configuration_others"
+            parent="menu_fee_configuration"
+            name="Others"
+            groups="odoocms_fee.group_fee_manager"
+            sequence="100"/>
+
+</odoo>

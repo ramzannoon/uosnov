@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_medical_data_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style>
+                                div{
+                                margin-top: 26px;
+                                }
+                                table th{
+                                padding: 5px;
+                                }
+                                table td{
+                                padding: 5px;
+                                }
+                                table.border{
+                                width: 100%;
+                                }
+                                table.border th{
+                                padding: 5px;
+                                border: 1px solid black;
+                                }
+                                table.border td{
+                                padding: 5px;
+                                border: 1px solid black;
+                                }
+                            </style>
+
+                            <div class="text-center">
+                                <h2>Medical Data Form</h2>
+                            </div>
+                            <div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="width:20%">Employee Name</th>
+                                        <td style="width:30%"><span t-esc="o.name"/></td>
+                                        <th style="width:20%">Designation</th>
+                                        <td style="width:30%"><span t-esc="o.job_title"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>School / Department</th>
+                                        <td colspan="3"><span t-esc="o.department_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <h4>Family Enrolment Information</h4>
+                                <table class="border text-center">
+                                    <tr>
+                                        <th style="width:5%>">Sr. No</th>
+                                        <th style="width:35%>">Name</th>
+                                        <th style="width:20%>">Relationship</th>
+                                        <th style="width:20%>">CNIC/B-Form</th>
+                                        <th style="width:20%>">DOB</th>
+                                    </tr>
+                                    <t t-set="sr" t-value="0"/>
+                                    <t t-foreach="o.family_information_ids" t-as="line">
+                                        <t t-set="sr" t-value="sr+1"/>
+                                        <tr>
+                                            <td><t t-esc="sr"/></td>
+                                            <td><span t-esc="line.name"/></td>
+                                            <td><span t-field="line.relationship"/></td>
+                                            <td><span t-esc="line.cnic_no"/></td>
+                                            <td><span t-esc="line.dob" t-options="{'widget': 'date'}"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                            <div style="margin-top:56px">
+                                <table style="width: 25%;">
+                                    <tr>
+                                        <th style="border-top:1px solid black">Employee Signature</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="odoocms_student_room_vacant_wiz_view" model="ir.ui.view">
+            <field name="name">odoocms.student.room.vacant.wiz.view</field>
+            <field name="model">odoocms.student.room.vacant.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Student Room Vacant">
+                    <group>
+                        <group>
+                            <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                   required="1" domain="[('id', '=', active_id)]"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="student_code" readonly="1"/>
+                            <field name="student_gender" readonly="1"/>
+                            <field name="date" string="Vacant Date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="hostel_id" string="Hostel" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="room_type" string="Room Type" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="room_id" string="Room" domain="[('hostel_id','=',hostel_id), ('room_type', '=', room_type)]" readonly="1"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="action_student_room_vacant" string="Student Room Vacant" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_room_vacant_wiz" model="ir.actions.act_window">
+            <field name="name">Student Room Vacant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.room.vacant.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_student"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="groups_id" eval="[(4,ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+    </data>
+</odoo>

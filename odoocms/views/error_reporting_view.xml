@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_error_reporting_form" model="ir.ui.view">
+        <field name="name">odoocms.error.reporting.form</field>
+        <field name="model">odoocms.error.reporting</field>
+        <field name="arch" type="xml">
+            <form string="Error" >
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="reported_on" readonly="1" required="1"/>
+                            <field name="reported_by_id" readonly="1" required="1"/>
+                            <field name="state" />
+                        </group>
+                        <group>
+                            <field name="description" />
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_error_reporting_tree" model="ir.ui.view">
+        <field name="name">odoocms.error.reporting.tree</field>
+        <field name="model">odoocms.error.reporting</field>
+        <field name="arch" type="xml">
+            <tree string="Reported Errors">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="reported_on"/>
+                <field name="reported_by_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_error_reporting" model="ir.actions.act_window">
+        <field name="name">Error Reporting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.error.reporting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to report new error here.</p>
+        </field>
+    </record>
+
+
+
+</odoo>

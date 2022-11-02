@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_test_center" name="Admission Test Center">
+        <h2 id="admission_test_center"><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>
+        <fieldset>
+            <fieldset t-if="readonly or readonly2">
+                <legend>Test Center</legend>
+            </fieldset>
+            <fieldset t-if="not readonly and not readonly2">
+                <div class="frm-row" style="height:300px !important;">
+                    <div class="section colm colm4">
+                        <legend>Test Center</legend>
+                        <label class="field select">
+                            <select t-if="not student.center_id" name="test_center" id="test_center"
+                                    onchange="on_change_test_center(cent_id= this.value)" required="True">
+                                <option value="" selected="Selected">Select</option>
+                                <t t-foreach="test_center_ids" t-as="test_center">
+                                    <t t-foreach="test_center" t-as="test_center_disc">
+                                        <option t-att-value="test_center_disc.id" t-att-selected="student.center_id.id == test_center_disc.id">
+                                            <t t-esc="test_center_disc.name"/>
+                                        </option>
+                                    </t>
+                                </t>
+                            </select>
+                            <select t-if="student.center_id" name="test_center" id="test_center"
+                                    onchange="on_change_test_center(cent_id= this.value)" required="True">
+                                <option value="">Select</option>
+                                <t t-foreach="test_center_ids" t-as="test_center">
+                                    <t t-foreach="test_center" t-as="test_center_disc">
+                                        <option t-att-value="test_center_disc.id"
+                                                t-if="student.center_id.id == test_center_disc.id" selected="true">
+                                            <t t-esc="test_center_disc.name"/>
+                                        </option>
+                                        <option t-att-value="test_center_disc.id"
+                                                t-if="not student.center_id.id == test_center_disc.id">
+                                            <t t-esc="test_center_disc.name"/>
+                                        </option>
+                                    </t>
+                                </t>
+                            </select>
+                            <!-- -
+                                            <t t-esc="test_center_disc.discipline_id.name"/> -->
+
+<!--                            <select t-if="student.center_id" name="test_center" id="test_center"-->
+<!--                                    onchange="on_change_test_center(cent_id= this.value)" required="True">-->
+<!--                                <option value="">Select</option>-->
+<!--                                <t t-foreach="test_center_ids" t-as="test_center">-->
+<!--                                    <t t-foreach="test_center" t-as="test_center_disc">-->
+<!--                                        <option t-att-value="test_center_disc.id"-->
+<!--                                                t-if="student.center_id.id == test_center_disc.id" selected="true">-->
+<!--                                            <t t-esc="test_center_disc.name"/>-->
+<!--                                            - -->
+<!--                                            <t t-esc="test_center_disc.discipline_id.name"/>-->
+<!--                                        </option>-->
+<!--                                        <option t-att-value="test_center_disc.id"-->
+<!--                                                t-if="not student.center_id.id == test_center_disc.id">-->
+<!--                                            <t t-esc="test_center_disc.name"/>-->
+<!--                                            - -->
+<!--                                            <t t-esc="test_center_disc.discipline_id.name"/>-->
+<!--                                        </option>-->
+<!--                                    </t>-->
+<!--                                </t>-->
+<!--                            </select>-->
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div id="test_schedule_div" class="section colm colm6" style="display:none;"/>
+
+<!--                    <div id="test_schedule_div" class="section colm colm6" style="display:none;">-->
+<!--                        <legend>Test Schedule</legend>-->
+<!--                        <label class="field select">-->
+<!--                            <p id="pbt"/>-->
+<!--                            <div id="cbt">-->
+<!--                                <t t-foreach="test_center_ids" t-as="test_center">-->
+<!--                                    <t t-foreach="test_center" t-as="test_center_disc">-->
+<!--                                        <t t-foreach="test_center_disc.time_ids" t-as="time">-->
+<!--                                            <div>-->
+<!--                                                <b>-->
+<!--                                                    <t t-if="student.slot_id.id == time.id"-->
+<!--                                                       t-esc="test_center_disc.test_type"/>-->
+<!--                                                </b>-->
+<!--                                            </div>-->
+<!--                                            <input type="radio" required="true" t-if="student.slot_id.id == time.id"-->
+<!--                                                   checked="true" onchange="on_change_test_time()" t-value="time.id"-->
+<!--                                                   name='test_timing' t-attf-id="time_{{time.id}}">Test Date:-->
+<!--                                                <t t-esc="time.date"/>-->
+<!--                                                Time:-->
+<!--                                                <t t-esc="time.date"/>-->
+<!--                                            </input>-->
+<!--                                        </t>-->
+<!--                                    </t>-->
+<!--                                </t>-->
+<!--                            </div>-->
+<!--                        </label>-->
+<!--                    </div>-->
+                </div>
+
+
+<!--                <div class="frm-row">-->
+<!--                    Voucher Verification is in progress.-->
+<!--                </div>-->
+<!--                <div class="frm-row">-->
+<!--                </div>-->
+<!--                <div class="frm-row">-->
+<!--                </div>-->
+
+            </fieldset>
+        </fieldset>
+    </template>
+</odoo>

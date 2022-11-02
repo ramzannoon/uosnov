@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_student_term_defer_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.term.defer.tree</field>
+        <field name="model">odoocms.student.term.defer</field>
+        <field name="arch" type="xml">
+            <tree string="Admission Register">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <field name="section_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_student_term_defer_form" model="ir.ui.view">
+        <field name="name">odoocms.student.term.defer.form</field>
+        <field name="model">odoocms.student.term.defer</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Defer Semester Details">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_invoice" string="Make Invoice" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','approve'),('invoice_id', '!=', False)]}"
+                            groups="odoocms.group_cms_manager"/>
+                    <button type="object" name="defer_term" string="Defer Term"
+                            attrs="{'invisible': [('can_defer', '=', False)]}"
+                            groups="odoocms.group_cms_manager"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,done"/>
+                    <field name="can_defer" invisible="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="program_id"/>
+                            <field name="batch_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="semester_id"/>
+                            <field name="current_term_id"/>
+                        </group>
+                        <group>
+                            <field name="term_id" domain="[('number','>=',term_seq)]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="invoice_id" readonly="1"/>
+                            <field name="term_seq" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="bypass"/>
+                        </group>
+                    </group>
+                    <field name="reason"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_student_term_defer__search" model="ir.ui.view">
+        <field name="name">odoocms.student.term.defer.search</field>
+        <field name="model">odoocms.student.term.defer</field>
+        <field name="arch" type="xml">
+            <search string="Defer Semester Details">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="program" string="Program" domain="[]"
+                            context="{'group_by':'program_id'}"/>
+                    <filter name="batch" string="Batch" domain="[]"
+                            context="{'group_by':'batch_id'}"/>
+                    <separator/>
+                    <filter string="Terms" name="group_term" domain="[]"
+                            context="{'group_by' : 'term_id'}"/>
+                    <filter string="Career" name="Academic Level" domain="[]"
+                            context="{'group_by' : 'career_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="career_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="act_term_defer_view" model="ir.actions.act_window">
+        <field name="name">Term Defer Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.term.defer</field>
+        <field name="search_view_id" ref="view_student_term_defer__search"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_request_term_resume" model="ir.ui.view">
+        <field name="name">odoocms.student.term.resume.tree</field>
+        <field name="model">odoocms.student.term.resume</field>
+        <field name="arch" type="xml">
+            <tree string="Request Term Resume">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <field name="section_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_request_term_resume_form" model="ir.ui.view">
+        <field name="name">odoocms.student.term.resume.form</field>
+        <field name="model">odoocms.student.term.resume</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Request Term Resume">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <!--<button name="action_invoice" string="Make Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('state','!=','submit'),('invoice_id', '!=', False)]}"
+                                groups="odoocms.group_cms_manager"/>-->
+                    <button type="object" name="resume_term" string="Resume Term"
+                            attrs="{'invisible': [('can_approve', '=', False)]}"
+                            groups="odoocms.group_cms_manager"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,done"/>
+                    <field name="can_approve" invisible="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="program_id"/>
+                            <field name="batch_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="term_id"/>
+                            <field name="semester_id"/>
+                            <field name="invoice_id" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="act_request_term_resume_view" model="ir.actions.act_window">
+        <field name="name">Student Term Resume</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.term.resume</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--  Couse Drop by Student -->
+    <record id="view_student_course_drop" model="ir.ui.view">
+        <field name="name">odoocms.student.course.drop.tree</field>
+        <field name="model">odoocms.student.course.drop</field>
+        <field name="arch" type="xml">
+            <tree string="Student Course Drop">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="registration_id"/>
+                <field name="date_request"/>
+                <field name="date_effective"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_student_course_drop_form" model="ir.ui.view">
+        <field name="name">odoocms.student.course.drop.form</field>
+        <field name="model">odoocms.student.course.drop</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Student Course Drop">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="submit"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="submit"/>
+                    <field name="state" statusbar_visible="draft,approve,done" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field default_focus="1" name="name" placeholder="Name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="student_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="program_id"/>
+                            <field name="batch_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="term_id"/>
+                            <field name="semester_id"/>
+                        </group>
+                        <group>
+                            <field name="registration_id"
+                                   domain="[('student_id','=',student_id),('term_id','=',term_id),('state','in',('draft','current'))]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                            />
+                            <field name="reason_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group>
+                            <field name="date_request"/>
+                            <field name="date_effective"/>
+                            <field name="date_approve"/>
+                            <field name="override_min_limit"/>
+                            <field name="limit_error" invisible="1"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('limit_error','=',False)]}">
+                        <h3>
+                            <field name="limit_error_text" class="text-danger" readonly="1"/>
+                        </h3>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student_course_drop_view" model="ir.actions.act_window">
+        <field name="name">Student Course Drop</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.course.drop</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--<record id="act_odoocms_course_withdraw_submit" model="ir.actions.server">
+        <field name="name">Submit Request</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_student_course_drop"/>
+        <field name="binding_model_id" ref="model_odoocms_student_course_drop"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_submit()
+        </field>
+    </record>-->
+
+
+    <record id="view_odoocms_drop_reason_tree" model="ir.ui.view">
+        <field name="name">odoocms.drop.reason.tree</field>
+        <field name="model">odoocms.drop.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Drop Reasons">
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_odoocms_drop_reason_form" model="ir.ui.view">
+        <field name="name">odoocms.drop.reason.form</field>
+        <field name="model">odoocms.drop.reason</field>
+        <field name="arch" type="xml">
+            <form string="Drop Reasons">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_odoocms_drop_reason_view" model="ir.actions.act_window">
+        <field name="name">Course Drop Reasons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.drop.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Course Drop Administratively -->
+    <record id="view_odoocms_student_course_delete_form" model="ir.ui.view">
+        <field name="name">odoocms.student.course.delete</field>
+        <field name="model">odoocms.student.course.delete</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="CMS User - Course Delete" delete="false" duplicate="false">
+                <header>
+<!--                     <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="submit"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="submit"/> -->
+                    <field name="state" statusbar_visible="draft,approve" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field default_focus="1" name="name" placeholder="Name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_request"/>
+                            <field name="date_effective"/>
+                            <field name="date_approve"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Student Courses" attrs="{'invisible':[('state','=','approve')]}">
+                            <group>
+                                <field name="registration_ids" colspan="4" nolabel="1"
+                                       domain="[('state','in',('draft','current'))]"
+                                       context="{'search_default_group_by_program': 1}"
+                                       options="{'no_create': True}">
+                                    <tree>
+                                        <field name="student_id"/>
+                                        <field name="primary_class_id"/>
+                                        <field name="program_id" optiona="hide"/>
+                                        <field name="term_id"/>
+                                        <field name="session_id" optional="hide"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Student Courses Deleted" attrs="{'invisible':[('state','!=','approve')]}">
+                            <group>
+                                <field name="deleted_ids" colspan="4" nolabel="1">
+                                    <tree>
+                                        <field name="student_id"/>
+                                        <field name="primary_class_id"/>
+                                        <field name="program_id" optional="hide"/>
+                                        <field name="term_id"/>
+                                        <field name="session_id" optional="hide"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_course_delete" model="ir.ui.view">
+        <field name="name">odoocms.student.course.delete.tree</field>
+        <field name="model">odoocms.student.course.delete</field>
+        <field name="arch" type="xml">
+            <tree string="Student Course Delete" delete="false" duplicate="false">
+                <field name="name"/>
+                <field name="date_request"/>
+                <field name="date_effective"/>
+                <field name="date_approve"/>
+                <field name="description"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="act_odoocms_student_course_delete" model="ir.actions.act_window">
+        <field name="name">CMS User - Course Delete</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.course.delete</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+   
+
+
+
+    <menuitem
+            action="act_term_defer_view"
+            id="menu_odoocms_request_term_defer"
+            name="Term Deferment"
+            parent="menu_student_request_root"
+            sequence="110"/>
+
+    <menuitem
+            action="act_request_term_resume_view"
+            id="menu_odoocms_request_term_resume"
+            name="Term Resume"
+            parent="menu_student_request_root"
+            sequence="120"/>
+
+    <menuitem
+            id="menu_odoocms_student_course_drop"
+            name="Course Drop"
+            action="action_student_course_drop_view"
+            parent="menu_student_request_root"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_student_course_delete"
+            action="act_odoocms_student_course_delete"
+            name="CMS User - Course Delete"
+            parent="menu_student_request_root"
+            sequence="40"/>
+
+    <menuitem
+            id="menu_odoocms_drop_reason"
+            action="act_odoocms_drop_reason_view"
+            name="Course Drop Reasons"
+            parent="menu_registration_configuration"
+            sequence="300"/>
+
+
+
+
+
+</odoo>

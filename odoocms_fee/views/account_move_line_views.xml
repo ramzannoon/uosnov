@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_receipt_line_tree" model="ir.ui.view">
+            <field name="name">odoocms.receipt.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field eval="100" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Fee Receipt Analysis" create="false" edit="false">
+                    <field name="name"/>
+<!--                     <field name="student_id"/> -->
+                    <!--                    <field name="student_tags" widget="many2many_tags"/>-->
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="career_id"/>
+                    <field name="program_id"/>
+                    <field name="discipline_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="date"/>
+                    <field name="fee_category_id"/>
+                    <field name="fee_head_id"/>
+                    <field name="tag"/>
+                    <field name="credit" sum="Total Credit"/>
+                    <field name="move_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_receipt_line_pivot" model="ir.ui.view">
+            <field name="name">odoocms.receipt.line.pivot</field>
+            <field name="model">account.move.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Fee Receipt Analysis Report">
+                    <field name="student_id" type="row"/>
+                    <!--                    <field name="student_tags" type="row"/>-->
+                    <field name="fee_head_id" type="col"/>
+                    <field name="credit" string="Amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_receipt_line_filter" model="ir.ui.view">
+            <field name="name">odoocms.receipt.line.search</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Date" name="groupby_date" domain="[]" context="{'group_by': 'date'}"/>
+                <xpath expr="//filter[@name='groupby_date']" position="after">
+                    <filter string="Tags" name="group_by_tag" domain="[]" context="{'group_by': 'tag'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_odoocms_receipt_line" model="ir.actions.act_window">
+            <field name="name">Fee Receipt Analysis Report</field>
+            <field name="res_model">account.move.line</field>
+            <field name="view_mode">pivot,graph</field>
+            <field name="domain">[('move_id.is_fee', '=', True),('credit','>',0),('move_id.invoice_payment_state', '=', 'unpaid')]</field>
+            <field name="search_view_id" ref="odoocms_fee.view_odoocms_receipt_line_filter"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+               (0, 0, {'view_mode': 'pivot', 'view_id': ref('odoocms_fee.view_odoocms_receipt_line_pivot')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('odoocms_fee.view_odoocms_receipt_line_tree')})
+                ]"/>
+
+        </record>
+
+        <menuitem
+                id="menu_odoocms_receipt_line_pivot"
+                name="Fee Receipt Analysis Report"
+                action="action_odoocms_receipt_line"
+                parent="odoocms_fee.menu_fee_reports"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="200"/>
+
+
+    </data>
+</odoo>

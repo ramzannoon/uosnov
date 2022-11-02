@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <act_window
+                id="odoocms_update_rechecking_result"
+                name="Update Result"
+                binding_model="odoocms.request.subject.rechecking"
+                res_model="odoocms.rechecking.result.update"
+                binding_views="list,form" view_mode="form" target="new"
+                groups="odoocms.group_cms_manager"/>
+
+        <record id="view_odoocms_update_rechecking_form" model="ir.ui.view">
+            <field name="name">odoocms.rechecking.result.update.form</field>
+            <field name="model">odoocms.rechecking.result.update</field>
+            <field name="arch" type="xml">
+                <form string="Update Result">
+                    <group>
+                    </group>
+                    <!--                    <group>-->
+                    <!--                        <field name="comment"/>-->
+                    <!--                    </group>-->
+
+                    <notebook>
+                        <page string="Students" attrs="{'invisible': [('student_ids','=',[])]}">
+                            <group>
+                                <field name="student_ids" colspan="4" nolabel="1">
+                                    <tree string="Students">
+                                        <field name="student_id"/>
+                                        <field name="batch_id"/>
+                                        <field name="term_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+
+
+                    </notebook>
+
+
+                    <footer>
+                        <button name="action_update_result" string="Update Result" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

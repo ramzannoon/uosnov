@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+    <record id="view_odoocms_application_merit_tree" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.tree</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="arch" type="xml">
+            <tree string="Merit Details" create="false" edit="false" delete="false">
+                <field name="entryID"/>
+                <field name="application_id"/>
+                <field name="program_id"/>
+                <field name="preference"/>
+                <field name="merit_number"/>
+                <field name="program_merit_number"/>
+                <field name="locked"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="view_odoocms_application_merit_form" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.form</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="arch" type="xml">
+            <form string="Merit Details">
+                <header>
+<!--                    <button name=" ( action_odoocms_merit_status ) d" type="action" class="oe_highlight"-->
+<!--                            string="Update Status"-->
+<!--                            groups="base.group_user"-->
+<!--                            help="Click to Change the Status"-->
+<!--                            states="draft"/>-->
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="register_id" readonly="1"/>
+                            <field name="application_id" readonly="1"/>
+                            <field name="program_id" readonly="1"/>
+                            <field name="preference" readonly="1"/>
+                            <field name="entryID" readonly="1"/>
+                        </group>
+                        <group name="program_merit_number_group">
+                            <field name="merit_register_id" readonly="1"/>
+                            <field name="merit_number" readonly="1"/>
+                            <field name="program_merit_number" readonly="1"/>
+                        </group>
+                        <group name="quota_details_group">
+                            <field name="admission_on_quota" readonly="1"/>
+                            <field name="quota_id" readonly="1" attrs="{'invisible':[('admission_on_quota','=',False)]}"/>
+                            <field name="quota_number" readonly="1" attrs="{'invisible':[('admission_on_quota','=',False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date_interview"/>
+                            <field name="state" readonly="0"/>
+                            <field name="locked" readonly="0"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="comments"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Preferences">
+                            <field name="line_ids">
+                                <tree edit="false" delete="false" create="false">
+                                    <field name="program_id"/>
+                                    <field name="preference"/>
+                                    <field name="program_merit_number"/>
+                                    <field name="seats"/>
+<!--                                    <field name="quota_id" attrs="{'column_invisible':[('parent.application_id.quota_id','=',False)]}"/>-->
+<!--                                    <field name="quota_number" attrs="{'column_invisible':[('parent.application_id.quota_id','=',False)]}"/>-->
+<!--                                    <field name="quota_seats"  attrs="{'column_invisible':[('parent.application_id.quota_id','=',False)]}"/>-->
+
+<!--                                    <field name="quota_id2" attrs="{'column_invisible':[('parent.application_id.quota_id2','=',False)]}"/>-->
+<!--                                    <field name="quota_number2" attrs="{'column_invisible':[('parent.application_id.quota_id2','=',False)]}"/>-->
+<!--                                    <field name="quota_seats2"  attrs="{'column_invisible':[('parent.application_id.quota_id2','=',False)]}"/>-->
+
+<!--                                    <field name="dae_quota_id" attrs="{'column_invisible':[('parent.application_id.dae_quota_id','=',False)]}"/>-->
+<!--                                    <field name="dae_quota_number" attrs="{'column_invisible':[('parent.application_id.dae_quota_id','=',False)]}"/>-->
+<!--                                    <field name="dae_seats"  attrs="{'column_invisible':[('parent.application_id.dae_quota_id','=',False)]}"/>-->
+                                    <field name="selected"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_merit_search" model="ir.ui.view">
+        <field name="name">odoocms.application.merit.search</field>
+        <field name="model">odoocms.application.merit</field>
+        <field name="arch" type="xml">
+            <search string="Search Application Merit">
+                <field name="entryID"/>
+                <field name="program_id"/>
+                <field name="merit_number"/>
+                <newline />
+                <filter string="Current Register" name="new_register" domain="[('register_id.state','=','merit')]"/>
+                <filter string="To be Processed" name="new_application" domain="[('state','=','draft')]"/>
+                <filter string="Done" name="done_application" domain="[('state','!=','draft')]"/>
+                <filter string="Locked" name="locked" domain="[('locked','=',True)]"/>
+                <filter string="UnLocked" name="unlocked" domain="[('locked','=',False)]"/>
+                <newline />
+                <group expand='0' string='Group by...'>
+                    <filter name="status" string='Status' domain="[]" context="{'group_by' : 'state'}"/>
+                    <filter name="register" string='Register' domain="[]" context="{'group_by' : 'register_id'}"/>
+                    <filter name="merit_register_id" string='Merit Register' domain="[]" context="{'group_by' : 'merit_register_id'}"/>
+                    <filter name="grp_program_id" string='Program' domain="[]" context="{'group_by' : 'program_id'}"/>
+                    <filter name="preference" string='Preference' domain="[]" context="{'group_by' : 'preference'}"/>
+               </group>
+           </search>
+        </field>
+    </record>
+    
+    <record id="action_odoocms_application_merit" model="ir.actions.act_window">
+        <field name="name">Merit Details</field>
+        <field name="res_model">odoocms.application.merit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_new_register':1}</field>
+        <field name="search_view_id" ref="view_odoocms_application_merit_search"/>
+    </record>
+
+    <record id="view_odoocms_merit_register_tree" model="ir.ui.view">
+        <field name="name">odoocms.merit.register.tree</field>
+        <field name="model">odoocms.merit.register</field>
+        <field name="arch" type="xml">
+            <tree string="Merit Register" create="true" edit="true" delete="false">
+                <field name="register_id"/>
+                <field name="name"/>
+                <field name="merit_list_id"/>
+                <field name="date_list"/>
+                <field name="next_merit_register_id"/>
+                <field name="prev_merit_register_id"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="view_odoocms_merit_register_form" model="ir.ui.view">
+        <field name="name">odoocms.merit.register.form</field>
+        <field name="model">odoocms.merit.register</field>
+        <field name="arch" type="xml">
+            <form string="Merit Register">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="register_id" readonly="0"/>
+                            <field name="name" readonly="0"/>
+                            <field name="merit_list_id" readonly="0" invisible="1"/>
+                            <field name="date_list" readonly="0" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="next_merit_register_id" readonly="0" invisible="1"/>
+                            <field name="prev_merit_register_id" readonly="0" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Merit Detail">
+                            <field name="merit_application_ids" readonly="0">
+<!--                                <tree create="false" delete="false" edit="true">-->
+                                <tree editable="bottom" default_order="total_aggregates desc">
+                                    <field name="entryID"/>
+                                    <field name="application_id"/>
+                                    <field name="program_id" invisible="1"/>
+                                    <field name="preference" invisible="1"/>
+                                    <field name="merit_number" invisible="1"/>
+                                    <field name="program_merit_number" invisible="1"/>
+                                    <field name="date_interview" invisible="1"/>
+                                    <field name="amount" invisible="1"/>
+                                    <field name="locked" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <div class="oe_chatter">
+                     <field name="message_follower_ids" widget="mail_followers"/>
+                     <field name="activity_ids" widget="mail_activity"/>
+                     <field name="message_ids" widget="mail_thread"/>
+                 </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_merit_register" model="ir.actions.act_window">
+        <field name="name">Merit Register</field>
+        <field name="res_model">odoocms.merit.register</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <record id="view_odoocms_merit_list_tree" model="ir.ui.view">
+        <field name="name">odoocms.merit.list.tree</field>
+        <field name="model">odoocms.merit.list</field>
+        <field name="arch" type="xml">
+            <tree string="Merit Details" editable="bottom">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_merit_list" model="ir.actions.act_window">
+        <field name="name">Merit List</field>
+        <field name="res_model">odoocms.merit.list</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem
+            id="menu_odoocms_merit_register"
+            name="Merit Register"
+            parent="menu_odoocms_admission_main"
+            action="action_odoocms_merit_register"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="90"/>
+
+    <menuitem
+            id="menu_odoocms_application_merit"
+            name="Merit Details"
+            parent="menu_odoocms_admission_main"
+            action="action_odoocms_application_merit"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="100"/>
+
+    <menuitem
+            id="menu_odoocms_merit_list"
+            name="Merit List"
+            parent="menu_admission_configuration"
+            action="action_odoocms_merit_list"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="120"/>
+
+    <!--
+    <menuitem
+            id="menu_odoocms_admission_quota_seats"
+            name="Admission Quota Seats"
+            parent="menu_odoocms_admission_root"
+            action="action_odoocms_admission_quota_seats"
+            sequence="120"/>
+    -->
+
+</odoo>

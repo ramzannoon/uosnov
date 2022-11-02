@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.academic</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="odoocms.view_config_settings_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='grades']" position="after">
+                <div name="marks_rounding" class="col-12 col-lg-6 o_setting_box"
+                     title="Marks Rounding.">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group mt16">
+                            <label class="o_form_label o_light_label" for="marks_rounding"/>
+                            <field name="marks_rounding"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Configuration for the Marks Rounding.
+                        </div>
+                    </div>
+                </div>
+
+                <div name="gpa_rounding" class="col-12 col-lg-6 o_setting_box"
+                     title="GPA Rounding.">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group mt16">
+                            <label class="o_form_label o_light_label" for="gpa_rounding"/>
+                            <field name="gpa_rounding"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Configuration for the GPA Rounding.
+                        </div>
+                    </div>
+                </div>
+
+                <div name="sgpa_rounding" class="col-12 col-lg-6 o_setting_box"
+                     title="SGPA Rounding.">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group mt16">
+                            <label class="o_form_label o_light_label" for="sgpa_rounding"/>
+                            <field name="sgpa_rounding"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Configuration for the SGPA Rounding.
+                        </div>
+                    </div>
+                </div>
+
+                <div name="cgpa_rounding" class="col-12 col-lg-6 o_setting_box"
+                     title="CGPA Rounding.">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group mt16">
+                            <label class="o_form_label o_light_label" for="cgpa_rounding"/>
+                            <field name="cgpa_rounding"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Configuration for the CGPA Rounding.
+                        </div>
+                    </div>
+                </div>
+
+                <div name="excluded_histogram_grades" class="col-12 col-lg-6 o_setting_box"
+                     title="Grades Excluded in Histogram">
+                    <div class="o_setting_right_pane">
+                        <div class="content-group mt16">
+                            <label class="o_form_label o_light_label" for="excluded_histogram_grades"/>
+                            <field name="excluded_histogram_grades"/>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Configuration for Grades Excluded in Histogram.
+                        </div>
+                    </div>
+                </div>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_academic'}</field>
+    </record>
+
+    <record id="mail_activity_type_action" model="ir.actions.act_window">
+        <field name="name">Academic Approvals</field>
+        <field name="res_model">mail.activity.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                    (0, 0, {
+                        'view_mode': 'tree',
+                        'view_id': ref('aarsol_activity.mail_activity_type_view_tree')
+                    }),
+               ]"/>
+        <field name="domain"
+               eval="[('module_category_id','=',ref('module_category_odoocms_academic'))]"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+            id="menu_academic_config_settings"
+            parent="menu_odoocms_academic_configuration"
+            action="action_config_settings"
+            groups="odoocms.group_cms_manager,odoocms_academic.group_academic_manager"
+            name="Settings"
+            sequence="1"/>
+
+    <menuitem
+            id="menu_mail_activity_type"
+            parent="menu_odoocms_academic_configuration"
+            action="mail_activity_type_action"
+            groups="odoocms.group_cms_manager,odoocms_academic.group_academic_manager"
+            name="Activity Types"
+            sequence="5"
+    />
+
+</odoo>
+

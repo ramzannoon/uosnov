@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_personal_detail" name="Admission Personal Detail">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <div class="block-info">
+                <legend style="color: #0393DC"><h4>Personal Details</h4></legend>
+                <!--Done remove id from this div-->
+                <div class="frm-row" id="name_block">
+                    <div class="section colm colm4">
+                        <label for="your_name">
+                            <span>First Name</span><span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="first_name" id="first_name" class="gui-input" onkeypress="return (event.charCode &gt; 64 &amp;&amp; event.charCode &lt; 91) || (event.charCode &gt; 96 &amp;&amp; event.charCode &lt; 123) || (event.charCode==32)"
+                                   onkeydown="return alphaOnly(event);" placeholder="First Name" t-att-value="student.first_name" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-user"/></span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="middle_name">Middle Name</label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="middle_name" id="middle_name" class="gui-input" onkeypress="return (event.charCode &gt; 64 &amp;&amp; event.charCode &lt; 91) || (event.charCode &gt; 96 &amp;&amp; event.charCode &lt; 123) || (event.charCode==32)"
+                                   onkeydown="return alphaOnly(event);" t-att-value="student.middle_name" placeholder="Middle Name"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-user"/></span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="your_name">
+                            <span>Last Name</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="last_name" id="last_name" class="gui-input" placeholder="Last Name" onkeypress="return (event.charCode &gt; 64 &amp;&amp; event.charCode &lt; 91) || (event.charCode &gt; 96 &amp;&amp; event.charCode &lt; 123) || (event.charCode==32)"
+                                   onkeydown="return alphaOnly(event);" t-att-value="student.last_name"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-user"/></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="gender">
+                            <span>Gender</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="gender" id="gender">
+                                <option value="m" t-att-selected="student.gender == 'm'"
+                                        t-att-disabled="readonly and student.gender != 'm'">Male
+                                </option>
+                                <option value="f" t-att-selected="student.gender == 'f'"
+                                        t-att-disabled="readonly and student.gender != 'f'">Female
+                                </option>
+                                <option value="o" t-att-selected="student.gender == 'o'"
+                                        t-att-disabled="readonly and student.gender != 'o'">Other
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="DOB">
+                            <span>Date of Birth</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="date" name="dob" id="dob" class="gui-input" t-att-value="student.date_of_birth"
+                                   required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-calendar"/></span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="cnic">
+                            <span>CNIC/Passport</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="cnic" id="cnic" class="gui-input"
+                                   t-att-value="student.cnic" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-credit-card"/></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="nationality">
+                            <span>Nationality</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="nationality" id="nationality" onchange="onchange_nationality()">
+                                <t t-foreach="countries" t-as="country">
+                                    <option t-att-value="country.id"
+                                            t-att-selected="(student.nationality and student.nationality.id == country.id)
+                                                or (not student.nationality and country.name == 'Pakistan')"
+                                            t-att-disabled="readonly and student.nationality != country.id">
+                                        <span t-esc="country.name"/>
+                                    </option>
+                                </t>
+
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4" id="province_div"
+                         t-att-style="(student.nationality and student.nationality.name != 'Pakistan') and 'display: none'">
+                        <label for="address">
+                            <span>Province/State</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="province_id" id="province_id" onchange="onchange_province(my_id= this.value)">
+                                <t t-foreach="provinces" t-as="province">
+                                    <option t-att-value="province.id"
+                                            t-att-selected="(student.province_id and student.province_id.id == province.id)"
+                                            t-att-disabled="readonly and student.province_id.id != province.id">
+                                        <span t-esc="province.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div id="province_div_2" class="section colm colm4"
+                         t-att-style="((not student.nationality) or (student.nationality.name == 'Pakistan')) and 'display: none'">
+                        <label for="phone">
+                            <span>Province/State</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="province2" id="province2" t-att-value="student.province2"
+                                   onkeydown="return alphaOnly(event);" class="gui-input" placeholder="ISB" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-building"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4" id="domicile_div"
+                         t-att-style="(student.nationality and student.nationality.name != 'Pakistan') and 'display: none'">
+                        <label for="nationality">
+                            <span>Domicile</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="domicile_id" id="domicile_id">
+                                <t t-foreach="domiciles" t-as="domicile">
+                                    <option t-att-value="domicile.id"
+                                            t-att-selected="student.domicile_id.id == domicile.id"
+                                            t-att-disabled="readonly and student.domicile_id.id != domicile.id">
+                                        <span t-esc="domicile.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="city">
+                            <span>Religion</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="religion_id" id="religion_id">
+                                <t t-foreach="religion_id" t-as="religion">
+                                    <option t-att-value="religion.id"
+                                            t-att-selected="(student.religion_id and student.religion_id.id == religion.id)
+                                            or (not student.religion_id and religion.name == 'Islam')"
+                                            t-att-disabled="readonly and student.religion_id.id != religion.id">
+                                        <span t-esc="religion.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm6">
+                        <label for="gender">
+                            <span>Blood Group</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="bloodgroup" id="bloodgroup" required="True">
+                                <option value="B+" t-att-selected="student.blood_group == 'N'"
+                                        t-att-disabled="readonly and student.blood_group != 'N'">Not Known
+                                </option>
+                                <option value="B+" t-att-selected="student.blood_group == 'B+'"
+                                        t-att-disabled="readonly and student.blood_group != 'B+'">B+ve
+                                </option>
+                                <option value="O+" t-att-selected="student.blood_group == 'O+'"
+                                        t-att-disabled="readonly and student.blood_group != 'O+'">O+ve
+                                </option>
+                                <option value="AB+" t-att-selected="student.blood_group == 'AB+'"
+                                        t-att-disabled="readonly and student.blood_group != 'AB+'">AB+ve
+                                </option>
+                                <option value="A+" t-att-selected="student.blood_group == 'A+'"
+                                        t-att-disabled="readonly and student.blood_group != 'A+'">A+ve
+                                </option>
+                                <option value="A-" t-att-selected="student.blood_group == 'A-'"
+                                        t-att-disabled="readonly and student.blood_group != 'A-'">A-ve
+                                </option>
+                                <option value="B-" t-att-selected="student.blood_group == 'B-'"
+                                        t-att-disabled="readonly and student.blood_group != 'B-'">B-ve
+                                </option>
+                                <option value="O-" t-att-selected="student.blood_group == 'O-'"
+                                        t-att-disabled="readonly and student.blood_group != 'O-'">O-ve
+                                </option>
+                                <option value="AB-" t-att-selected="student.blood_group == 'AB-'"
+                                        t-att-disabled="readonly and student.blood_group != 'AB-'">AB-ve
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <legend style="color: #0393DC"><h4>Degrees</h4></legend><br/>
+                <div class="frm-row">
+                    <div class="section colm colm4" id="last_degree">
+                        <label for="merit_type">Last Degree</label>
+                        <label class="field select">
+                            <select name="degree" id="degree" required="True">
+                                <t t-foreach="degree_ids" t-as="degree">
+                                    <option t-att-value="degree.id"
+                                            t-att-selected="student.degree.id == degree.id"
+                                            t-att-disabled="readonly and student.degree.id != degree.id">
+                                        <t t-esc="degree.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="gender"/>
+                        <label class="field select">
+                            <input class="checkbox" name="is_dual_nationality" type="checkbox" id="is_dual_nationality"
+                                   onclick="on_change_dualNationality()" t-att-checked="student.is_dual_nationality"
+                                   t-att-disabled="readonly"/>
+                            Overseas Pakistani/ Foreigner?
+                        </label>
+                    </div>
+
+                    <div id="passport_div" class="section colm colm4"
+                         t-att-style="(not student.is_dual_nationality) and 'display: none'">
+                        <label for="phone">
+                            <span>Passport No</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="passport" id="passport" class="gui-input"
+                                   placeholder="45784546655" t-att-value="student.passport" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4" id="div_dual_nationality_country"
+                         t-att-style="(not student.is_dual_nationality) and 'display: none'">
+                        <label for="nationality">
+                            <span>Country</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="country_id" id="country_id">
+                                <t t-foreach="countries" t-as="country">
+                                    <option t-att-value="country.id"
+                                            t-att-selected="student.country_id.id == country.id"
+                                            t-att-disabled="readonly and student.country_id.id != country.id">
+                                        <span t-esc="country.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <legend style="color: #0393DC"><h4>Family Information (University Level Education)</h4></legend><br/>
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label class="field select">
+                            <label for="family">
+                                <span>How Many Brothers &amp; Sisters you have?</span><span style="color: red">*</span>
+                            </label>
+                            <input type="text" name="no_of_sibling" t-att-value="student.no_of_sibling"
+                                   id="no_of_sibling" class="gui-input" placeholder="" required="true"
+                                   t-att-readonly="readonly"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label class="field select">
+                            <label for="family2">
+                                <span>How many Brothers &amp; Sister you have in University level Education
+                                    or Completed their University Level Education?</span><span style="color: red">*</span>
+                            </label>
+                            <input type="text" name="family_in_university" t-att-value="student.family_in_university"
+                                   id="family_in_university" class="gui-input" placeholder="" required="true"
+                                   t-att-readonly="readonly"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="">
+                            <span>How you came to know About Superior?</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field select">
+                            <select name="get_info_from" id="get_info_from" required="true">
+                                <option value="">Select Option</option>
+                                <option value="University Website"
+                                        t-att-selected="student.get_info_from == 'University Website'"
+                                        t-att-disabled="readonly and student.get_info_from != 'University Website'">
+                                    University Website
+                                </option>
+                                <option value="Newspapers" t-att-selected="student.get_info_from == 'Newspapers'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Newspapers'">Newspapers
+                                </option>
+                                <option value="Social Media" t-att-selected="student.get_info_from == 'Social Media'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Social Media'">Social
+                                    Media
+                                </option>
+                                <option value="NEC Awareness Sessions"
+                                        t-att-selected="student.get_info_from == 'NEC Awareness Sessions'"
+                                        t-att-disabled="readonly and student.get_info_from != 'NEC Awareness Sessions'">
+                                    NEC Awareness Sessions
+                                </option>
+                                <option value="Own College / Institutions"
+                                        t-att-selected="student.get_info_from == 'Own College / Institutions'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Own College / Institutions'">
+                                    Own College / Institutions
+                                </option>
+                                <option value="Panaflex / billboard"
+                                        t-att-selected="student.get_info_from == 'Panaflex / billboard'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Panaflex / billboard'">
+                                    Panaflex / Billboard
+                                </option>
+                                <option value="Friends / relatives"
+                                        t-att-selected="student.get_info_from == 'Friends / relatives'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Friends / relatives'">
+                                    Friends / relatives
+                                </option>
+                                <option value="TV" t-att-selected="student.get_info_from == 'TV'"
+                                        t-att-disabled="readonly and student.get_info_from != 'TV'">TV
+                                </option>
+                                <option value="Radio" t-att-selected="student.get_info_from == 'Radio'"
+                                        t-att-disabled="readonly and student.get_info_from != 'Radio'">Radio
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-info">
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="disability"/>
+                        <label class="field select">
+                            <input class="checkbox" name="is_any_disability" type="checkbox" id="is_any_disability"
+                                   onclick="on_change_is_any_disability()" t-att-checked="student.is_any_disability"
+                                   t-att-disabled="readonly"/>
+                            Do you having any Disability?
+                        </label>
+                    </div>
+
+                    <div id="disability_div" class="section colm colm6"
+                         t-att-style="(not student.is_dual_nationality) and 'display: none'">
+                        <label for="phone">
+                            <span>Disability</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="disability" id="disability" class="gui-input"
+                                   placeholder="Disability" t-att-value="student.disability" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-wheelchair"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="disease"/>
+                        <label class="field select">
+                            <input class="checkbox" name="is_any_disease" type="checkbox" id="is_any_disease"
+                                   onclick="on_change_is_any_disease()" t-att-checked="student.is_any_disease"
+                                   t-att-disabled="readonly"/>
+                            Do you having any chronical Disease?
+                        </label>
+                    </div>
+                    <div id="disease_div" class="section colm colm6"
+                         t-att-style="(not student.is_dual_nationality) and 'display: none'">
+                        <label for="phone">
+                            <span>Disease</span><span style="color: red">*</span>
+                        </label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="disease" id="disease" class="gui-input" placeholder="Disease"
+                                   t-att-value="student.disease" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-medkit"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <!--  <script>
+              $(document).ready(function (e) {
+                  <t t-if="not readonly">
+                      onchange_province();
+                  </t>
+              });
+          </script>-->
+    </template>
+</odoo>

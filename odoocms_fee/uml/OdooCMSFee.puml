@@ -1,0 +1,315 @@
+@startuml
+
+class OdooCMSReceiptType {
+    _inherit ['thread', 'activity']
+    _order 'sequence, id desc'
+
+    name Char
+    code Char
+    sequence Integer
+    fee_head_ids M2M
+    -semester_required Boolean
+    -override_amount Boolean
+    comment Html
+}
+
+class OdooCMSPaymentTerms{
+    _inherit = ['thread', 'activity']
+
+    name Char
+    description Text
+}
+
+class OdooCMSFeeDescription{
+    _inherit ['thread', 'activity']
+    _order 'sequence,id desc'
+
+    name Char
+    code Char
+    sequence Integer
+    description Html
+}
+
+class OdooCMSFeeCategory{
+    _inherit ['thread', 'activity']
+    _order 'sequence'
+
+    *name Char
+    code Char
+    sequence Integer
+    parent_id M21
+    parent_path Char
+    head_ids 12M
+    name_get() (parentName-Name)
+}
+
+class ProductProduct{
+    _inherit product.product
+
+    is_fee Boolean
+}
+
+class OdooCMSFeeHead{
+    _order 'sequence'
+
+    payment_type Selection
+    *category_id M21
+    *product_id M21
+    refund Boolean
+    security_refund .Boolean
+    late_fine Boolean
+    taxable Boolean
+    waiver Boolean
+    account_analytic_id M21
+    analytic_tag_ids M2M
+    sequence Integer
+
+    create() is_fee (T)
+}
+
+class OdooCMSFeeStructure{
+    _inherit = ['thread', 'activity']
+
+    company_currency_id M21 (C)
+    name Char
+    sequence Integer
+    comment Text
+    academic_session_id M21
+    career_id M21
+    *journal_id M21
+    line_ids 12M
+    state [Draft, Locked]
+
+    lock_structure() State--< locked
+    unlock_structure() State <-- Draft
+}
+
+class OdooCMSFeeStructureLine{
+    *category_id M21
+    *fee_head_id M21
+    *fee_amount Float
+    payment_type Selection
+    fee_description Text
+    fee_structure_id M21
+    program_ids M2M
+    semester_ids M2M
+    domain Char
+    sequence Integer
+}
+
+class OdooCMSFeeStructureStudent{
+    *category_id M21
+    *fee_head_id M21
+    *fee_amount M21
+    payment_type Selection
+    fee_description Text
+    note Char
+    student_id M21
+    onchange_receipt_type()
+}
+
+class AccountJournal{
+    -is_fee Boolean
+}
+class OdooCMSFeeWaiver{
+    _inherit = ['thread', 'activity]
+
+    name Char
+    code Char
+    waiver_type [Employee Son, Kinship, LateFine, Other]
+    academic_session_id M21
+    line_ids 12M
+    student_ids M2m
+}
+
+
+class OdooCMSFeeWaiverLine{
+    _inherit = ['thread', 'activity']
+    _rec_name = 'fee_head_id'
+
+    *category_id M21
+    fee_head_id M21
+    percentage Float
+    payment_type Selection (R)
+    fee_description Text (R)
+    note Char
+    waiver_id M21
+
+    create()
+    write()
+    unlink()
+}
+
+class OdooCMSStudentFeeWaiver{
+    name Char
+    student_id M21
+    academic_semester_id M21
+    semester_id M21
+    amount Float
+    amount_percentage Char
+    waiver_line_id M21
+}
+
+class OdooCMSStudent{
+    _inherit = 'odoocms.student'
+
+    feemerit = [Regular, Self Finance, Rationalized
+    hostel_facility Boolean
+    hostel_cubical Boolean
+
+    waiver_ids M2M
+    waiver_association_son M21
+    waiver_association_kinship M21
+
+    fee_structure_ids 12M
+    receipt_ids 12M
+    ledger_lines 12M
+
+    generate_invoice()
+}
+
+class OdoosmsStudentFeeLedger{
+    _order invoice_id,id
+
+    name Cha next_by_code('odoocms.student.invoice')
+    student_id M21
+    invoice_id M21
+    payment_id M21
+    # scholarship_id M21
+    credit Monetary
+    debit Monetary
+    *date Date Today
+    currency_id M21
+}
+
+class OdooCMSFeePayment{
+    name Char
+    *date Date
+    description Char
+    *amount Float
+    doc_no Text
+    student_code Text
+    *receipt_number Text
+    *journal_id M21
+    state [Draft, Done, Error]
+    student_ledger_id M21
+
+   get_import_templates()
+}
+
+class OdooCMSFeeReceipt{
+    _inherit = 'account.invoice'
+
+    number Char (R)
+    student_id M21
+    student_name Char (R)
+
+    program_id M21
+    applicant_id M21
+    fee_structure_id M21
+    batch_id M21 (R)
+    academic_semester_id M21
+    -is_fee Boolean
+    -is_cms Boolean
+    -is_late_fee Boolean
+    -fee_paid Boolean
+
+    student_ledger_id M21
+
+    back_invoice M21
+    forward_invoice M21
+    receipt_type_ids M2M
+    waiver_ids M2M
+    waiver_amount Float
+    payment_date Date
+
+    super_invoice M21
+    sub_invoice M21
+
+    tag Char
+    reference Char
+
+    description_id M21
+    invoice_group_id M21
+    state [Draft, Unpaid, Open, In Payment, Paid, Cancelled]
+
+    add_follower()
+    add_followers()
+    create()
+    action_invoice_send()
+    action_invoice_open()
+    _get_report_base_filename()
+    action_move_create()
+    action_invoice_paid()
+    is_zero()
+    amount_to_text()
+}
+
+class AccountInvoiceLine{
+    _inherit = "account.invoice.line"
+
+    fee_head_id M21
+    fee_category_id M21 (R)
+}
+
+class AccountInvoiceGroup{
+    _rec_name = 'tag'
+
+    invoice_ids 12M
+    tag Char
+    reference Char
+    description Html
+    date Date
+}
+
+OdooCMSReceiptType }o--o{ OdooCMSFeeHead
+OdooCMSFeeCategory ||--{ OdooCMSFeeHead
+OdooCMSFeeCategory }o--|| OdooCMSFeeCategory
+
+OdooCMSFeeHead ||--|| ProductProduct
+
+OdooCMSFeeStructure }o--|| OdooCMSAcademicSession
+OdooCMSFeeStructure }o--|| OdooCMSCareer
+OdooCMSFeeStructure }o--|| AccountJournal
+OdooCMSFeeStructure ||--{ OdooCMSFeeStructureLine
+
+OdooCMSFeeStructureLine }o--|| OdooCMSFeeCategory
+OdooCMSFeeStructureLine }o--|| OdooCMSFeeHead
+
+OdooCMSFeeStructureLine }o--o{ OdooCMSProgram
+OdooCMSFeeStructureLine }o--o{ OdooCMSSemester
+
+OdooCMSFeeWaiver }o--|| OdooCMSAcademicSession
+OdooCMSFeeWaiver ||--{ OdooCMSFeeWaiverLine
+OdooCMSFeeWaiver }o--o{ OdooCMSStudent
+
+OdooCMSFeeWaiverLine }o--|| OdooCMSFeeCategory
+OdooCMSFeeWaiverLine }o--|| OdooCMSFeeHead
+
+OdooCMSStudentFeeWaiver }o--|| OdooCMSStudent
+OdooCMSStudentFeeWaiver }o--|| OdooCMSAcademicSemester
+OdooCMSStudentFeeWaiver }o--|| OdooCMSSemester
+OdooCMSStudentFeeWaiver }o--|| OdooCMSFeeWaiverLine
+
+AccountInvoiceLine }o--|| OdooCMSFeeHead
+
+OdooCMSFeeReceipt }o--|| OdooCMSStudent
+OdooCMSFeeReceipt }o--|| OdooCMSProgram
+OdooCMSFeeReceipt }o--|| OdooCMSFeeStructure
+OdooCMSFeeReceipt }o--|| OdooCMSAcademicSemester
+OdooCMSFeeReceipt }o--|| OdoosmsStudentFeeLedger
+OdooCMSFeeReceipt }o--|| OdooCMSFeeDescription
+OdooCMSFeeReceipt }o--|| AccountInvoiceGroup
+OdooCMSFeeReceipt }o--o{ OdooCMSReceiptType
+OdooCMSFeeReceipt }o--o{ OdooCMSFeeWaiver
+
+OdooCMSFeePayment }o--|| AccountJournal
+OdooCMSFeePayment }o--|| OdoosmsStudentFeeLedger
+
+OdoosmsStudentFeeLedger }o--|| OdooCMSStudent
+OdoosmsStudentFeeLedger }o--|| OdooCMSFeeReceipt
+OdoosmsStudentFeeLedger }o--|| OdooCMSFeePayment
+
+@enduml
+
+

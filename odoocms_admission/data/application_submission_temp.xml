@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="application_submit_email_template" model="mail.template">
+            <field name="name">Application Submit Form</field>
+            <field name="model_id" ref="odoocms_admission.model_odoocms_application"/>
+            <field name="email_from">admissions@iac.edu.pk</field>
+            <field name="email_to">${object.email}</field>
+            <field name="subject">Admission form submission at Institute for Art and Culture (IAC)</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.lang}</field>
+            <field name="body_html" type="xml">
+                <p>
+                    Dear ${object.name}
+                    <br/>
+                    <br/>
+                    We acknowledge with thanks the receipt of your online application for admission at the Institute for Art and Culture (IAC), Main Raiwind Road, Lahore.
+                    <br/>
+                    <br/>
+                    Please find attached complete information about the selection process along with other instructions.
+                    <br/>
+                    <br/>
+                    <b>
+                        Candidates have to bring the following original documents for verification and submit attested copies of educational certificates at the time of admission if they are selected.
+                    </b>
+                    <br/>
+                    <br/>
+                    • Matric/O’ Level Certificate <b>(attested)</b>
+                    <br/>
+                    • F.A./F.Sc/ICS/ D.Com/DAE/A’ Level Certificate <b>(attested)</b>
+                    <br/>
+                    • Character Certificate (from Head of Institution last attended) <b>(attested)</b>
+                    <br/>
+                    • Applicant’s CNIC or B.Form Copy <b>(attested)</b>
+                    <br/>
+                    • Father/Guardian/Husband CNIC Copy <b>(attested)</b>
+                    <br/>
+                    • Three passport-size photographs <b>(attested)</b>
+                    <br/>
+                    • Equivalence certificates issued by IBCC in case of O/A levels or qualifications from Foreign Universities/Institutes only <b>(attested)</b>
+                    <br/>
+                    <br/>
+                    The Candidate applying for admission must deposit the Admission Processing Fee (PKR 1,000/) to the bank. The Bank Challan is attached to this email. The candidate must print the challan form, fill it out and go to the nearest branch of Faisal Bank for the submission of the processing fee. <b>Please send us a picture of the paid challan form in reply to this email</b>.S/he must keep a copy of the bank challan and bring it at the time of admission if they are selected. <b><u>The candidate will receive an entry test slip after confirmation of the payment in the bank.</u></b>
+                    <br/>
+                    <br/>
+                    <b>
+                        Note:
+                    </b>
+                    <br/>
+                    • After scrutiny of the admission forms, a list of eligible candidates will be uploaded to IAC official Facebook page and website. You will also be able to receive it via email.
+                    <br/>
+                    • An admission test assignment/link to take the online admission test will be sent via email.
+                    <br/>
+                    • Candidates are advised to visit the IAC Official Website www.iac.edu.pk and Facebook Page: https://www.facebook.com/iacofficials/ for updates and announcements. For any queries, you can always call the undersigned.
+                    <br/>
+                    <br/>
+                    Warm Regards,
+                    <br/>
+                    The Admission Team
+                    <br/>
+                    Institute for Art and Culture (IAC)
+                    <br/>
+                    <br/>
+                    Add: 7.5 Km, Main Raiwind Road, Lahore (Google Map Link)
+                    <br/>
+                    UAN: +92 (42) 111 111 822 | Tel: 042 32590040-7 (Ext: 722, 724, 725)
+                    <br/>
+                    For IAC Officials:YouTube | Facebook | Instagram | Twitter | LinkedIn
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

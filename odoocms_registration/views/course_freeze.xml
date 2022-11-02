@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="view_odoocms_freeze_course" model="ir.ui.view">
+        <field name="name">odoocms.freeze.course.tree</field>
+        <field name="model">odoocms.freeze.course</field>
+        <field name="arch" type="xml">
+            <tree string="Student Course Delete">
+                <field name="name"/>
+                <field name="date_approve"/>
+                <field name="date_effective"/>
+                <field name="date_approve"/>
+                <field name="description"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_freeze_course_form" model="ir.ui.view">
+        <field name="name">odoocms.freeze.course.form</field>
+        <field name="model">odoocms.freeze.course</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="CMS freeze Course">
+
+                <sheet modifiers="{}">
+                    <div class="oe_title" modifiers="{}">
+                        <h1 modifiers="{}">
+                            <field default_focus="1" name="name" placeholder="Name" readonly="1"
+                                   modifiers="{'readonly':true,'required':true}"/>
+                        </h1>
+                    </div>
+                    <group modifiers="{}">
+                        <group modifiers="{}">
+
+                            <field name="student_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                   on_change="1" can_create="true" can_write="true"
+                                   modifiers="{'readonly':[['state','in',['submit','approve','done','cancel']]]}"/>
+                            <field name="program_id" can_create="true" can_write="true" modifiers="{'readonly':true}"/>
+                            <field name="batch_id" on_change="1" can_create="true" can_write="true"
+                                   modifiers="{'readonly':true}"/>
+                        </group>
+                        <group modifiers="{}">
+                            <field name="section_id" can_create="true" can_write="true" modifiers="{'readonly':true}"/>
+                            <field name="term_id" can_create="true" can_write="true" modifiers="{'readonly':true}"/>
+                            <field name="semester_id" can_create="true" can_write="true" modifiers="{'readonly':true}"/>
+                        </group>
+                        <group modifiers="{}">
+                            <field name="registration_id"
+                                   domain="[('student_id','=',student_id),('term_id','=',term_id),('state','in',('draft','current'))]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                   can_create="true" can_write="true"
+                                   modifiers="{'readonly':[['state','in',['submit','approve','done','cancel']]]}"/>
+                            <field name="reason_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                   can_create="true" can_write="true"
+                                   modifiers="{'readonly':[['state','in',['submit','approve','done','cancel']]]}"/>
+                        </group>
+                        <group modifiers="{}">
+                            <field name="date_request" modifiers="{'readonly':true}"/>
+                            <field name="date_effective" modifiers="{}"/>
+                            <field name="date_approve" modifiers="{'readonly':true}"/>
+                            <field name="override_min_limit"
+                                   modifiers="{'readonly':[['state','in',['submit','approve','done','cancel']]]}"/>
+                            <field name="limit_error" invisible="1" modifiers="{'invisible':true}"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible':[('limit_error','=',False)]}"
+                           modifiers="{'invisible':[['limit_error','=',false]]}">
+                        <h3 modifiers="{}">
+                            <field name="limit_error_text" class="text-danger" readonly="1"
+                                   modifiers="{'readonly':true}"/>
+                        </h3>
+                    </group>
+                    <group modifiers="{}">
+                        <field name="description"
+                               modifiers="{'readonly':[['state','in',['submit','approve','done','cancel']]]}"/>
+                        <field name="state" readonly="True"/>
+
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_odoocms_freeze_course" model="ir.actions.act_window">
+        <field name="name">Freeze Course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.freeze.course</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_freeze"
+            action="act_odoocms_freeze_course"
+            name="Freeze Course"
+            parent="menu_student_request_root"
+            sequence="45"/>
+
+
+</odoo>

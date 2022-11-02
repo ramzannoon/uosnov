@@ -1,0 +1,10 @@
+id,title,type,survey_form_type,users_login_required,access_mode
+odoocms.faculty_survey_template,Faculty Survey,Template,Faculty Survey,True,token
+odoocms.course_eval_template,Student Course Evaluation,Template,Student Course Evaluation,True,token
+odoocms.teacher_eval_template,Teacher Evaluation,Template,Teacher Evaluation,True,token
+odoocms.graduating_student_survey_template,Survey of Graduating Students,Template,Survey of Graduating Students,True,token
+odoocms.industry_visit_template,Industrial Visit,Template,Industry Visit,True,token
+odoocms.faculty_course_review_template,Faculty Course Review(Non Engineering),Template,Faculty Survey,True,token
+odoocms.alumni_survey_template,Alumni Survey (Non Engineering),Template,Student Course Evaluation,True,token
+odoocms.employer_survey_template,Employer survey (Non Engineering),Template,Faculty Survey,True,token
+odoocms.research_student_progress_template,Research Student Progress Review,Template,Student Course Evaluation,True,token

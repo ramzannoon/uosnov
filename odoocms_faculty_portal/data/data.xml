@@ -1,0 +1,147 @@
+<odoo>
+<data>
+
+    <record id="portal_menu_dashboard" model="odoocms.faculty.portal.menu">
+        <field name="name">Dashboard</field>
+        <field name="code">dashboard</field>
+        <field name="title">Dashboard</field>
+        <field name="href">/faculty/dashboard</field>
+        <field name="menu_icon">&#xE871;</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="css_class">border-bottom: 1px solid grey;</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="portal_menu_profile" model="odoocms.faculty.portal.menu">
+        <field name="name">Profile</field>
+        <field name="code">profile</field>
+        <field name="title">User Profile</field>
+        <field name="menu_icon">&#xE87C;</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">101</field>
+    </record>
+
+        <record id="portal_menu_profile_home" model="odoocms.faculty.portal.menu">
+            <field name="name">Home</field>
+            <field name="code">home</field>
+            <field name="title">Home</field>
+            <field name="href">/faculty/profile</field>
+            <field name="parent_id" ref="portal_menu_profile"/>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">105</field>
+        </record>
+
+    <record id="portal_menu_attendance" model="odoocms.faculty.portal.menu">
+        <field name="name">Attendance</field>
+        <field name="code">attendance</field>
+        <field name="title">Attendance</field>
+        <field name="menu_icon">spellcheck</field>
+        <field name="href">/faculty/class/attendance/page</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">200</field>
+    </record>
+
+    <record id="portal_menu_result" model="odoocms.faculty.portal.menu">
+        <field name="name">Results</field>
+        <field name="code">result</field>
+        <field name="title">Results</field>
+        <field name="menu_icon">assessment</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">300</field>
+    </record>
+
+        <record id="portal_menu_faculty_classes" model="odoocms.faculty.portal.menu">
+            <field name="name">Assessments</field>
+            <field name="code">hec</field>
+            <field name="title">Assessments</field>
+            <field name="href">/faculty/classes</field>
+            <field name="parent_id" ref="portal_menu_result"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">305</field>
+        </record>
+
+        <record id="portal_menu_faculty_grades" model="odoocms.faculty.portal.menu">
+            <field name="name">Grades</field>
+            <field name="code">hec</field>
+            <field name="title">Grades</field>
+            <field name="href">/faculty/grade/home</field>
+            <field name="parent_id" ref="portal_menu_result"/>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">310</field>
+        </record>
+
+    <record id="portal_menu_timetable" model="odoocms.faculty.portal.menu">
+        <field name="name">Class Schedule</field>
+        <field name="code">timetable</field>
+        <field name="title">Class Schedule</field>
+        <field name="menu_icon">schedule</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">400</field>
+    </record>
+
+        <record id="portal_menu_faculty_schedule" model="odoocms.faculty.portal.menu">
+            <field name="name">Time Table</field>
+            <field name="code">schedule</field>
+            <field name="title">Time Table</field>
+            <field name="href">/faculty/class/schedule</field>
+            <field name="parent_id" ref="portal_menu_timetable"/>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">405</field>
+        </record>
+
+        <record id="portal_menu_faculty_schedule_create" model="odoocms.faculty.portal.menu">
+            <field name="name">Create Makeup Class</field>
+            <field name="code">schedule</field>
+            <field name="title">Create Makeup Class</field>
+            <field name="href">/faculty/class/create/schedule</field>
+            <field name="parent_id" ref="portal_menu_timetable"/>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">410</field>
+        </record>
+
+    <record id="portal_menu_notifications" model="odoocms.faculty.portal.menu">
+        <field name="name">Notifications</field>
+        <field name="code">notifications</field>
+        <field name="title">Notifications</field>
+        <field name="menu_icon">announcement</field>
+        <field name="href">/faculty/notifications</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">500</field>
+    </record>
+
+    <record id="portal_menu_feedback" model="odoocms.faculty.portal.menu">
+        <field name="name">Feedback</field>
+        <field name="code">feedback</field>
+        <field name="title">Feedback</field>
+        <field name="menu_icon">feedback</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="sequence">600</field>
+    </record>
+
+        <record id="portal_menu_faculty_survey" model="odoocms.faculty.portal.menu">
+            <field name="name">Survey</field>
+            <field name="code">survey</field>
+            <field name="title">Survey</field>
+            <field name="href">/faculty/survey</field>
+            <field name="parent_id" ref="portal_menu_feedback"/>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">605</field>
+        </record>
+
+
+
+</data>
+</odoo>

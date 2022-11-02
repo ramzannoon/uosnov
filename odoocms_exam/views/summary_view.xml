@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="odoocms_student_term_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.term.tree</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="arch" type="xml">
+                <tree create="false" delete="false" edit="false">
+                    <field name="term_id"/>
+                    <field name="earned_credits"/>
+                    <field name="grade_points"/>
+                    <field name="sgpa"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_student_term_form" model="ir.ui.view">
+            <field name="name">odoocms.student.term.form</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="get_sgpa" string="Re-Calculate"
+                                groups="base.group_no_one,odoocms_exam.group_exam_manager"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" readonly="1"/>
+                                <field name="session_id"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="program_id"/>
+                                <field name="term_id" readonly="1"/>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="earned_credits"/>
+                                <field name="grade_points"/>
+                                <field name="sgpa"/>
+                            </group>
+                        </group>
+                        <field name="student_course_ids">
+                            <tree create="false" delete="false" edit="false">
+                                <field name="course_id"/>
+                                <field name="primary_class_id"/>
+                                <field name="total_marks"/>
+                                <field name="normalized_marks"/>
+                                <field name="gpa"/>
+                                <field name="grade"/>
+                                <field name="include_in_cgpa" string="CGPA"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

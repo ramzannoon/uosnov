@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="odoocms_fee.student_invoice_landscape">
+            <t t-call="web.basic_layout">
+
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+                <style>
+                    #invoice-report {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 98%;
+                        margin: 1.5%;
+                    }
+
+                    #invoice-report td, #invoice-report th {
+                      border: 1px solid #ddd;
+                      padding: 2px;
+                    }
+
+                    #invoice-report th {
+                      text-align: left;
+                      width:60%;
+                    font-weight:normal;
+                    }
+
+                    #invoice-report td {
+                      text-align: right;
+                      width:40%;
+                    }
+
+                </style>
+
+                <t t-foreach="invoice_rec" t-as="doc">
+                    <div class="page" style="font-size: 10px; padding:5px ">
+                        <t t-call="odoocms_fee.receipt_template"/>
+                    </div>
+                </t>
+
+             </t>
+        </template>
+
+        <template id="odoocms_fee.receipt_template">
+<!--            <div class="page" style="font-size: 10px; padding:5px ">-->
+                <div class="row">
+                    <div style="width:24%; border:1px solid; margin-right:5px">
+                        <t t-call="odoocms_fee.receipt_copy">
+                            <t t-set="copy_name">University Copy</t>
+                        </t>
+                    </div>
+                    <div style="width:24%; border:1px solid; margin-right:5px">
+                        <t t-call="odoocms_fee.receipt_copy">
+                            <t t-set="copy_name">Bank Copy</t>
+                        </t>
+                    </div>
+                    <div style="width:24%; border:1px solid; margin-right:5px">
+                        <t t-call="odoocms_fee.receipt_copy">
+                            <t t-set="copy_name">Department Copy</t>
+                        </t>
+                    </div>
+                    <div style="width:24%; border:1px solid; margin-right:5px">
+                        <t t-call="odoocms_fee.receipt_copy">
+                            <t t-set="copy_name">Student Copy</t>
+                        </t>
+                    </div>
+                </div>
+<!--            </div>-->
+        </template>
+
+        <template id="odoocms_fee.receipt_copy">
+
+            <div class="row">
+                <div class="col col-2">
+                    <img alt="..." style="max-width:100px" t-att-src="image_data_uri(company.logo)" t-if="company.logo" />
+                    <img alt="..." style="max-width:100px" src="/web/static/src/img/user_menu_avatar.png" t-if=" not company.logo" />
+                </div>
+                <div class="col col-10">
+                    <div class="row">
+                        <div class="col col-12" style="text-align:center; font-weight:bold; text-decoration:underline">
+                            <span t-esc="company.name" t-if="company.name"/>&#160;<span>Fee Voucher</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-12" style="text-align:center; font-weight:bold; text-decoration:underline">
+                            <span>Admission Fall 2019</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-12">
+                            <span>Payable at:</span><span t-esc="doc.student_id.program_id.department_id.account_payable" t-if="doc.student_id.program_id.department_id.account_payable"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-12">
+                            <span>Account Title:</span><span t-esc="doc.student_id.program_id.department_id.account_title" t-if="doc.student_id.program_id.department_id.account_title"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                       <div class="col col-12">
+                            <span>Account No:</span><span t-esc="doc.student_id.program_id.department_id.account_no" t-if="doc.student_id.program_id.department_id.account_no"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Voucher No</span>
+                </div>
+                <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.name"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Issue Date</span>
+                </div>
+                <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.invoice_date"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Due Date</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.invoice_date_due"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Student Name</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.student_id.name"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Father Name</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.student_id.father_name"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>CNIC</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.student_id.cnic"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Program</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.student_id.program_id.name"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-5" style="font-weight:bold">
+                    <span>Student ID</span>
+                </div>
+               <div class="col col-7" style="text-align:center">
+                    <div style="border-bottom:1px solid;">
+                         <span t-esc="doc.student_id.code"/>
+                    </div>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col col-12" style="text-align:center; font-weight:bold">
+                    <span>SEMESTER FEE</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12">
+                    <table id="invoice-report">
+                        <t t-foreach="doc.invoice_line_ids" t-as="line">
+                            <tr>
+                                <th><span t-esc="line.product_id.name"/></th>
+                                <td><span t-esc="line.price_unit"/></td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <th>Amount in Words</th>
+                            <td><span t-esc="doc.amount_to_text(doc.amount_total)" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12">
+                    <span style="font-weight:bold">Payment Terms:</span>
+                </div>
+            </div>
+            <t t-foreach="payment_terms" t-as="term">
+                <div class="row">
+                   <div class="col col-12">
+                       <span style="font-weight:bold" t-esc="term_index+1"/><span>:&#160;</span><span t-esc="term.description"/>
+                   </div>
+                </div>
+            </t>
+
+            <div class="row">
+                <div class="col col-12" style="text-align:center; font-weight:bold">
+                    <span t-esc="copy_name"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12" style="text-align:center;">
+                    <span>Payable at:</span><span t-esc="doc.student_id.program_id.department_id.account_payable" t-if="doc.student_id.program_id.department_id.account_payable"/>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

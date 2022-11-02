@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_promote_student_form" model="ir.ui.view">
+			<field name="name">odoocms.promote.student.form</field>
+			<field name="model">odoocms.promote.student</field>
+			<field name="arch" type="xml">
+				<form string="Promote Students">
+					<group>
+						<field name="term_id"/>
+<!--						<field name="st_subiect_reg_tag"/>-->
+					</group>
+
+					<notebook>
+						<page string="Students">
+							<group>
+								<field name="student_ids" colspan="4" nolabel="1">
+									<tree string="Students">
+										<field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="email"/>
+										<field name="mobile"/>
+										<field name="program_id" />
+										<field name="term_id" />
+										<field name="semester_id" />
+										<field name="state" invisible="1"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+
+					<footer>
+						<button name="promote_students" string="Promote" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_promote_students"
+				name="Promote Students"
+				binding_model="odoocms.student"
+				res_model="odoocms.promote.student"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_user"/>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.registration</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Odoo Registration"
+                     string="OdooCMS Registration"
+                     data-key="odoocms_registration"
+                     groups="odoocms.group_cms_manager">
+                    <h2>OdooCMS Registration Apps</h2>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different activities which is held in an institute.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="repeat_allow_in_summer"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="repeat_allow_in_summer"/>
+                                <div class="text-muted">
+                                    Configuration Repeat Courses in Summer.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="repeat_allow_in_winter"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="repeat_allow_in_winter"/>
+                                <div class="text-muted">
+                                    Configuration Repeat Courses in Winter.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="no_registration_tags"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="no_registration_tags"/>
+                                <div class="text-muted">
+                                    Tags to not allow for registration.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="allow_repeat_wo_fee"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="allow_repeat_wo_fee"/>
+                                <div class="text-muted">
+                                    Configuration course repeat allowed before fee submit or not for Odoo CMS Registration.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="allow_portal_course_del"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="allow_portal_course_del"/>
+                                <div class="text-muted">
+                                    Configuration Delete Courses from Student Portal for Odoo CMS Registration.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_registration'}</field>
+    </record>
+
+
+    <record id="mail_activity_type_action" model="ir.actions.act_window">
+        <field name="name">Academic Approvals</field>
+        <field name="res_model">mail.activity.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                    (0, 0, {
+                        'view_mode': 'tree',
+                        'view_id': ref('aarsol_activity.mail_activity_type_view_tree')
+                    }),
+               ]"/>
+        <field name="domain"
+               eval="[('module_category_id','=',ref('module_category_odoocms_registration'))]"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+            id="menu_registration_config_settings"
+            parent="menu_registration_configuration"
+            action="action_config_settings"
+            groups="odoocms.group_cms_manager,odoocms_registration.group_registration_manager"
+            name="Settings"
+            sequence="1"/>
+
+    <menuitem
+            id="menu_mail_activity_type"
+            parent="menu_registration_configuration"
+            action="mail_activity_type_action"
+            groups="odoocms.group_cms_manager,odoocms_registration.group_registration_manager"
+            name="Activity Types"
+            sequence="5"
+    />
+
+</odoo>

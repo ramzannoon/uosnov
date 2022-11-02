@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odoocms_student_project_user,access.odoocms.student.project.user,odoocms_spm.model_odoocms_student_project,base.group_user,1,1,1,1
+access_odoocms_student_project_milestone_user,access.odoocms.student.project.milestone.user,odoocms_spm.model_odoocms_student_project_milestone,base.group_user,1,1,1,1
+access_odoocms_projects_user,access.odoocms.projects.user,odoocms_spm.model_odoocms_projects,base.group_user,1,1,1,1
+access_odoocms_spm_document_lines_user,access.odoocms.spm.document.lines.user,odoocms_spm.model_odoocms_spm_document_lines,base.group_user,1,1,1,1
+access_odoocms_spm_feedback_lines_user,access.odoocms.spm.feedback.lines.user,odoocms_spm.model_odoocms_spm_feedback_lines,base.group_user,1,1,1,1
+access_odoocms_student_project.checklist_lines_user,access.odoocms.student.project.checklist.lines.user,odoocms_spm.model_odoocms_student_project_checklist_lines,base.group_user,1,1,1,1
+
+

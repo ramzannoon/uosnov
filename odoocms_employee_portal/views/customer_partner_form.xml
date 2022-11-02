@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <template id="tmp_customer_form" name="Partner Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <!--                    <div class="col-md-12">-->
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <form action="/customer/form/submit">
+                        <center style="font-size: 18px;">
+                            <h3>New Leave Request</h3>
+                        </center>
+
+                        <div>
+                            <label for="number_of_days">Leaves:</label>
+
+                            <select name="leaves_id" t-attf-class="form-control s_website_form_input"
+                                    id="leaves_id" required="True">
+                                <t t-foreach="leaves_id" t-as="leaves">
+                                    <option t-att-value="leaves.id"
+                                            selected="true">
+                                        <span t-esc="leaves.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <br>
+                        </br>
+
+                        <div class="form-group">
+                            <label for="date">From Date:</label>
+                            <input type="date" class="form-control" name="date_from" id="date_from"
+                                   t-att-min="last_year" t-att-max="today"
+                                   required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">To Date:</label>
+                            <input type="date" class="form-control" name="date_to" id="date_to" t-att-min="last_year"
+                                   t-att-max="today"
+                                   required="true"/>
+                        </div>
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="number_of_days">Duration :</label>-->
+                        <!--                            <input type="text" class="form-control" name="number_of_days" id="number_of_days"-->
+                        <!--                                   required="true"/>-->
+                        <!--                        </div>-->
+
+                        <!--                        <div class="form-group">-->
+                        <!--                            <label for="name">Description :</label>-->
+                        <!--                            <input type="text" class="form-control" name="name" id="name"-->
+                        <!--                                   required="true"/>-->
+                        <!--                        </div>-->
+
+                        <div class="form-group"
+                             data-type="text" data-name="Field">
+                            <label for="name">Description :</label>
+
+                            <!--                            <div class="row s_col_no_resize s_col_no_bgcolor">-->
+                            <textarea class="form-control s_website_form_input"
+                                      name="name" type="text"/>
+                            <!--                            </div>-->
+                        </div>
+
+                        <center>
+                            <a t-attf-href="/customer/form/submit">
+                                <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                    Submit
+                                </button>
+                            </a>
+                            <br></br>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="tmp_customer_form_success" name="Customer Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            Leave Request Created Successfully.
+                        </div>
+                    </div>
+                    <center>
+                        <a t-attf-href="/customer/form">
+                            <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                Back
+                            </button>
+                        </a>
+                        <br></br>
+                    </center>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="edit_leave_form" name="Edit Leave form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <form action="/editleave/form">
+                            <center>
+                                <h1>Edit Leaves</h1>
+                                <h3>MONTHLY LEAVE</h3>
+                            </center>
+
+                            <tr>
+                                <td>
+                                    <h3>Allocation of Annual Leave : 2.50 day(s) To
+                                        <span t-esc="request.env.user.name"/>
+                                    </h3>
+                                </td>
+                            </tr>
+                            <div class="form-group">
+                                <label for="date">Leave Type:</label>
+                                <label class="field select">
+                                    <select name="leaves_id" t-attf-class="form-control s_website_form_input"
+                                            id="leaves_id" required="True">
+                                        <option t-att-disabled="readonly" value="">None</option>
+                                        <t t-foreach="leaves_id" t-as="leaves">
+                                            <option t-att-value="leaves.id"
+                                                    selected="true">
+                                                <span t-esc="leaves.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">From Date:</label>
+                                <input type="date" class="form-control" name="date_from" id="date_from"
+                                       required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">To Date:</label>
+                                <input type="date" class="form-control" name="date_to" id="date_to"
+                                       required="true"/>
+                            </div>
+                            <!--                            <div class="form-group">-->
+                            <!--                                <label for="name">Duration (days):</label>-->
+                            <!--                                <input type="text" class="form-control" name="name" id="name"/>-->
+                            <!--                            </div>-->
+                            <div class="form-group">
+                                <label for="name">Description :</label>
+                                <input type="text" class="form-control" name="duration_display"
+                                       id="duration_display"
+                                       required="true"/>
+                            </div>
+                            <center>
+                                <a t-attf-href="/editleave/form/successfull">
+                                    <button type="button" class="btn btn-primary btn-md o_website_form_send">
+                                        Submit
+                                    </button>
+                                </a>
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="edit_leave_form_success" name="Customer Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div id="top_bar">
+                    <ul id="breadcrumbs">
+                        <li>
+                            <a href="/employee/dashboard">
+                                <i class="material-icons">home</i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            Leave Request Created Successfully.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="loan_leave_form">
+        <t t-call="website.layout">
+            <div id="travel_leave_form">
+                <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                    <!--                    <form action="/customer/form/submit">-->
+                    <center>
+                        <h1>Loan leave Request</h1>
+                    </center>
+                    <div class="container">
+                        <form id="request_form" method="post">
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Categories</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <select name="leaves_id"
+                                                    t-attf-class="form-control s_website_form_input"
+                                                    id="leaves_id" required="True">
+                                                <t t-foreach="leaves_id" t-as="leaves">
+                                                    <option t-att-value="leaves.id"
+                                                            selected="true">
+                                                        <span t-esc="leaves.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_field" data-type="char"
+                                     data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Date From</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <div class="form-group">
+                                                <input type="date" class="form-control" name="date_from" id="date_from"
+                                                       required="true"/>
+                                            </div>
+                                            <!--                                            <input type="tel"-->
+                                            <!--                                                   class="form-control s_website_form_input" name="phone"/>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_field" data-type="char"
+                                     data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Date To</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <div class="form-group">
+                                                <input type="date" class="form-control" name="date_from" id="date_from"
+                                                       required="true"/>
+                                            </div>
+                                            <!--                                            <input type="tel"-->
+                                            <!--                                                   class="form-control s_website_form_input" name="phone"/>-->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Reason to travel</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <textarea class="form-control s_website_form_input"
+                                                      name="description" required=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Amount</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <textarea class="form-control s_website_form_input"
+                                                      name="description" required=""/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12 s_website_form_submit" data-name="Submit Button">
+                                    <div style="width: 200px;" class="s_website_form_label"/>
+                                    <a t-attf-href="/customer/form/submit" role="button"
+                                       class="btn btn-primary btn-lg s_website_form_send">
+                                        Submit
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

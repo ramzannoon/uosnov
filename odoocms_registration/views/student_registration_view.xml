@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_student_course_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.tree</field>
+            <field name="model">odoocms.student.course</field>
+            <field name="arch" type="xml">
+                <tree string="Student Registration" edit="false" delete="false">
+                    <field name="student_id"/>
+                    <field name="program_id" optional="hide"/>
+                    <field name="institute_id" optional="hide"/>
+                    <field name="session_id" optional="hide"/>
+                    <field name="term_id" optional="show"/>
+                    <field name="course_id" optional="hide"/>
+                    <field name="primary_class_id" optional="show"/>
+                    <field name="date_effective" optional="show"/>
+                    <field name="repeat_code" optional="hide"/>
+                    <field name="tag" optional="hide"/>
+                    <field name="prereq" optional="hide"/>
+                    <field name="prereq_course_id" optional="hide"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.form</field>
+            <field name="model">odoocms.student.course</field>
+            <field name="arch" type="xml">
+                <form string="Student Registration" edit="false" delete="false" create="false">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,current,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="tag"/>
+                            <field name="repeat_code"/>
+                            <group>
+                                <field name="student_id" readonly="1"/>
+                                <field name="program_id"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="term_id" readonly="1"/>
+<!--                                <field name="date_effective"/>-->
+                            </group>
+                            <group name="course_class">
+                                <field name="course_id" readonly="1"/>
+                                <field name="primary_class_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Components" name="components">
+                                <field name="component_ids">
+                                    <tree>
+                                         <field name="class_id" string="Component"/>
+                                         <field name="weightage"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_search" model="ir.ui.view">
+            <field name="name">odoocms.student.course.search</field>
+            <field name="model">odoocms.student.course</field>
+            <field name="arch" type="xml">
+                <search string="Student Registration">
+                    <field name="student_id"/>
+                    <field name="program_id"/>
+                    <field name="institute_id"/>
+                    <field name="term_id"/>
+                    <field name="course_id"/>
+                    <field name="primary_class_id"/>
+                    <newline/>
+                    <filter name='compulsory' string="Compulsory" domain="[('course_type','=','compulsory')]"/>
+                    <filter name='elective' string="Elective" domain="[('course_type','=','elective')]"/>
+                    <filter name='additional' string="Additional" domain="[('course_type','=','additional')]"/>
+                    <filter name='alternate' string="Alternate" domain="[('course_type','=','alternate')]"/>
+                    <filter name='minor' string="Minor" domain="[('course_type','=','minor')]"/>
+                    <filter name='prereq' string="Prereq?" domain="[('prereq','=',False)]"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+<!--                        <filter name="group_by_state" string="Status" domain="[]"-->
+<!--                                context="{'group_by':'state'}"/>-->
+                        <filter name="group_by_student" string="Student" domain="[]"
+                                context="{'group_by':'student_id'}"/>
+                        <filter name="group_by_program" string="Program" domain="[]"
+                                context="{'group_by':'program_id'}"/>
+                        <filter name="group_by_institute" string="School" domain="[]"
+                                context="{'group_by':'institute_id'}"/>
+                        <filter name="group_by_session" string="Academic Session" domain="[]"
+                                context="{'group_by':'session_id'}"/>
+                        <filter name="group_by_semester" string="Academic Term" domain="[]"
+                                context="{'group_by':'term_id'}"/>
+                        <filter name="group_by_course" string="Subject" domain="[]"
+                                context="{'group_by':'course_id'}"/>
+                        <filter name="group_by_primary_class" string="Primary Class" domain="[]" context="{'group_by':'primary_class_id'}"/>
+                        <filter name="group_by_repeat_code" string="RPT Code" domain="[]"
+                                context="{'group_by':'repeat_code'}"/>
+                        <filter name="group_by_prereq_course_id" string="Prereq Course" domain="[]"
+                                context="{'group_by':'prereq_course_id'}"/>
+                    </group>
+
+                    <searchpanel>
+                        <field name="program_id" icon="fa-users"/>
+                        <field name="session_id" icon="fa-users"/>
+                         <field name="term_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_component_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.component.tree</field>
+            <field name="model">odoocms.student.course.component</field>
+            <field name="arch" type="xml">
+                <tree string="Student Registration" edit="false" delete="false" create="false">
+                    <field name="student_id"/>
+                    <field name="program_id"/>
+                    <field name="session_id"/>
+                    <field name="term_id"/>
+                    <field name="class_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_component_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.component.form</field>
+            <field name="model">odoocms.student.course.component</field>
+            <field name="arch" type="xml">
+                <form string="Student Registration" edit="false" delete="false" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" readonly="1"/>
+                                <field name="program_id"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="term_id" readonly="1"/>
+                            </group>
+                            <group name="course_class">
+                                <field name="class_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_term_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.term.tree</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="arch" type="xml">
+                <tree string="Student Term" edit="false" delete="false">
+                    <field name="student_id"/>
+                    <field name="term_id"/>
+                    <field name="program_id" optional="hide"/>
+                    <field name="session_id" optional="hide"/>
+                    <field name="batch_id" optional="show"/>
+                    <field name="term_type" optional="hide"/>
+                    <field name="semester_id" optional="hide"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_term_search" model="ir.ui.view">
+            <field name="name">odoocms.student.term.search</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="arch" type="xml">
+                <search string="Student Term">
+                    <field name="student_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="session_id"/>
+                    <field name="batch_id"/>
+                    <newline/>
+                    <filter name='action_required' string="Action Required" domain="[('to_be','=',True)]"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_student" string="Student" domain="[]"
+                                context="{'group_by':'student_id'}"/>
+                        <filter name="group_by_program" string="Program" domain="[]"
+                                context="{'group_by':'program_id'}"/>
+                        <filter name="group_by_session" string="Academic Session" domain="[]"
+                                context="{'group_by':'session_id'}"/>
+                        <filter name="group_by_term" string="Academic Term" domain="[]"
+                                context="{'group_by':'term_id'}"/>
+                        <filter name="group_by_batch" string="Batch" domain="[]"
+                                context="{'group_by':'batch_id'}"/>
+                        <filter name="group_by_state" string="State" domain="[]"
+                                context="{'group_by':'state'}"/>
+                    </group>
+
+                    <searchpanel>
+                        <field name="session_id" icon="fa-users"/>
+                        <field name="term_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course" model="ir.actions.act_window">
+            <field name="name">Student Registration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.course</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_odoocms_student_course_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="action_odoocms_student_term" model="ir.actions.act_window">
+            <field name="name">Student Term</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.term</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_odoocms_student_term_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_student_course"
+                name="Registered Courses"
+                action="action_odoocms_student_course"
+                parent="menu_odoocms_registration_registration"
+                sequence="30"/>
+        <menuitem
+                id="menu_odoocms_student_term"
+                name="Student Terms"
+                action="action_odoocms_student_term"
+                parent="menu_odoocms_registration_registration"
+                sequence="25"/>
+
+    </data>
+</odoo>

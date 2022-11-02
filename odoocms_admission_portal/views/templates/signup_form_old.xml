@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="auth_signup.login" inherit_id="web.login" name="Sign up - Reset Password">
+            <xpath expr="//button[@type='submit']" position="after">
+                <div class="justify-content-between mt-2 d-flex small">
+                    <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+                </div>
+            </xpath>
+        </template>
+        <!-- To show phone and CNIC  -->
+        <!--        <template id="account_sign_up_inherit" inherit_id="auth_signup.fields">-->
+        <!--           &lt;!&ndash; <xpath expr="//div[hasclass('field-login')]" position="replace">-->
+        <!--                <div class="form-group field-login">-->
+        <!--                    <label for="login">User ID (CNIC or Passport no)</label>-->
+        <!--                    <input type="text" name="login" pattern=".{1,13}" placeholder="without dashes i.e. 8265478965785" t-att-value="login" id="login" class="form-control form-control-sm" autofocus="autofocus"-->
+        <!--                           autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>-->
+        <!--                </div>-->
+        <!--            </xpath>&ndash;&gt;-->
+
+        <!--            <xpath expr="//div[hasclass('field-login')]" position="replace">-->
+        <!--                <center>-->
+        <!--                      <h4>University Admissions</h4>-->
+        <!--                </center>-->
+        <!--                <div class="form-group field-login">-->
+        <!--                    <label for="login">User ID (CNIC / NICOP</label>-->
+        <!--                    <input type="text" name="login" pattern=".{1,13}" placeholder="with dashes i.e. 82654-7896578-5" t-att-value="login" id="login" class="form-control form-control-sm" autofocus="autofocus" autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>-->
+        <!--                </div>-->
+        <!--            </xpath>-->
+        <!--            <xpath expr="//div[hasclass('field-name')]" position="before">-->
+        <!--                <div class="form-group field-cnic">-->
+        <!--                    <label for="CNIC" class="control-label">Email (Active Email)</label>-->
+        <!--                    <input type="email" name="email" t-att-value="email" id="email" class="form-control"-->
+        <!--                           required="required" t-att-readonly="'readonly' if only_passwords else None"-->
+        <!--                           t-att-autofocus="'autofocus' if login and not only_passwords else None"/>-->
+
+        <!--                    <label for="Phone" class="control-label">Mobile</label>-->
+        <!--                    <input type="text" name="mobile" placeholder="without dashes i.e. 03400748699" t-att-value="mobile" id="mobile" class="form-control"-->
+        <!--                           required="required" t-att-readonly="'readonly' if only_passwords else None"-->
+        <!--                           t-att-autofocus="'autofocus' if login and not only_passwords else None"/>-->
+        <!--                </div>-->
+        <!--            </xpath>-->
+        <!--            <xpath expr="//div[hasclass('field-name')]" position="replace">-->
+        <!--                <div class="form-group field-name">-->
+        <!--                    <label for="name">Full Name</label>-->
+        <!--                    <input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-sm"-->
+        <!--                        placeholder="e.g. Muhammad Ibrahim"-->
+        <!--                        required="required" t-att-readonly="'readonly' if only_passwords else None"-->
+        <!--                        t-att-autofocus="'autofocus' if login and not only_passwords else None" />-->
+        <!--                </div>-->
+        <!--            </xpath>-->
+        <!--        </template>-->
+
+        <template id="account_sign_in_details_change_id" inherit_id="web.login">
+            <xpath expr="//div[hasclass('field-login')]" position="replace">
+                <div class="form-group field-login row">
+                    <!--                    <label for="login" class="col-sm-4">User ID</label>-->
+                    <div class="col-sm-12">
+                        <input type="text" placeholder="User ID" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('field-login')]" position="before">
+                <div class="form-group field-login">
+                    <label style="font-weight:100; font-size: 13px; margin:0px; color: #000080; font-weight: bold;">
+                        Note: For admission applicants only, Please enter your CNIC/B-Form No (i.e 00000-0000000-0) as your User ID.
+                    </label>
+                </div>
+            </xpath>
+        </template>
+
+        <record id="res_partner_form_id_inherited" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="website" position="before">
+                    <field name="email"/>
+                    <field name="mobile"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

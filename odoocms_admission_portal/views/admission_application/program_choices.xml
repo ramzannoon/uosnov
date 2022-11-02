@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_programs" name="Admission Program Choices">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <!--        <fieldset t-if="readonly">-->
+        <!--            <legend>Program Choices</legend>-->
+        <!--            <t t-foreach="program_preferences_ordered" t-as="pre">-->
+        <!--                <span t-esc="pre_index+1"/>-->
+        <!--                <span>.</span>&#160;<span t-esc="pre.program_id.name"/>-->
+        <!--            </t>-->
+        <!--        </fieldset>-->
+        <fieldset>  <!-- t-if="not readonly" -->
+            <!--            <legend>Discipline</legend>-->
+            <!--            <div id="discipline">-->
+            <!--                <div class="frm-row" id="list_of_discipline">-->
+            <!--                    <div class="section colm colm4">-->
+            <!--                        <label class="field select">-->
+            <!--                            <select name="discipline_list" id="discipline_list"-->
+            <!--                                    onchange="discipline_program(my_id= this.value)" required="True">-->
+            <!--                                <option value="" t-att-selected="not discipline_1">Select</option>-->
+            <!--                                <t t-foreach="discipline_ids" t-as="discipline">-->
+            <!--                                    <option t-att-disabled="readonly" t-att-selected="discipline_1 and discipline_1.id == discipline.id"-->
+            <!--                                            t-att-value="discipline.id">-->
+            <!--                                        <t t-esc="discipline.name"/>-->
+            <!--                                    </option>-->
+            <!--                                </t>-->
+            <!--                            </select>-->
+            <!--                            <i class="arrow double"/>-->
+            <!--                        </label>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <div class="block-info">
+                <legend style="color: #0393DC"><h4>Program Preference/s</h4></legend>
+                <div class="frm-row" name="program_preferences">
+                    <div id="applicant_preferences_list">
+                        <div class="section colm colm4">
+                            <label for="choice_number">Choice 1 <span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="pref_c1" id="pref_c1" required="True">
+                                    <option t-att-disabled="readonly" value="">None</option>
+                                    <t t-foreach="prefs_1" t-as="pref">
+                                        <option t-att-disabled="readonly" t-att-value="pref.program_id.id" selected="pref.id">
+                                            <span t-esc="pref.program_id.name"/> (<t t-esc="pref.program_id.campus_id.name"/>)
+                                        </option>
+                                    </t>
+                                </select>
+                                <i class="arrow double"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm4">
+                            <label for="choice_number">Choice 2 <span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="pref_c2" id="pref_c2" required="True">
+                                    <option t-att-disabled="readonly" value="">None</option>
+                                    <t t-foreach="prefs_1" t-as="pref">
+                                        <option t-att-disabled="readonly" t-att-value="pref.program_id.id" selected="true">
+                                            <span t-esc="pref.program_id.name"/> (<t t-esc="pref.program_id.campus_id.name"/>)
+                                        </option>
+                                    </t>
+                                </select>
+                                <i class="arrow double"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm4">
+                            <label for="choice_number">Choice 3 <span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="pref_c3" id="pref_c3" required="True">
+                                    <option t-att-disabled="readonly" value="">None</option>
+                                    <t t-foreach="prefs_1" t-as="pref">
+                                        <option t-att-disabled="readonly" t-att-value="pref.program_id.id" selected="true">
+                                            <span t-esc="pref.program_id.name"/> (<t t-esc="pref.program_id.campus_id.name"/>)
+                                        </option>
+                                    </t>
+                                </select>
+                                <i class="arrow double"/>
+                            </label>
+                        </div>
+                    </div>
+
+                    <t t-set="sr" t-value="1"/>
+                    <t t-set="s" t-value="0"/>
+
+                    <!--                    <t t-foreach="prefs_1" t-as="pref">-->
+                    <!--                        <div class="section colm colm4" t-attf-id="pref_{{pref.discipline_id.id}}_{{pref.preference}}">-->
+                    <!--                            <label for="choice_number">Choice<t t-esc="pref.preference"/>*</label>-->
+                    <!--                            <label class="field select">-->
+                    <!--                                <select t-attf-id="choice_{{pref.discipline_id.id}}_{{pref.preference}}"-->
+                    <!--                                        name='choice_number'-->
+                    <!--                                        t-attf-onchange="program_preference(program_id=this.value,{{pref.discipline_id.id}},{{pref.preference}})">-->
+                    <!--                                    <option t-att-disabled="readonly" value="">None</option>-->
+                    <!--                                    <option t-att-disabled="readonly" t-att-value="pref.program_id.id" selected="true">-->
+                    <!--                                        <span t-esc="pref.program_id.name"/> (<t t-esc="pref.program_id.campus_id.name"/>)-->
+                    <!--                                    </option>-->
+                    <!--                                </select>-->
+                    <!--                                <i class="arrow double"/>-->
+                    <!--                                &lt;!&ndash;<input type="text" t-att-value="pref.program_id.name" readonly="true"/>&ndash;&gt;-->
+                    <!--                            </label>-->
+                    <!--                        </div>-->
+                    <!--                    </t>-->
+                </div>
+            </div>
+        </fieldset>
+    </template>
+</odoo>

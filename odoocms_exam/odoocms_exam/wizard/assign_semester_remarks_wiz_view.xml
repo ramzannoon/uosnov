@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="assign_semester_remarks_wiz_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.assign.semester.remarks.wiz.form</field>
+        <field name="model">odoocms.exam.assign.semester.remarks.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Assign Semester Remarks Wizard">
+                <group>
+                	<group>
+						<field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+<!--                        <field name="term_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>-->
+		            </group>
+		            <group>
+		            </group>
+                </group>
+                <footer>
+                    <button name="assign_remarks" string="Assign Remarks" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_assign_semester_remarks_wiz" model="ir.actions.act_window">
+        <field name="name">Assign Semester Remarks Wiz</field>
+        <field name="res_model">odoocms.exam.assign.semester.remarks.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_assign_semester_remarks_wiz"
+            name="Assign Semester Remarks"
+            action="action_assign_semester_remarks_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_main1"
+            sequence="100"/>
+
+
+</odoo>

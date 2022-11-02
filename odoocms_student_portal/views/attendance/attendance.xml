@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_attendance_class" name="Attendance">
+        <t t-call="web.layout">
+           <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/attendance">Attendance Classes</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Attendance</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                    <li class="uk-active">
+                                        <a href="#" style="color:#008744;">Active Classes <!--<span t-if="term">(<t t-esc="term.name" /> )</span>-->
+                                        </a>
+                                    </li>
+                                    <!--                                    <li>-->
+                                    <!--                                        <a href="#" style="color:#d62d20;">Previous Classes</a>-->
+                                    <!--                                    </li>-->
+                                </ul>
+                                <ul id="tabs_anim1" class="uk-switcher " style="padding: 0px 0px 0px 22px;">
+                                    <li>
+                                        <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="280">
+                                            <t t-if="not len(student_subjects) > 0">
+                                                <span>No record to show.</span>
+                                            </t>
+                                            <t t-if="len(student_subjects) > 0">
+                                                <t t-foreach="student_subjects" t-as="sub">
+                                                    <div style="padding-left:15px;">
+                                                        <div class="md-card md-card-hover">
+                                                             <div class="uk-badge md-bg-orange-800 uk-position-absolute uk-position-top-right "> <!--uk-margin-left uk-margin-top-->
+                                                                                    <t t-esc="sub.term_id.name"/>
+                                                                                </div>
+                                                            <!-- <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">
+                                                                 <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>
+                                                                <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >
+                                                                 <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>
+                                                                    </div>
+                                                             </div>-->
+                                                             <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/attendancedetail/id/{{sub.primary_class_id.id}}">
+                                                            <h4 class="heading_c  md-color-grey-50 md-bg-blue-500" style="padding:2%;">
+                                                                <t t-if="len(str(sub.primary_class_id.name)) >= 34">
+
+                                                                    <span class="md-list-heading" t-esc="str(sub.primary_class_id.name)[:34]+'..'"></span>
+                                                                </t>
+                                                                <t t-if="not len(str(sub.primary_class_id.name)) > 34">
+                                                                    <span class="md-list-heading" t-esc="sub.primary_class_id.name"></span>
+                                                                </t>
+                                                                <span class="sub-heading md-color-grey-50" t-esc="sub.primary_class_id.code"></span>
+                                                                <!--                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>-->
+                                                                <!--                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>-->
+                                                            </h4>
+                                                             </a>
+                                                            <div class="md-card-content">
+                                                               <span class="uk-text-small">Attendance: <t t-esc="sub.attendance_percentage"/>% </span>
+                                                                <div t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if sub.attendance_percentage>=76 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">
+                                                                    <div class="uk-progress-bar" t-attf-style="width: {{sub.attendance_percentage}}%;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <ul t-attf-class="{{color[sub_index]}} md-color-grey-50 md-list md-list-addon md-list-right classCards">
+                                                             <li>
+                                                                 <a t-attf-href="/student/attendancedetail/id/{{sub.primary_class_id.id}}" class="md-list-addon-element">
+                                                                     <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open class">&#xE163;</i>
+                                                                 </a>
+                                                                 <div class="md-list-content">
+                                                                      <t t-if="len(str(sub.primary_class_id.name)) >= 34">
+                                                                         <span class="md-list-heading" t-esc="str(sub.primary_class_id.name)[:34]+'..'"></span>
+                                                                         </t>
+                                                                         <t t-if="not len(str(sub.primary_class_id.name)) > 34">
+                                                                                 <span class="md-list-heading" t-esc="sub.primary_class_id.name"></span>
+                                                                         </t>
+                                                                     <span class="uk-text-small ">Course</span>
+                                                                 </div>
+                                                             </li>
+                                                             <li>
+                                                                 <div class="md-list-content">
+                                                                     <span class="md-list-heading" t-esc="sub.primary_class_id.code"></span>
+                                                                     <span class="uk-text-small">Code</span>
+                                                                 </div>
+                                                             </li>
+                                                             &lt;!&ndash;                                                                    <li>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                        <div class="md-list-content">&ndash;&gt;
+                                                             &lt;!&ndash;                                                                            <span class="md-list-heading" t-esc="sub.class_id.class_type"></span>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                            <span class="uk-text-small">Class Type</span>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                        </div>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                    </li>&ndash;&gt;
+                                                           &lt;!&ndash;  <li>
+                                                                 <div class="md-list-content">
+                                                                     <span class="md-list-heading" t-esc="sub.class_id.term_id.name"></span>
+                                                                     <span class="uk-text-small">Term</span>
+                                                                 </div>
+                                                             </li>&ndash;&gt;
+                                                             <li>
+                                                                 <div class="md-list-content">
+                                                                     <span class="md-list-heading"><t t-esc="sub.attendance_percentage" />%</span>
+                                                                     <div t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if sub.attendance_percentage>=76 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">
+                                                                         <div class="uk-progress-bar" t-attf-style="width: {{sub.attendance_percentage}}%;"></div>
+                                                                     </div>
+                                                                     <span class="uk-text-small">Attendance</span>
+
+                                                                 </div>
+                                                             </li>
+                                                             &lt;!&ndash;                                                                    <li>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                        <div class="md-list-content">&ndash;&gt;
+                                                             &lt;!&ndash;                                                                            <span class="md-list-heading">90%</span>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                            <span class="uk-text-small">Attendance</span>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                        </div>&ndash;&gt;
+                                                             &lt;!&ndash;                                                                    </li>&ndash;&gt;
+                                                         </ul>-->
+                                                    </div>
+                                                </t>
+                                            </t>
+                                            <!--      <div class="uk-width-medium-1-4 uk-margin-small-left " style="background:#679b9b; ">
+                                                      <ul class="md-list md-list-addon md-list-right">
+                                                          <li>
+                                                              <a href="/student/attendancedetail" class="md-list-addon-element">
+                                                                  <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open class">&#xE163;</i>
+                                                              </a>
+                                                              <div class="md-list-content">
+                                                                  <span class="md-list-heading">Fundamentals of Programming</span>
+                                                                  <span class="uk-text-small ">Course</span>
+                                                              </div>
+                                                          </li>
+                                                          <li>
+                                                              <div class="md-list-content">
+                                                                  <span class="md-list-heading">CS-114</span>
+                                                                  <span class="uk-text-small ">Course Code</span>
+                                                              </div>
+                                                          </li>
+                                                          <li>
+                                                              &lt;!&ndash;                                    <div class="md-list-addon-element">&ndash;&gt;
+                                                              &lt;!&ndash;                                        <i class="md-list-addon-icon material-icons">&#xE8DC;</i>&ndash;&gt;
+                                                              &lt;!&ndash;                                    </div>&ndash;&gt;
+                                                              <div class="md-list-content">
+                                                                  <span class="md-list-heading">Fall 2020</span>
+                                                                  <span class="uk-text-small">Term Session</span>
+                                                              </div>
+                                                          </li>
+                                                          <li>
+                                                              <div class="md-list-content">
+                                                                  <span class="md-list-heading">89%</span>
+                                                                  <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
+                                                                      <div class="uk-progress-bar" style="width: 78%;"></div>
+                                                                  </div>
+                                                                  <span class="uk-text-small">Attendance</span>
+
+                                                              </div>
+                                                          </li>
+                                                      </ul>
+                                                  </div>-->
+
+                                        </div>
+                                    </li>
+                                    <!--   <li>
+                                           <div class="uk-overflow-container">
+                                               <table class="uk-table uk-table-nowrap uk-table-align-vertical table_tree">
+                                                   <thead>
+                                                       <tr>
+                                                           <th class="uk-width-1-10 md-color-grey-800">Term</th>
+                                                           &lt;!&ndash;                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Grade Points</th>&ndash;&gt;
+                                                           &lt;!&ndash;                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Total Credits</th>&ndash;&gt;
+                                                           &lt;!&ndash;                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Earned Credits</th>&ndash;&gt;
+                                                           &lt;!&ndash;                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">GPA</th>&ndash;&gt;
+                                                       </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                       <t t-foreach="student.term_ids" t-as="term">
+                                                           <tr class="table-parent-row show_child_row">
+                                                               <td>
+                                                                   <a href="#" class="js-toggle-children-row toggle-childrens">
+                                                                       <t t-esc="term.term_id.name"/>
+                                                                   </a>
+                                                               </td>
+                                                               &lt;!&ndash;                                                                        <td class="uk-text-center">&ndash;&gt;
+                                                               &lt;!&ndash;                                                                            <t t-esc="term.grade_points"/>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        </td>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        <td class="uk-text-center">&ndash;&gt;
+                                                               &lt;!&ndash;                                                                            <t t-esc="term.credits"/>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        </td>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        <td class="uk-text-center">&ndash;&gt;
+                                                               &lt;!&ndash;                                                                            <t t-esc="term.earned_credits"/>&ndash;&gt;
+
+                                                               &lt;!&ndash;                                                                            &lt;!&ndash;                                                        <span t-attf-class="uk-badge {{'uk&#45;&#45;badge-danger' if reg.state == 'rejected' else ''}}" t-esc="reg.state"/>&ndash;&gt;&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        </td>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        <td class="uk-text-center">&ndash;&gt;
+                                                               &lt;!&ndash;                                                                            <t t-esc="term.sgpa"/>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        </td>&ndash;&gt;
+                                                           </tr>
+                                                           <tr class="table-child-row md-bg-blue-grey-800 md-color-grey-50">
+                                                               <th>Course</th>
+                                                               <th>Credits</th>
+                                                               <th>Attendance %age</th>
+                                                               &lt;!&ndash;                                                                        <th>GBs</th>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        <th>Mid Grade</th>&ndash;&gt;
+                                                               &lt;!&ndash;                                                                        <th>Final Grade</th>&ndash;&gt;
+                                                           </tr>
+                                                           <t t-foreach="term.student_course_ids" t-as="course">
+                                                               <tr class="table-child-row">
+                                                                   <td class="uk-width-1-10 md-color-grey-800">
+                                                                       <t t-esc="course.course_id.course_id.name"/>
+                                                                   </td>
+                                                                   <td class="uk-width-1-10 md-color-grey-800">
+                                                                       <t t-esc="course.credits"/>
+                                                                   </td>
+                                                                   <td class="uk-width-1-10 md-color-grey-800">
+                                                                       80%
+                                                                   </td>
+                                                               </tr>
+                                                           </t>
+                                                       </t>
+                                                   </tbody>
+                                               </table>
+                                           </div>
+                                       </li>-->
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+
+
+                <!--  issues list functions -->
+
+
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>-->
+                <!--            <script src="/odoocms_web/static/assets/js/pages/components_animations.min.js"></script>-->
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+
+                <!--                <t t-call="faculty_portal.faculty_portal_js"></t>-->
+                <!--    &lt;!&ndash; common functions &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/common.min.js"></script>-->
+                <!--    &lt;!&ndash; uikit functions &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/uikit_custom.min.js"></script>-->
+                <!--    &lt;!&ndash; altair common functions/helpers &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/altair_admin_common.min.js"></script>-->
+
+                <!-- page specific plugins -->
+                <!-- tablesorter -->
+
+                <!--                                     <script src="/odoocms_web/static/assets/js/common.js"></script>-->
+                <!--             <script src="/odoocms_web/static/assets/js/uikit_custom.min.js"></script>-->
+                <!--                    &lt;!&ndash;                &lt;!&ndash; altair common functions/helpers &ndash;&gt;&ndash;&gt;-->
+                <!--                    <script src="/odoocms_web/static/assets/js/altair_admin_common.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"></script>-->
+
+                <!--                &lt;!&ndash;  issues list functions &ndash;&gt;-->
+
+                <!--                <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>-->
+
+
+                <!--                <div id="style_switcher">-->
+                <!--                    <div id="style_switcher_toggle">-->
+                <!--                        <i class="material-icons">&#xE8B8;</i>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c uk-margin-bottom">Colors</h4>-->
+                <!--                        <ul class="switcher_app_themes" id="theme_switcher">-->
+                <!--                            <li class="app_style_default active_theme" data-app-theme="">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_a" data-app-theme="app_theme_a">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_b" data-app-theme="app_theme_b">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_c" data-app-theme="app_theme_c">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_d" data-app-theme="app_theme_d">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_e" data-app-theme="app_theme_e">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_f" data-app-theme="app_theme_f">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_g" data-app-theme="app_theme_g">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_h" data-app-theme="app_theme_h">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_i" data-app-theme="app_theme_i">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_dark" data-app-theme="app_theme_dark">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c">Sidebar</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_sidebar_mini" id="style_sidebar_mini" data-md-icheck=""/>-->
+                <!--                            <label for="style_sidebar_mini" class="inline-label">Mini Sidebar</label>-->
+                <!--                        </p>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_sidebar_slim" id="style_sidebar_slim" data-md-icheck=""/>-->
+                <!--                            <label for="style_sidebar_slim" class="inline-label">Slim Sidebar</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c">Layout</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_layout_boxed" id="style_layout_boxed" data-md-icheck=""/>-->
+                <!--                            <label for="style_layout_boxed" class="inline-label">Boxed layout</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large">-->
+                <!--                        <h4 class="heading_c">Main menu accordion</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="accordion_mode_main_menu" id="accordion_mode_main_menu" data-md-icheck=""/>-->
+                <!--                            <label for="accordion_mode_main_menu" class="inline-label">Accordion mode</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+
+            </body>
+        </t>
+    </template>
+    <template id="student_attendance_class_detail" name="Attendance">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+
+
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/attendance">Attendance Classes</a>
+
+                            </li>
+                            <li>
+                                <a href="">Attendance Class</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Attendance</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                    <t t-set="com_count" t-value="0"/>
+                                    <t t-foreach="student_course.component_ids" t-as="component">
+                                        <t t-set="com_count" t-value="com_count+1"/>
+                                        <li t-attf-class="{{'uk-active' if com_count == 1 else ''}}">
+                                            <a href="#">
+                                                <t t-esc="component.class_id.component.capitalize()"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                                <ul id="tabs_anim1" class="uk-switcher" style="padding: 0px 0px 0px 22px;">
+                                    <li>
+                                        <div class="uk-grid ">
+                                            <div class="uk-width-large-1-3">
+                                                <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                <div class="md-card-list-wrapper">
+                                                    <div class="md-card-list">
+                                                        <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                            <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                <b>Course :</b>
+
+                                                                <span t-esc="student_course.component_ids[0].class_id.name"/>
+                                                                <!--                                                        <span t-esc="attendance_class[0].attendance_id.class_id.name"/>-->
+
+
+                                                                <!--                                                        <input type="hidden" id="student_class" t-att-value="attendance_sheet.id"/>-->
+                                                            </li>
+                                                            <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                <b>Course Code :</b>
+                                                                <span t-esc="student_course.component_ids[0].class_id.code"/>
+                                                            </li>
+
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="uk-width-large-1-3">
+                                                <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                <div class="md-card-list-wrapper">
+                                                    <div class="md-card-list">
+                                                        <ul class="hierarchical_slide" id="hierarchical-slide">
+
+                                                            <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                <b>Number of classes Conducted :</b>
+                                                                <!--                                                        <span><span t-esc="total_att"/></span>-->
+                                                                <span t-if="total_att_single" t-esc="total_att_single"/>
+                                                                <span t-if="total_att_2" t-esc="total_att_2"/>
+
+
+                                                            </li>
+                                                            <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                <b>Number of classes Attended :</b>
+                                                                <!--                                                        <span> <span id="present" /></span>-->
+                                                                <span t-if="present" t-esc="present"/>
+                                                                <span t-if="present2" t-esc="present2"/>
+                                                            </li>
+                                                            <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                            <!--                                                        <b>Academic Term :</b>-->
+                                                            <!--                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>-->
+                                                            <!--                                                    </li>-->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="uk-width-large-1-3">
+                                                <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                <div class="md-card-list-wrapper">
+                                                    <div class="md-card-list">
+                                                        <ul class="hierarchical_slide" id="hierarchical-slide">
+
+
+                                                            <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                <b>Attendance Percentage:</b>
+                                                                <span t-esc="student_course.component_ids[0].attendance_percentage"/>
+                                                                <!--                                                        <span t-esc="percentage" />-->
+                                                            </li>
+                                                            <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                            <!--                                                        <b>Academic Term :</b>-->
+                                                            <!--                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>-->
+                                                            <!--                                                    </li>-->
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+
+                                                <!--  <div class="uk-width-large-1-2">
+                                                      &lt;!&ndash;                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>&ndash;&gt;
+                                                      <div class="md-card-list-wrapper">
+                                                          <div class="md-card-list">
+                                                              <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                                  <li class="md-bg-light-blue-500 md-color-grey-50">
+                                                                      <b>Course :</b>
+                                                                      <span>Fundamental of Programming</span>
+                                                                  </li>
+                                                                  <li class="md-bg-light-blue-400 md-color-grey-50">
+                                                                      <b>Course Code :</b>
+                                                                      <span>CS-102</span>
+                                                                  </li>
+                                                                  <li class="md-bg-light-blue-300 md-color-grey-50">
+                                                                      <b>Academic Term :</b>
+                                                                      <span>Fall 2020</span>
+                                                                  </li>
+                                                              </ul>
+                                                          </div>
+                                                      </div>
+                                                  </div>-->
+                                                <!-- <div class="uk-width-large-1-2">-->
+                                                <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-large-1-12 uk-margin-large-top" style="min-height:600px;">
+                                            <div class="md-card">
+                                                <table class="uk-table uk-text-nowrap">
+                                                    <thead style="background:#004979; color:white;">
+                                                        <tr>
+                                                            <th style="color:white;">Sr. no</th>
+                                                            <th style="color:white;">Date</th>
+                                                            <th style="color:white;">Status</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody style="color:black;">
+                                                        <t t-if="attendance_class">
+                                                            <t t-set="sr" t-value="1"></t>
+                                                            <t t-foreach="attendance_class" t-as="att_line">
+                                                                <tr>
+                                                                    <td>
+                                                                        <span t-esc="sr"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span t-esc="att_line.attendance_id.date_class"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <t t-if="att_line.present">
+                                                                            <span>P</span>
+                                                                        </t>
+                                                                        <t t-if="not att_line.present">
+                                                                            <span>A</span>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                                <t t-set="sr" t-value="sr+1"></t>
+                                                            </t>
+                                                        </t>
+                                                        <t t-if="attendance_classes">
+                                                            <t t-set="sr" t-value="1"></t>
+                                                            <t t-foreach="attendance_classes[0]" t-as="att_line">
+                                                                <tr>
+                                                                    <td>
+                                                                        <span t-esc="sr"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span t-esc="att_line.attendance_id.date_class"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        <t t-if="att_line.present">
+                                                                            <span>P</span>
+                                                                        </t>
+                                                                        <t t-if="not att_line.present">
+                                                                            <span>A</span>
+                                                                        </t>
+                                                                    </td>
+                                                                </tr>
+                                                                <t t-set="sr" t-value="sr+1"></t>
+                                                            </t>
+                                                        </t>
+
+                                                    </tbody>
+
+                                                </table>
+                                                <!--                                    <div id='calendar'></div>-->
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <t t-if="len(student_course.component_ids) > 1">
+                                        <li>
+                                            <div class="uk-grid ">
+                                                <div class="uk-width-large-1-3">
+                                                    <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                    <div class="md-card-list-wrapper">
+                                                        <div class="md-card-list">
+                                                            <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                                <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                    <b>Course :</b>
+                                                                    <span t-esc="student_course.component_ids[1].class_id.name"/>
+
+
+                                                                    <!--                                                        <input type="hidden" id="student_class" t-att-value="attendance_sheet.id"/>-->
+                                                                </li>
+                                                                <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                    <b>Course Code :</b>
+                                                                    <span t-esc="student_course.component_ids[1].class_id.code"/>
+                                                                    <!--                                                        <span t-esc="attendance_class[0].attendance_id.class_id.code"/>-->
+                                                                </li>
+
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-width-large-1-3">
+                                                    <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                    <div class="md-card-list-wrapper">
+                                                        <div class="md-card-list">
+                                                            <ul class="hierarchical_slide" id="hierarchical-slide">
+
+                                                                <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                    <b>Number of classes Conducted :</b>
+                                                                    <span t-if="total_att_3" t-esc="total_att_3"/>
+                                                                    <span t-if="not total_att_3">-</span>
+                                                                    <!--                                                        <span><span t-esc="total_att"/></span>-->
+                                                                </li>
+                                                                <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                    <b>Number of classes Attended :</b>
+                                                                    <!--                                                        <span> <span id="present" /></span>-->
+                                                                    <span t-if="present3" t-esc="present3"/>
+                                                                    <span t-if="not present3">-</span>
+                                                                </li>
+                                                                <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                                <!--                                                        <b>Academic Term :</b>-->
+                                                                <!--                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>-->
+                                                                <!--                                                    </li>-->
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-width-large-1-3">
+                                                    <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                    <div class="md-card-list-wrapper">
+                                                        <div class="md-card-list">
+                                                            <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                                <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                                    <b>Attendance Percentage:</b>
+                                                                    <span t-esc="student_course.component_ids[1].attendance_percentage"/>
+                                                                    <!--                                                        <span t-esc="percentage" />-->
+                                                                </li>
+                                                                <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                                <!--                                                        <b>Academic Term :</b>-->
+                                                                <!--                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>-->
+                                                                <!--                                                    </li>-->
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--  <div class="uk-width-large-1-2">
+                                                          &lt;!&ndash;                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>&ndash;&gt;
+                                                          <div class="md-card-list-wrapper">
+                                                              <div class="md-card-list">
+                                                                  <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                                      <li class="md-bg-light-blue-500 md-color-grey-50">
+                                                                          <b>Course :</b>
+                                                                          <span>Fundamental of Programming</span>
+                                                                      </li>
+                                                                      <li class="md-bg-light-blue-400 md-color-grey-50">
+                                                                          <b>Course Code :</b>
+                                                                          <span>CS-102</span>
+                                                                      </li>
+                                                                      <li class="md-bg-light-blue-300 md-color-grey-50">
+                                                                          <b>Academic Term :</b>
+                                                                          <span>Fall 2020</span>
+                                                                      </li>
+                                                                  </ul>
+                                                              </div>
+                                                          </div>
+                                                      </div>-->
+                                                    <!-- <div class="uk-width-large-1-2">-->
+                                                    <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-12 uk-margin-large-top" style="min-height:600px;">
+                                                <div class="md-card">
+                                                    <table class="uk-table uk-text-nowrap">
+                                                        <thead style="background:#004979; color:white;">
+                                                            <tr>
+                                                                <th style="color:white;">Sr. no</th>
+                                                                <th style="color:white;">Date</th>
+                                                                <th style="color:white;">Status</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody style="color:black;">
+                                                            <t t-if="attendance_classes">
+                                                                <t t-set="sr" t-value="1"/>
+                                                                <t t-foreach="attendance_classes[1]" t-as="att_line">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <span t-esc="sr"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span t-esc="att_line.attendance_id.date_class"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-if="att_line.present">
+                                                                                <span>P</span>
+                                                                            </t>
+                                                                            <t t-if="not att_line.present">
+                                                                                <span>A</span>
+                                                                            </t>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <t t-set="sr" t-value="sr+1" />
+                                                                </t>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                    <!--                                    <div id='calendar'></div>-->
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </t>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    WebFontConfig = {
+                    google: {
+                    families: [
+                    'Source+Code+Pro:400,700:latin',
+                    'Roboto:400,300,500,700,400italic:latin'
+                    ]
+                    }
+                    };
+                    (function() {
+                    var wf = document.createElement('script');
+                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                    wf.type = 'text/javascript';
+                    wf.async = 'true';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(wf, s);
+                    })();
+                </script>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script>
+                    $('#calendar').fullCalendar({
+
+                    events: [
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-10-05',
+                    backgroundColor: 'green'
+                    },
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-10-07',
+                    backgroundColor: 'green'
+                    },
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-10-15',
+                    backgroundColor: 'red'
+                    },
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-11-05',
+                    backgroundColor: 'green'
+                    },
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-11-07',
+                    backgroundColor: 'red'
+                    },
+                    {
+                    title : '12:30-1:30',
+                    start : '2020-11-15',
+                    backgroundColor: 'red'
+                    },
+                    ],
+                    // any other event sources...
+
+
+                    });
+                </script>
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+
+                <!--                <t t-call="faculty_portal.faculty_portal_js"></t>-->
+                <!--    &lt;!&ndash; common functions &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/common.min.js"></script>-->
+                <!--    &lt;!&ndash; uikit functions &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/uikit_custom.min.js"></script>-->
+                <!--    &lt;!&ndash; altair common functions/helpers &ndash;&gt;-->
+                <!--    <script src="/commonfiles/staticassets/js/altair_admin_common.min.js"></script>-->
+
+                <!-- page specific plugins -->
+                <!-- tablesorter -->
+
+                <!--                                     <script src="/odoocms_web/static/assets/js/common.js"></script>-->
+                <!--             <script src="/odoocms_web/static/assets/js/uikit_custom.min.js"></script>-->
+                <!--                    &lt;!&ndash;                &lt;!&ndash; altair common functions/helpers &ndash;&gt;&ndash;&gt;-->
+                <!--                    <script src="/odoocms_web/static/assets/js/altair_admin_common.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"></script>-->
+                <!--                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"></script>-->
+
+                <!--                &lt;!&ndash;  issues list functions &ndash;&gt;-->
+
+                <!--                <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>-->
+
+
+                <!--                <div id="style_switcher">-->
+                <!--                    <div id="style_switcher_toggle">-->
+                <!--                        <i class="material-icons">&#xE8B8;</i>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c uk-margin-bottom">Colors</h4>-->
+                <!--                        <ul class="switcher_app_themes" id="theme_switcher">-->
+                <!--                            <li class="app_style_default active_theme" data-app-theme="">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_a" data-app-theme="app_theme_a">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_b" data-app-theme="app_theme_b">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_c" data-app-theme="app_theme_c">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_d" data-app-theme="app_theme_d">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_e" data-app-theme="app_theme_e">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_f" data-app-theme="app_theme_f">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_g" data-app-theme="app_theme_g">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_h" data-app-theme="app_theme_h">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_i" data-app-theme="app_theme_i">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                            <li class="switcher_theme_dark" data-app-theme="app_theme_dark">-->
+                <!--                                <span class="app_color_main"></span>-->
+                <!--                                <span class="app_color_accent"></span>-->
+                <!--                            </li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c">Sidebar</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_sidebar_mini" id="style_sidebar_mini" data-md-icheck=""/>-->
+                <!--                            <label for="style_sidebar_mini" class="inline-label">Mini Sidebar</label>-->
+                <!--                        </p>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_sidebar_slim" id="style_sidebar_slim" data-md-icheck=""/>-->
+                <!--                            <label for="style_sidebar_slim" class="inline-label">Slim Sidebar</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large uk-margin-medium-bottom">-->
+                <!--                        <h4 class="heading_c">Layout</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="style_layout_boxed" id="style_layout_boxed" data-md-icheck=""/>-->
+                <!--                            <label for="style_layout_boxed" class="inline-label">Boxed layout</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                    <div class="uk-visible-large">-->
+                <!--                        <h4 class="heading_c">Main menu accordion</h4>-->
+                <!--                        <p>-->
+                <!--                            <input type="checkbox" name="accordion_mode_main_menu" id="accordion_mode_main_menu" data-md-icheck=""/>-->
+                <!--                            <label for="accordion_mode_main_menu" class="inline-label">Accordion mode</label>-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </body>
+        </t>
+    </template>
+</odoo>

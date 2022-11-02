@@ -1,0 +1,16 @@
+id,title,state,survey_form_type,type,access_mode,users_login_required,template_seq_no
+__export__.survey_survey_3_005e3e45,Student Course Evaluation,Draft,Student Course Evaluation,Template,Invited people only,True,Temp/0001
+__export__.survey_survey_52_32bdc1a5,Teacher Evaluation-I,Draft,Teacher Evaluation,Template,Invited people only,True,Temp/0002
+__export__.survey_survey_1_6fd59588,Faculty Survey,Draft,Faculty Survey,Template,Invited people only,True,Temp/0003
+__export__.survey_survey_397_971f619d,Survey of Graduating Students,Draft,Survey of Graduating Students,Template,Invited people only,True,Temp/0004
+__export__.survey_survey_445_9a3705c6,Alumni Survey (Non Engineering),Draft,Alumni Survey,Template,Invited people only,True,Temp/0005
+__export__.survey_survey_446_f120d848,Employer survey (Non Engineering),Draft,Employer survey,Template,Invited people only,True,Temp/0006
+__export__.survey_survey_447_8b96c9a6,Research Student Progress Review,Draft,Student Course Evaluation,Template,Invited people only,True,Temp/0007
+__export__.survey_survey_400_642a2b9a,Industrial Visit,Draft,Industry Visit,Template,Invited people only,True,Temp/0008
+__export__.survey_survey_442_532f2711,Faculty Course Review(Non Engineering),Draft,Faculty Survey,Template,Invited people only,True,Temp/0009
+__export__.survey_survey_12_1ac0ea15,Industry Visit by Faculty (Faculty Feedback),Draft,Faculty Survey,Template,Invited people only,True,Temp/0010
+__export__.survey_survey_17_5e8d8229,Industry Visit by Faculty (Industry Feedback),Draft,Faculty Survey,Template,Anyone with the link,FALSE,Temp/0011
+__export__.survey_survey_17_5e8d8230,Class Audit Report,Draft,Class Audit,Template,Invited people only,TRUE,Temp/0012
+__export__.survey_survey_siva_faculty,SIVA Post Visit Feedback by Faculty,Draft,Industry Visit,Template,Invited people only,True,Temp/0013
+__export__.survey_survey_siva_institute,SIVA Post Visit Feedback by Institute,Draft,Industry Visit,Template,Invited people only,True,Temp/0014
+__export__.survey_survey_siva_student,SIVA Post Visit Feedback by Student,Draft,Industry Visit,Template,Invited people only,True,Temp/0015

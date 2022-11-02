@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_odoocms_admission_send_email_form" model="ir.ui.view">
+        <field name="name">odoocms.send.email.form</field>
+        <field name="model">odoocms.send.email</field>
+        <field name="arch" type="xml">
+            <form string="Send Email">
+                <group>
+                    <field name="application_ids"/>
+                </group>
+<!--                <group>-->
+<!--                    <field name="student_application_emails"/>-->
+<!--                </group>-->
+                <footer>
+                    <button name="admission_send_email" string="Send Mail" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+            id="odoocms_admission_send_email"
+            name="Send Email"
+            res_model="odoocms.send.email"
+            binding_model="odoocms.application"
+            view_mode="form"
+            binding_views="list,form"
+            target="new"
+    />
+
+</odoo>

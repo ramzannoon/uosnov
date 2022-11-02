@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_iac_moodle_connector,iac.moodle.connector,model_iac_moodle_connector,base.group_user,1,1,1,1
+access_iac_wizard_message,iac.wizard.message,model_iac_wizard_message,base.group_user,1,1,1,1

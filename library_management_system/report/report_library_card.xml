@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_library_card">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <div style="max-height: 229px; width: 400px; border: 1px solid black;">
+                                <table width="100%">
+                                    <tbody>
+                                        <tr style="float:left">
+                                            <td>
+                                                <img class="image" alt="Library Card"
+                                                     t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)"
+                                                     style="max-width:2.5cm; margin:10px;"/>
+                                            </td>
+                                            <td>
+                                                <p style="font-size:16px; font-weight: 600; margin: 10px 10px 0;">
+                                                    Library Card
+                                                </p>
+                                                <p style="color: #3087c3;font-weight: 600;font-size: 14px;margin: 0px 10px 10px;"
+                                                   t-raw="'%s' % o.company_id.partner_id.name if o.company_id.partner_id.name else ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr style="float: left;height: 2px;width: 100%;background-color: #2d4383;">
+                                        </tr>
+                                        <tr style="float:left; margin:10px 0;">
+                                            <td>
+                                                <!--                                                <img class="image"-->
+                                                <!--                                                     t-att-src="'data:image/png;base64,%s' % to_text(o.image_1920)"-->
+                                                <!--                                                     style="max-height:2.5cm; max-width:4cm; margin-left: 10px; margin-right: 10px; margin-bottom: 3px; border: 1px solid #ccc;"/>-->
+                                            </td>
+                                            <td style="vertical-align: top;">
+                                                <div style="margin-left: 10px; margin-right: 10px; margin-bottom: 3px; font-size: 12px;">
+                                                    <span style="font-weight:600">
+                                                        Name :
+                                                    </span>
+                                                    <t t-if="o.student_id">
+                                                        <span t-field='o.student_id.name'/>
+                                                    </t>
+                                                    <t t-if="o.faculty_id">
+                                                        <span t-field='o.faculty_id.name'/>
+                                                    </t>
+                                                    <t t-if="o.employee_id">
+                                                        <span t-field='o.employee_id.name'/>
+                                                    </t>
+                                                    <br></br>
+                                                    <span style="font-weight:600">
+                                                        Card No :
+                                                    </span>
+                                                    <span t-if="o.number">
+                                                        <span t-field='o.number'/>
+                                                    </span>
+                                                    <br></br>
+                                                    <span style="font-weight:600">
+                                                        Type :
+                                                    </span>
+                                                    <span t-if="o.library_card_type_id">
+                                                        <span t-field='o.library_card_type_id.name'/>
+                                                    </span>
+                                                    <br></br>
+                                                    <span style="font-weight:600">
+                                                        Issued Date :
+                                                    </span>
+                                                    <span t-if="o.library_card_type_id">
+                                                        <span t-field='o.issue_date' t-options="{'widget':'date'}"/>
+                                                    </span>
+                                                    <br></br>
+                                                    <span style="font-weight:600">
+                                                        Blood Group :
+                                                    </span>
+                                                    <span t-if="o.blood_group">
+                                                        <span t-field='o.blood_group'/>
+                                                    </span>
+                                                    <div style="margin-top: 5px;" t-if="o.number">
+                                                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.number, 250, 40)"/></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr style="float: left;height: 15px;width: 100%;background-color: #2d4383;">
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

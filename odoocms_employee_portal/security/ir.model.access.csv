@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_portal_wizard_actser,employee.portal.wizard.actser,model_employee_portal_wizard_actser,base.group_user,1,1,1,1
+access_portal_wizard_user_new,portal.wizard.user.new,model_portal_wizard_user_new,base.group_user,1,1,1,1
+access_emp_travel_request,emp.travel.request,model_emp_travel_request,base.group_user,1,1,1,1
+access_emp_general_request,emp.general.request,model_emp_general_request,base.group_user,1,1,1,1
+access_genericc_req,genericc.req,model_genericc_req,base.group_user,1,1,1,1
+

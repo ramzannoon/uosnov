@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_fee_payment_register_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.payment.register.form</field>
+            <field name="model">odoocms.fee.payment.register</field>
+            <field name="arch" type="xml">
+                <form string="Bank Payment Receipt">
+                    <header>
+                        <button name="action_post" states="Draft" string="Post" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_cancel" states="Draft" string="Cancel" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="%(action_fee_payment_register_import_wiz)d" string="Import Barocde" type="action" states="Draft" class="oe_highlight" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state','!=','Draft')]}" required="1"/>
+                                <field name="total_receipts"/>
+                                <field name="non_barcode_receipts"/>
+                                <field name="barcode"/>
+                            </group>
+                            <group>
+                                <field name="total_amount"/>
+                                <field name="total_received_amount"/>
+                                <field name="total_diff_amount"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Payment Receipts">
+                                <field name="fee_payment_ids" nolabel="1">
+                                    <tree string="Payments" create="false" editable="bottom" decoration-primary="diff_amount &lt; 0" decoration-danger="diff_amount &gt; 0" decoration-success="diff_amount == 0 ">
+                                        <field name="sequence" widget="handle" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="receipt_number" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="invoice_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="invoice_status" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="id_number" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+                                        <field name="session_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="career_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="program_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="institute_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="campus_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="term_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+
+                                        <field name="journal_id" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="doc_no" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="description" optional="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="invoice_payment_state" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="state" attrs="{'readonly':[('state','!=','Draft')]}" optional="1"/>
+                                        <field name="amount" sum="Total Amount" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="received_amount" string="Received Amount" sum="Received Amount" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <field name="diff_amount" string="Diff Amount" sum="Diff Amount" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                        <!--                                        <button string="Issue &amp; Validate"-->
+                                        <!--                                                attrs="{'invisible': [('invoice_payment_state', '!=', 'not_paid')]}"-->
+                                        <!--                                                name="action_invoice_issue_validate" type="object" class="oe_highlight"/>-->
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Non Barcode Receipts">
+                                <field name="non_barcode_ids" nolabel="1">
+                                    <tree string="Non Barcode Records" create="false" editable="bottom" decoration-primary="state == 'Draft'" decoration-success="state == 'Posted'" decoration-danger="state == 'Cancel'">
+                                        <field name="barcode" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="name" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="state" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="payment_register_id" attrs="{'readonly':[('state','!=','Draft')]}"/>
+
+                                    </tree>
+                                    <form string="Non Barcode Records">
+                                        <header>
+                                            <field name="state" widget="statusbar"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                                </group>
+                                                <group>
+                                                    <field name="barcode" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Already Processed Receipts">
+                                <field name="fee_processed_ids" nolabel="1">
+                                    <tree string="Processed Fee Receipts" create="false" editable="bottom" decoration-primary="state == 'Draft'" decoration-success="state == 'Posted'" decoration-danger="state == 'Cancel'">
+                                        <field name="barcode" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="name" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="payment_register_id" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="state" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                    <form string="Processed Fee Receipts">
+                                        <header>
+                                            <field name="state" widget="statusbar"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="name" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                                </group>
+                                                <group>
+                                                    <field name="barcode" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                                    <field name="notes" style="text-align:right;width: 100px;word-wrap: break-word;" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_register_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.payment.register.tree</field>
+            <field name="model">odoocms.fee.payment.register</field>
+            <field name="arch" type="xml">
+                <tree string="Bank Payment Receipt" decoration-danger="state == 'Cancel'" decoration-primary="state == 'Draft'" decoration-success="state == 'Posted'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="total_receipts" sum="Total Receipts Sum"/>
+                    <field name="non_barcode_receipts" sum="Total Non Barcode Sum"/>
+                    <field name="total_amount" sum="Total Sum Amount"/>
+                    <field name="total_received_amount" sum="Total Received Sum"/>
+                    <field name="total_diff_amount" sum="Total Diff Sum"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_register_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.payment.register.search</field>
+            <field name="model">odoocms.fee.payment.register</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Bank Payment Receipt">
+                    <field name="name"/>
+                    <field name="date"/>
+
+                    <filter name="draft" string="Draft" domain="[('state', '=', 'Draft')]"/>
+                    <filter name="done" string="Posted" domain="[('state', '=','Posted')]"/>
+                    <filter name="cancel" string="Cancel" domain="[('state', '=','Cancel')]"/>
+                    <separator/>
+                    <filter name="date" string="Date" date="date"/>
+
+                    <group expand="0" string="Group By...">
+                        <separator/>
+                        <filter string="Status" name="group_by_status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odooschool_fee_payment_register_pivot" model="ir.ui.view">
+            <field name="name">view.odoocms.fee.payment.register.pivot</field>
+            <field name="model">odoocms.fee.payment.register</field>
+            <field name="priority">64</field>
+            <field name="arch" type="xml">
+                <pivot string="Payment Registers" display_quantity="true">
+                    <field name="date"/>
+                    <field name="total_amount" type="measure"/>
+                    <field name="total_received_amount" type="measure"/>
+                    <field name="total_diff_amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_register_graph" model="ir.ui.view">
+            <field name="name">view.odoocms.fee.payment.register.graph</field>
+            <field name="model">odoocms.fee.payment.register</field>
+            <field name="arch" type="xml">
+                <graph string="Payment Registers Analysis">
+                    <field name="date"/>
+                    <field name="total_amount" type="measure"/>
+                    <field name="total_received_amount" type="measure"/>
+                    <field name="total_diff_amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_payment_register" model="ir.actions.act_window">
+            <field name="name">Bank Payment Receipt</field>
+            <field name="res_model">odoocms.fee.payment.register</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_payment_register"
+                name="Bank Payment Register"
+                sequence='10'
+                parent="menu_odoocms_student_fee_payment_main"
+                action="action_odoocms_fee_payment_register"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+        />
+
+    </data>
+</odoo>

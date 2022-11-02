@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="university_admission_portal_frontend_style" name="Online Admission Form"
+              inherit_id="web.assets_frontend" active="True">
+        <xpath expr="." position="inside">
+			<!-- Main Style Css -->
+			<link rel="stylesheet" href="/odoocms_admission_portal/static/css/w3css.css"/>
+			<link rel="stylesheet" href="/odoocms_admission_portal/static/css/style.css"/>
+			<link rel="stylesheet" type="text/css"  href="/odoocms_admission_portal/static/css/smart-forms.css"/>
+			<link rel="stylesheet" type="text/css"  href="/odoocms_admission_portal/static/css/smart-addons.css"/>
+			<link rel="stylesheet" type="text/css"  href="/odoocms_admission_portal/static/css/smart-themes/green.css"/>
+			<link rel="stylesheet" type="text/css"  href="/odoocms_admission_portal/static/css/font-awesome.min.css"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/main.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery.steps.js"/>
+<!--			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery-ui-custom.min.js"/>-->
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery.validate.min.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/additional-methods.min.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery-ui-slider-pips.min.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery-ui-touch-punch.min.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/jquery.formShowHide.min.js"/>
+			<link rel="stylesheet" href="/odoocms_admission_portal/static/css/custom.css"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/clickevent.js"/>
+			<script type="text/javascript" src="/odoocms_admission_portal/static/js/custom.js"/>
+        </xpath>
+    </template>
+</odoo>

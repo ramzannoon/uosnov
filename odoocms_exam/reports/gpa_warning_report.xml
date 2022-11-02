@@ -1,0 +1,116 @@
+<odoo>
+
+	<template id ="odoocms_exam.gpa_warning_report">
+			<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+                <style>
+                    #personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    #personal-info td, #personal-info th {
+                      padding: 3px;
+                    }
+
+                    #personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; padding:10px ">
+
+                    <div class="row">
+                        <div class="col col-2">
+                            <img style="width:180px;height:180px;" t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+						    <img src="/web/static/src/img/user_menu_avatar.png" t-if="not company_id.logo"/>
+                        </div>
+                        <div class="col col-10" style="font-size:20px; font-weight:bold">
+                            <span t-esc="company_id.name" t-if="company_id.name"/>
+                        </div>
+                    </div>
+
+                    <t t-if="not lists">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="lists">
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col col-12" style="text-align:right">
+                                <span t-esc="today"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col col-10">
+                                <span t-esc="lists[0]['father']"/><br/>
+                                <span t-esc="lists[0]['street']"/><br/>
+                                <span t-esc="lists[0]['city']"/>&#160;<span t-esc="lists[0]['country']"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-6">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Registration No:</th> <td><span t-esc="lists[0]['code']"/> </td>
+                                     </tr>
+                                    <tr>
+                                         <th>Career:</th><td><span t-esc="lists[0]['career']"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Semester:</th><td><span t-esc="lists[0]['semester']"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>CGPA:</th><td><span t-esc="lists[0]['cgpa']"/></td>
+                                    </tr>
+                                </table>
+                             </div>
+                             <div class="col col-6">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Name:</th> <td><span t-esc="lists[0]['name']"/></td>
+                                     </tr>
+                                    <tr>
+                                         <th>Term:</th><td><span t-esc="lists[0]['term']"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Program:</th><td><span t-esc="lists[0]['program']"/>&#160;<span>Semester</span></td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col col-12">
+                                <span>Subject:</span>&#160;&#160;&#160;<span style="font-weight:bold;border-bottom:1px solid">WARNING LETTER FOR LESS CGPA</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-12">
+                                <span style="font-weight:bold">Dear Parent/Guardian</span>
+                                <br/>&#160;&#160;&#160;&#160;<p style="text-align:justify" t-esc="description" t-options='{"widget": "html"}' t-if="description"/>
+                                <span/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-12">
+                                <span>Your Sincerely,</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col col-8">
+                                <span>Chairman,</span><br/>
+                                <span>Department of</span>&#160;<span t-esc="lists[0]['department']"/><span>,</span><br/>
+                                <span t-esc="company_id.name" t-if="company_id.name"/>
+                            </div>
+                        </div>
+
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

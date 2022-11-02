@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_error" name="Error">
+        <t t-call="web.layout">
+            <head>
+
+                  <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500' rel='stylesheet' type='text/css'/>
+
+    <!-- uikit -->
+    <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/uikit/css/uikit.almost-flat.min.css"/>
+
+    <!-- altair admin error page -->
+    <link rel="stylesheet" href="/odoocms_web/static/assets/css/error_page.min.css" />
+
+
+
+            </head>
+            <body class="error_page">
+
+    <div class="error_page_header">
+        <div class="uk-width-8-10 uk-container-center">
+            Something went wrong.
+
+        </div>
+    </div>
+    <div class="error_page_content">
+        <div class="uk-width-8-10 uk-container-center">
+<!--            <p class="heading_b">-->
+<!--                <t t-if="error_message" t-esc="error_message"/>-->
+
+                <div>
+An error occured while opening the page. Error has been automatically reported to concerned system admin. Issue will be resolved soon.
+                </div>
+<!--            </p>-->
+          <!--  <t t-if="not error_message">Internal server error</t>-->
+<!--            <p class="uk-text-large">-->
+<!--                The requested URL <span class="uk-text-muted">/some_url</span> was not found on this server.-->
+<!--            </p>-->
+            <a href="#" onclick="history.go(-1);return false;">Go back to previous page</a>
+        </div>
+    </div>
+
+
+
+</body>
+        </t>
+    </template>
+</odoo>

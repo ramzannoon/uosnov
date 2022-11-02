@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="head_wise_fee_charged_summary_rep_wiz_view" model="ir.ui.view">
+        <field name="name">head.wise.fee.charged.summary.rep.wiz.view</field>
+        <field name="model">head.wise.fee.charged.summary.rep.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Head Wise Fee Charged Summary Report">
+                <group>
+                    <group>
+                        <field name="term_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"/>
+                        <field name="fee_head_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"/>
+                    </group>
+                    <group>
+                        <field name="is_hostel_fee"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate PDF Report" type="object" class="btn-primary"/>
+                    <button name="make_excel" string="Generate Excel Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_head_wise_fee_charge_summary_rep_wiz" model="ir.actions.act_window">
+        <field name="name">Head Wise Fee Charged Summary Report</field>
+        <field name="res_model">head.wise.fee.charged.summary.rep.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem
+            id="menu_head_wise_fee_charged_summary_rep_wiz"
+            name="Head Wise Fee Charged Summary"
+            action="action_head_wise_fee_charge_summary_rep_wiz"
+            parent="odoocms_fee.menu_fee_reports"
+            sequence="160"/>
+
+</odoo>

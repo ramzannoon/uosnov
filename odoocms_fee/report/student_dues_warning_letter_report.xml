@@ -1,0 +1,57 @@
+<odoo>
+
+	<template id ="odoocms_fee.student_dues_warning_letter_report">
+			<t t-call="web.basic_layout">
+                <div class="page" style='font-size: 14px; padding:10px; margin:5em; font-family: "Times New Roman", Times, serif;'>
+                    <div >
+                        <div class="col col-12" style="font-size:25px; font-weight:bold; text-align:center;">
+                            <span style="border-bottom:1px solid" t-esc="student.user_id.company_id.name" t-if="student.user_id.company_id"/>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:4em;">
+                        <div style="display:block; width:50%; float:left; text-align:left">
+                            <span style="text-weight:bold" t-esc="student.father_name"/><br/>
+                            <span t-esc="student.city"/>&#160;<span t-esc="student.country_id.name"/>
+                        </div>
+                        <div style="display:block; width:50%; float:left; text-align:right">
+                            <span t-esc="today" t-if="today"/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display:block; width:100%; float:left; text-align:left; margin-top:4em;">
+                            <span>Assalam-o-Alaikum</span>
+                        </div>
+                    </div>
+
+                    <div style="line-height: 1.8; display:block;">
+                        <div style="display:block; width:100%; float:left; text-align:left; margin-top:4em; margin-bottom:2em">
+                            <span>Subject:</span>&#160; &#160;<span style="font-weight:bold; text-decoration: underline;">Warning Letter of Outstanding Dues(Fee) against your Child.</span>
+                        </div>
+                        <div style="display:block; width:100%; float:left; text-align:left;">
+                            <p style="width:100%; text-align:justify;"><span>&#160; &#160; &#160; &#160;</span>Your are hereby informed that an amount of Rs.<span t-esc="total_amount" t-if="total_amount"></span>/- (Plus Fine) is due against your child (<span t-esc="student.code"/>&#160;<span>-</span>&#160;<span t-esc="student.name" />) which is mandatory to be deposited before <span>_________________</span>. Failing which
+                            he will neither be allowed to register in the next semester, class, subject nor he/she will be entitle to avail other facilities including(Accommondation, Transport)
+                            , library, Financial Assistance).</p>
+                            <p>You are therefore, advised to clear all outstanding dues at earliest to avoid inconveniences to your ward/son.</p>
+                        </div>
+                    </div>
+
+                    <div style="display:block; width:100%; float:left; text-align:left;" >
+                        <div style="width:100%; text-align:justify; margin-top:6em;">
+                            <span>Regard's,</span>
+                        </div>
+                    </div>
+
+                    <div style="display:block; width:100%; float:left; text-align:left;" >
+                        <div style="width:100%; text-align:justify; margin-top:4em;">
+                            <span>Authorities,</span><br/>
+                        <span t-esc="student.user_id.company_id.name" t-if="student.user_id.company_id"/>
+                        </div>
+                    </div>
+
+                </div>
+            </t>
+    </template>
+
+</odoo>

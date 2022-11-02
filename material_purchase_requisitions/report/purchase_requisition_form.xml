@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="purchase_requisition_report_layout">
+        <div class="header">
+            <div class="row">
+                <div class="col-3">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                         style="max-height:3cm; max-width:6cm;"/>
+                </div>
+                <div class="col-6 ">
+
+                </div>
+                <div class="col-3 text-right">
+                    <div t-field="company.partner_id.name"/>
+                    <div t-field="company.street"/>
+                    <div t-field="company.city"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+
+        </div>
+    </template>
+
+    <template id="purchase_requisition">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <style>
+                        table{
+                        width: 100%;
+                        }
+                        div{
+                        margin-top:20px
+                        }
+                        table.border th {
+                        padding: 5px;
+                        }
+                        table.border td{
+                        padding: 5px;
+                        border: 1px solid black;
+                        }
+                    </style>
+                    <div class="page">
+                        <div>
+                            <h4 style="text-align:center;padding-top:6px;">
+                                <center>
+                                    <span style="border-bottom: 1px solid black;">PURCHASE REQUISITION FORM</span>
+                                </center>
+                            </h4>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <table name="ref_id" class="border"
+                                       style="border: 1px solid;width: 100%;">
+                                    <tr style="border: 1px solid;">
+                                        <td style="width: 100%; text-align:left;border: 1px solid">
+                                            REF #:
+                                            <span t-esc="doc.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; text-align:left;border: 1px solid">
+                                            DATE :
+                                            <span t-esc="doc.request_date"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%;text-align:left;border: 1px solid">
+                                            NAME:
+                                            <span t-esc="doc.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 100%; text-align:left;border: 1px solid">
+                                            DEPARTMENT:
+                                            <span t-esc="doc.department_id.name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-6">
+                                <div style="padding-top:40px">
+                                    <table style="border: 1px solid;">
+                                        <tr>
+                                            <td style="padding: 5px">
+                                                Purchase For :<span t-esc="doc.department_id.name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <table>
+                                <tr class="text-center">
+                                    <th style="width:10%; border:1px solid black;">Sr:#</th>
+                                    <th style="width:30%; border:1px solid black;">ITEM NAME/SPECIFICATION</th>
+                                    <th style="width:15%; border:1px solid black;">Quantity.</th>
+                                    <th style="width:15%; border:1px solid black;">ESTIMATED P/U COST PKR</th>
+                                    <th style="width:30%; border:1px solid black;">ESTIMATED COST PKR</th>
+                                </tr>
+                                <t t-set="sr_no" t-value="0"/>
+                                <t t-foreach="doc.purchase_request_line_ids" t-as="line">
+                                    <tr>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="sr_no+1"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.qty"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.cost_price"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.amount_total"/>
+                                        </td>
+
+                                    </tr>
+                                </t>
+
+                            </table>
+                        </div>
+
+                        <div>
+                            <table style="border: 1px solid;">
+                                <tr>
+                                    <td style="padding:10px">
+                                        <span><b>Reason For Purchase:</b></span>
+                                        <br></br>
+                                        <span t-esc="doc.reason_for_purchase"/>
+                                        <br/>
+                                        <span t-esc="doc.description"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="page-break-inside: avoid;">
+                            <table class="text-center" style="margin-top: 46px;">
+                                <tr>
+                                    <th style="color:green">
+                                        <t t-if="doc.department_approval and doc.department_approval_user">
+                                            <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.department_approval_user.signature_image)"/>
+                                        </t>
+                                    </th>
+                                    <td/>
+                                    <th style="color:green">
+                                        <t t-if="doc.treasure_approval and doc.treasure_approval_user">
+                                            <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.treasure_approval_user.signature_image)"/>
+                                        </t>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="width:20%; border-top:1px solid black">
+                                        <span>HOD/DEAN DEPARTMENT</span>
+                                    </th>
+                                    <td style="width:60%"/>
+                                    <th style="width:20%; border-top:1px solid black">
+                                        <span>TREASURER</span>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="text-center" style="margin-top: 46px;">
+                                <tr>
+                                    <th style="color:green">
+                                        <t t-if="doc.registrar_approval and doc.registrar_approval_user">
+                                            <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.registrar_approval_user.signature_image)"/>
+                                        </t>
+                                    </th>
+                                    <td/>
+                                    <th style="color:green">
+                                        <t t-if="doc.pro_vc_approval and doc.pro_vc_approval_user">
+                                            <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.pro_vc_approval_user.signature_image)"/>
+                                        </t>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="width:20%; border-top:1px solid black">
+                                        <span>REGISTRAR</span>
+                                    </th>
+                                    <td style="width:60%"/>
+                                    <th style="width:20%; border-top:1px solid black">
+                                        <span>PRO-VC</span>
+                                    </th>
+                                </tr>
+                            </table>
+                            <t t-if="doc.secretary_approval_user">
+                                <table class="text-center" style="margin-top: 46px;">
+                                    <tr>
+                                        <th style="color:green">
+                                            <t t-if="doc.registrar_approval and doc.secretary_approval_user">
+                                                <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.secretary_approval_user.signature_image)"/>
+                                            </t>
+                                        </th>
+                                        <td/>
+                                        <th/>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>Seceratery</span>
+                                        </th>
+                                        <td style="width:60%"/>
+                                        <th style="width:20%;"/>
+                                    </tr>
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="odoocms_admission_portal.report_admission_invoice">
+        <t t-call="web.html_container">
+            <t t-set="registration_fee" t-value="registration_fee"/>
+            <t t-set="additional_fee" t-value="additional_fee"/>
+            <t t-set="total_fee" t-value="total_fee"/>
+            <t t-set="account_payable" t-value="account_payable"/>
+            <t t-set="today" t-value="today"/>
+            <t t-foreach="application_ids" t-as="o">
+                <t t-set="nationality" t-value="o.nationality"/>
+                <t t-call="odoocms_admission_portal.report_admission_invoice_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="odoocms_admission_portal.report_admission_invoice_document">
+        <t t-call="web.basic_layout">
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <style>
+                #invoice-report {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 98%;
+                margin: 1.5%;
+                }
+                #invoice-report td, #invoice-report th {
+                border: 1px solid #ddd;
+                padding: 2px;
+                }
+                #invoice-report th {
+                text-align: left;
+                width:60%;
+                font-weight:normal;
+                }
+                #invoice-report td {
+                text-align: right;
+                width:40%;
+                }
+            </style>
+            <div class="page" style="font-size: 12px; padding:5px">
+                <t t-if="company.admission_invoice == 3">
+                    <t t-call="odoocms_admission_portal.receipt_template_3"/>
+                </t>
+                <t t-if="company.admission_invoice == 4">
+                    <t t-call="odoocms_admission_portal.receipt_template_4"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+    <template id="odoocms_admission_portal.receipt_template_4">
+        <!--            <div class="page" style="font-size: 12px; padding:5px ">-->
+        <div class="row">
+            <div style="width:33%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Bank Copy</t>
+                </t>
+            </div>
+            <!--            <div style="width:23%; border:1px solid; margin-right:5px; padding:0.4%">-->
+            <!--                <t t-call="odoocms_admission_portal.receipt_copy">-->
+            <!--                    <t t-set="copy_name">Treasurer Office Copy</t>-->
+            <!--                </t>-->
+            <!--            </div>-->
+            <div style="width:33%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Admission Office Copy</t>
+                </t>
+            </div>
+            <div style="width:33%; border:1px solid;padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Student Copy</t>
+                </t>
+            </div>
+        </div>
+        <!--            </div>-->
+    </template>
+
+    <template id="odoocms_admission_portal.receipt_template_3">
+        <!--            <div class="page" style="font-size: 12px; padding:5px ">-->
+        <div class="row">
+            <div style="width:31%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Bank Copy</t>
+                </t>
+            </div>
+
+            <div style="width:31%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Admission Office Copy</t>
+                </t>
+            </div>
+            <div style="width:31%; border:1px solid;padding:0.4%">
+                <t t-call="odoocms_admission_portal.receipt_copy">
+                    <t t-set="copy_name">Student Copy</t>
+                </t>
+            </div>
+        </div>
+        <!--            </div>-->
+    </template>
+
+    <template id="odoocms_admission_portal.receipt_copy">
+        <div class="row" style="margin-top:16px">
+            <div class="col col-2">
+                <img alt="..." style="max-width:120px" t-att-src="image_data_uri(company.logo)" t-if="company.logo"/>
+                <img alt="..." style="max-width:120px" src="/web/static/src/img/user_menu_avatar.png"
+                     t-if=" not company.logo"/>
+            </div>
+            <div class="col col-10" style="margin-top:12px">
+                <div class="text-center" style="font-size:16px">
+                    <span t-esc='company.name'/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <div class="col col-12" style="border: 1px solid black; text-align:center; font-weight:bold; background-color: #b8c2cb">
+                <span t-esc="copy_name"/>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <div style="width:45%">
+                <table class="text-center" style="width:100%;">
+                    <tr style="border:1px solid black; background-color: #b8c2cb">
+                        <th>Faysal Bank Account No</th>
+                    </tr>
+                    <tr style="border:1px solid black;">
+                        <td>0110Z07000019136</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width:10%"/>
+            <div style="width:45%">
+                <table class="text-center" style="width:100%;">
+                    <tr style="border:1px solid black; background-color: #b8c2cb">
+                        <th>Deposit Date</th>
+                    </tr>
+                    <tr style="border:1px solid black">
+                        <td><span t-esc="o.register_id.challan_due_date"/></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black; background-color: #b8c2cb">
+                    <th style="padding: 2px">Challan No #</th>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="padding: 2px"><span t-esc="o.application_no"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black; background-color: #b8c2cb">
+                    <th style="padding: 2px">Applicant Name</th>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="padding: 2px"><span t-esc="o.name"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black; background-color: #b8c2cb">
+                    <th style="padding: 2px">Applicant CNIC</th>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="padding: 2px"><span t-esc="o.cnic"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black; background-color: #b8c2cb">
+                    <th colspan="2" style="padding: 2px">Father/Spouse/Guardian Name with CNIC</th>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td style="width:50%; padding: 2px"><span t-esc="o.father_name"/></td>
+                    <td class="text-right" style="width:50%; padding: 2px"><span t-esc="o.father_cnic"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black; background-color: #b8c2cb">
+                    <th class="text-center" style="width:10%; padding: 2px; border:1px solid black;">Sr. #</th>
+                    <th style="width:70%; padding: 2px; border:1px solid black;">Particulars</th>
+                    <th class="text-right" style="width:20%; padding: 2px; border:1px solid black;">Amount</th>
+                </tr>
+                <tr style="border:1px solid black;">
+                    <td class="text-center" style="padding: 2px; border:1px solid black;">1</td>
+                    <td style="padding: 2px; border:1px solid black;">Application Fee</td>
+                    <td class="text-right" style="padding: 2px; border:1px solid black;"><span t-esc="'{0:,.2f}'.format(o.register_id.challan_amount)"/></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px;">
+            <table style="width:100%;">
+                <tr style="border:1px solid black;">
+                    <th class="text-center" style="width:80%; padding: 2px; border:1px solid black;">Amount</th>
+                    <th class="text-right" style="width:20%; padding: 2px; border:1px solid black;"><span t-esc="'{0:,.2f}'.format(o.register_id.challan_amount)"/></th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="padding: 16px 18px; padding-top:70px">
+            <div style="width:45%">
+                <table class="text-center" style="width:100%;">
+                    <tr style="border-top: 1px solid black">
+                        <td>Depositor's Signature</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="width:10%"/>
+            <div style="width:45%">
+                <table class="text-center" style="width:100%;">
+                    <tr style="border-top: 1px solid black">
+                        <td>Depositor's Signature</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" style="padding: 16px 18px; margin-top: 10px">
+            <table style="width:100%">
+                <tr>
+                    <th>Terms</th>
+                </tr>
+                <tr>
+                    <td>Amount deposited is non-refundable.</td>
+                </tr>
+                <tr>
+                    <td>Deposit can be made in any Branch of Faysal Bank.</td>
+                </tr>
+            </table>
+        </div>
+    </template>
+</odoo>

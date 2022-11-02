@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--     <template id="portal.portal_show_sign_in" inherit_id="portal.frontend_layout" name="Show Sign In">
+        <xpath expr="//ul[@id='top_menu']" position="inside">
+            <li class="nav-item divider" groups="base.group_public"/>
+            <li groups="base.group_public" class="nav-item">
+                <t t-if="user_id.name == 'Public user'">
+                    <a t-attf-href="/web/login" class="nav-link">
+                        <b>Sign in</b>
+                    </a>
+                </t>
+                <t t-else="">
+                    <a t-attf-href="/web/login" class="nav-link">
+                        <b>Sign out</b>
+                    </a>
+                </t>
+            </li>
+        </xpath>
+    </template> -->
+
+<!--     <template id="portal.my_account_link" name="Link to frontend portal" inherit_id="portal.frontend_layout">
+        <xpath expr="//a[@id='o_logout']" position="before">
+            <t t-if="user_id.user_type == 'public'">
+                <a> </a>
+            </t>
+            <t t-else="">
+                <a href="/my/home" role="menuitem" class="dropdown-item">My Account</a>
+            </t>
+        </xpath>
+    </template> -->
+
+</odoo>

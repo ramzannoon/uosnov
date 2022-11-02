@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="signup_email_template" model="mail.template">
+            <field name="name">Signup Confirmation</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="email_from">admissions@iac.edu.pk</field>
+            <field name="email_to">${object.email}</field>
+            <field name="subject">Thank you for your registration at Institute for Art and Culture</field>
+            <field name="auto_delete" eval="False" />
+            <field name="lang">${object.lang}</field>
+            <field name="body_html" type="xml">
+                <p>
+                    Dear ${object.name},
+                    <br/>
+                    You are successfully registered in IAC Admission Portal. Please login at the
+                    Admission Application Portal to complete the online application.
+                    <br/>
+                    Your Login Details are:
+                    <br/>
+                     Username: ${object.name}
+                    <br/>
+                     Password: ${object.password}
+                    <br/>
+                    The next step, you should do:
+                    <br/>
+                    1. Login to Online Admission Portal using the credentials provided
+                    above.
+                    <br/>
+                    2. Fill out the Online Admission Form.
+                    <br/>
+                    NOTE: If you have any difficulty in filling out the online admission from,
+                    Please contact admission department at +92 42 111 111 822 EXT. 722
+                    Regards,
+                    <br/>
+                    The Admission Team
+                    <br/>
+                    Institute for Art and Culture (IAC)
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

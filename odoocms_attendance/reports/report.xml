@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<report
+			id="action_report_student_attendance"
+			string="Student Attendance Report"
+			model="odoocms.student"
+			report_type="qweb-html"
+			name="odoocms_attendance.student_attendance_report"
+			file="odoocms_attendance.student_attendance_report"
+			menu="False"
+		/>
+
+		<report
+			id="action_report_component_attendance"
+			string="Component Attendance Report"
+			model="odoocms.class"
+			report_type="qweb-pdf"
+			name="odoocms_attendance.component_attendance_report"
+			file="odoocms_attendance.component_attendance_report"
+			menu="False"
+		/>
+
+		<report
+			id="action_report_class_attendance"
+			string="Class Attendance Report"
+			model="odoocms.class"
+			report_type="qweb-pdf"
+			name="odoocms_attendance.class_attendance_report"
+			file="odoocms_attendance.class_attendance_report"
+			menu="False"
+		/>
+
+		<report
+			id="action_report_short_attendance"
+			string="Short Attendance Report"
+			model="short.attendance.report.wizard"
+			report_type="qweb-pdf"
+			name="odoocms_attendance.short_attendance_report"
+			file="odoocms_attendance.short_attendance_report"
+			menu="True"
+		/>
+
+		<report
+			id="action_report_summary_attendance"
+			string="Summary Attendance Report"
+			model="summary.attendance.report.wizard"
+			report_type="qweb-pdf"
+			name="odoocms_attendance.summary_attendance_report"
+			file="odoocms_attendance.summary_attendance_report"
+			menu="True"
+		/>
+
+		<!-- Short Attendance Warning-->
+		<report
+			id="action_report_short_attendance_warning"
+			string="Short Attendance Warning"
+			model="short.attendance.warning.wizard"
+			report_type="qweb-html"
+			name="odoocms_attendance.short_attendance_warning_report"
+			file="odoocms_attendance.short_attendance_warning_report"
+			menu="True"
+		/>
+
+</data>
+</odoo>

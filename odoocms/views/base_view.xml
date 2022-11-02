@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_tree" model="ir.ui.view">
+        <field name="name">res.users.tree</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+            <field name="login_date" position="before">
+                <field name="user_type"/>
+                <field name="student_id" readonly="1" optional="hide"/>
+                <field name="faculty_staff_id" readonly="1" optional="hide"/>
+                <field name="employee_id" readonly="1" optional="hide"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="favicon" position="after">
+                <field name="identifier"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_users_form" model="ir.ui.view">
+        <field name="name">res.users.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <group name="messaging" position="before">
+                <group>
+                    <field name="user_type"/>
+                    <field name="student_id"
+                           attrs="{'invisible': [('user_type','!=','student')]}"/>
+                    <field name="faculty_staff_id"
+                           attrs="{'invisible': [('user_type','!=','faculty')]}"/>
+                    <field name="employee_id" readonly="0"
+                           attrs="{'invisible': [('user_type','!=','employee')]}"/>
+                </group>
+            </group>
+            <page name="access_rights" position="after">
+                <page name="programs" string="Programs">
+                    <field name="program_ids" nolabel="1"/>
+                </page>
+
+            </page>
+        </field>
+    </record>
+    <!--
+        <record id="res_users_view_form" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="hr.res_users_view_form"/>
+            <field name="arch" type="xml">
+                <field name="employee_id" position="replace"/>
+            </field>
+        </record>
+    -->
+
+    <record id="view_users_search" model="ir.ui.view">
+        <field name="name">res.users.search</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_search"/>
+        <field name="arch" type="xml">
+            <field name="share" position="before">
+                <field name="login"/>
+            </field>
+            <filter name="no_share" position="after">
+                <filter name="yes_share" string="External Users" domain="[('share','!=',False)]"/>
+                <filter name="students" string="Students" domain="[('user_type','=','student')]"/>
+                <filter name="faculty" string="Faculty" domain="[('user_type','=','faculty')]"/>
+                <filter name="employees" string="Employeess" domain="[('user_type','=','employee')]"/>
+                <separator/>
+                <filter name="user_type" string="User Type" context="{'group_by': 'user_type'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <!-- Semester -->
+    <record id="view_odoocms_semester_tree" model="ir.ui.view">
+        <field name="name">odoocms.semester.tree</field>
+        <field name="model">odoocms.semester</field>
+        <field name="arch" type="xml">
+            <tree string="Semester" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="number"/>
+                <!--                <field name="color" widget="color" optional="show"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_semester" model="ir.actions.act_window">
+        <field name="name">Semester</field>
+        <field name="res_model">odoocms.semester</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Semester here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Week Days -->
+    <record id="view_odoocms_week_day_tree" model="ir.ui.view">
+        <field name="name">odoocms.week,day.tree</field>
+        <field name="model">odoocms.week.day</field>
+        <field name="arch" type="xml">
+            <tree string="Week Days" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="number"/>
+                <!--                <field name="color" widget="color" optional="show"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_week_day" model="ir.actions.act_window">
+        <field name="name">Week Days</field>
+        <field name="res_model">odoocms.week.day</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Week Day here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Building -->
+    <record id="view_facility_building_tree" model="ir.ui.view">
+        <field name="name">odoocms.building.tree</field>
+        <field name="model">odoocms.building</field>
+        <field name="arch" type="xml">
+            <tree string="Building">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="institute_id"/>
+                <field name="locationX"/>
+                <field name="locationY"/>
+                <!--                    <field name="unitime_id"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_acility_building_form" model="ir.ui.view">
+        <field name="name">odoocms.building.form</field>
+        <field name="model">odoocms.building</field>
+        <field name="arch" type="xml">
+            <form string="Building">
+                <group>
+                    <group>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="externalId"/>
+                    </group>
+                    <group>
+                        <field name="locationX"/>
+                        <field name="locationY"/>
+                        <field name="institute_id"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="open_building_view_action" model="ir.actions.act_window">
+        <field name="name">Building</field>
+        <field name="res_model">odoocms.building</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Building here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Class Room -->
+    <record id="view_odoocms_room_tree" model="ir.ui.view">
+        <field name="name">odoocms.room.tree</field>
+        <field name="model">odoocms.room</field>
+        <field name="arch" type="xml">
+            <tree string="Class Room">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="building_id"/>
+                <field name="capacity"/>
+                <field name="examCapacity"/>
+                <field name="controlDepartment"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_room_form" model="ir.ui.view">
+        <field name="name">odoocms.room.form</field>
+        <field name="model">odoocms.room</field>
+        <field name="arch" type="xml">
+            <form string="Class Room">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="building_id"/>
+
+                        </group>
+                        <group>
+                            <field name="capacity"/>
+                            <field name="examCapacity"/>
+                            <field name="externalId"/>
+                            <field name="locationX"/>
+
+                        </group>
+                        <group>
+                            <field name="room_type"/>
+                            <field name="controlDepartment"/>
+                            <field name="eventDepartment"/>
+                            <field name="scheduledRoomType"/>
+                        </group>
+                        <group>
+                            <field name="locationY"/>
+                            <field name="area"/>
+                            <field name="roomClassification"/>
+                            <field name="instructional"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="eventNote"/>
+                        </group>
+                        <group>
+                            <field name="roomSharingNote"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <field name="feature_ids">
+                            <tree string="Facilities">
+                                <field name="name"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_room" model="ir.actions.act_window">
+        <field name="name">Rooms</field>
+        <field name="res_model">odoocms.room</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Class Room here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Amenities -->
+    <record id="view_odoocms_amenities_tree" model="ir.ui.view">
+        <field name="name">odoocms.amenities.tree</field>
+        <field name="model">odoocms.amenities</field>
+        <field name="arch" type="xml">
+            <tree string="Amenities">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_amenities_form" model="ir.ui.view">
+        <field name="name">odoocms.amenities.form</field>
+        <field name="model">odoocms.amenities</field>
+        <field name="arch" type="xml">
+            <form string="Amenities">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_amenities" model="ir.actions.act_window">
+        <field name="name">Amenities</field>
+        <field name="res_model">odoocms.amenities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your first amenity here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_religion_form" model="ir.ui.view">
+        <field name="name">odoocms.religion.form</field>
+        <field name="model">odoocms.religion</field>
+        <field name="arch" type="xml">
+            <form string="Odoocms Religion">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_religion_tree" model="ir.ui.view">
+        <field name="name">odoocms.religion.tree</field>
+        <field name="model">odoocms.religion</field>
+        <field name="arch" type="xml">
+            <tree string="Odoocms Religion">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_religion_view" model="ir.actions.act_window">
+        <field name="name">Religion</field>
+        <field name="res_model">odoocms.religion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_odoocms_domicile_form" model="ir.ui.view">
+        <field name="name">odoocms.domicile.form</field>
+        <field name="model">odoocms.domicile</field>
+        <field name="arch" type="xml">
+            <form string="Domicile">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="province_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_domicile_tree" model="ir.ui.view">
+        <field name="name">odoocms.domicile.tree</field>
+        <field name="model">odoocms.domicile</field>
+        <field name="arch" type="xml">
+            <tree string="Domicile">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="province_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_domicile" model="ir.actions.act_window">
+        <field name="name">Domicile</field>
+        <field name="res_model">odoocms.domicile</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_odoocms_province_tree" model="ir.ui.view">
+        <field name="name">odoocms.province.tree</field>
+        <field name="model">odoocms.province</field>
+        <field name="arch" type="xml">
+            <tree string="domicile">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="country_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_province_form" model="ir.ui.view">
+        <field name="name">odoocms.province.form</field>
+        <field name="model">odoocms.province</field>
+        <field name="arch" type="xml">
+            <form string="Province">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="country_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Districts" name="districts">
+                            <field name="district_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Domicile">
+                            <field name="domicile_ids">
+                                <tree string="Domicile" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_province_search" model="ir.ui.view">
+        <field name="name">odoocms.province.search</field>
+        <field name="model">odoocms.province</field>
+        <field name="arch" type="xml">
+            <search string="Province">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="country_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_province" model="ir.actions.act_window">
+        <field name="name">Province</field>
+        <field name="res_model">odoocms.province</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_province_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First Province here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_district_tree" model="ir.ui.view">
+        <field name="name">odoocms.district.tree</field>
+        <field name="model">odoocms.district</field>
+        <field name="arch" type="xml">
+            <tree string="Districts">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="province_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_district_form" model="ir.ui.view">
+        <field name="name">odoocms.district.form</field>
+        <field name="model">odoocms.district</field>
+        <field name="arch" type="xml">
+            <form string="Districts">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="province_id"/>
+
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_district_search" model="ir.ui.view">
+        <field name="name">odoocms.district.search</field>
+        <field name="model">odoocms.district</field>
+        <field name="arch" type="xml">
+            <search string="Districts">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="province_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_district" model="ir.actions.act_window">
+        <field name="name">Districts</field>
+        <field name="res_model">odoocms.district</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_district_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First District here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_city_tree" model="ir.ui.view">
+        <field name="name">odoocms.city.tree</field>
+        <field name="model">odoocms.city</field>
+        <field name="arch" type="xml">
+            <tree string="City">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="sequence" widget="handle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_city_form" model="ir.ui.view">
+        <field name="name">odoocms.city.form</field>
+        <field name="model">odoocms.city</field>
+        <field name="arch" type="xml">
+            <form string="City">
+                <sheet>
+                    <group string="City">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_city_search" model="ir.ui.view">
+        <field name="name">odoocms.city.search</field>
+        <field name="model">odoocms.city</field>
+        <field name="priority" eval="14"/>
+        <field name="arch" type="xml">
+            <search string="City">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_city" model="ir.actions.act_window">
+        <field name="name">City</field>
+        <field name="res_model">odoocms.city</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_city_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First City here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_language_tree" model="ir.ui.view">
+        <field name="name">odoocms.language.tree</field>
+        <field name="model">odoocms.language</field>
+        <field name="arch" type="xml">
+            <tree string="Languages">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="sequence" widget="handle"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_language_form" model="ir.ui.view">
+        <field name="name">odoocms.language.form</field>
+        <field name="model">odoocms.language</field>
+        <field name="arch" type="xml">
+            <form string="Language">
+                <sheet>
+                    <group string="Language">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_city_language" model="ir.ui.view">
+        <field name="name">odoocms.language.search</field>
+        <field name="model">odoocms.language</field>
+        <field name="priority" eval="14"/>
+        <field name="arch" type="xml">
+            <search string="Language">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_language" model="ir.actions.act_window">
+        <field name="name">Language</field>
+        <field name="res_model">odoocms.language</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_city_language"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Language here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_marital_status_tree" model="ir.ui.view">
+        <field name="name">odoocms.marital.status.tree</field>
+        <field name="model">odoocms.marital.status</field>
+        <field name="arch" type="xml">
+            <tree string="Marital Status">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_marital_status_form" model="ir.ui.view">
+        <field name="name">odoocms.marital.status.form</field>
+        <field name="model">odoocms.marital.status</field>
+        <field name="arch" type="xml">
+            <form string="Marital Status">
+                <sheet>
+                    <group string="Marital Status">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_marital_status_search" model="ir.ui.view">
+        <field name="name">odoocms.marital.status.search</field>
+        <field name="model">odoocms.marital.status</field>
+        <field name="priority" eval="14"/>
+        <field name="arch" type="xml">
+            <search string="Marital Status">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_marital_status" model="ir.actions.act_window">
+        <field name="name">Marital Status</field>
+        <field name="res_model">odoocms.marital.status</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_city_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Marital Status here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_profs_tree" model="ir.ui.view">
+        <field name="name">odoocms.profs.tree</field>
+        <field name="model">odoocms.profs</field>
+        <field name="arch" type="xml">
+            <tree string="Professions">
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_profs_form" model="ir.ui.view">
+        <field name="name">odoocms.profs.form</field>
+        <field name="model">odoocms.profs</field>
+        <field name="arch" type="xml">
+            <form string="Professions">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_profs_search" model="ir.ui.view">
+        <field name="name">odoocms.profs.search</field>
+        <field name="model">odoocms.profs</field>
+        <field name="arch" type="xml">
+            <search string="Professions">
+                <field name="code"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_profs" model="ir.actions.act_window">
+        <field name="name">Professions</field>
+        <field name="res_model">odoocms.profs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_profs_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First Profession here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_selections_tree" model="ir.ui.view">
+        <field name="name">odoocms.selections.tree</field>
+        <field name="model">odoocms.selections</field>
+        <field name="arch" type="xml">
+            <tree string="Selections">
+                <field name="name"/>
+                <field name="usage"/>
+                <field name="in_use"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_selections_form" model="ir.ui.view">
+        <field name="name">odoocms.selections.form</field>
+        <field name="model">odoocms.selections</field>
+        <field name="arch" type="xml">
+            <form string="Selections">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="usage"/>
+                        </group>
+                        <group>
+                            <field name="in_use"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Selection Values" name="selection_values">
+                            <field name="fields_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_selections" model="ir.actions.act_window">
+        <field name="name">Selections</field>
+        <field name="res_model">odoocms.selections</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First Selection here.
+            </p>
+        </field>
+    </record>
+
+
+
+
+
+    <record id="mail_activity_type_view_form" model="ir.ui.view">
+        <field name="name">mail.activity.type.view.form</field>
+        <field name="model">mail.activity.type</field>
+        <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+        <field name="arch" type="xml">
+            <group name="activity_planning" position="after">
+                <group name="user">
+                    <field name="role_domain" widget="domain"
+                           options="{'model': 'odoocms.program', 'in_dialog': true}"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+
+    <menuitem
+            id="menu_building_view"
+            parent="menu_odoocms_organization_infrastructure"
+            name="Building"
+            sequence="10"
+            action="open_building_view_action"/>
+
+    <menuitem
+            id="menu_odoocms_room"
+            name="Rooms"
+            parent="menu_odoocms_organization_infrastructure"
+            action="action_odoocms_room"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_odoocms_amenities"
+            name="General Facilities"
+            parent="menu_odoocms_organization_infrastructure"
+            action="action_odoocms_amenities"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_semester"
+            name="Semesters"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_semester"
+            sequence="20"/>
+
+
+
+    <menuitem
+            id="menu_odoocms_province"
+            name="Province"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_province"
+            groups="odoocms.group_cms_manager"
+            sequence="110"/>
+
+    <menuitem
+            id="menu_odoocms_district_action"
+            name="Districts"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_district"
+            sequence="120"/>
+
+    <menuitem
+            id="menu_odoocms_domicile"
+            name="Domicile"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_domicile"
+            groups="odoocms.group_cms_manager"
+            sequence="130"/>
+
+    <menuitem
+            id="menu_odoocms_city"
+            name="City"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_city"
+            groups="group_cms_manager"
+            sequence="140"/>
+
+    <menuitem
+            id="menu_odoocms_language"
+            name="Language"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_language"
+            groups="group_cms_manager"
+            sequence="150"/>
+
+    <menuitem
+            id="menu_odoocms_marital_status"
+            name="Marital Status"
+            parent="menu_odoocms_config_general"
+            action="action_odoocms_marital_status"
+            groups="group_cms_manager"
+            sequence="150"/>
+
+    <menuitem
+            id="menu_odoocms_religion"
+            name="Religion"
+            sequence="210"
+            action='action_odoocms_religion_view'
+            parent="menu_odoocms_config_general"/>
+
+    <menuitem id="menu_odoocms_profs_action"
+              name="Professions"
+              parent="menu_odoocms_config_general"
+              action="action_odoocms_profs"
+              sequence="220"/>
+
+    <menuitem
+            id="menu_odoocms_week_day"
+            name="Week Days"
+            sequence="300"
+            action='action_odoocms_week_day'
+            parent="menu_odoocms_config_general"/>
+
+    <menuitem
+            id="menu_odoocms_selections"
+            name="Selections"
+            sequence="400"
+            action='action_odoocms_selections'
+            parent="menu_odoocms_config_general"
+            groups="base.group_no_one"/>
+
+    <menuitem id="menu_odoocms_error_reporting_main"
+              name="Issues"
+              parent="base.menu_security"
+              sequence="50"/>
+
+    <menuitem id="menu_cms_notification_category"
+              name="Reported Issues"
+              parent="menu_odoocms_error_reporting_main"
+              action="action_odoocms_error_reporting"
+              sequence="1"/>
+
+
+</odoo>

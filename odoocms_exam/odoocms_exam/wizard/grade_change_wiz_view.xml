@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="odoocms_course_grade_change_wiz_form" model="ir.ui.view">
+        <field name="name">odoocms.course.grade.change.wiz.form</field>
+        <field name="model">odoocms.course.grade.change.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Grade Change Request Submit Wizard">
+                <group>
+                    <group>
+                        <field name="request_ids"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                    <group>
+                    </group>
+                    <!-- <separator string="General Info"/>
+                     <group>
+                         <field name="heighest_marks"/>
+                     </group>-->
+                </group>
+                <footer>
+                    <button name="request_submit" string="Submit Requests" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <act_window
+            id="act_odoocms_course_grade_change_submit"
+            name="Submit Request"
+            res_model="odoocms.course.grade.change.wiz"
+            binding_model="odoocms.course.grade.change"
+            view_mode="form" binding_views="list,form"
+            target="new"
+    />
+
+
+</odoo>

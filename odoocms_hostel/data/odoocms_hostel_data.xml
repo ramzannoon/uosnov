@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Room Types-->
+        <record id="odoocms_room_type_id1" model="odoocms.hostel.room.type">
+            <field name="name">Cubicle</field>
+            <field name="capacity">1</field>
+            <field name="code">CUB</field>
+            <field name="per_month_rent">6500</field>
+        </record>
+        <record id="odoocms_room_type_id2" model="odoocms.hostel.room.type">
+            <field name="name">Bi-Seater With Attached Bath</field>
+            <field name="capacity">2</field>
+            <field name="code">BISWAB</field>
+            <field name="per_month_rent">5500</field>
+        </record>
+        <record id="odoocms_room_type_id3" model="odoocms.hostel.room.type">
+            <field name="name">Bi-Seater With Community Bath</field>
+            <field name="capacity">2</field>
+            <field name="code">BISWCB</field>
+            <field name="per_month_rent">4500</field>
+        </record>
+        <record id="odoocms_room_type_id4" model="odoocms.hostel.room.type">
+            <field name="name">Tri-Seater Rooms with Community</field>
+            <field name="capacity">3</field>
+            <field name="code">TISWCB</field>
+            <field name="per_month_rent">4000</field>
+        </record>
+
+        <!-- Floors -->
+        <record id="odoocms_floors_id0" model="odoocms.floors">
+            <field name="name">Basement</field>
+            <field name="floor_no">0</field>
+        </record>
+        <record id="odoocms_floors_id1" model="odoocms.floors">
+            <field name="name">Ground Floor</field>
+            <field name="floor_no">1</field>
+        </record>
+        <record id="odoocms_floors_id2" model="odoocms.floors">
+            <field name="name">First Floor</field>
+            <field name="floor_no">2</field>
+        </record>
+        <record id="odoocms_floors_id3" model="odoocms.floors">
+            <field name="name">Second Floor</field>
+            <field name="floor_no">3</field>
+        </record>
+        <record id="odoocms_floors_id4" model="odoocms.floors">
+            <field name="name">Third Floor</field>
+            <field name="floor_no">4</field>
+        </record>
+        <record id="odoocms_floors_id5" model="odoocms.floors">
+            <field name="name">Fourth Floor</field>
+            <field name="floor_no">5</field>
+        </record>
+        <record id="odoocms_floors_id6" model="odoocms.floors">
+            <field name="name">Fifth Floor</field>
+            <field name="floor_no">6</field>
+        </record>
+
+        <!-- Hostel types -->
+        <record id="odoocms_hostel_type_id1" model="odoocms.hostel.type">
+            <field name="name">Boys Hostel</field>
+            <field name="type">Boys</field>
+            <field name="code">BYHST</field>
+        </record>
+        <record id="odoocms_hostel_type_id2" model="odoocms.hostel.type">
+            <field name="name">Girls Hostel</field>
+            <field name="type">Girls</field>
+            <field name="code">GLHST</field>
+        </record>
+        <record id="odoocms_hostel_type_id3" model="odoocms.hostel.type">
+            <field name="name">Common Hostel</field>
+            <field name="type">Common</field>
+            <field name="code">COMHST</field>
+        </record>
+
+        <!-- Amenities -->
+        <record id="odoocms_hostel_amenities_id1" model="odoocms.hostel.amenities">
+            <field name="name">Refrigerator</field>
+        </record>
+        <record id="odoocms_hostel_amenities_id2" model="odoocms.hostel.amenities">
+            <field name="name">AC</field>
+        </record>
+        <record id="odoocms_hostel_amenities_id3" model="odoocms.hostel.amenities">
+            <field name="name">Gas Heater</field>
+        </record>
+        <record id="odoocms_hostel_amenities_id4" model="odoocms.hostel.amenities">
+            <field name="name">Micro Oven</field>
+        </record>
+    </data>
+</odoo>

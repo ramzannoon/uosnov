@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Hostels -->
+        <record id="odoocms_hostel_hostel_user_rule" model="ir.rule">
+            <field name="name">Hostel Access for Hostel Users</field>
+            <field name="model_id" ref="model_odoocms_hostel"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_user'))]"/>
+        </record>
+        <record id="odoocms_hostel_hostel_manager_rule" model="ir.rule">
+            <field name="name">Hostel Access for Hostel Managers</field>
+            <field name="model_id" ref="model_odoocms_hostel"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+        <record id="odoocms_hostel_cms_manager_rule" model="ir.rule">
+            <field name="name">Hostel Access for CMS Managers</field>
+            <field name="model_id" ref="model_odoocms_hostel"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('odoocms.group_cms_manager'))]"/>
+        </record>
+
+        <!--Students-->
+        <record id="odoocms_student_hostel_user_rule" model="ir.rule">
+            <field name="name">Student Access for Hostel Users</field>
+            <field name="model_id" ref="odoocms.model_odoocms_student"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_user'))]"/>
+        </record>
+        <record id="odoocms_student_hostel_manager_rule" model="ir.rule">
+            <field name="name">Student Access for Hostel Managers</field>
+            <field name="model_id" ref="odoocms.model_odoocms_student"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+
+        <!-- Floors -->
+        <record id="odoocms_hostel_floor_hostel_user_rule" model="ir.rule">
+            <field name="name">Hostel Floor Access for Hostel Users</field>
+            <field name="model_id" ref="model_odoocms_hostel_floor"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_user'))]"/>
+        </record>
+        <record id="odoocms_hostel_floor_hostel_manager_rule" model="ir.rule">
+            <field name="name">Hostel Floor Access for Hostel Managers</field>
+            <field name="model_id" ref="model_odoocms_hostel_floor"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+
+        <!-- Rooms -->
+        <record id="odoocms_hostel_rooms_hostel_user_rule" model="ir.rule">
+            <field name="name">Hostel Rooms Access for Hostel Users</field>
+            <field name="model_id" ref="model_odoocms_hostel_room"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_user'))]"/>
+        </record>
+        <record id="odoocms_hostel_rooms_hostel_manager_rule" model="ir.rule">
+            <field name="name">Hostel Rooms Access for Hostel Managers</field>
+            <field name="model_id" ref="model_odoocms_hostel_room"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+
+        <!-- Hostel History -->
+        <record id="odoocms_student_hostel_history_user_rule" model="ir.rule">
+            <field name="name">Student Hostel History Access for Hostel Users</field>
+            <field name="model_id" ref="model_odoocms_student_hostel_history"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_user'))]"/>
+        </record>
+
+        <record id="odoocms_student_hostel_history_manager_rule" model="ir.rule">
+            <field name="name">Student Hostel History Access for Hostel Managers</field>
+            <field name="model_id" ref="model_odoocms_student_hostel_history"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('hostel_id.user_ids','in',[user.id])]</field>
+            <field name="groups" eval="[(4, ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+
+    </data>
+</odoo>
+

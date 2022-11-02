@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_scholarship" name="Admission page">
+        <div class="block-info">
+            <div class="frm-row">
+                <div class="section colm colm4">
+                    <label for="nationality">Financial Assistance</label>
+                    <label class="field select">
+                        <input class="checkbox" name="finance_ass" id="finance_ass"
+                               onclick="on_change_financial_assistance()" type="checkbox"/>
+                        Financial Assistance Required?
+                    </label>
+                </div>
+                <div id="fin" class="section colm colm4">
+                    <label for="ass">Assistance required for:</label>
+                    <label class="field select">
+                        <select name="ass" id="assistance">
+                            <option value="1">
+                                <span>One Year</span>
+                            </option>
+                            <option value="2">
+                                <span>Two Year</span>
+                            </option>
+                            <option value="3">
+                                <span>Three Year</span>
+                            </option>
+                            <option value="4">
+                                <span>Four Year</span>
+                            </option>
+                        </select>
+                        <i class="arrow double"></i>
+                    </label>
+                </div>
+                <div class="section colm colm4">
+                    <label for="amount_needed">Assistance Amount Required </label>
+                    <label class="field prepend-icon">
+
+                        <input type="number" name="amount_needed" id="amount_needed" class="gui-input" placeholder="Amount"
+                               />
+                        <span class="field-icon">
+                           <!-- <i class="fa fa-user"></i>-->
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <script>
+            function on_change_financial_assistance() {
+            if ($('#is_dual_nationality').is(":checked"))
+            {
+            $("#passport_div").css("display", "block");
+            $("#div_dual_nationality_country").css("display", "block");
+
+            /* document.getElementById('test_type').value = 'SAT';
+            document.getElementById('test_type').readOnly = true;*/
+            }
+            else{
+            $("#passport_div").css("display", "none");
+            $("#div_dual_nationality_country").css("display", "none");
+            /* document.getElementById('test_type').readOnly = false;*/
+            }
+
+            }
+
+        </script>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="odoocms_merit_register_wizard_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.merit.register.wizard.form.inherit</field>
+        <field name="model">odoocms.merit.register.wizard</field>
+        <field name="inherit_id" ref="odoocms_admission.odoocms_merit_register_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='remarks']" position="replace">
+            </xpath>
+            <xpath expr="//field[@name='register_id']" position="replace">
+                <field name="register_id" readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='date_list']" position="replace">
+                <field name="date_list" readonly="1"/>
+            </xpath>
+            <xpath expr="//button[@name='generate_merit_register']" position="replace">
+                <button name="generate_merit_register" string="Generate Merit List" type="object" attrs="{'invisible': [('comment', '!=', False)]}" class="btn btn-sm btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

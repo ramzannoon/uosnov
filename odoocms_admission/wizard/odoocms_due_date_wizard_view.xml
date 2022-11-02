@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_due_date_wizard_form" model="ir.ui.view">
+            <field name="name">register.due.date.wizard.form</field>
+            <field name="model">register.due.date.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Register Due Date Wizard">
+                    <group>
+                        <group>
+                            <field name="register_id" readonly="1"
+                                   options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="current_due_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="new_due_date"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="set_due_date" string="Set Date" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                   </form>
+                </field>
+        </record>
+
+        <act_window
+				id="act_due_date_wizard"
+				name="Change Due Date"
+				binding_model="odoocms.admission.register"
+				res_model="register.due.date.wizard"
+				binding_views="list,form"
+				view_mode="form"
+				target="new"
+				groups="odoocms.group_cms_user"
+		/>
+
+
+    </data>
+</odoo>

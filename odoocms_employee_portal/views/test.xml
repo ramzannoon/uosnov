@@ -1,0 +1,1593 @@
+<!--<odoo>-->
+
+<!--    <template id="portal_layout_admission" name="Portal layout: admission menu entry"-->
+<!--              inherit_id="portal.portal_breadcrumbs" priority="40">-->
+<!--        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">-->
+<!--            <li t-if="page_name == 'admission' or admission" class="col-lg-2"-->
+<!--                t-attf-class="breadcrumb-item #{'active ' if not admission else ''}">-->
+<!--                <a t-if="admission" t-attf-href="/my/admissions?{{ keep_query() }}">Admission</a>-->
+<!--                <t t-else="">Admission</t>-->
+<!--            </li>-->
+<!--            <li t-if="admission" class="breadcrumb-item active text-truncate col-8 col-lg-10">-->
+<!--                <t t-esc="admission.name"/>-->
+<!--            </li>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--    <template id="portal_my_home_admission" name="Crm Admissiom / Admission" customize_show="True"-->
+<!--              inherit_id="portal.portal_my_home" priority="40">-->
+<!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">-->
+<!--            <t t-call="portal.portal_docs_entry">-->
+<!--                <t t-set="title">Crm Admission</t>-->
+<!--                <t t-set="url" t-value="'/my/admissions'"/>-->
+<!--                <t t-set="placeholder_count" t-value="'admission_count'"/>-->
+<!--            </t>-->
+<!--        </xpath>-->
+<!--    </template>-->
+
+<!--    <template id="portal_my_admissions" name="My Admission">-->
+<!--        <t t-call="portal.portal_layout">-->
+<!--            <t t-set="breadcrumbs_searchbar" t-value="True"/>-->
+<!--            <t t-call="portal.portal_searchbar">-->
+<!--                <t t-set="title">Admission</t>-->
+<!--            </t>-->
+<!--            <t t-if="not admissions">-->
+<!--                <div class="alert alert-warning mt8" role="alert">There are no Admission.</div>-->
+<!--            </t>-->
+<!--            <t t-if="admissions" t-call="portal.portal_table">-->
+<!--                <thead>-->
+<!--                    <tr class="active">-->
+<!--                        <th>Opportunity</th>-->
+<!--                        <th>Contact Name</th>-->
+<!--                        <th>Email</th>-->
+<!--                        <th>Stage</th>-->
+<!--                        <th class="d-none d-md-table-cell">Phone</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                    <tr t-foreach="admissions" t-as="admission">-->
+<!--                        <td>-->
+<!--                            <a t-attf-href="/my/admission/#{admission.id}?{{ keep_query() }}">-->
+<!--                                <span t-field="admission.name"/>-->
+<!--                            </a>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <span t-field="admission.contact_name"/>-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            <span t-field="admission.email_from"/>-->
+<!--                        </td>-->
+<!--                        <td class="tx_status">-->
+<!--                            <t t-if="admission.stage_id.name == 'New'">-->
+<!--                                <span class="badge badge-pill badge-info">-->
+<!--                                    <i class="fa fa-fw fa-clock-o" aria-label="New" title="New" role="img"/>-->
+<!--                                    <span class="d-none d-md-inline">New</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="admission.stage_id.name == 'Qualified'">-->
+<!--                                <span class="badge badge-pill badge-primary">-->
+<!--                                    <i class="fa fa-fw fa-quora" aria-label="Qualified" title="Qualified" role="img"/>-->
+<!--                                    <span class="d-none d-md-inline">Qualified</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="admission.stage_id.name == 'Proposition'">-->
+<!--                                <span class="badge badge-pill badge-warning">-->
+<!--                                    <i class="fa fa-fw fa-id-badge" aria-label="Proposition" title="Proposition"-->
+<!--                                       role="img"/>-->
+<!--                                    <span class="d-none d-md-inline">Proposition</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                            <t t-if="admission.stage_id.name == 'Won'">-->
+<!--                                <span class="badge badge-pill badge-success">-->
+<!--                                    <i class="fa fa-fw fa-check" aria-label="Won" title="Won" role="img"/>-->
+<!--                                    <span class="d-none d-md-inline">Won</span>-->
+<!--                                </span>-->
+<!--                            </t>-->
+<!--                        </td>-->
+<!--                        <td class="d-none d-md-table-cell">-->
+<!--                            <span t-field="admission.phone"/>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </tbody>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+
+<!--    <template id="portal_my_admission" name="My Admission">-->
+<!--        <t t-call="portal.portal_layout">-->
+<!--            <t t-set="o_portal_fullwidth_alert">-->
+<!--                <t t-call="portal.portal_back_in_edit_mode">-->
+<!--                    <t t-set="backend_url" t-value="'/web#model=crm.lead&id=%s&view_type=form' % (admission.id)"/>-->
+<!--                </t>-->
+<!--            </t>-->
+<!--            <br/>-->
+<!--            <div class="row" style="margin-top:-8px;">-->
+<!--                <div class="col-lg-3">-->
+<!--                    <t t-call="portal.portal_record_layout">-->
+<!--                        <t t-set="card_body">-->
+<!--                            <div class="row" style="border-bottom:1px solid #c9c6bb;">-->
+<!--                                <h1>-->
+
+<!--                                    <span t-field="admission.expected_revenue"/>-->
+<!--                                </h1>-->
+<!--                            </div>-->
+<!--                            <p style="font-size:10px;">Expected Revenue</p>-->
+<!--                            <br/>-->
+<!--                            <span t-field="admission.company_id.name"/>-->
+<!--                            <br/>-->
+<!--                            <span t-field="admission.phone"/>-->
+<!--                            <br/>-->
+<!--                            <br/>-->
+<!--                            <div class="row" style="border-bottom:1px solid #c9c6bb;">-->
+<!--                                <div class="col flex-grow-0 pr-2">-->
+<!--                                    <img t-if="admission.user_id.image_1024"-->
+<!--                                         class="rounded-circle mt-1 o_portal_contact_img"-->
+<!--                                         t-att-src="image_data_uri(admission.user_id.image_1024)" alt="Contact"/>-->
+<!--                                </div>-->
+<!--                                <div class="col pl-0">-->
+<!--                                    <span t-field="admission.user_id" t-options="{" widget": "contact", "fields": ["name-->
+<!--                                    ", "phone"], "no_marker": True}"/>-->
+<!--                                    <a href="#discussion" class="small">-->
+<!--                                        <i class="fa fa-fw fa-comments"/>-->
+<!--                                        <b>Send message</b>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <strong>-->
+<!--                                <p style="text-align:center;font-size:13px;">Power By Dynexcel</p>-->
+<!--                            </strong>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                </div>-->
+<!--                <div class="col-lg-9">-->
+<!--                    <t t-call="portal.portal_record_layout">-->
+<!--                        <t t-set="card_header">-->
+<!--                            <h5 class="mb-0">-->
+<!--                                <span t-field="admission.name" class="text-truncate"/>-->
+<!--                            </h5>-->
+<!--                            <span class="float-right">-->
+<!--                                <t t-if="admission.stage_id.name == 'New'">-->
+<!--                                    <span class="badge badge-pill badge-info">-->
+<!--                                        <i class="fa fa-fw fa-clock-o" aria-label="New" title="New" role="img"/>-->
+<!--                                        <span class="d-none d-md-inline">New</span>-->
+<!--                                    </span>-->
+<!--                                </t>-->
+<!--                                <t t-if="admission.stage_id.name == 'Qualified'">-->
+<!--                                    <span class="badge badge-pill badge-primary">-->
+<!--                                        <i class="fa fa-fw fa-quora" aria-label="Qualified" title="Qualified"-->
+<!--                                           role="img"/>-->
+<!--                                        <span class="d-none d-md-inline">Qualified</span>-->
+<!--                                    </span>-->
+<!--                                </t>-->
+<!--                                <t t-if="admission.stage_id.name == 'Proposition'">-->
+<!--                                    <span class="badge badge-pill badge-warning">-->
+<!--                                        <i class="fa fa-fw fa-id-badge" aria-label="Proposition" title="Proposition"-->
+<!--                                           role="img"/>-->
+<!--                                        <span class="d-none d-md-inline">Proposition</span>-->
+<!--                                    </span>-->
+<!--                                </t>-->
+<!--                                <t t-if="admission.stage_id.name == 'Won'">-->
+<!--                                    <span class="badge badge-pill badge-success">-->
+<!--                                        <i class="fa fa-fw fa-check" aria-label="Won" title="Won" role="img"/>-->
+<!--                                        <span class="d-none d-md-inline">Won</span>-->
+<!--                                    </span>-->
+<!--                                </t>-->
+<!--                            </span>-->
+<!--                        </t>-->
+<!--                        <t t-set="card_body">-->
+<!--                            <table class="table">-->
+<!--                                <tr>-->
+<!--                                    <td>Expected Revenue:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.expected_revenue"/>-->
+<!--                                    </td>-->
+<!--                                    <td>Probability:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.probability"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Customer:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.partner_id.name"/>-->
+<!--                                    </td>-->
+<!--                                    <td>Expected Closing:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.date_deadline"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>Email:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.email_from"/>-->
+<!--                                    </td>-->
+<!--                                    <td>Phone:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.phone"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>SalesPerson:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.user_id.name"/>-->
+<!--                                    </td>-->
+<!--                                    <td>Sales Team:</td>-->
+<!--                                    <td>-->
+<!--                                        <span t-field="admission.team_id.name"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </table>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    &lt;!&ndash;  chatter  &ndash;&gt;-->
+<!--                    <div id="admission_communication" class="mt-4">-->
+<!--                        <h2>History</h2>-->
+<!--                        <t t-call="portal.message_thread">-->
+<!--                            <t t-set="object" t-value="admission"/>-->
+<!--                        </t>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+<!--    <template id="students_details_page" name="Sale Details">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="oe_structure">-->
+<!--                <div class="container">-->
+<!--                    <br/>-->
+<!--                    <center>-->
+<!--                        <h3>Dashboard Course Details</h3>-->
+<!--                    </center>-->
+<!--                    <br/>-->
+<!--                    <table class="table-striped table">-->
+<!--                        <thead style="font-size: 23px;">-->
+<!--                            <tr>-->
+<!--                                <h6>-->
+<!--                                    <b>-->
+<!--                                        <th>Course Details</th>-->
+<!--                                        <th>Code</th>-->
+<!--                                        <th>Fees term id Details</th>-->
+<!--                                        <th>-->
+<!--                                            <b>Evaluation Details</b>-->
+<!--                                        </th>-->
+<!--                                    </b>-->
+<!--                                </h6>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                            <t t-foreach="course_id" t-as="course">-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="course.name"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="course.code"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="course.fees_term_id.id"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="course.evaluation_type"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+<!--    <template id="employee_portal_dashboard_page_old" name="Student Website">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="oe_structure">-->
+<!--                <div class="container" style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">-->
+<!--                    <div class="row">-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <div class="col-sm-2">-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; margin-top: 25px;">-->
+<!--                                        Instructions-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece;">Program of Interest-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece;">Personal Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Family Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Qualification-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Test Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">References-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Documents-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Scholarship-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Undertaking-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash;                        <div class="col-sm-8">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <center>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <div class="container"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                     style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <div class="row">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        <form role="form" id="admission_form" enctype="multipart/form-data"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                              action="/studentalready/exists" method="POST">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <h3>Program Of Interest</h3>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <h5>Important</h5>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <h5>Please visit the eligibility criteria to make sure you are eligible&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                to apply for a program at UMT. To check Eligibility Criteria Click&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                Here&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            </h5>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <h5>fields are mandatory to fill.</h5>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    Current Session&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            icon="fa-pencil-square-o" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    Study Level*&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    1 st Preference&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    2 nd Preference*&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    3rd Preference&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    4th Preference*&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <center>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                <div class="clearfix oe_login_buttons">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    <button type="submit" class="btn btn-primary pull-center">Save&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                        And Proceed&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                    </button>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            </center>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        </form>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        &lt;!&ndash;                                             <div class="col-sm-6"> &ndash;&gt;&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        &lt;!&ndash;                                                  &ndash;&gt;&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                        &lt;!&ndash;                                             </div> &ndash;&gt;&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                    <br/>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </center>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+<!--    <record id="menu_student_form" model="website.menu">-->
+<!--        <field name="name">Dashboard</field>-->
+<!--        <field name="url">/student</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">87</field>-->
+<!--    </record>-->
+<!--    -->
+<!--    <record id="menu_course_form" model="website.menu">-->
+<!--        <field name="name">Profile</field>-->
+<!--        <field name="url">/mystudentprofile</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">86</field>-->
+<!--    </record>-->
+
+<!--    <record id="menu_assignments_form" model="website.menu">-->
+<!--        <field name="name">Assignments</field>-->
+<!--        <field name="url">/assignments</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">85</field>-->
+<!--    </record>-->
+<!--    <record id="menu_projects_form" model="website.menu">-->
+<!--        <field name="name">Projects</field>-->
+<!--        <field name="url">/projects</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">84</field>-->
+<!--    </record>-->
+<!--    <record id="menu_exams_form" model="website.menu">-->
+<!--        <field name="name">Exams</field>-->
+<!--        <field name="url">/exams</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">83</field>-->
+<!--    </record>-->
+<!--    <record id="menu_fee_form" model="website.menu">-->
+<!--        <field name="name">Fee</field>-->
+<!--        <field name="url">/fee</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">82</field>-->
+<!--    </record>-->
+<!--    <record id="menu_clearance_form" model="website.menu">-->
+<!--        <field name="name">Clearance</field>-->
+<!--        <field name="url">/clearance</field>-->
+<!--        <field name="parent_id" ref="website.main_menu"/>-->
+<!--        <field name="sequence">81</field>-->
+<!--    </record>-->
+<!--    ###################### templates ##########################################33-->
+<!--    <template id="testing_cms" name="Student profile Details">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="oe_structure">-->
+<!--                <div class="container">-->
+<!--                    <br/>-->
+<!--                    <center>-->
+<!--                        <h3>Student profile Details</h3>-->
+<!--                    </center>-->
+<!--                    <br/>-->
+<!--                    <table class="table-striped table">-->
+<!--                        <thead style="font-size: 23px;">-->
+<!--                            <tr>-->
+<!--                                <h6>-->
+<!--                                    <b>-->
+<!--                                        <th>First Name</th>-->
+<!--                                        <th>Gender</th>-->
+<!--                                        <th>DOB:</th>-->
+<!--                                        <th>-->
+<!--                                            <b>Mobile</b>-->
+<!--                                        </th>-->
+<!--                                        <th>Student id</th>-->
+<!--                                        <th>Academic Record</th>-->
+<!--                                    </b>-->
+<!--                                </h6>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                            <t t-foreach="docs" t-as="stud">-->
+<!--                                <tr>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.first_name"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.gender"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.birth_date"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.mobile"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.course_detail_ids.course_id"/>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span t-esc="stud.email"/>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+<!--    <template id="student_data" name="Student Website">-->
+<!--        <t t-call="website.layout">-->
+<!--            <div class="oe_structure">-->
+<!--                <div class="container" style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">-->
+<!--                    <div class="row">-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <br/>-->
+<!--                        <div class="col-sm-2">-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; margin-top: 25px;">-->
+<!--                                        Instructions-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece;">Program of Interest-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece;">Personal Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Family Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Qualification-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Test Information-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">References-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Documents-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Scholarship-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                            <center>-->
+<!--                                <div class="clearfix oe_login_buttons">-->
+<!--                                    <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                            style="max-width:350px; border:2px solid #cecece; ">Undertaking-->
+<!--                                    </button>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                        </div>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <center>-->
+<!--                                <div class="container"-->
+<!--                                     style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">-->
+<!--                                    <div class="row">-->
+<!--                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+<!--                                        <form role="form" id="admission_form" enctype="multipart/form-data"-->
+<!--                                              action="/studentalready/exists" method="POST">-->
+<!--                                            <h3>Program Of Interest</h3>-->
+<!--                                            <h5>Important</h5>-->
+<!--                                            <h5>Please visit the eligibility criteria to make sure you are eligible-->
+<!--                                                to apply for a program at UMT. To check Eligibility Criteria Click-->
+<!--                                                Here-->
+<!--                                            </h5>-->
+<!--                                            <h5>fields are mandatory to fill.</h5>-->
+<!--                                            <br/>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    Current Session-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style"-->
+<!--                                                            icon="fa-pencil-square-o" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    Study Level*-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    1 st Preference-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    2 nd Preference*-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    3rd Preference-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-sm-6">-->
+<!--                                                    4th Preference*-->
+<!--                                                    <select name="crm_admission_register_id"-->
+<!--                                                            id="crm_admission_register_id"-->
+<!--                                                            class="form-control link-style" required="required"-->
+<!--                                                            placeholder="Spring 2022">-->
+<!--                                                        <t t-foreach="company_id" t-as="adm_reg">-->
+<!--                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>-->
+<!--                                                        </t>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <br/>-->
+<!--                                            <br/>-->
+<!--                                            <center>-->
+<!--                                                <div class="clearfix oe_login_buttons">-->
+<!--                                                    <button type="submit" class="btn btn-primary pull-center">Save-->
+<!--                                                        And Proceed-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                            </center>-->
+<!--                                            <br/>-->
+<!--                                        </form>-->
+<!--                                        &lt;!&ndash;                                             <div class="col-sm-6"> &ndash;&gt;-->
+<!--                                        &lt;!&ndash;                                                  &ndash;&gt;-->
+<!--                                        &lt;!&ndash;                                             </div> &ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                    <br/>-->
+<!--                                    <br/>-->
+<!--                                </div>-->
+<!--                            </center>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+
+<!--    &lt;!&ndash;     <record id="student_already_exists" model="website.page"> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="name">Already Exists</field> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="type">qweb</field> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="url">/student-already-exists</field> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="website_published">True</field> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="key">accounting_community.student_thanks</field> &ndash;&gt;-->
+<!--    &lt;!&ndash;         <field name="arch" type="xml"> &ndash;&gt;-->
+<!--    &lt;!&ndash;             <t name="Thanks" t-name="sms_core.student_thanks"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                 <t t-call="website.layout"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                     <div id="wrap"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                         <div class="container"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                             <h1>Cannot Proceed!</h1> &ndash;&gt;-->
+<!--    &lt;!&ndash;                             <div class="row"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                                 <div class="col-lg-8"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                                     <div class="alert alert-danger" role="status"> &ndash;&gt;-->
+<!--    &lt;!&ndash;                                         Application already exists for the curernt student. &ndash;&gt;-->
+<!--    &lt;!&ndash;                                         <span t-esc="student"/> &ndash;&gt;-->
+<!--    &lt;!&ndash;                                     </div> &ndash;&gt;-->
+<!--    &lt;!&ndash;                                 </div> &ndash;&gt;-->
+<!--    &lt;!&ndash;                             </div> &ndash;&gt;-->
+<!--    &lt;!&ndash;                         </div> &ndash;&gt;-->
+<!--    &lt;!&ndash;                     </div> &ndash;&gt;-->
+<!--    &lt;!&ndash;                 </t> &ndash;&gt;-->
+<!--    &lt;!&ndash;             </t> &ndash;&gt;-->
+<!--    &lt;!&ndash;         </field> &ndash;&gt;-->
+<!--    &lt;!&ndash;     </record> &ndash;&gt;-->
+
+
+<!--</odoo>-->
+
+
+
+<!--        &lt;!&ndash;                    <div id="page_content_inner" style="padding:15px 4px 100px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                        <div class="md-card">&ndash;&gt;-->
+<!--        &lt;!&ndash;                            <div class="md-card-content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <h3 class="heading_a uk-tab">Academics</h3>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <div class="uk-width-large-3-10">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div class="user_heading_dash">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div class="user_heading_avatar">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                <div class="thumbnail">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    &lt;!&ndash;                                                <img src="/odoocms_web/static/assets/img/avatars/avatar_11.png"&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    &lt;!&ndash;                                                     alt="user avatar"/>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <img t-att-src="image_data_uri(student.image_1920)" alt="user" t-if="student and student.image_1920"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div class="user_heading_content" style="padding:2px 0;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <h2 class="heading_b" style="color:black;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="uk-text-truncate" t-esc="student.name">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                    </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="sub-heading" style="color:grey;" t-esc="student.id_number"/>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                                    <span class="sub-heading" style="color:grey;" t-esc="student.program_id.department_id.institute_id.name"/>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                </h2>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <div class="uk-width-large-2-10">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div class="user_heading_content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            Academic standings:&ndash;&gt;-->
+<!--        &lt;!&ndash;                                           &lt;!&ndash; <t t-if="student.cgpa >= 3.0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-if="student.cgpa >= 3.50">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="md-color-green-700">Excellent</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-if="not student.cgpa >= 3.50">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="md-color-green-700">Good</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            <t t-if="not student.cgpa >= 3.0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-if="student.cgpa >= 2.50">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="md-color-orange-800">Satisfactory</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-if="not student.cgpa >= 2.50">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span class="md-color-deep-orange-A400">Unsatisfactory</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            - &ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                Semester:&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-esc="student.semester_id.name" t-if="student.semester_id"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            CGPA:&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            <span t-if="student.cgpa" t-attf-class="'md-color-green-700' if student.cgpa > 3.0 else 'md-color-orange-800'">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                &lt;!&ndash;<t t-esc="student.cgpa"/>&ndash;&gt; - &ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </span>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <div class="uk-width-large-2-10">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div class="user_heading_content">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            Completed Cr. / Total Cr :&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-esc="completed_credits"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            /&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-esc="student.batch_id.study_scheme_id.credits" t-if="student.batch_id.study_scheme_id.credits"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div>Inprogress Cr :&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-esc="inprogress_credits"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            &lt;!&ndash;<span><t t-esc="inprogress_credits" /> CH.</span>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <div class="uk-width-large-3-10">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div class="user_heading_content">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            Today Classes:&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-if="today_classes">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <t t-foreach="today_classes" t-as="today_class">&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                                    <span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <t t-esc="today_class.attendance_id.class_id.name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        :&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    &lt;!&ndash;                                                          "%02d:%02d" % (divmod(1.30 * 60, 60))&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_from * 60, 60))"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        Hrs. - &ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_to * 60, 60))"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        Hrs.&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    </span>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-if="not today_classes">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                <span class="md-color-green-700">No class is scheduled</span>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <h3 class="heading_a uk-tab">Classes, Grades and Attendance</h3>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4  uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <t t-if="len(student.course_ids)>0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <t t-foreach="student.course_ids" t-as="course">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-if="course.primary_class_id.name">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                &lt;!&ndash;                                                                t-attf-style="background:{{color[course_index]}}" &ndash;&gt;&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                <div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    &lt;!&ndash; <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                         <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                         <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                     </div>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/results/id/{{course.id}}">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <span class="md-list-heading md-color-grey-900" t-esc="course.primary_class_id.name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <div class="">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <span class="sub-heading md-color-blue-grey-600 " t-esc="str(course.course_id.code)"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <b class="uk-text-small md-color-blue-grey-600">Credits :</b>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <span class="md-list-heading md-color-blue-grey-600" t-esc="course.credits"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                             <t t-if="course.state in ('lock','submit','disposal','approval','verify')">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                         <span class="md-color-blue-grey-600" >Grading in progress</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                    </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                    <t t-if="course.state in ('draft','current')">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                         <span class="md-color-blue-grey-600">Active Class</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                    </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                    <t t-if="course.state in ('done','notify')">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                        <b class="uk-text-small">Marks | Grade :</b>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                        <span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                            <b t-esc="course.normalized_marks"></b>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                            |&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                            <b t-esc="course.grade"></b>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                        </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                                    </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <div class="uk-text-small">Attendance:<t t-esc="course.attendance_percentage"/>%&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                <span t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if course.attendance_percentage>=76 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                <span class="uk-text-small"><t t-esc="course.term_id.name"/> </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        &lt;!&ndash;                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        &lt;!&ndash;                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    </a>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                                </div>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <t t-if="not len(student.course_ids)>0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div style="margin-left:3%;">Result classes not available.</div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <h3 class="heading_a uk-tab">News and Announcements</h3>&ndash;&gt;-->
+<!--        &lt;!&ndash;                              &lt;!&ndash;  <t t-if="not len(notifications) > 0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <span>Stay tuned.</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <t t-foreach="notifications" t-as="notification">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <li style="max-height: 150px">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <div class="md-card">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div style="height: 180px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" t-if="not notification.image"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <div class="md-card-content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <strong>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <a href="/student/notifications">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <span class="md-list-heading">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <t t-esc="notification.name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    </a>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </strong>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <br/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <span class="uk-text-muted">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <t t-esc="str(notification.date)[:19]"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                </t>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <t t-if="not len(notifications) > 0">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <span>Stay tuned.</span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <div class="uk-slidenav-position" data-uk-slider="{center:true,autoplay: true,autoplayInterval: '5000'}">&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                    <div class="uk-slider-container">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        <ul class="uk-slider uk-slider-center uk-grid-width-medium-1-5 uk-grid-width-small-1-2">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            <t t-foreach="notifications" t-as="notification">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                <li style="padding:10px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    <div class="md-card">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <div style="height: 180px;">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <img src="/odoocms_web/static/assets/img/superior1.jpg" alt="" t-if="not notification.image"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        <div class="md-card-content">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <strong>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                <a href="/student/notifications">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                    <span class="md-list-heading">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                        <t t-esc="notification.name"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                    </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                </a>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            </strong>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <br/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            <span class="uk-text-muted">&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                                <t t-esc="str(notification.date)[:19]"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                            </span>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                        </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                    </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                                </li>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                            </t>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                        </ul>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    </div>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous"></a>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--        &lt;!&ndash;                        </div>&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;                    </div>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;        <t t-set="head">&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;            <style>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;                .user_heading_dash {&ndash;&gt;&ndash;&gt;-->
+
+<!--        &lt;!&ndash;            &lt;!&ndash;                position: relative;&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;                box-sizing: border-box;&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;                transition: all 280ms cubic-bezier(.4,0,.2,1);&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;                }&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;            &lt;!&ndash;            </style>&ndash;&gt;&ndash;&gt;-->
+<!--        &lt;!&ndash;        </t>&ndash;&gt;-->
+
+
+<!--                  &lt;!&ndash;                        <div class="col-sm-8">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            <center>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                <div class="container"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                     style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                    <div class="row">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        <form role="form" id="admission_form" enctype="multipart/form-data"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                              action="/studentalready/exists" method="POST">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <h3>Program Of Interest</h3>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <h5>Important</h5>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <h5>Please visit the eligibility criteria to make sure you are eligible&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                to apply for a program at UMT. To check Eligibility Criteria Click&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                Here&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            </h5>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <h5>fields are mandatory to fill.</h5>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    Current Session&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            icon="fa-pencil-square-o" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    Study Level*&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    1 st Preference&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    2 nd Preference*&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <div class="row">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    3rd Preference&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="col-sm-6">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    4th Preference*&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <select name="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            id="crm_admission_register_id"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            class="form-control link-style" required="required"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            placeholder="Spring 2022">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        <t t-foreach="company_id" t-as="adm_reg">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                            <option t-esc="adm_reg.name" t-att-value="adm_reg.id"/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </select>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <center>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                <div class="clearfix oe_login_buttons">&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    <button type="submit" class="btn btn-primary pull-center">Save&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                        And Proceed&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                    </button>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            </center>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                            <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        </form>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        &lt;!&ndash;                                             <div class="col-sm-6"> &ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        &lt;!&ndash;                                                  &ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                        &lt;!&ndash;                                             </div> &ndash;&gt;&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                    <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                    <br/>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                                </div>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                            </center>&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+
+
+
+<!--    <template id="employee_portal_login_page" name="Dashboard">-->
+<!--        <t t-call="web.layout">-->
+<!--            <t t-set="head">-->
+<!--                <style>-->
+<!--                    .user_heading_dash {-->
+
+<!--                    position: relative;-->
+<!--                    box-sizing: border-box;-->
+<!--                    transition: all 280ms cubic-bezier(.4,0,.2,1);-->
+<!--                    }-->
+<!--                </style>-->
+<!--            </t>-->
+
+<!--            <body class="sidebar_main_swipe header_full" style="background:none;">-->
+<!--                <div id="page_content">-->
+<!--                    <div id="top_bar">-->
+<!--                        <ul id="breadcrumbs">-->
+<!--                            <li>-->
+<!--                                <a href="/faculty/dashboard">-->
+<!--                                    <i class="material-icons">home</i>-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            &lt;!&ndash;                            <li>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                <a href="/faculty/credentials/reset">Password Change</a>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <div class="page_content_inner login_page login_page_v2" style="padding:5%;">-->
+<!--                        <div class="uk-container uk-container-center">-->
+<!--                            <div class="md-card">-->
+<!--                                <div class="md-card-content padding-reset">-->
+<!--                                    <div class="uk-grid uk-grid-collapse">-->
+<!--                                        <div class="uk-width-large-2-3 uk-hidden-medium uk-hidden-small">-->
+<!--                                            &lt;!&ndash;                                            <div class="login_page_info uk-height-1-1"&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                 style="background-image: url('/odoocms_faculty_portal/static/img/superior.jpg')">&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                <div class="info_content">&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                    <h1 class="heading_b">&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                        <t t-esc="faculty_staff.employee_id.department_id.name"/>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                    </h1>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                    <p>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                        <a class="md-btn md-btn-success md-btn-small md-btn-wave"&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                           href="/faculty/profile">More info&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                        </a>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                    </p>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                </div>&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        <div class="uk-width-large-1-3 uk-width-medium-2-3 uk-container-center">-->
+<!--                                            <div class="login_page_forms">-->
+<!--                                                <div id="login_card">-->
+<!--                                                    <div id="login_form">-->
+<!--                                                        <div class="login_heading">-->
+
+<!--                                                            &lt;!&ndash;                                                            <div class="user_avatar">&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                                                <img t-att-src="image_data_uri(faculty_staff.image_1920)"&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                                                     alt="user"&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                                                     t-if="faculty_staff and faculty_staff.image_1920"/>&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                                            </div>&ndash;&gt;-->
+<!--                                                        </div>-->
+<!--                                                        <div>-->
+
+<!--                                                            <h2 class="heading_a uk-margin-large-bottom">Employee Portal-->
+<!--                                                                Login-->
+<!--                                                            </h2>-->
+<!--                                                            <form id="faculty_update_credential_new">-->
+<!--                                                                <div class="uk-form-row">-->
+<!--                                                                    <label for="login_email_reset">User ID</label>-->
+<!--                                                                    <input class="md-input" type="password"-->
+<!--                                                                           id="login_email_reset" name="old_credential"-->
+<!--                                                                           required="true"/>-->
+<!--                                                                </div>-->
+<!--                                                                <br>-->
+
+<!--                                                                </br>-->
+
+<!--                                                                <div class="uk-form-row">-->
+<!--                                                                    <label for="login_email_reset">Password</label>-->
+<!--                                                                    <input class="md-input" type="password"-->
+<!--                                                                           id="login_email_reset" name="new_credential"-->
+<!--                                                                           required="true"/>-->
+<!--                                                                </div>-->
+<!--                                                                <br>-->
+<!--                                                                </br>-->
+<!--                                                                &lt;!&ndash;                                                                <div class="uk-margin-medium-top">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                    <a href="employee/dashboard/page"/>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                    <i class="material-icons">home</i>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                    <a href="employee/dashboard/page"&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                       class="uk-position-top-right uk-close uk-margin-right">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                        <button type="submit"&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                                class="md-btn md-btn-primary md-btn-block">&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                            Login&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                        </button>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                    </a>&ndash;&gt;-->
+<!--                                                                &lt;!&ndash;                                                                </div>&ndash;&gt;-->
+
+
+<!--                                                                <button style="border:40px; background:black">-->
+<!--                                                                    <a t-attf-href="employee/dashboard/page"-->
+<!--                                                                       title="Login">-->
+<!--                                                                        <i class="material-icons md-24">&#xE8F4;</i>-->
+<!--                                                                    </a>-->
+<!--                                                                </button>-->
+
+
+<!--                                                                <br>-->
+<!--                                                                </br>-->
+<!--                                                                <div class="uk-form-row">-->
+<!--                                                                    <label for="login_email_reset">Reset Password-->
+<!--                                                                    </label>-->
+<!--                                                                </div>-->
+<!--                                                                <br>-->
+
+<!--                                                                </br>-->
+<!--                                                            </form>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+<!--                </div>-->
+<!--                &lt;!&ndash;                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>&ndash;&gt;-->
+<!--                &lt;!&ndash;                <script src="/odoocms_faculty_portal/static/js/fms.js"></script>&ndash;&gt;-->
+<!--            </body>-->
+
+
+<!--            &lt;!&ndash;            <body class="sidebar_main_swipe header_full">&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash;                <t t-call="odoocms_student_portal.student_portal_main_layout"/>&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;                <div id="page_content">&ndash;&gt;-->
+<!--            &lt;!&ndash;            <div id="top_bar">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <ul id="breadcrumbs">&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <li>&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash;                                <a href="/student/profile">&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;                                    <i class="material-icons">home</i>&ndash;&gt;-->
+<!--            &lt;!&ndash;&lt;!&ndash;                                </a>&ndash;&gt;&ndash;&gt;-->
+<!--            &lt;!&ndash;                            </li>&ndash;&gt;-->
+<!--            &lt;!&ndash;                            <li>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                <a href="/student/dashboard">Dashboard</a>&ndash;&gt;-->
+<!--            &lt;!&ndash;                            </li>&ndash;&gt;-->
+<!--            &lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </body>&ndash;&gt;-->
+<!--        </t>-->
+<!--    </template>-->
+
+<!--    <template id="employee_portal_dashboard_page_old" name="dashboard_page">-->
+<!--        &lt;!&ndash;        <t t-call="web.layout">&ndash;&gt;-->
+<!--        <div class="oe_structure">-->
+<!--            <div class="container" style="max-width: 1860px; border:1px solid #cecece; margin-top: 25px;">-->
+<!--                <h1>Main Menu</h1>-->
+<!--                <div class="row">-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <br/>-->
+<!--                    <div class="col-sm-2">-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; margin-top: 25px;">-->
+<!--                                    Instructions-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece;">Program of Interest-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece;">Personal Information-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Family Information-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Qualification-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Test Information-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">References-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Documents-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Scholarship-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                        <center>-->
+<!--                            <div class="clearfix oe_login_buttons">-->
+<!--                                <button type="submit" class="btn btn-primary pull-center"-->
+<!--                                        style="max-width:350px; border:2px solid #cecece; ">Undertaking-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </center>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <table id="ts_issues">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th class="uk-text-center">Main Menu test</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <span>-->
+<!--                            <button style="font-size:24px border:140px; background:blue">-->
+<!--                                <a t-attf-href="employee/dashboard/page"-->
+<!--                                   title="View Result">-->
+<!--                                    <i class="material-icons md-24">&#xE8F4;</i>-->
+<!--                                </a>-->
+<!--                            </button>-->
+<!--                            <button style="font-size:24px border:140px; background:blue">-->
+<!--                                <a t-attf-href="employee/dashboard/page"-->
+<!--                                   title="Add Result">-->
+<!--                                    <i class="md-icon material-icons">&#xE254;</i>-->
+<!--                                </a>-->
+<!--                            </button>-->
+<!--                            <button style="font-size:24px border:140px; background:blue">-->
+<!--                                <a t-attf-href="employee/dashboard/page"-->
+<!--                                   title="Update Result">-->
+<!--                                    <i class="fa fa-refresh"/>-->
+<!--                                </a>-->
+<!--                            </button>-->
+<!--                            <button style="font-size:24px border:140px; background:blue">-->
+<!--                                <a t-attf-href="employee/dashboard/page"-->
+<!--                                   title="Assessment Settings">-->
+<!--                                    <i class="material-icons">&#xE8B8;</i>-->
+<!--                                </a>-->
+<!--                            </button>-->
+
+<!--                        </span>-->
+<!--                    </td>-->
+<!--                </tr>-->
+
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        <div id="page_content">-->
+<!--            <div id="top_bar">-->
+<!--                <ul id="breadcrumbs">-->
+<!--                    <li>-->
+<!--                        &lt;!&ndash;                                <a href="/faculty/dashboard">&ndash;&gt;-->
+<!--                        <i class="material-icons">home</i>-->
+<!--                        &lt;!&ndash;                                </a>&ndash;&gt;-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;                <div id="admission_communication" class="mt-4">&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <h2>History</h2>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <t t-call="portal.message_thread">&ndash;&gt;-->
+<!--            &lt;!&ndash;                        <t t-set="object" t-value="admission"/>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    </t>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--        </div>-->
+
+
+<!--        &lt;!&ndash;        </t>&ndash;&gt;-->
+<!--    </template>-->
+
+<!--	<template id="request_form">-->
+<!--        	<t t-call="website.layout">-->
+<!--            	<div id="request_form">-->
+<!--                	<section class="s_website_form" data-vcss="001" data-snippet="s_website_form">-->
+<!--                    	<div class="container">-->
+<!--                        	<form id="request_form" method="post">-->
+<!--                            	<div class="s_website_form_rows row s_col_no_bgcolor">-->
+<!--                                	<div class="form-group col-12 s_website_form_field s_website_form_required">-->
+<!--                                    	<div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        	<label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               	style="width: 200px" >-->
+<!--                                            	<span class="s_website_form_label_content">Your Name</span>-->
+<!--                                            	<span class="s_website_form_mark">*</span>-->
+<!--                                        	</label>-->
+<!--                                        	<div class="col-sm">-->
+<!--                                            	<input type="text"-->
+<!--                                                   	class="form-control s_website_form_input" name="contact_name"-->
+<!--                                                   	required=""/>-->
+<!--                                        	</div>-->
+<!--                                    	</div>-->
+<!--                                	</div>-->
+<!--                                	<div class="form-group col-12 s_website_form_field" data-type="char"-->
+<!--                                     	data-name="Field">-->
+<!--                                    	<div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        	<label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               	style="width: 200px" >-->
+<!--                                            	<span class="s_website_form_label_content">Phone Number</span>-->
+<!--                                        	</label>-->
+<!--                                        	<div class="col-sm">-->
+<!--                                            	<input type="tel"-->
+<!--                                                   	class="form-control s_website_form_input" name="phone"/>-->
+<!--                                        	</div>-->
+<!--                                    	</div>-->
+<!--                                	</div>-->
+<!--                                	<div class="form-group col-12 s_website_form_field s_website_form_required"-->
+<!--                                     	data-type="char" data-name="Field">-->
+<!--                                    	<div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        	<label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               	style="width: 200px" >-->
+<!--                                            	<span class="s_website_form_label_content">Email</span>-->
+<!--                                            	<span class="s_website_form_mark">*</span>-->
+<!--                                        	</label>-->
+<!--                                        	<div class="col-sm">-->
+<!--                                            	<input id="email" type="tel"-->
+<!--                                                   	class="form-control s_website_form_input" name="email"/>-->
+<!--                                        	</div>-->
+<!--                                    	</div>-->
+<!--                                	</div>-->
+<!--                                	<div class="form-group col-12 s_website_form_field s_website_form_required"-->
+<!--                                     	data-type="text" data-name="Field">-->
+<!--                                    	<div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        	<label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               	style="width: 200px">-->
+<!--                                            	<span class="s_website_form_label_content">Product</span>-->
+<!--                                            	<span class="s_website_form_mark">*</span>-->
+<!--                                        	</label>-->
+<!--                                        	<div class="col-sm">-->
+<!--                                            	<select name="product_id" id="product_id"-->
+<!--                                                    	class="form-control link-style">-->
+<!--                                                	<option value="">Product...</option>-->
+<!--                                                	<t t-foreach="products" t-as="product">-->
+<!--                                                    	<option t-att-value="product.id">-->
+<!--                                                        	<t t-esc="product.name" t-att-value="product.id"/>-->
+<!--                                                    	</option>-->
+<!--                                                	</t>-->
+<!--                                            	</select>-->
+<!--                                        	</div>-->
+<!--                                    	</div>-->
+<!--                                	</div>-->
+<!--                                	<div class="form-group col-12 s_website_form_field s_website_form_required"-->
+<!--                                     	data-type="text" data-name="Field">-->
+<!--                                    	<div class="row s_col_no_resize s_col_no_bgcolor">-->
+<!--                                        	<label class="col-form-label col-sm-auto s_website_form_label"-->
+<!--                                               	style="width: 200px" >-->
+<!--                                            	<span class="s_website_form_label_content">Details</span>-->
+<!--                                            	<span class="s_website_form_mark">*</span>-->
+<!--                                        	</label>-->
+<!--                                        	<div class="col-sm">-->
+<!--                                            	<textarea class="form-control s_website_form_input"-->
+<!--                                                      	name="description" required=""/>-->
+<!--                                        	</div>-->
+<!--                                    	</div>-->
+<!--                                	</div>-->
+<!--                                	<div class="form-group col-12 s_website_form_submit" data-name="Submit Button">-->
+<!--                                    	<div style="width: 200px;" class="s_website_form_label"/>-->
+<!--                                    	<a href="#" role="button" class="btn btn-primary btn-lg s_website_form_send">-->
+<!--                                        	Submit-->
+<!--                                    	</a>-->
+<!--                                	</div>-->
+<!--                            	</div>-->
+<!--                        	</form>-->
+<!--                    	</div>-->
+<!--                	</section>-->
+<!--            	</div>-->
+<!--        	</t>-->
+<!--    	</template>-->
+

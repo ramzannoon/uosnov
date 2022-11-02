@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Waivers Type View -->
+        <record id="view_odoocms_fee_waiver_type_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.type.form</field>
+            <field name="model">odoocms.fee.waiver.type</field>
+            <field name="arch" type="xml">
+                <form string="Fee Waiver Type">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="code"/>
+                                <field name="type" required="1"/>
+                            </group>
+                            <group>
+
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detail">
+                                <field name="waiver_ids">
+                                    <tree create="false" delete="false">
+                                        <field name="name" string="Name"/>
+                                        <field name="code"/>
+                                        <field name="session_id"/>
+                                        <field name="type"/>
+                                        <field name="donor_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.type.tree</field>
+            <field name="model">odoocms.fee.waiver.type</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Waivers Type">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="type"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_type_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.type.search</field>
+            <field name="model">odoocms.fee.waiver.type</field>
+            <field name="arch" type="xml">
+                <search string="Fee Waiver Types">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_waiver_type_view" model="ir.actions.act_window">
+            <field name="name">Fee Waivers Type</field>
+            <field name="res_model">odoocms.fee.waiver.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                name="Waiver Types"
+                id="menu_odoocms_fee_waiver_type"
+                sequence='8'
+                parent="menu_fee_configuration_waivers"
+                action="action_odoocms_fee_waiver_type_view"
+        />
+
+        <!-- Fee Waivers  -->
+        <record id="view_odoocms_fee_waiver_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.form</field>
+            <field name="model">odoocms.fee.waiver</field>
+            <field name="arch" type="xml">
+                <form string="Fee Waiver">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="waiver_type" required="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="session_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="tag_id" attrs="{'required':[('type','=', 'scholarship')]}" options='{"no_open": True, "no_create": True}'/>
+                                <field name="type"/>
+                                <field name="donor_id" attrs="{'invisible':[('type','=', 'waiver')], 'required':[('type','=','scholarship')]}"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="domain" placeholder="Student Domain" widget="domain" options="{'model': 'odoocms.student', 'in_dialog': true}"/>
+                        </group>
+                        <notebook>
+                            <page name="lines" string="Heads">
+                                <field name="line_ids">
+                                    <tree string="Fee Types" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="category_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="fee_head_id" domain="[('category_id','=',category_id)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="payment_type"/>
+                                        <field name="waiver_type" required="1"/>
+                                        <field name="percentage" required="1" string="Value"/>
+                                        <field name="note"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="students" string="Students">
+                                <field name="student_ids" nolabel="1" widget="many2many">
+                                    <tree string="Students" edit="false">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="program_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="session_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="term_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.tree</field>
+            <field name="model">odoocms.fee.waiver</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Waiver">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="tag_id"/>
+                    <field name="waiver_type"/>
+                    <field name="session_id"/>
+                    <field name="type"/>
+                    <field name="donor_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_filter" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.filter</field>
+            <field name="model">odoocms.fee.waiver</field>
+            <field name="arch" type="xml">
+                <search string="Fee Waiver">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="waiver_type"/>
+                    <field name="session_id"/>
+                    <field name="type"/>
+                    <field name="donor_id"/>
+                    <field name="tag_id"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="waiver_type" string="Waiver Types" domain="[]" context="{'group_by':'waiver_type'}"/>
+                        <filter name="session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <separator/>
+                        <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="waiver_type" icon="fa-users"/>
+                    </searchpanel>
+
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_waiver" model="ir.actions.act_window">
+            <field name="name">Fee Waiver</field>
+            <field name="res_model">odoocms.fee.waiver</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_waiver"
+                action="action_odoocms_fee_waiver"
+                parent="menu_fee_configuration_waivers"
+                sequence="10"/>
+
+
+        <!-- Fee Waiver Lines Views -->
+        <record id="view_odoocms_fee_waiver_line_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.line.form</field>
+            <field name="model">odoocms.fee.waiver.line</field>
+            <field name="arch" type="xml">
+                <form string="Fee Waiver Line">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="category_id"/>
+                                <field name="fee_head_id"/>
+                            </group>
+                            <group>
+                                <field name="percentage"/>
+                                <field name="note"/>
+                            </group>
+                            <group>
+                                <field name="payment_type"/>
+                                <field name="fee_description"/>
+                            </group>
+                        </group>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                            <field name="activity_ids" widget="mail_activity"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_line_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.line.tree</field>
+            <field name="model">odoocms.fee.waiver.line</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Waiver">
+                    <field name="category_id"/>
+                    <field name="fee_head_id" domain="[('category_id','=',category_id)]"/>
+                    <field name="payment_type"/>
+                    <field name="percentage" required="1"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_waiver_line_filter" model="ir.ui.view">
+            <field name="name">odoocms.fee.waiver.line.filter</field>
+            <field name="model">odoocms.fee.waiver.line</field>
+            <field name="arch" type="xml">
+                <search string="Fee Waiver Detail">
+                    <field name="waiver_type"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="waiver_type" string="Waiver Types" domain="[]" context="{'group_by':'waiver_type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="waiver_type" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <!-- Student Fee Waiver Views -->
+        <record id="view_odoocms_student_fee_waiver_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.fee.waiver.tree</field>
+            <field name="model">odoocms.student.fee.waiver</field>
+            <field name="arch" type="xml">
+                <tree string="Student Fee Waiver" create="false">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="invoice_id"/>
+                    <field name="waiver_line_id"/>
+                    <field name="semester_id"/>
+                    <field name="amount"/>
+                    <field name="amount_percentage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_fee_waiver" model="ir.actions.act_window">
+            <field name="name">Student Fee Waiver</field>
+            <field name="res_model">odoocms.student.fee.waiver</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_student_fee_waiver"
+                action="action_odoocms_student_fee_waiver"
+                parent="menu_odoocms_student_fee_main"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="20"/>
+
+    </data>
+</odoo>

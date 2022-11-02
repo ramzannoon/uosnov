@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_fee_refund_bulk_request_form" model="ir.ui.view">
+        <field name="name">odoocms.fee.refund.bulk.request.form</field>
+        <field name="model">odoocms.fee.refund.bulk</field>
+        <field name="arch" type="xml">
+            <form string="Fee Refund Requests">
+                <header>
+                    <button name="action_submitted" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_cancel_cms" string="Cancel Refund" type="object" class="oe_highlight"
+                            states="cms_done"/>
+                    <button type="object" name="approve_refund" string="Approve Refund Request"
+                            attrs="{'invisible': [('can_approve', '=', False)]}"
+                            groups="odoocms.group_cms_manager"
+                            class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approve,done"/>
+                    <field name="can_approve" invisible="1"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="group_id"/>
+                            <field name="date"/>
+                            <field name="head_ids" invisible="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="cancel_reason_id"/>
+                            <field name="remarks"/>
+
+                            <field name="description" colspan="4"/>
+                        </group>
+                    </group>
+
+                    <group>
+
+
+                        <field name="fee_head_ids" nolabel="1" widget="one2many_list">
+                            <tree string="Security Fee heads" editable="bottom">
+                                <field name="fee_head_id" domain="[('id', 'in', parent.head_ids)]"/>
+                                <field name="amount" force_save="1"/>
+                                <field name="refund_amount"/>
+                                <field name="refund_amount_total"/>
+                                <field name="cancel_reason_id"/>
+                                <field name="remarks"/>
+                                <button type="object" name="action_cancel_cms" string="Refund Cancellation"
+                                        attrs="{'invisible': [('state', '!=', 'cms_done')]}" class="oe_highlight"/>
+                                <field name="state" readonly="1"/>
+                            </tree>
+                        </field>
+
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_fee_refund_bulk_request_tree" model="ir.ui.view">
+        <field name="name">odoocms.fee.refund.bulk.tree</field>
+        <field name="model">odoocms.fee.refund.bulk</field>
+        <field name="arch" type="xml">
+            <tree string="Fee Refund Requests">
+                <field name="group_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_fee_refund_bulk_request" model="ir.actions.act_window">
+        <field name="name">Student Fee Bulk Refund</field>
+        <field name="res_model">odoocms.fee.refund.bulk</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+            id="menu_odoocms_fee_refund_bulk_request"
+            action="action_odoocms_fee_refund_bulk_request"
+            parent="menu_odoocms_student_fee_main"
+            sequence="300"/>
+
+
+</odoo>

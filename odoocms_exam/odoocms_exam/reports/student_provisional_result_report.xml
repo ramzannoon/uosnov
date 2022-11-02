@@ -1,0 +1,151 @@
+<odoo>
+
+	<template id ="odoocms_exam.student_provisional_result_report">
+        <t t-call="web.basic_layout">
+
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+                <style>
+                    #class-result {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+
+                    }
+
+                    #class-result td, #class-result th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #class-result tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #class-result tr:hover {background-color: #ddd;}
+
+                    #class-result th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                          border-collapse: collapse;
+                          width: 95%;
+                          margin-top:15px;
+                            display: inline;
+                        }
+
+                        #personal-info td, #personal-info th {
+                          padding: 3px;
+                        }
+
+                        #personal-info th {
+                          padding-top: 6px;
+                          text-align: left;
+                        }
+
+                </style>
+
+                <div class="header">
+                    <div class="o_boxed_header">
+                    <div class="row mb8">
+                        <div class="col-2">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                        </div>
+                        <div class="col-10">
+                            <span style="display:block; text-align:center; font-weight:bold; font-size" t-esc="company.name"/>
+                            <span style="display:block; text-align:center; font-size" t-esc="company.street"/>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+				<div class="page" style="font-size: 16px; padding:10px ">
+
+
+                    <div class="row">
+                        <div class="col col-6">
+                            <table id="personal-info" style="width:100%;">
+                                <tr>
+                                    <td style="font-size:14px;font-weight:bold;text-align:left;">Name</td>
+                                    <td><span t-esc="student.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size:14px;font-weight:bold;text-align:left;">Father Name</td>
+                                    <td><span t-esc="student.father_name"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col col-6">
+                            <table id="personal-info" style="width:100%;">
+                                <tr>
+                                    <td style="font-size:14px;font-weight:bold;text-align:left;">Batch</td>
+                                    <td><span t-esc="student.batch_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size:14px;font-weight:bold;text-align:left;">Department</td>
+                                    <td><span t-esc="student.program_id.name"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <t t-foreach="student_terms" t-as="student_term">
+                        <span style="font-weight:bold; display:block margin-top:15px" t-esc="student_term.term_id.name"/>
+                        <table id="class-result">
+                             <tr>
+                                 <th style="width:15%">Code</th>
+                                 <th style="width:45%">Course Title</th>
+                                 <th style="tet-align:center; width:15%">Grade</th>
+                                 <th style="tet-align:center; width:25%">Remarks</th>
+                             </tr>
+                             <t t-foreach="student_term.student_course_ids" t-as="rec">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="rec.primary_class_id.code" /></td>
+                                     <td><span t-esc="rec.primary_class_id.name" /></td>
+                                     <td><span t-esc="rec.grade" /></td>
+                                     <td><span t-esc="rec.remarks" t-if="rec.remarks"/></td>
+                                 </tr>
+                             </t>
+                         </table>
+                        <!--<div class="row">
+                            <span>SGPA</span>
+
+                        </div>
+                        <table id="personal-info" style="width:100%;">
+                            <tr>
+                                <td style="font-size:14px;font-weight:bold;text-align:left;">Sem GPA</td>
+                                <td><span t-esc="student_term.sgpa"/></td>
+                            </tr>
+                            <tr>
+                                <td style="font-size:14px;font-weight:bold;text-align:left;">CGPA</td>
+                                <td><span t-esc="student_term.cgpa"/></td>
+                            </tr>
+                        </table>-->
+
+                    </t>
+                </div>
+                <div class="footer o_boxed_footer">
+                    <div style="display:block; width:50%; float: left; text-align:left">
+                       <span>Date:</span><span t-esc="today"/>
+                    </div>
+                    <div style="display:block; width:50%; float: left; text-align:right">
+                       <span>Controller of Examination</span>
+                    </div>
+                </div>
+            </t>
+    </template>
+
+</odoo>

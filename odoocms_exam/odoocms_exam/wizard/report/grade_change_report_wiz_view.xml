@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="grade_change_term_wiz_form" model="ir.ui.view">
+        <field name="name">grade.change.term.wiz</field>
+        <field name="model">grade.change.term.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Wiz Grade Change Term Wise">
+                <group>
+                	<group>
+                        <field name="term_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_grade_change_term_wiz" model="ir.actions.act_window">
+        <field name="name">Term Wise Grade Change Report</field>
+        <field name="res_model">grade.change.term.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_grade_change_term_wiz"
+            name="Term Wise Grade Changed"
+            action="action_grade_change_term_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="260"/>
+
+
+    <record id="grade_change_department_wiz_form" model="ir.ui.view">
+        <field name="name">grade.change.department.wiz</field>
+        <field name="model">grade.change.department.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Wiz Grade Change department Wise">
+                <group>
+                	<group>
+                        <field name="session_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="department_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_grade_change_department_wiz" model="ir.actions.act_window">
+        <field name="name">Department Wise Grade Change Report</field>
+        <field name="res_model">grade.change.department.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_grade_change_department_wiz"
+            name="Department Wise Grade Changed"
+            action="action_grade_change_department_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="250"/>
+
+</odoo>

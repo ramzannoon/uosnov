@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <report
+                id='items_inventory_report'
+                string='Items Inventory Report'
+                model='items.inventory.wizard'
+                report_type='qweb-pdf'
+                file='items_inventory_report.items_inventory_template'
+                name='items_inventory_report.items_inventory_template'
+                menu="False"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_campus_form_inherit_fee" model="ir.ui.view">
+            <field name="name">odoocms.campus.form.inherit.fee</field>
+            <field name="model">odoocms.campus</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_campus_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="analytic_tag_id"/>
+                </field>
+                <notebook position="inside">
+                    <page name='other_info' string="Other Info">
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="late_fee_per_day_fine"/>
+                                    <field name="late_fee_max_fine"/>
+                                </group>
+                            </group>
+                         </sheet>
+                    </page>
+                </notebook>
+
+            </field>
+        </record>
+
+
+        <record id="view_odoocms_batch_form_inherit_fee" model="ir.ui.view">
+            <field name="name">odoocms.batch.form.inherit.fee</field>
+            <field name="model">odoocms.batch</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_batch_form"/>
+            <field name="arch" type="xml">
+                <field name="allow_re_reg_wo_fee" position="after">
+<!--                    <group>-->
+                        <field name="late_fee_per_day_fine"/>
+                        <field name="late_fee_max_fine"/>
+<!--                    </group>-->
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Student Hostel History -->
+        <record id="seq_odoocms_student_hostel_history" model="ir.sequence">
+            <field name="name">Student Hostel History</field>
+            <field name="code">odoocms.student.hostel.history</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Swap -->
+        <record id="seq_odoocms_student_swap" model="ir.sequence">
+            <field name="name">Student Hostel Swap</field>
+            <field name="code">odoocms.student.hostel.swap</field>
+            <field name="prefix">SWP/APP/</field>
+            <field name="padding">5</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Hostel Free Units -->
+        <record id="seq_odoocms_hostel_free_units" model="ir.sequence">
+            <field name="name">Hostel Free Units</field>
+            <field name="code">odoocms.hostel.fee.units</field>
+            <field name="prefix"></field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Multi Swap -->
+        <record id="seq_odoocms_student_multi_swap" model="ir.sequence">
+            <field name="name">Student Hostel Multi Swap</field>
+            <field name="code">odoocms.student.hostel.multi.swap</field>
+            <field name="prefix">Multi/SWP/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Multi Swap Line-->
+        <record id="seq_odoocms_student_multi_swap_line" model="ir.sequence">
+            <field name="name">Student Hostel Multi Swap Line</field>
+            <field name="code">odoocms.student.hostel.multi.swap.line</field>
+            <field name="prefix">Multi/SWP/LN/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Hostel Reassignment-->
+        <record id="seq_odoocms_student_hostel_reassignment" model="ir.sequence">
+            <field name="name">Student Hostel Reassignment</field>
+            <field name="code">odoocms.student.hostel.reassignment</field>
+            <field name="prefix">SHRRA/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Hostel Reassignment Line-->
+        <record id="seq_odoocms_student_hostel_reassignment_line" model="ir.sequence">
+            <field name="name">Student Hostel Reassignment Lines</field>
+            <field name="code">odoocms.student.hostel.reassignment.line</field>
+            <field name="prefix">SHRRA/LN/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Hostel Admission Application-->
+        <record id="seq_odoocms_hostel_admission_application" model="ir.sequence">
+            <field name="name">Hostel Admission Application</field>
+            <field name="code">odoocms.hostel.admission.hostel</field>
+            <field name="prefix">HADM/APP/</field>
+            <field name="padding">5</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Student Hostel Student Special Information -->
+        <record id="seq_odoocms_hostel_student_special_info" model="ir.sequence">
+            <field name="name">Hostel Student Special Info</field>
+            <field name="code">odoocms.hostel.student.special.info</field>
+            <field name="prefix">SS/INFO/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+        <!-- Hostel extra facilities -->
+        <record id="seq_odoocms_hostel_extra_facilities" model="ir.sequence">
+            <field name="name">Hostel Extra Facilities</field>
+            <field name="code">odoocms.hostel.facilities</field>
+            <field name="prefix">EXT/FACT/</field>
+            <field name="padding">4</field>
+            <field name="suffix"></field>
+        </record>
+
+    </data>
+</odoo>

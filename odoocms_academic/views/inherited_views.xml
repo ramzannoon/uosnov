@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Program, Course, Study Scheme, Study Scheme Line, Career
+        Student Course, Student Course Component
+    -->
+    <record id="view_odoocms_program_form" model="ir.ui.view">
+        <field name="name">odoocms.program.form</field>
+        <field name="model">odoocms.program</field>
+        <field name="inherit_id" ref="odoocms_registration.view_odoocms_program_form_registration_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name = 'settings']//group" position="after">
+                <group>
+                    <group>
+                        <field name="grade_method_id"
+                            options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_odoocms_course_form_academic" model="ir.ui.view">
+        <field name="name">odoocms.course.form.academic</field>
+        <field name="model">odoocms.course</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_course_form"/>
+        <field name="arch" type="xml">
+            <field name="coreq_course" position="after">
+                <field name="grade_method_id"
+                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+            </field>
+<!--            <xpath expr="//field[@name='component_lines']/tree/field[@name='contact_hours']" position="after">-->
+<!--                <field name="assessment_template_id"-->
+<!--                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_form_academic" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.form.academic</field>
+        <field name="model">odoocms.study.scheme</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_study_scheme_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='term_id']" position="before">
+                <field name="department_id"
+                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_form_academic" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.form.academic</field>
+        <field name="model">odoocms.study.scheme.line</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_study_scheme_line_form"/>
+        <field name="arch" type="xml">
+            <field name="course_name" position="after">
+                <field name="grade_method_id"
+                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+            </field>
+            <xpath expr="//group[@name='three']" position="before">
+                <group>
+                    <field name="department_id"
+                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+    <record id="view_odoocms_study_scheme_line_component_tree_academic" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.component.form.academic</field>
+        <field name="model">odoocms.study.scheme.line.component</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_study_scheme_line_component_tree"/>
+        <field name="arch" type="xml">
+            <field name='contact_hours' position="after">
+                <field name="assessment_template_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_component_form_academic" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.component.form.academic</field>
+        <field name="model">odoocms.study.scheme.line.component</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_study_scheme_line_component_form"/>
+        <field name="arch" type="xml">
+            <group name='weightage' position="after">
+                <group name="assessment_template">
+                    <field name="assessment_template_id"
+                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_odoocms_career_form" model="ir.ui.view">
+        <field name="name">odoocms.career.form</field>
+        <field name="model">odoocms.career</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_career_form"/>
+        <field name="arch" type="xml">
+            <group name="1" position="after">
+                <group>
+                    <field name="grades"/>
+                    <field name="factor"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_course_component_tree_academic" model="ir.ui.view">
+            <field name="name">odoocms.student.course.component.tree.academic</field>
+            <field name="model">odoocms.student.course.component</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_course_component_tree"/>
+            <field name="arch" type="xml">
+
+                <field name="class_id" position="after">
+                    <field name="r_total_marks"/>
+                    <field name="mid_total_marks" readonly="1"/>
+                    <field name="total_marks"/>
+                    <!--                    <field name="grade_points" string="GP"/>-->
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_component_form_academic" model="ir.ui.view">
+            <field name="name">odoocms.student.course.component.form.academic</field>
+            <field name="model">odoocms.student.course.component</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_course_component_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='course_class']" position="after">
+                    <group>
+                        <field name="r_total_marks"/>
+                        <field name="mid_total_marks" readonly="1"/>
+                        <field name="total_marks"/>
+                        <!--                        <field name="grade_points" string="GP"/>-->
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Result Summary" name="activities">
+                        <group>
+                            <field name="assessment_summary_ids" nolabel="1">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="assessment_component_id"/>
+                                    <field name="percentage"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_form_academic" model="ir.ui.view">
+            <field name="name">odoocms.student.course.form.academic</field>
+            <field name="model">odoocms.student.course</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_course_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='course_class']" position="after">
+                    <group>
+                        <field name="r_total_marks" readonly="1"/>
+                        <field name="mid_total_marks" readonly="1"/>
+                        <field name="total_marks" readonly="1"/>
+<!--                        <field name="normalized_marks" readonly="1"/>-->
+                        <field name="mid_grade" readonly="1"/>
+                        <field name="grade" readonly="1"/>
+                        <!--                        <field name="gpa" readonly="1"/>-->
+                        <!--                        <field name="grade_points" string="GP"/>-->
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='component_ids']/tree/field[@name='weightage']" position="after">
+                    <field name="r_total_marks"/>
+                    <field name="mid_total_marks" readonly="1"/>
+                    <field name="total_marks"/>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

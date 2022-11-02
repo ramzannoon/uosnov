@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_sync_unitime_session_form" model="ir.ui.view">
+			<field name="name">odoocms.sync.unitime.session.form</field>
+			<field name="model">odoocms.sync.unitime.session</field>
+			<field name="arch" type="xml">
+				<form string="Get Moodle Categories">
+					<footer>
+						<button name="sync_session" string="Sync Unitime Session" type="object" class="btn-primary"/>
+						<button name="import_rooms" string="Import Rooms" type="object" class="btn-primary"/>
+						<button name="import_instructors" string="Import Instructors" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_odoocms_sync_unitime_session" model="ir.actions.act_window">
+            <field name="name">Sync Unitime Session</field>
+            <field name="res_model">odoocms.sync.unitime.session</field>
+            <field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+
+		<menuitem
+                id="menu_odoocms_sync_unitime_session"
+                name="Sync Unitime Session"
+                parent="menu_odoocms_timetable_configuration"
+                action="action_odoocms_sync_unitime_session"/>
+
+		
+    </data>
+</odoo>

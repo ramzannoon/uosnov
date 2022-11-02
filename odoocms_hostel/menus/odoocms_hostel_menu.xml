@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="menu_odoocms_hostel_root"
+            name="Odoo CMS Hostel"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            web_icon="odoocms_hostel,static/description/icon.png"
+            sequence="5"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_main"
+            name="Hostels"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_root"
+            sequence="10"/>
+    <menuitem
+            id="menu_odoocms_hostel_students_main"
+            name="Students"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_main"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_faculty_main"
+            name="Faculty"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_main"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_swap_main"
+            name="Student Room Swapping"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_main"
+            sequence="50"/>
+
+    <menuitem
+        id="menu_odoocms_hostel_fac_swap_main"
+        name="Faculty Room Swapping"
+        groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+        parent="menu_odoocms_hostel_main"
+        sequence="55"/>
+
+    <menuitem
+            id="menu_odoocms_student_hostel_reassignment_main"
+            name="Hostel Reassignment"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_main"
+            sequence="60"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_history_main"
+            name="History"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_main"
+            sequence="100"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_general"
+            name="General"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            parent="menu_odoocms_hostel_root"
+            sequence="60"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_report"
+            name="Reports"
+            parent="menu_odoocms_hostel_root"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="80"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_main_configuration"
+            parent="menu_odoocms_hostel_root"
+            name="Configuration"
+            groups="group_hostel_manager"
+            sequence="100"/>
+
+
+    <menuitem
+            id="menu_odoocms_hostel_floor_config"
+            parent="menu_odoocms_hostel_main_configuration"
+            name="Floors"
+            groups="group_hostel_manager"
+            sequence="100"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_rooms_config"
+            parent="menu_odoocms_hostel_main_configuration"
+            name="Rooms"
+            groups="group_hostel_manager"
+            sequence="200"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_hostel_config"
+            parent="menu_odoocms_hostel_main_configuration"
+            name="Hostels"
+            groups="group_hostel_manager"
+            sequence="300"/>
+
+    <menuitem
+            id="menu_odoocms_hostel_general_config"
+            parent="menu_odoocms_hostel_main_configuration"
+            name="General"
+            groups="group_hostel_manager"
+            sequence="500"/>
+</odoo>

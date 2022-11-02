@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--***** HelpDesk Inherit Form View  -->
+        <!--        <record id="giki_helpdesk_form2_view" model="ir.ui.view">-->
+        <!--            <field name="name">giki.helpdesk.form2</field>-->
+        <!--            <field name="model">helpdesk.ticket</field>-->
+        <!--            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <data>-->
+        <!--                    <field name="student_id" position="after">-->
+        <!--                        <field name="hostel_id"-->
+        <!--                               attrs="{'required':[('type','=','Student')],'invisible':[('type','!=','Student')]}"-->
+        <!--                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+        <!--                        <field name="room_id"-->
+        <!--                               attrs="{'required':[('type','=','Student')],'invisible':[('type','!=','Student')]}"-->
+        <!--                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+        <!--                    </field>-->
+
+        <!--                </data>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <!-- ***** Hostel Wings ***** -->
+        <record id="view_odoocms_hostel_wings_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.wings.tree.view</field>
+            <field name="model">odoocms.hostel.wings</field>
+            <field name="arch" type="xml">
+                <tree string='Hostel Wings' decoration-success="active==True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_wings_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.wings.form.view</field>
+            <field name="model">odoocms.hostel.wings</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Wings">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel_wings">
+            <field name="name">Hostel Wings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel.wings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Floors.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_wings_menu"
+                name="Hostel Wings"
+                parent="menu_odoocms_hostel_hostel_config"
+                action="action_odoocms_hostel_wings"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="20"/>
+
+
+        <!-- ***** Hostel Rooms Blockage Reason ***** -->
+        <record id="view_odoocms_hostel_room_blockage_reason_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.blockage.reason.tree.view</field>
+            <field name="model">odoocms.hostel.room.blockage.reason</field>
+            <field name="arch" type="xml">
+                <tree string='Hostel Rooms Blockage Reason' decoration-success="active==True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_blockage_reason_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.blockage.reason.form.view</field>
+            <field name="model">odoocms.hostel.room.blockage.reason</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Rooms Blockage Reason">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="rooms" string="Rooms">
+                                <field name="room_ids" readonly="1">
+                                    <tree>
+                                        <field name="room_id"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="room_type"/>
+                                        <field name="hostel_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_blockage_reason_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.blockage.reason.search</field>
+            <field name="model">odoocms.hostel.room.blockage.reason</field>
+            <field name="arch" type="xml">
+                <search string="Hostel Types">
+                    <field name="name" string="Name"/>
+                    <newline/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel_room_blockage_reason">
+            <field name="name">Hostel Room Blockage Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel.room.blockage.reason</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Floors.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_room_blockage_reason_menu"
+                name="Hostel Room Blockage Reasons"
+                parent="menu_odoocms_hostel_hostel_config"
+                action="action_odoocms_hostel_room_blockage_reason"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="50"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_registration" name="Portal My Home : registration entry" inherit_id="portal.portal_my_home" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+
+            <t  t-call="portal.portal_docs_entry" t-if="(not student_count) and (not faculty_count)">
+                <t t-set="title">Online Admission Registration</t>
+                <t t-set="url" t-value="'/admission/registration'"/>
+            </t>
+
+            <!--        <t  t-call="portal.portal_docs_entry" t-if="application and application.finance_ass">-->
+            <!--           <t t-set="title">Financial Assistance Application</t>-->
+            <!--            <t t-set="url" t-value="'/financial/assistance/form'"/>-->
+            <!--        </t>-->
+        </xpath>
+    </template>
+
+    <template id="submission_message" name="Message">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <h1><span t-esc="header"/></h1>
+                        <p t-esc="message"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="university_admission_footer_custom" name="Footer" inherit_id="website.layout">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt16 pb8">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h5>Vision</h5>
+                                <p>
+                                    To be a premier degree awarding Institute of Pakistan, and offering programs in
+                                    both Arts, Culture &amp; Information Technology where students are imparted quality
+                                    education through the perfect combination of both Arts &amp; Sciences and where our
+                                    curriculum and teaching methodology is geared towards meeting the requirements
+                                    of both local and international organizations.
+                                </p>
+                            </div>
+                            <div class="col-lg-4" id="connect">
+                                <h5>Connect with us</h5>
+                                <ul class="list-unstyled">
+                                    <li><a href="/contactus">Contact us</a></li>
+                                    <li><i class="fa fa-phone"/> <span class="o_force_ltr" t-field="res_company.admission_phone"/></li>
+                                    <li><i class="fa fa-envelope"/>  <span t-field="res_company.admission_mail"/></li>
+                                    <li><i class="fa fa-phone"/> <span t-field="res_company.phone"/></li>
+                                    <li><i class="fa fa-envelope"/>  <span t-field="res_company.email"/></li>
+                                </ul>
+                                <p>
+                                    <a t-if="website.social_facebook" t-att-href="website.social_facebook" class="btn btn-sm btn-link"><i class="fa fa-2x fa-facebook-square"/></a>
+                                    <a t-if="website.social_twitter" t-att-href="website.social_twitter" class="btn btn-sm btn-link"><i class="fa fa-2x fa-twitter"/></a>
+                                    <a t-if="website.social_linkedin" t-att-href="website.social_linkedin" class="btn btn-sm btn-link"><i class="fa fa-2x fa-linkedin"/></a>
+                                    <a t-if="website.social_youtube" t-att-href="website.social_youtube" class="btn btn-sm btn-link"><i class="fa fa-2x fa-youtube-play"/></a>
+                                    <!--<a t-if="website.social_googleplus" t-att-href="website.social_googleplus" class="btn btn-sm btn-link" rel="publisher"><i class="fa fa-2x fa-google-plus-square"/></a>-->
+                                    <a t-if="website.social_github" t-att-href="website.social_github" class="btn btn-sm btn-link"><i class="fa fa-2x fa-github"/></a>
+                                    <a t-if="website.social_instagram" t-att-href="website.social_instagram" class="btn btn-sm btn-link"><i class="fa fa-2x fa-instagram"/></a>
+                                </p>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5>
+                                    <span t-field="res_company.name"/>
+                                    <small> - <a href="/aboutus">About us</a></small>
+                                </h5>
+                                <p>
+                                    The Institute for Art and Culture takes immense pride in providing an unprecedented
+                                    platform for learning, discovery, and transformation; where you've got a liberty
+                                    to dive deep into the world of intellectual curiosity, wonder and amazement
+                                    courtesy the thousands of books on a wide variety of subjects. We channel bright
+                                    and curious minds with ideas to build a strong and cohesive community of leaders,
+                                    influencers and change-makers that can play their part in making the world a
+                                    better place.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+    <!--<template id="footer_custom_admission" name="Footer for Admission Office" inherit_id="website.layout">
+        <xpath expr="//li/a[@href='/contactus']" position="after">
+            <li><i class="fa fa-phone"/> <span class="o_force_ltr" t-field="res_company.admission_phone"/></li>
+            <li><i class="fa fa-envelope"/>  <span t-field="res_company.admission_mail"/></li>
+        </xpath>
+    </template>-->
+
+
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="brand_brand_form_view" model="ir.ui.view">
+            <field name="name">brand_brand_form</field>
+            <field name="model">brand.brand</field>
+            <field name="arch" type="xml">
+                <form string="Brands">
+                    <sheet>
+                        <group>
+                            <field name="code" placeholder="Brand Code"/>
+                            <field name="name" placeholder="Brand Name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="brand_brand_tree_view" model="ir.ui.view">
+            <field name="name">brand_brand_tree</field>
+            <field name="model">brand.brand</field>
+            <field name="arch" type="xml">
+                <tree string="ModelTitle">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="brand_brand_act_window" model="ir.actions.act_window">
+            <field name="name">Brands</field>
+            <field name="res_model">brand.brand</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no Brands click here to add new Brands Name.
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Brands"
+                  id="brand_brand_menu"
+                  parent="stock.menu_stock_config_settings"
+                  action="brand_brand_act_window"
+                  sequence="7"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,123 @@
+<odoo>
+
+    <template id="odoocms_exam.student_exam_slip_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    #exam-slip {
+                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin:10px;
+                    border-bottom:1px dotted;
+                    }
+
+                    #exam-slip td, #exam-slip th {
+                    border: 1px solid #ddd;
+                    padding: 2px;
+                    }
+
+                    #exam-slip tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #exam-slip tr:hover {background-color: #ddd;}
+
+                    #exam-slip th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    text-align: center;
+                    background-color: #461404;
+                    color: white;
+                    }
+
+                </style>
+                <div class="page" style="font-size: 16px; padding:10px ">
+
+                    <div class="row">
+                        <div class="col col-12">
+                            <t t-if="not students_list ">
+                                <span>Sorry no record found</span>
+                            </t>
+                            <t t-foreach="students_list" t-as="student">
+                                <table id="exam-slip">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            <img style="width:180px;height:180px;"
+                                                 t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+                                            <img src="/web/static/src/img/user_menu_avatar.png"
+                                                 t-if="not company_id.logo"/>
+                                        </th>
+                                        <th colspan="6" style="height:auto;">
+                                            <span t-esc="company_id.name" t-if="company_id.name"/><br/>
+                                            <span>Roll No Slip</span>&#160;<span
+                                                style="font-weight:normal; font-size:10px"><span>(</span><span
+                                                t-esc="student['personal_info']['department']"/>&#160;<span
+                                                t-esc="student['personal_info']['semester']"/>&#160;<span
+                                                t-esc="student['personal_info']['term']"/><span>)</span></span>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>ID</td>
+                                        <td colspan="4"><span t-esc="student['personal_info']['code']"/></td>
+                                        <td style="text-align:center" t-att-rowspan="(len(student['course_info']))+5">
+                                            <span>
+
+                                                <img style="width:180px;height:180px;"
+                                                     t-att-src="image_data_uri(student['personal_info']['image_1920'])"
+                                                     t-if="student['personal_info']['image_1920']"/>
+                                                <img src="/web/static/src/img/user_menu_avatar.png"
+                                                     t-if="not student['personal_info']['image_1920']"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td colspan="4"><span t-esc="student['personal_info']['name']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>F. Name</td>
+                                        <td colspan="4"><span t-esc="student['personal_info']['father']"/></td>
+                                    </tr>
+                                     <tr>
+                                        <td>CNIC</td>
+                                        <td colspan="4"><span t-esc="student['personal_info']['cnic']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Catalog</th>
+                                        <th>Subject</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                    </tr>
+                                    <t t-if="student['course_info']">
+                                        <t t-foreach="student['course_info']" t-as="course">
+                                            <!--                                         course['course']['code']-->
+                                            <tr>
+                                                <td><span t-esc="course_index+1"/></td>
+                                                <td><span t-esc="course['code']"/></td>
+                                                <td><span t-esc="course['name']"/></td>
+                                                <td><span t-esc="course['date']"/></td>
+                                                <td><span t-esc="course['time_start']"/></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+<!--                                    <tr>-->
+<!--                                        <td colspan="3" style="font-weight:bold; font-size:20px">Outstanding DUES-->
+<!--                                            = <span t-esc="student['personal_info']['balance']"/></td>-->
+<!--                                    </tr>-->
+                                </table>
+                                <div class="row">
+                                    <div class="col col-12" style="text-align:right">
+                                        <span style="font-weight:bold">Issuing Authority</span>
+                                    </div>
+                                </div>
+                                <div class="row" style="border-bottom:1px dotted;">
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

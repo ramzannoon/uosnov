@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odoocms_class_attendance_user,access.odoocms.class.attendance.user,odoocms_attendance.model_odoocms_class_attendance,odoocms.group_cms_user,1,1,1,0
+access_odoocms_class_attendance_manager,access.odoocms.class.attendance.manager,odoocms_attendance.model_odoocms_class_attendance,odoocms.group_cms_manager,1,1,1,1
+
+access_odoocms_class_attendance_line_user,access.odoocms.class.attendance.line.user,odoocms_attendance.model_odoocms_class_attendance_line,odoocms.group_cms_user,1,1,1,0
+access_odoocms_class_attendance_line_manager,access.odoocms.class.attendance.line.manager,odoocms_attendance.model_odoocms_class_attendance_line,odoocms.group_cms_manager,1,1,1,1
+
+access_odoocms_student_leave_request_user,access.odoocms.student.leave.request.user,odoocms_attendance.model_odoocms_student_leave_request,odoocms.group_cms_user,1,1,1,0
+access_odoocms_student_leave_request_manager,access.odoocms.student.leave.request.manager,odoocms_attendance.model_odoocms_student_leave_request,odoocms.group_cms_manager,1,1,1,1
+
+access_odoocms_attendance_absent_reason_user,access.odoocms.attendance.absent.reason.user,odoocms_attendance.model_odoocms_attendance_absent_reason,odoocms.group_cms_user,1,1,1,0
+access_odoocms_attendance_absent_reason_manager,access.odoocms.attendance.absent.reason.manager,odoocms_attendance.model_odoocms_attendance_absent_reason,odoocms.group_cms_manager,1,1,1,1
+
+access_odoocms_class_attendance_open_user,access.odoocms.class.attendance.open.user,odoocms_attendance.model_odoocms_class_attendance_open,odoocms.group_cms_user,1,1,1,0
+access_odoocms_class_attendance_open_manager,access.odoocms.class.attendance.open.manager,odoocms_attendance.model_odoocms_class_attendance_open,odoocms.group_cms_manager,1,1,1,1

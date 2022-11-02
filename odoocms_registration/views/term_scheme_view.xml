@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_academic_term_scheme_form" model="ir.ui.view">
+            <field name="name">odoocms.academic.term.scheme</field>
+            <field name="model">odoocms.academic.term</field>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <form string="Term Scheme">
+                    <header>
+                        <button name="approve_scheme" type="object" class="oe_highlight" states="draft"
+                                string="Approve" groups="odoocms.group_cms_manager"
+                        />
+                        <button name="reset_draft" type="object" class="oe_highlight" states="approve"
+                                string="Reset to Draft" groups="odoocms.group_cms_manager"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="short_code"/>
+                            </group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="type"/>
+                            </group>
+                            <field name="description" placeholder="Enter the Description"/>
+                        </group>
+                        <notebook>
+                            <page string="Scheme Lines">
+                                <field name="term_scheme_ids" context="{'default_term_id':id}">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="session_id" required="1"/>
+                                        <field name="semester_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_academic_term_scheme_tree" model="ir.ui.view">
+            <field name="name">odoocms.academic.term.tree</field>
+            <field name="model">odoocms.academic.term</field>
+            <field name="priority" eval="30"/>
+            <field name="arch" type="xml">
+                <tree string="Term Scheme">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_term_scheme_form" model="ir.ui.view">
+            <field name="name">odoocms.term.scheme.form</field>
+            <field name="model">odoocms.term.scheme</field>
+            <field name="arch" type="xml">
+                <form string="Semester Scheme">
+                    <header>
+                        <button name="approve_scheme" type="object" class="oe_highlight" states="draft"
+                                string="Approve" groups="odoocms.group_cms_manager"
+                        />
+                        <button name="reset_draft" type="object" class="oe_highlight" states="approve"
+                                string="Reset to Draft" groups="odoocms.group_cms_manager"
+                        />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="semester_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <notebook></notebook>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_term_scheme_tree" model="ir.ui.view">
+            <field name="name">odoocms.term.scheme.tree</field>
+            <field name="model">odoocms.term.scheme</field>
+            <field name="arch" type="xml">
+                <tree string="Semester Scheme">
+                    <field name="sequence" widget="handle"/>
+                    <field name="session_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_term_scheme_search" model="ir.ui.view">
+            <field name="name">odoocms.term.scheme.search</field>
+            <field name="model">odoocms.term.scheme</field>
+            <field name="arch" type="xml">
+                <search string="Term Scheme">
+                    <field name="session_id"/>
+                    <field name="term_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="academic_session" string="Academic Session" domain="[]"
+                                context="{'group_by':'session_id'}"/>
+                        <filter name="academic_term" string="Academic Term" domain="[]"
+                                context="{'group_by':'term_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="session_id" icon="fa-users"/>
+                        <field name="term_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_academic_term_scheme" model="ir.actions.act_window">
+            <field name="name">Term Scheme</field>
+            <field name="res_model">odoocms.academic.term</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Academic Term here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_odoocms_academic_term_scheme1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_odoocms_academic_term_scheme_tree"/>
+            <field name="act_window_id" ref="action_odoocms_academic_term_scheme"/>
+        </record>
+
+        <record id="action_odoocms_academic_term_scheme2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_odoocms_academic_term_scheme_form"/>
+            <field name="act_window_id" ref="action_odoocms_academic_term_scheme"/>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_term_scheme"
+                name="Term Scheme"
+                action="action_odoocms_academic_term_scheme"
+                parent="menu_registration_configuration"
+                sequence="3"/>
+
+    </data>
+</odoo>

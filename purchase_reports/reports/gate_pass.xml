@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="gate_pass_layout">
+        <div class="header">
+            <style>
+                table{
+                width: 100%;
+                }
+                th{
+                padding: 2px;
+                }
+                td{
+                padding: 2px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-3">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                         style="width:100%;height:100px;"/>
+                </div>
+                <div class="col-6 text-center">
+                    <h4>
+                        <span t-field="res_company.name"/>
+                    </h4>
+                    <br/>
+                    <h6>
+                        <span>
+                            <u>INWARD GATE PASS AND INSPECTION REPORT</u>
+                        </span>
+                        <!--                        <t t-if="docs.picking_type_id.code == 'incoming'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>INWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'outgoing'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>OUTWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'internal'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>RETURNABLE GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                    </h6>
+                </div>
+                <div class="col-3">
+                    <table>
+                        <tr>
+                            <th style="width:50%">Date :</th>
+                            <td style="width:50%;border-bottom: 1px solid black;">
+                                <span t-field="doc.date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%">PO.No:</th>
+                            <td style="width:50%;border-bottom: 1px solid black;">
+                                <span t-field="doc.origin"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!--                             colspan="3"-->
+                            <th>IGP :</th>
+                            <td style="border-bottom: 1px solid black;">
+                                <span t-field="doc.igp"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Vourier No:</th>
+                            <td style="border-bottom: 1px solid black;">
+                                <span t-field="doc.vourier_no"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:10%;">Remarks :</td>
+                        <td style="width:90%; border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+                <table style="width:100%; margin-top:40px">
+                    <tr>
+                        <td style="border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+
+
+                <table style="width:100%; margin-top:25px">
+                    <tr>
+                        <td style="width:70%;">
+                            <span style="border-bottom: 1px solid black" t-esc="request.env.user.name"/>
+                        </td>
+                        <td style="width:30%; border-bottom: 1px solid black"/>
+                    </tr>
+                    <tr>
+                        <th>Prepared By:</th>
+                        <th>Security</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <template id="gate_pass_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="purchase_reports.gate_pass_layout">
+                    <style>
+                        div{
+                        width: 100%;
+                        margin-top: 28px;
+                        }
+                        table{
+                        width: 100%;
+                        }
+                        th{
+                        padding: 2px;
+                        }
+                        td{
+                        padding: 2px;
+                        }
+                    </style>
+                    <div class="page">
+                        <div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <th style="width: 8%">
+                                        Name:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 52%">
+                                        <span t-field="doc.partner_id"/>
+                                    </td>
+                                    <th style="width: 9%">
+                                        Department:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 31%">
+                                        <span t-field="doc.department_id"/>
+                                        <!--                                                                                <span t-field="doc.custom_requisition_id.department_id.name"/>-->
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <th style="width: 8%">
+                                        Vehicle No:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 52%">
+                                        <span t-field="doc.vehicle_number"/>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <table>
+                                <tr class="text-center">
+                                    <th style="width:10%; border:1px solid black;">Sr:#</th>
+                                    <th style="width:50%; border:1px solid black;">Items Description</th>
+                                    <th style="width:10%; border:1px solid black;">Item Code.</th>
+                                    <th style="width:10%; border:1px solid black;">Unit</th>
+                                    <th style="width:10%; border:1px solid black;">Qty</th>
+                                </tr>
+                                <t t-set="sr_no" t-value="1"/>
+                                <t t-foreach="doc.move_ids_without_package" t-as="line">
+                                    <tr>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="sr_no"/>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_uom.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.quantity_done"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="sr_no" t-value="sr_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="returnable_gate_pass_layout">
+        <div class="header">
+            <style>
+                table{
+                width: 100%;
+                }
+                th{
+                padding: 2px;
+                }
+                td{
+                padding: 2px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-3">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                         style="width:100%;height:100px;"/>
+                </div>
+                <div class="col-5 text-center">
+                    <h4>
+                        <span t-field="res_company.name"/>
+                    </h4>
+                    <br/>
+                    <h4>
+                        <span>
+                            <u>RETURNABLE GATE PASS</u>
+                        </span>
+                        <!--                                <u>RETURNABLE GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'incoming'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>INWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'outgoing'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>OUTWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'internal'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>RETURNABLE GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                    </h4>
+                </div>
+                <div class="col-4">
+                    <table>
+                        <tr>
+                            <th style="width:40%">Out Time :</th>
+                            <td style="width:60%; border-bottom: 1px solid black;">
+                                <t t-if="doc.out_date">
+                                    <span t-esc='doc.out_date.strftime("%H:%M:%S")'/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:40%">IN Time IAC:</th>
+                            <td style="width:60%; border-bottom: 1px solid black;">
+                                <t t-if="doc.out_date">
+                                    <span t-esc='doc.intime_date.strftime("%H:%M:%S")'/>
+                                </t>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Date :</th>
+                            <td style="border-bottom: 1px solid black;">
+                                <span t-field="doc.date"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:10%;">Remarks :</td>
+                        <td style="width:90%; border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+                <table style="width:100%; margin-top:40px">
+                    <tr>
+                        <td style="border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+
+                <br></br>
+
+                <div>
+                    <table style="width: 100%">
+                        <tr>
+                            <th style="width: 10%">
+                                Approved By:
+                            </th>
+                            <td style="border-bottom: 1px solid black; width: 10%">
+                            </td>
+
+                            <td style="width:40%">
+                            </td>
+                            <th style="width: 10%">
+                                Security:
+                            </th>
+                            <td style="border-bottom: 1px solid black; width: 10%">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </template>
+
+    <template id="returnable_gate_pass_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="purchase_reports.returnable_gate_pass_layout">
+                    <style>
+                        div{
+                        width: 100%;
+                        margin-top: 28px;
+                        }
+                        table{
+                        width: 100%;
+                        }
+                        th{
+                        padding: 2px;
+                        }
+                        td{
+                        padding: 2px;
+                        }
+                    </style>
+                    <div class="page">
+                        <div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <th style="width: 8%">
+                                        Name:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 52%">
+                                        <span t-field="doc.partner_id"/>
+                                    </td>
+                                    <th style="width: 9%">
+                                        Department:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 31%">
+                                        <span t-field="doc.department_id"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <table>
+                                <tr class="text-center">
+                                    <th style="width:10%; border:1px solid black;">Sr:#</th>
+                                    <th style="width:50%; border:1px solid black;">Items Description</th>
+                                    <th style="width:10%; border:1px solid black;">Item Code.</th>
+                                    <th style="width:10%; border:1px solid black;">Unit</th>
+                                    <th style="width:10%; border:1px solid black;">Qty</th>
+                                </tr>
+                                <t t-set="sr_no" t-value="1"/>
+                                <t t-foreach="doc.move_ids_without_package" t-as="line">
+                                    <tr>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="sr_no"/>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_uom.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.quantity_done"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="sr_no" t-value="sr_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="out_gate_pass_layout">
+        <div class="header">
+            <style>
+                table{
+                width: 100%;
+                }
+                th{
+                padding: 2px;
+                }
+                td{
+                padding: 2px;
+                }
+            </style>
+            <div class="row">
+                <div class="col-3">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                         style="width:100%;height:100px;"/>
+                </div>
+                <div class="col-6 text-center">
+                    <h4>
+                        <span t-field="res_company.name"/>
+                    </h4>
+                    <br/>
+                    <h4>
+                        <span>
+                            <u>OUTWARD GATE PASS</u>
+                        </span>
+                        <!--                        <t t-if="docs.picking_type_id.code == 'incoming'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>INWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'outgoing'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>OUTWARD GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                        <!--                        <t t-if="docs.picking_type_id.code == 'internal'">-->
+                        <!--                            <span>-->
+                        <!--                                <u>RETURNABLE GATE PASS</u>-->
+                        <!--                            </span>-->
+                        <!--                        </t>-->
+                    </h4>
+                </div>
+                <div class="col-3">
+                    <table>
+                        <tr>
+                            <th style="width:50%">Out Time:</th>
+                            <td style="width:50%;border-bottom: 1px solid black;">
+                                <t t-if="doc.out_date">
+                                    <span t-esc='doc.out_date.strftime("%H:%M:%S")'/>
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:50%">Date :</th>
+                            <td style="width:50%;border-bottom: 1px solid black;">
+                                <span t-field="doc.date"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div>
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:10%;">Remarks :</td>
+                        <td style="width:90%; border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+
+                <table style="width:100%; margin-top:40px">
+                    <tr>
+                        <td style="border-bottom: 1px solid black"/>
+                    </tr>
+                </table>
+
+                <br></br>
+
+                <div>
+                    <table style="width: 100%">
+                        <tr>
+                            <th style="width: 10%">
+                                Approved By:
+                            </th>
+                            <td style="border-bottom: 1px solid black; width: 10%">
+                            </td>
+
+                            <td style="width:40%">
+                            </td>
+                            <th style="width: 10%">
+                                Security:
+                            </th>
+                            <td style="border-bottom: 1px solid black; width: 10%">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="out_gate_pass_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="purchase_reports.out_gate_pass_layout">
+                    <style>
+                        div{
+                        width: 100%;
+                        margin-top: 28px;
+                        }
+                        table{
+                        width: 100%;
+                        }
+                        th{
+                        padding: 2px;
+                        }
+                        td{
+                        padding: 2px;
+                        }
+                    </style>
+                    <div class="page">
+                        <div>
+                            <table style="width: 100%">
+                                <tr>
+                                    <th style="width: 8%">
+                                        Name:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 52%">
+                                        <span t-field="doc.partner_id"/>
+                                    </td>
+                                    <th style="width: 9%">
+                                        Department:
+                                    </th>
+                                    <td style="border-bottom: 1px solid black; width: 31%">
+                                        <span t-field="doc.department_id"/>
+                                        <!--                                                                                <span t-field="doc.custom_requisition_id.department_id.name"/>-->
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div>
+                            <table>
+                                <tr class="text-center">
+                                    <th style="width:10%; border:1px solid black;">Sr:#</th>
+                                    <th style="width:50%; border:1px solid black;">Items Description</th>
+                                    <th style="width:10%; border:1px solid black;">Item Code.</th>
+                                    <th style="width:10%; border:1px solid black;">Unit</th>
+                                    <th style="width:10%; border:1px solid black;">Qty</th>
+                                </tr>
+                                <t t-set="sr_no" t-value="1"/>
+                                <t t-foreach="doc.move_ids_without_package" t-as="line">
+                                    <tr>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="sr_no"/>
+                                        </td>
+                                        <td style="border:1px solid black;">
+                                            <span t-esc="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.product_uom.name"/>
+                                        </td>
+                                        <td class="text-center" style="border:1px solid black;">
+                                            <span t-esc="line.quantity_done"/>
+                                        </td>
+                                    </tr>
+                                    <t t-set="sr_no" t-value="sr_no + 1"/>
+                                </t>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

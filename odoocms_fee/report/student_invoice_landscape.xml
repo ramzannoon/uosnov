@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="odoocms_fee.student_invoice_landscape">
+            <t t-call="web.basic_layout">
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <style>
+                    #invoice-report {
+                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 98%;
+                    margin: 1.5%;
+                    }
+
+                    #invoice-report td, #invoice-report th {
+                    border: 1px solid #ddd;
+                    padding: 2px;
+                    }
+
+                    #invoice-report th {
+                    text-align: left;
+                    width:60%;
+                    font-weight:normal;
+                    }
+
+
+                    #invoice-report td {
+                    text-align: right;
+                    width:40%;
+                    }
+
+                    #invoice-report-student-info {
+                    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 98%;
+                    margin: 1.5%;
+                    }
+
+                    #invoice-report-student-info td, #invoice-report-student-info th {
+                    border: 1px solid #ddd;
+                    padding: 3px;
+                    }
+
+                    #invoice-report-student-info th {
+                    text-align: left;
+                    width:40%;
+                    font-weight:bold;
+                    }
+                    #invoice-report-student-info td {
+                    text-align: right;
+                    width:60%;
+                    }
+                </style>
+
+                <t t-foreach="invoice_rec" t-as="doc">
+                    <div class="page" style="font-size: 10px; padding:5px ">
+                        <t t-call="odoocms_fee.receipt_template"/>
+                    </div>
+                </t>
+
+            </t>
+        </template>
+
+        <template id="odoocms_fee.receipt_template">
+            <div class="row">
+                <div style="width:32%; border:1px solid; margin-right:5px">
+                    <t t-call="odoocms_fee.receipt_copy">
+                        <t t-set="copy_name">Student Copy</t>
+                    </t>
+                </div>
+                <div style="width:32%; border:1px solid; margin-right:5px">
+                    <t t-call="odoocms_fee.receipt_copy">
+                        <t t-set="copy_name">College Copy</t>
+                    </t>
+                </div>
+                <div style="width:32%; border:1px solid; margin-right:5px">
+                    <t t-call="odoocms_fee.receipt_copy">
+                        <t t-set="copy_name">Bank Copy</t>
+                    </t>
+                </div>
+            </div>
+        </template>
+
+        <template id="odoocms_fee.receipt_copy">
+            <div class="row">
+                <div class="col col-3" style="text-align: center;">
+                    <img alt="..." style="max-width:70px" t-att-src="image_data_uri(company.logo)" t-if="company.logo"/>
+                    <img alt="..." style="max-width:70px" src="/web/static/src/img/user_menu_avatar.png" t-if=" not company.logo"/>
+                </div>
+                <div class="col col-8">
+                    <div class="row">
+                        <div class="col col-12" style="text-align:center; font-size:13px; font-weight:bold; background-color: #BAB6B6; color: black;">
+                            <span t-esc="copy_name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-5" style="text-align:left; font-size:13px; font-weight:bold; color: black;">
+                            <span>Invoice #</span>
+                        </div>
+                        <div class="col col-7" style="text-align:left; font-size:13px; font-weight:bold; color: black;">
+                            <span t-esc="doc.barcode"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-5" style="text-align:left; font-size:13px; font-weight:bold; color: black;">
+                            <span>Invoice Date</span>
+                        </div>
+                        <div class="col col-7" style="text-align:left; font-size:13px; color: black;">
+                            <span t-field="doc.invoice_date" t-options='{"widget": "date"}'/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-5" style="text-align:left; font-size:13px; font-weight:bold; color: black;">
+                            <span>Due Date</span>
+                        </div>
+                        <div class="col col-7" style="text-align:left; font-size:13px; color: black;">
+                            <span t-field="doc.invoice_date_due" t-options='{"widget": "date"}'/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-12">
+                    <table id="invoice-report-student-info">
+                        <tr>
+                            <th>
+                                <span>Student ID</span>
+                            </th>
+                            <td>
+                                <span t-esc="doc.student_id.id_number"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span>Student Name</span>
+                            </th>
+                            <td>
+                                <span t-esc="doc.student_id.name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span>Academic Program</span>
+                            </th>
+                            <td>
+                                <span t-esc="doc.student_id.program_id.name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span>Discipline</span>
+                            </th>
+                            <td>
+                                <span t-esc="doc.student_id.discipline_id.name"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <span>Term</span>
+                            </th>
+                            <td>
+                                <span t-esc="doc.term_id.name"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col col-12">
+                    <table id="invoice-report">
+                        <tr>
+                            <th style="font-weight:bold;">
+                                <span>Description</span>
+                            </th>
+                            <td style="font-weight:bold;">
+                                <span>Amount (Rs.)</span>
+                            </td>
+                        </tr>
+
+                        <t t-foreach="doc.invoice_line_ids" t-as="line">
+                            <tr>
+                                <th>
+                                    <span t-esc="line.name"/>
+                                </th>
+                                <td>
+                                    <span t-esc="line.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <th style="font-weight:bold;">
+                                <span>Payable within Due Date</span>
+                            </th>
+                            <td style="font-weight:bold;">
+                                <span t-esc="doc.amount_total"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="invoice-report">
+                        <tr>
+                            <th style="font-weight:bold;">
+                                <span>In Words</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="font-weight:normal;">
+                                <span t-esc="doc.amount_to_text(doc.amount_total)"/>
+                            </th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-12">
+                    <table id="invoice-report">
+                        <tr>
+                            <th style="font-weight:bold;" colspan="2">
+                                <span>Payable after Due Date</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;">
+                                <span t-esc="doc.amount_after_first_due_date()[0]"/>
+                            </td>
+                            <td style="text-align:left;font-weight:bold;">
+                                <span t-esc="doc.amount_after_first_due_date()[1]"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:left;">
+                                <span t-esc="doc.amount_after_second_due_date()[0]"/>
+                            </td>
+                            <td style="text-align:left;font-weight:bold;">
+                                <span t-esc="doc.amount_after_second_due_date()[1]"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <table id="invoice-report">
+                        <tr>
+                            <th style="font-weight:bold;" colspan="3">
+                                <span>Payment Information</span>
+                            </th>
+                        </tr>
+                        <tr style="border:0px;">
+                            <td style="width:30%; text-align: center;">
+                                <img alt="..." style="max-width:70px" src="/odoocms_fee/static/description/askari-ubl-bank-01.png"/>
+
+                            </td>
+                            <td colspan="2">
+                                <p style="text-align: justify;">
+                                    Payable through HBL Internet banking/ HBL Mobile
+                                    App and Online Branches of HBL &amp; AKBL
+                                    HBL Collection Account No. 0042-#####-##
+                                    
+                                </p>
+                            </td>
+                        </tr>
+                        <tr style="background-color: #000000; color:#ffffff;">
+                            <td style="text-align: center;" colspan="3">
+                                <span t-esc="doc.company_id.name"></span>
+                            </td>
+                            <!-- <td></td>
+                            <td></td> -->
+                        </tr>
+                        <tr style="background-color: #BAB6B6;" border="0">
+                            <td style="text-align: left; width:20%;" border="0">
+                                <span>For Queries</span>
+                            </td>
+                            <td style="text-align: left; width:40%;" border="0">
+                               <span>info@superior.edu.pk</span>
+                            </td>
+                            <td style="text-align: left; width:40%;" border="0">
+                                <span>+923004910885</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

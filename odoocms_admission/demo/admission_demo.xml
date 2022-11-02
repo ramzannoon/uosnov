@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+             <record id="odoocms_admission_register_data" model="odoocms.admission.register">
+            <field name="name">Register for 10th</field>
+            <field name="min_count">10</field>
+            <field name="max_count">50</field>
+        <!--     <field name="class_id" ref="odoocms.odoocms_master_class_level_data_10"/> -->
+            <field name="start_date" eval="'%s-04-01' %(datetime.now().year-1)" />
+            <field name="end_date" eval="'%s-04-30' %(datetime.now().year-1)" />
+           
+         
+        </record>
+
+        <record id="odoocms_admission_register_data_2" model="odoocms.admission.register">
+            <field name="name">Register for 9th</field>
+            <field name="min_count">10</field>
+            <field name="max_count">50</field>
+            <!--  <field name="class_id" ref="odoocms.odoocms_master_class_level_data_9"/>  -->
+             <field name="start_date" eval="'%s-04-01' %(datetime.now().year-1)" />
+            <field name="end_date" eval="'%s-04-30' %(datetime.now().year-1)" />   
+</record>
+
+ 
+
+        <record id="student_application_data_haroon" model="odoocms.application">
+            <field name="name">Haroon</field>
+            <field name="register_id" ref="odoocms_admission_register_data" />
+
+            <field name="last_name">Khan</field>
+           <!--  <field name="admission_class" ref="odoocms.odoocms_master_class_level_data_10"/> -->
+           <!--  <field name="academic_session_id" ref="odoocms.odoocms_academic_year_data"/> -->
+             <field name="application_date" eval="'%s-04-22' %(datetime.now().year-1)" />
+            <field name="admission_date" eval="'%s-05-13' %(datetime.now().year-1)" />
+            <field name="father_name">Fayaz Khan</field>
+            <field name="mother_name">Asma</field>
+            <field name="guardian_name" ref="odoocms.odoocms_parent_data2"/>
+            <field name="date_of_birth">11-07-2000</field>
+            <field name="gender">male</field>
+            <field name="blood_group">ab+</field>
+            <field name="street">Mardan</field>
+            <field name="is_same_address">1</field>
+            <field name="mobile">7736773676</field>
+            <field name="image" type="base64" file="odoocms/static/src/img/student2.jpeg"/>
+           
+        </record>
+        <record id="odoocms_admission.student_application_data_haroon" model="odoocms.application">
+            <field name="state">done</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,92 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <record id="view_odoocms_student_fee_ledger_deletion_log_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.fee.ledger.deletion.log.tree</field>
+        <field name="model">odoocms.student.fee.ledger.deletion.log</field>
+        <field name="arch" type="xml">
+            <tree string="Student Ledger Deletion Logs" create="false" duplicate="false">
+                <field name="name"/>
+                <field name="invoice_id"/>
+                <field name="ledger_id"/>
+                <field name="student_id"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="create_uid" string="Delete By User"/>
+                <field name="create_date" string="Deletion Date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_fee_student_ledger_deletion_log_form" model="ir.ui.view">
+        <field name="name">odoocms.student.fee.ledger.deletion.log.form</field>
+        <field name="model">odoocms.student.fee.ledger.deletion.log</field>
+        <field name="arch" type="xml">
+            <form string="Student Ledger Deletion Logs" create='false' duplicate="false">
+                <sheet>
+                    <group col="4">
+                        <field name="name" readonly="1"/>
+                        <field name="invoice_id" readonly="1"/>
+                        <field name="ledger_id" readonly="1"/>
+                        <field name="session_id" readonly="1"/>
+                        <field name="career_id" readonly="1"/>
+                        <field name="term_id" readonly="1"/>
+                        <field name="semester_id" readonly="1"/>
+                        <field name="create_uid" readonly="1" string="Delete By User"/>
+                        <field name="create_date" readonly="1" string="Deletion Date"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_ledger_deletion_log_search" model="ir.ui.view">
+        <field name="name">odoocms.student.fee.ledger.deletion.log.search</field>
+        <field name="model">odoocms.student.fee.ledger.deletion.log</field>
+        <field name="arch" type="xml">
+            <search string="Student Ledger Deletion Logs">
+                <field name="name"/>
+                <field name="invoice_id"/>
+                <field name="ledger_id"/>
+                <field name="student_id"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="create_uid" string="Deleted By"/>
+                <field name="create_date" string="Deletion Date"/>
+
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="group_session_id" string="Academic Session" domain="[]" context="{'group_by':'session_id'}"/>
+                    <filter name="group_career_id" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                    <separator/>
+                    <filter name="group_term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="group_semester_id" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                    <separator/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_fee_ledger_deletion_log" model="ir.actions.act_window">
+        <field name="name">Fee Ledger Deletion Logs</field>
+        <field name="res_model">odoocms.student.fee.ledger.deletion.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            action="action_odoocms_student_fee_ledger_deletion_log"
+            id="menu_student_fee_ledger_deletion_logs"
+            name="Fee Ledger Deletion Logs"
+            parent="odoocms_fee.menu_fee_deletion_log"
+            sequence="40"
+            groups="account.group_account_manager"/>
+
+</odoo>

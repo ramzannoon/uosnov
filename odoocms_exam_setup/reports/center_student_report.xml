@@ -1,0 +1,109 @@
+<odoo>
+
+    <template id="odoocms_exam_setup.exam_center_student_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>#invoice-report {
+                    font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    }
+                    #invoice-report td, #invoice-report th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align:center;
+                    }
+                    #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+                    #invoice-report tr:hover {background-color: #ddd;}
+                    #invoice-report th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    background-color: #17134e;
+                    color: white;
+                    }
+                    #top-info {
+                    font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-top:15px;
+                    display: inline;
+                    }
+                    #top-info td, #personal-info th {
+                    padding: 3px;
+                    }
+                </style>
+                <!--                <div class="page" style="font-size: 16px; border-style: double; padding:10px ">-->
+                <div class="page" style="padding:10px">
+
+                    <div class="row">
+                        <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company_id.name" t-if="company_id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-if="final_list">
+                        <div style="text-align:center">
+                            <span>Center Wise Students</span>
+                        </div>
+                        <!--                    here-->
+                        <div class="row" style="margin-top:25px; height:">
+                            <div>
+                                <table id="invoice-report" style="width:100%;">
+                                    <tr>
+                                        <th style="font-size:14px;font-weight:bold;text-align:center;">Date &amp;
+                                            Program
+                                        </th>
+                                        <t t-as="obj" t-foreach="dates_filterd_list">
+
+                                            <th style="font-size:14px;font-weight:bold;text-align:center;">
+                                                <span t-esc="obj"/>
+                                            </th>
+                                        </t>
+                                        <th><h5>Total</h5>
+                                        </th>
+                                    </tr>
+
+                                    <t t-as="data" t-foreach="final_list">
+                                        <tr>
+
+
+                                            <td>
+                                                <!--                                            <span t-esc="lst[lst_index + 1]['date']" t-if="lst[lst_index + 1]['date']"/>-->
+                                                <span t-esc="data[0]['program']"/>
+                                            </td>
+                                            <t t-set="row_total" t-value="0"/>
+                                            <t t-as="rec" t-foreach="data">
+                                                <td>
+                                                    <span t-esc="rec['student_count']"/>
+                                                    <span t-set="row_total" t-value="row_total + rec['student_count']"/>
+                                                </td>
+
+                                            </t>
+                                            <td>
+                                                <span t-esc="row_total"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <newline/>
+                        <newline/>
+                        <div class="row">
+                            <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                                <div class="col col-12">
+                                    <h6>No Record found for this Input</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

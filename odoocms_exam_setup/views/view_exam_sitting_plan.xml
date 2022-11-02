@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_exam_sitting_plan_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.sitting.tree</field>
+        <field name="model">odoocms.exam.sitting</field>
+        <field name="arch" type="xml">
+            <tree string="Exam Sitting">
+                <field name="exam_center_id"/>
+                <field name="center_capacity"/>
+                <field name="term_id"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_exam_sitting_plan_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.sitting.form</field>
+        <field name="model">odoocms.exam.sitting</field>
+        <field name="arch" type="xml">
+            <form string="Exam Sitting Plan">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="exam_center_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="center_capacity"/>
+                            <field name="term_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Sitting Plan">
+                            <group>
+                                <field name="plan_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="student_id"/>
+                                        <field name="course"/>
+                                        <!--                                        <field name="area"/>-->
+                                        <field name="sitting_number"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_exam_sitting_search" model="ir.ui.view">
+        <field name="name">odoocms.exam.sitting.search</field>
+        <field name="model">odoocms.exam.sitting</field>
+        <field name="arch" type="xml">
+            <search string="Exam Center Assignment">
+                <field name="exam_center_id"/>
+                <field name="term_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="exam_center_id" string="Center" domain="[]" context="{'group_by':'exam_center_id'}"/>
+                    <filter name="term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="exam_center_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_exam_sitting_plan" model="ir.actions.act_window">
+        <field name="name">Exam Sitting Plan</field>
+        <field name="res_model">odoocms.exam.sitting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Sitting Procedure Here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_exam_sitting_plan"
+              name="Exam Sitting Plan"
+              parent="odoocms_exam_setup.menu_exam_setup_main"
+              action="action_exam_sitting_plan"
+              sequence="3"/>
+
+</odoo>
+

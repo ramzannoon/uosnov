@@ -1,0 +1,720 @@
+<odoo>
+    <data>
+        <record id="view_survey_form_inherit" model="ir.ui.view">
+            <field name="name">survey.inherit.form</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="action_open" string="Start Survey" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('id', '=', False)]}"/>
+                        <button name="action_send_survey" string="Share" type="object" class="oe_highlight"
+                                states="open"/>
+                        <button name="action_result_survey" string="See results" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '=', 'draft'), ('answer_done_count', '&lt;=', 0)]}"/>
+                        <button name="action_draft" string="Set to draft" type="object" states="closed"/>
+                        <button name="action_test_survey1" string="Submit" type="object"
+                                attrs="{'invisible': ['|', ('state', '=', 'closed'), ('id', '=', False)]}"/>
+                        <button name="action_print_survey" string="Print" type="object"
+                                attrs="{'invisible': [('id', '=', False)]}"/>
+                        <button name="action_close" string="Close" type="object" states="open"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                </xpath>
+                <xpath expr="//group[1]" position="before">
+                    <group>
+                        <group>
+                            <field name="survey_seq_no" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="template_seq_no" attrs="{'invisible':[('type', '==', 'survey')]}"/>
+                            <field name="start_date" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="end_date" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="type"/>
+                            <field name="student_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="batch_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="program_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="career_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="department_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+
+                        </group>
+                        <group>
+                            <field name="survey_form_type"/>
+                            <field name="campus_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="institute_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="primary_class_id" domain="[('batch_id', '=', batch_id)]"
+                                   attrs="{'invisible':[('type', '==', 'template'),('survey_form_type','!=', 'Industry Visit')]}"/>
+                            <field name="section_id" domain="[('batch_id', '=', batch_id)]"
+                                   attrs="{'invisible':[('type', '==', 'template'),('survey_form_type','!=', 'Industry Visit')]}"/>
+                            <field name="class_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="faculty_staff_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <field name="term_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <!--                            <field name="industry_visit" attrs="{'invisible':[('type', '==', 'template'), ('survey_form_type','!=', 'Industry Visit')]}"/>-->
+                            <field name="current_date" invisible="1"/>
+                            <field name="survey_form_type_name" invisible="1"/>
+                            <field name="course_id" attrs="{'invisible':[('type', '==', 'template')]}"/>
+                            <!--                            <field name="class_id_name"/>-->
+                        </group>
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_view_search_inherite">
+            <field name="name">Search view for Survey</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_survey_view_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[1]" position="before">
+                    <field name="survey_form_type" string="Form Type"/>
+                    <field name="batch_id" string="Batch"/>
+                    <field name="career_id" string="Academic Level"/>
+                    <field name="program_id" string="Program"/>
+                    <field name="institute_id" string="School"/>
+                    <field name="department_id" string="Department"/>
+                    <field name="campus_id" string="Campus"/>
+                    <field name="class_id" string="Class"/>
+                    <field name="course_id" string="Course"/>
+                    <field name="term_id" string="Term"/>
+                    <field name="faculty_staff_id" string="Faculty"/>
+                </xpath>
+                <xpath expr="//group[1]" position="inside">
+                    <filter name="form_type" string="Form Type" domain="[]" context="{'group_by':'survey_form_type'}"/>
+                    <filter name="batch" string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                    <filter name="career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                    <filter name="program" string="Program" domain="[]" context="{'group_by':'program_id'}"/>
+                    <filter name="institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+                    <filter name="department" string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+                    <filter name="campus" string="Campus" domain="[]" context="{'group_by':'campus_id'}"/>
+                    <filter name="class" string="Class" domain="[]" context="{'group_by':'class_id'}"/>
+                    <filter name="course" string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                    <filter name="term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="faculty" string="Faculty" domain="[]" context="{'group_by':'faculty_staff_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="survey_template_tree">
+            <field name="name">Tree view for Template</field>
+            <field name="model">survey.survey</field>
+            <field name="inherit_id" ref="survey.survey_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="course_id" optional="hide"/>
+                    <field name="career_id" optional="hide"/>
+                    <field name="survey_seq_no" optional="hide"/>
+                    <field name="template_seq_no" optional="hide"/>
+                </xpath>
+                <xpath expr="//field[@name='success_count']" position="replace">
+                    <field name="start_date" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='success_ratio']" position="replace">
+                    <field name="end_date" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='answer_score_avg']" position="replace">
+                    <field name="weighted_avg" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+        <!--        </record>-->
+
+        <!-- Pivot View -->
+        <record id="survey_template_tree_pivot_view" model="ir.ui.view">
+            <field name="name">survey.survey.pivot.view</field>
+            <field name="model">survey.survey</field>
+            <field name="arch" type="xml">
+                <pivot string="Surveys" disable_linking="True">
+                    <field name="title" type="col"/>
+                    <field name="weighted_avg" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Pivot View -->
+        <record id="survey_user_input_pivot_view" model="ir.ui.view">
+            <field name="name">survey.user_input.pivot.view</field>
+            <field name="model">survey.user_input</field>
+            <field name="arch" type="xml">
+                <pivot string="Participants" disable_linking="True">
+                    <!--                    <field name="quizz_score" type="col"/>-->
+                    <field name="survey_id" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="survey_user_input_view_form_inherit" model="ir.ui.view">
+            <field name="name">survey.user_input.form.view</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/field[@name='user_input_line_ids']" position="inside">
+                    <form>
+                        <group>
+                            <group>
+                                <field name="question_sequence" invisible="1"/>
+                                <field name="question_id"/>
+                                <field name="page_id"/>
+                                <field name="answer_type"/>
+                            </group>
+                            <group>
+                                <field name="skipped"/>
+                                <field name="create_date"/>
+                                <field name="answer_is_correct"/>
+                                <field name="answer_score" invisible="1"/>
+                            </group>
+                        </group>
+                    </form>
+                </xpath>
+                <xpath expr="//field[@name='answer_score']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='test_entry']" position="after">
+                    <field name="course_id"/>
+                    <field name="career_id"/>
+                </xpath>
+                <xpath expr="//field[@name='scoring_success']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='scoring_success']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='scoring_type']" position="after">
+                    <field name="institute_id"/>
+                    <field name="department_id"/>
+                    <field name="campus_id"/>
+                    <field name="batch_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="survey_user_input_view_tree_inherit" model="ir.ui.view">
+            <field name="name">survey.user_input.tree.view</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="course_id" optional="hide"/>
+                    <field name="career_id" optional="hide"/>
+                    <field name="institute_id" optional="hide"/>
+                    <field name="department_id" optional="hide"/>
+                    <field name="campus_id" optional="hide"/>
+                    <field name="batch_id" optional="hide"/>
+
+                </xpath>
+            </field>
+        </record>
+
+        <record id="survey_user_input_view_search_inherit" model="ir.ui.view">
+            <field name="name">survey.user_input.search.view</field>
+            <field name="model">survey.user_input</field>
+            <field name="inherit_id" ref="survey.survey_user_input_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='survey_id']" position="after">
+                    <field name="course_id" string="Course"/>
+                    <field name="career_id" string="Academic Level"/>
+                    <field name="institute_id" string="School"/>
+                    <field name="department_id" string="Department"/>
+                    <field name="campus_id" string="Campus"/>
+                    <field name="batch_id" string="Batch"/>
+                </xpath>
+                <xpath expr="//group[1]" position="inside">
+                    <filter name="career" string="Academic Level" domain="[]" context="{'group_by':'career_id'}"/>
+                    <filter name="course" string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                    <filter name="institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+                    <filter name="department" string="Department" domain="[]" context="{'group_by':'department_id'}"/>
+                    <filter name="campus" string="Campus" domain="[]" context="{'group_by':'campus_id'}"/>
+                    <filter name="batch" string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="survey.action_survey_user_input">
+            <field name="name">Participations</field>
+            <field name="res_model">survey.user_input</field>
+            <field name="view_mode">tree,kanban,form,pivot</field>
+            <field name="view_id" ref="survey.survey_user_input_view_tree"></field>
+            <field name="search_view_id" ref="survey.survey_user_input_view_search"/>
+            <field name="context">{'search_default_group_by_survey': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    Nobody has replied to your surveys yet
+                </p>
+            </field>
+        </record>
+
+        <!--                         Pivot View -->
+        <record id="user_input_line_pivot_view" model="ir.ui.view">
+            <field name="name">survey.user_input_line.pivot.view</field>
+            <field name="model">survey.user_input.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Detailed Answers" disable_linking="True">
+                    <field name="answer_score" type="col"/>
+                    <field name="question_id" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+<!--         <record model="ir.actions.act_window" id="survey.action_survey_user_input_line">
+            <field name="name">Detailed Answers</field>
+            <field name="res_model">survey.user_input.line</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="search_view_id" ref="survey.survey_response_line_search"/>
+            <field name="context">{'search_default_group_by_survey': True, 'search_default_group_by_user_input': True}
+            </field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    No user input lines found
+                </p>
+            </field>
+        </record> -->
+
+        <record model="ir.actions.act_window" id="survey.action_survey_form">
+            <field name="name">Surveys</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_mode">kanban,tree,form,pivot,activity</field>
+            <field name="context">{'search_default_groupby_state': 1}</field>
+            <field name="domain">[('type', '=', 'survey')]</field>
+        </record>
+
+        <!-- "Thank you" message when the survey is completed -->
+<!--         <template id="sfinished_inherit" inherit_id="survey.sfinished" name="Survey Finished">
+            <xpath expr="//div" position="before">
+                <div t-if="request.env.user.user_type == 'faculty'">
+                    <a t-attf-href="/faculty/survey"
+                       class="md-list-addon-element">
+                        <button class="btn btn-primary" name="button_back">Back</button>
+                    </a>
+                  
+                </div>
+                <div t-if="request.env.user.user_type == 'student'">
+                    <a t-attf-href="/student/qa/feedback"
+                       class="md-list-addon-element">
+                        <button class="btn btn-primary" name="button_back">Back</button>
+                    </a>
+                </div>
+
+            </xpath>
+        </template> -->
+
+        <!-- The survey header -->
+<!--         <template id="survey_header_inherit" inherit_id="survey.survey_header">
+            <xpath expr="//div" position="before">
+                <div t-if="request.env.user.user_type == 'faculty'">
+                    <a t-attf-href="/faculty/survey"
+                       class="md-list-addon-element">
+                        <button class="btn btn-primary" name="button_back">Back</button>
+                    </a>
+                </div>
+                <div t-if="request.env.user.user_type == 'student'">
+                    <a t-attf-href="/student/qa/feedback"
+                       class="md-list-addon-element">
+                        <button class="btn btn-primary" name="button_back">Back</button>
+                    </a>
+                   
+                </div>
+            </xpath>
+            <xpath expr="//div/div/div/div" position="replace">
+                <div class="col-lg-10">
+                    <h1 t-esc="survey.title"/>
+                </div>
+                <div t-if="survey.is_time_limited"
+                     class="js_survey_timer col-lg-2"
+                     t-att-data-timer="answer.start_datetime.isoformat()"
+                     t-att-data-time_limit_minutes="survey.time_limit">
+                    <h1 class="timer text-right">00:00</h1>
+                </div>
+            </xpath>
+            <xpath expr="//div/div/div" position="after">
+                <div id="batch_program" class="row">
+                    <div class="col-6" t-if="survey.batch_id">
+                        <span>Batch:</span>
+                        <span t-field='survey.batch_id'/>
+                    </div>
+                    <div class="col-6" t-if="survey.program_id">
+                        <span>Program:</span>
+                        <span t-field='survey.program_id'/>
+                    </div>
+                </div>
+                <div id="campus_institute" class="row">
+                    <div class="col-lg-6" t-if="survey.campus_id">
+                        <span>Campus:</span>
+                        <span t-field='survey.campus_id'/>
+                    </div>
+                    <div class="col-lg-6" t-if="survey.institute_id">
+                        <span>Institute:</span>
+                        <span t-field='survey.institute_id'/>
+                    </div>
+                </div>
+                <div id="career_department" class="row">
+                    <div class="col-lg-6" t-if="survey.career_id">
+                        <span>Academic Level:</span>
+                        <span t-field='survey.career_id'/>
+                    </div>
+                    <div class="col-lg-6" t-if="survey.department_id">
+                        <span>Department:</span>
+                        <span t-field='survey.department_id'/>
+                    </div>
+                </div>
+                <div id="class_faculty" class="row">
+                    <div class="col-lg-6" t-if="survey.primary_class_id">
+                        <span>Primary Class:</span>
+                        <span t-field="survey.primary_class_id"/>
+                    </div>
+                    <div class="col-lg-6" t-if="survey.class_id">
+                        <span>Class:</span>
+                        <span t-field="survey.class_id"/>
+                    </div>
+                    <div class="col-lg-6" t-if="survey.faculty_staff_id">
+                        <span>Faculty:</span>
+                        <span t-field='survey.faculty_staff_id'/>
+                    </div>
+                </div>
+                
+            </xpath>
+        </template> -->
+
+
+<!--         <template id="survey_page_inherit" inherit_id="survey.page">
+            <xpath expr="//form[1]" position="replace">
+                <form role="form" method="post" class="js_surveyform" t-att-name="survey.id"
+                      t-att-action="'/survey/fill/%s/%s' % (survey.access_token, answer.token)"
+                      t-att-data-prefill="'/survey/prefill/%s/%s?page_or_question_id=%s' % (survey.access_token, answer.token, page_or_question_id)"
+                      t-att-data-validate="'/survey/validate/%s/%s' % (survey.access_token, answer.token)"
+                      t-att-data-submit="'/survey/submit1/%s/%s' % (survey.access_token, answer.token)">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="token" t-att-value="answer.token"/>
+                    <br/>
+                    <br/>
+                    <div id="class_faculty_assessments_engineering" class="row"
+                         t-if="survey.template_seq_no == 'Temp/0016'">
+                        <h2>
+                            <b>
+                                <span style="color: inherit; font-family: inherit;">Assessment Methods</span>
+                            </b>
+                        </h2>
+                        <table class="table table-hover table-sm text-center">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" t-foreach="survey.class_assessments" t-as="assessments">
+                                        <span t-esc="assessments.assessment_name"></span>
+                                    </th>
+                                </tr>
+                               
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th t-foreach="survey.class_assessments" t-as="assessments">
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               t-att-name="assessments.assessment_name"
+                                               t-att-value="assessments.count"/>
+                                       
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div id="class_grade_assessments_engineering" class="row"
+                         t-if="survey.template_seq_no == 'Temp/0016'">
+                        <h2>
+                            <b>
+                                <span style="color: inherit; font-family: inherit;">Distribution of Grade/Marks:</span>
+                            </b>
+                        </h2>
+                        <table class="table table-hover table-sm text-center">
+                            <thead>
+                                <tr class="text-center">
+                                    <th></th>
+                                    <th class="text-center">A Grade:</th>
+                                    <th class="text-center">B+ Grade:</th>
+                                    <th class="text-center">B Grade:</th>
+                                    <th class="text-center">C+ Grade:</th>
+                                    <th class="text-center">C Grade:</th>
+                                    <th class="text-center">D+ Grade:</th>
+                                    <th class="text-center">D Grade:</th>
+                                    <th class="text-center">F Grade:</th>
+                                    <th class="text-center">W Grade:</th>
+                                    <th class="text-center">I Grade:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-center">
+                                    <th></th>
+                                    <th>
+                                        <input type="text" style="width:25px;"
+                                               class="md-input"
+                                               name="course_count_a"
+                                               t-att-value="survey.course_count_a"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_b_plus"
+                                               t-att-value="survey.course_count_b_plus"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_b"
+                                               t-att-value="survey.course_count_b"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_c_plus"
+                                               t-att-value="survey.course_count_c_plus"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_c"
+                                               t-att-value="survey.course_count_c"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_d_plus"
+                                               t-att-value="survey.course_count_d_plus"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_d"
+                                               t-att-value="survey.course_count_d"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_f"
+                                               t-att-value="survey.course_count_f"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_w"
+                                               t-att-value="survey.course_count_w"/>
+                                    </th>
+                                    <th>
+                                        <input type="text"
+                                               class="md-input" style="width:25px;"
+                                               name="course_count_i"
+                                               t-att-value="survey.course_count_i"/>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <t t-if="survey.questions_layout == 'one_page'">
+                        <t t-foreach='survey.question_and_page_ids' t-as='question'>
+                            <h2 t-if="question.is_page" t-field='question.title' class="o_survey_title"/>
+                            <t t-if="not question.is_page and question in answer.question_ids"
+                               t-call="survey.question"/>
+                        </t>
+
+                        <div class="text-center mt16 mb256">
+                            <button type="submit" class="btn btn-primary" name="button_submit" value="finish">Submit
+                                Survey
+                            </button>
+                        </div>
+                    </t>
+
+                    <t t-if="survey.questions_layout == 'page_per_section'">
+                        <h2 t-field='page.title' class="o_survey_title"/>
+                        <div t-field='page.description' class="oe_no_empty"/>
+
+                        <input type="hidden" name="page_id" t-att-value="page.id"/>
+                        <t t-foreach='page.question_ids' t-as='question'>
+                            <t t-if="question in answer.question_ids" t-call="survey.question"/>
+                        </t>
+
+                        <div class="text-center mt16 mb256">
+                            <button t-if="survey.users_can_go_back and page != survey.page_ids[0]" type="submit"
+                                    class="btn btn-secondary" name="button_submit" value="previous">Previous page
+                            </button>
+                            <button t-if="not last" type="submit" class="btn btn-primary" name="button_submit"
+                                    value="next">Next page
+                            </button>
+                            <button t-if="last" type="submit" class="btn btn-primary" name="button_submit"
+                                    value="finish">Submit Survey
+                            </button>
+                        </div>
+                    </t>
+
+                    <t t-if="survey.questions_layout == 'page_per_question'">
+                        <input type="hidden" name="question_id" t-att-value="question.id"/>
+                        <t t-call="survey.question"/>
+
+                        <div class="text-center mt16 mb256">
+                            <button t-if="survey.users_can_go_back and question != answer.question_ids[0]" type="submit"
+                                    class="btn btn-secondary" name="button_submit" value="previous">Previous question
+                            </button>
+                            <button t-if="not last" type="submit" class="btn btn-primary" name="button_submit"
+                                    value="next">Next question
+                            </button>
+                            <button t-if="last" type="submit" class="btn btn-primary" name="button_submit"
+                                    value="finish">Submit Survey
+                            </button>
+                        </div>
+                    </t>
+                </form>
+
+            </xpath>
+        </template> -->
+        <!--            <xpath expr="//input[@name='token']" position="after">-->
+        <!--                <br/>-->
+        <!--                <br/>-->
+        <!--                <div id="class_faculty_assessments_engineering" class="row"-->
+        <!--                     t-if="survey.template_seq_no == 'Temp/0016'">-->
+        <!--                    <h2>-->
+        <!--                        <b>-->
+        <!--                            <span style="color: inherit; font-family: inherit;">Assessment Methods</span>-->
+        <!--                        </b>-->
+        <!--                    </h2>-->
+        <!--                    <table class="table table-hover table-sm text-center">-->
+        <!--                        <thead>-->
+        <!--                            <tr>-->
+        <!--                                <th class="text-center" t-foreach="survey.class_assessments" t-as="assessments">-->
+        <!--                                    <span t-esc="assessments.assessment_name"></span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--&lt;!&ndash;                                                        <tr>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            <th t-foreach="survey.class_assessments" t-as="assessments">&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                                <t t-esc="assessments.count"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                            </th>&ndash;&gt;-->
+        <!--&lt;!&ndash;                                                        </tr>&ndash;&gt;-->
+        <!--                        </thead>-->
+        <!--                        <tbody>-->
+        <!--                            <tr>-->
+        <!--                                <th t-foreach="survey.class_assessments" t-as="assessments">-->
+        <!--                                    <t t-esc="assessments.count"/>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                        </tbody>-->
+        <!--                    </table>-->
+        <!--                </div>-->
+        <!--                <br/>-->
+        <!--                <div id="class_grade_assessments_engineering" class="row"-->
+        <!--                     t-if="survey.template_seq_no == 'Temp/0016'">-->
+        <!--                    <h2>-->
+        <!--                        <b>-->
+        <!--                            <span style="color: inherit; font-family: inherit;">Distribution of Grade/Marks:</span>-->
+        <!--                        </b>-->
+        <!--                    </h2>-->
+        <!--                    <table class="table table-hover table-sm text-center">-->
+        <!--                        <thead>-->
+        <!--                            <tr class="text-center">-->
+        <!--                                <th></th>-->
+        <!--                                <th class="text-center">A Grade:</th>-->
+        <!--                                <th class="text-center">B+ Grade:</th>-->
+        <!--                                <th class="text-center">B Grade:</th>-->
+        <!--                                <th class="text-center">C+ Grade:</th>-->
+        <!--                                <th class="text-center">C Grade:</th>-->
+        <!--                                <th class="text-center">D+ Grade:</th>-->
+        <!--                                <th class="text-center">D Grade:</th>-->
+        <!--                                <th class="text-center">F Grade:</th>-->
+        <!--                                <th class="text-center">W Grade:</th>-->
+        <!--                                <th class="text-center">I Grade:</th>-->
+        <!--                            </tr>-->
+        <!--                        </thead>-->
+        <!--                        <tbody>-->
+        <!--                            <tr class="text-center">-->
+        <!--                                <th></th>-->
+        <!--                                <th>-->
+        <!--                                    <input type="text"-->
+        <!--                                           class="md-input"-->
+        <!--                                           name="survey.course_count_a"-->
+        <!--                                           t-att-value="survey.course_count_a"-->
+        <!--                                    />-->
+        <!--&lt;!&ndash;                                           readonly="false"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                           t-att-id="'name' +  str(milestone.id)"&ndash;&gt;-->
+        <!--&lt;!&ndash;                                           &ndash;&gt;-->
+        <!--&lt;!&ndash;                                           t-field="survey.course_count_a"&ndash;&gt;-->
+
+        <!--&lt;!&ndash;                                    <span t-field="survey.course_count_a" readonly="0"/>&ndash;&gt;-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_b_plus"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_b"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_c_plus"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_c"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_d_plus"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_d"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_f"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_w"/>-->
+        <!--                                </th>-->
+        <!--                                <th>-->
+        <!--                                    <span t-field="survey.course_count_i"/>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                        </tbody>-->
+        <!--                    </table>-->
+        <!--                </div>-->
+        <!--            </xpath>-->
+        <!--        </template>-->
+
+<!--         <template id="result_matrix_inherit" inherit_id="survey.result_matrix">
+
+            <xpath expr="//div/div/table" position="attributes">
+                <attribute name="class">table table-hover table-sm</attribute>
+            </xpath>
+            <xpath expr="//div/div/table/tbody" position="inside">
+                <tr></tr>
+                <tr>
+                    <td class="text-right">
+                        <h5>
+                            <b>Option Count</b>
+                        </h5>
+                    </td>
+                    <td class="text-center" t-foreach="matrix_result['options']" t-as="options_id">
+                        <span t-esc="matrix_result['options'][options_id]"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right">
+                        <h5>
+                            <b>
+                                Evaluated Score
+                            </b>
+                        </h5>
+                    </td>
+                    <td class="text-center">
+                        <h5>
+                            <b>
+                                <span t-esc="matrix_result['weighted_avg']"></span>
+                            </b>
+                        </h5>
+                    </td>
+                    <td class="text-right">
+                        <h5>
+                            <b>Rating</b>
+                        </h5>
+                    </td>
+                    <td class="text-right">
+                        <h5>
+                            <b>
+                                <span t-esc="matrix_result['rating']"></span>
+                            </b>
+                        </h5>
+                    </td>
+                </tr>
+            </xpath>
+        </template> -->
+
+    </data>
+</odoo>

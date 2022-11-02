@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="web.login" name="Login">
+      <t t-call="website.layout">
+        <style type="text/css">
+            header {
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding-top: 0;
+                background-position: bottom center!important;
+                background-size: cover!important;
+                background-attachment: fixed!important;
+            }
+
+            header.full-height {
+                height: 100vh;
+            }
+
+            @media screen and (max-width: 1200px)
+            .video_backgrounbd_header video {
+                position: relative;
+            }
+
+            @media screen and (max-width: 1200px)
+            header.video_backgrounbd_header {
+                height: auto;
+                position: relative;
+                top: 68px;
+            }
+            .video_backgrounbd_header video {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            body {
+                overflow: hidden; /* Hide scrollbars */
+            }
+
+            .card {
+                background-color: rgba(245, 245, 245, 0.4);
+                box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
+                max-width: 300px;
+                min-height: 400px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 20px;
+                margin-bottom: auto;
+                border-radius: 25px;
+                text-align: center;
+                top: 50px;
+                z-index: 200;
+            }
+            .nust_logo{
+                background-color: #fff;
+                box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
+                border-radius: 50%;
+                width: 135px;
+                height: 135px;
+                margin: 0 auto;
+                position: relative;
+                top: -60px;
+                text-align: center;
+            }
+            .nust_logo img{
+                width: 135px;
+                height: 135px;
+            }
+
+
+            .custom-class{
+
+                 font-size: large;
+                 color:#00548d;
+            }
+
+           .nust-color{
+                 color:#00548d;
+           }
+           .custom-login {
+                margin-top: -20%;
+                font-family: 'Roboto',sans-serif;
+
+           }
+        </style>
+        <div class="wraper">
+            <header class="full-height video_backgrounbd_header">
+                <div class="card">
+                    <div class="nust_logo">
+                        <img src="https://seeklogo.com/images/N/nust-logo-E161A9240F-seeklogo.com.png"/>
+                    </div>
+
+
+                    <form class="oe_login_form custom-login" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                            <label for="db" class="col-form-label">Database</label>
+                            <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+                                <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                                <span class="input-group-append">
+                                    <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"/></a>
+                                </span>
+                            </div>
+                        </div>
+
+                         <div class="form-group field-login">
+                            <label for="title" class="custom-class">Campus Management System</label>
+
+                        </div>
+
+                        <div class="form-group field-login">
+                            <label for="login" class="nust-color">Login</label>
+                            <input type="text" placeholder="Login" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
+
+                        <div class="form-group field-password">
+                            <label for="password" class="nust-color">Password</label>
+                            <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+
+                        <p class="alert alert-danger" t-if="error" role="alert">
+                            <t t-esc="error"/>
+                        </p>
+                        <p class="alert alert-success" t-if="message" role="status">
+                            <t t-esc="message"/>
+                        </p>
+
+                        <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                            <t t-if="debug">
+                                <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
+                            </t>
+                            <div class="o_login_auth"/>
+                        </div>
+
+                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    </form>
+
+                </div>
+                <video class="header_video" autoplay="" loop="" muted="">
+                    <source src="" type=""/>
+                </video>
+            </header>
+        </div>
+      </t>
+    </template>
+
+    <template id='assets_aarsol_portal' name='AARSOL Portal Assets'>
+        <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/weather-icons/css/weather-icons.min.css"/>
+        <!--  metrics graphics (charts)-->
+        <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/metrics-graphics/dist/metricsgraphics.css"/>
+        <!-- chartist -->
+        <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/chartist/dist/chartist.min.css"/>
+        <!-- uikit -->
+        <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/uikit/css/uikit.almost-flat.min.css"/>
+        <!-- flag icons -->
+        <link rel="stylesheet" href="/odoocms_web/static/assets/icons/flags/flags.min.css"/>
+        <!-- style switcher -->
+        <link rel="stylesheet" href="/odoocms_web/static/assets/css/style_switcher.min.css"/>
+        <!-- altair admin -->
+        <link rel="stylesheet" href="/odoocms_web/static/assets/css/main.min.css"/>
+
+    <!-- altair admin -->
+
+    <!-- themes -->
+<!--    <link rel="stylesheet" href="/odoocms_web/static/assets/css/themes/themes_combined.min.css" media="all"/>-->
+
+        <link rel="stylesheet" href="/odoocms_web/static/src/css/aarsol.css"/>
+
+
+        <script>
+            WebFontConfig = {
+            google: {
+            families: [
+            'Source+Code+Pro:400,700:latin',
+            'Roboto:400,300,500,700,400italic:latin'
+            ]
+            }
+            };
+            (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+            })();
+        </script>
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/common.min.js"/>
+        <!-- uikit functions -->
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/uikit_custom.min.js"/>
+        <!-- altair common functions/helpers -->
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/altair_admin_common.min.js"/>
+
+        <!--   <script>
+                            $(function() {
+                            if(isHighDensity()) {
+                            $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                            // enable hires images
+                            altair_helpers.retina_images();
+                            });
+                            }
+                            });
+                            $window.on('load', function() {
+                            // ie fixes
+                            altair_helpers.ie_fix();
+                            });
+                        </script>-->
+        <!-- <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-columnSelector.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-print.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"/>
+         <script type="text/javascript" src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"/>-->
+
+        <script type="text/javascript" src="/odoocms_web/static/bowerComponents/datatables/media/js/jquery.dataTables.min.js"/>
+        <!-- datatables custom integration -->
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/custom/datatables/datatables.uikit.min.js"/>
+        <script src="/odoocms_web/static/bowerComponents/jquery-idletimer/dist/idle-timer.min.js"></script>
+<!--        <script src="assets/js/pages/plugins_idle_timeout.min.js"></script>-->
+        <script type="text/javascript" src="/odoocms_web/static/src/js/aarsol.js"/>
+        <!--  datatables functions -->
+        <!--<script type="text/javascript" src="/odoocms_web/static/assets/js/pages/plugins_datatables.js"/>-->
+
+        <!--  tablesorter functions -->
+        <!--        <script type="text/javascript" src="/odoocms_web/static/assets/js/pages/plugins_tablesorter.min.js"/>-->
+
+        <!-- ionrangeslider -->
+        <!--        <script type="text/javascript" src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"/>-->
+        <!--        <script type="text/javascript" src="/odoocms_web/static/src/js/aarsol.js"/>-->
+
+    </template>
+
+    <template id='assets_aarsol_dashboard_portal' name='AARSOL Portal Assets Dashboard'>
+          <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/metrics-graphics/dist/metricsgraphics.css"/>
+        <!-- chartist -->
+        <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/chartist/dist/chartist.min.css"/>
+        <script src="https://code.highcharts.com/highcharts.js"/>
+        <script src="https://code.highcharts.com/modules/data.js"/>
+        <script src="https://code.highcharts.com/modules/drilldown.js"/>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+        <script src="https://code.highcharts.com/modules/cylinder.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"/>
+        <script src="https://code.highcharts.com/modules/export-data.js"/>
+        <script src="https://code.highcharts.com/modules/accessibility.js"/>
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/common.min.js"/>
+        <!-- uikit functions -->
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/uikit_custom.min.js"/>
+        <!-- altair common functions/helpers -->
+        <script type="text/javascript" src="/odoocms_web/static/assets/js/altair_admin_common.js"/>
+
+        <script src="/odoocms_web/static/bowerComponents/d3/d3.min.js"></script>
+        <!-- metrics graphics (charts) -->
+        <script src="/odoocms_web/static/bowerComponents/metrics-graphics/dist/metricsgraphics.min.js"></script>
+        <!-- chartist (charts) -->
+        <script src="/odoocms_web/static/bowerComponents/chartist/dist/chartist.min.js"></script>
+        <script src="/odoocms_web/static/bowerComponents/peity/jquery.peity.min.js"></script>
+        <!-- easy-pie-chart (circular statistics) -->
+        <script src="/odoocms_web/static/bowerComponents/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+        <!-- countUp -->
+        <script src="/odoocms_web/static/bowerComponents/countUp.js/dist/countUp.min.js"></script>
+        <!-- handlebars.js -->
+        <script src="/odoocms_web/static/bowerComponents/handlebars/handlebars.min.js"></script>
+        <script src="/odoocms_web/static/assets/js/custom/handlebars_helpers.min.js"></script>
+        <!-- CLNDR -->
+        <script src="/odoocms_web/static/bowerComponents/clndr/clndr.min.js"></script>
+        <script src="/odoocms_web/static/assets/js/pages/dashboard.js"></script>
+        <script src="/odoocms_web/static/bowerComponents/jquery-idletimer/dist/idle-timer.min.js"></script>
+<!--        <script src="assets/js/pages/plugins_idle_timeout.min.js"></script>-->
+        <script type="text/javascript" src="/odoocms_web/static/src/js/aarsol.js"/>
+
+  <script>
+        $(function() {
+            if(isHighDensity()) {
+                $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                });
+            }
+        });
+        $window.on('load', function() {
+            // ie fixes
+            altair_helpers.ie_fix();
+        });
+    </script>
+
+    </template>
+
+
+</odoo>

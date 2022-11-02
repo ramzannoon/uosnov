@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_result_add" name="">
+
+        <!--        <div id="page_content_inner">-->
+
+                <div class="uk-overflow-container uk-margin-bottom">
+                    <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_issues">
+                        <thead class="md-bg-light-blue-800">
+                            <tr>
+                                <th class="uk-text-center" style="color:white;">
+                                    <b>Student Name / ID</b>
+                                </th>
+                                <t t-foreach="result_class.assessment_ids" t-as="assessment">
+
+                                    <th class="uk-text-center" style="color:white;">
+                                        <b t-esc="assessment.name"></b>
+                                        | Marks
+                                        <b t-esc="assessment.max_marks"></b>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="student_assessment_data_create" t-as="student">
+                                <tr>
+                                    <td t-esc="student['student']"/>
+                                    <t t-foreach="student['data']" t-as="rec">
+                                        <td>
+                                            <div class="uk-width-medium-1-1">
+                                                <label t-attf-class="{{'md-color-orange-900' if rec['obtained_marks'] == 0 else 'md-color-green-800' }} " style="font-size:smaller;">Enter Marks Here</label>
+                                                <input t-att-value="rec['obtained_marks']" t-attf-name="assessment_id_{{ rec['student_id'] }}_{{ rec['assessment_id'] }}" type="number" class="md-input uk-form-width-medium"/>
+                                            </div>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+
+                        </tbody>
+                        <!--                        <thead>-->
+                        <!--                            <tr>-->
+                        <!--                                <th class="uk-text-center">-->
+                        <!--                                    <b>Student Name / ID</b>-->
+                        <!--                                </th>-->
+                        <!--                                <t t-foreach="result_class.assessment_ids" t-as="assessment">-->
+
+                        <!--                                    <th class="uk-text-center">-->
+                        <!--                                        <b t-esc="assessment.name"></b>-->
+                        <!--                                        | Marks-->
+                        <!--                                        <b t-esc="assessment.max_marks"></b>-->
+                        <!--                                    </th>-->
+
+                        <!--                                </t>-->
+                        <!--                            </tr>-->
+
+
+                        <!--                        </thead>-->
+                        <!--                  -->
+                        <!--                        <tbody>-->
+                        <!--                            <t t-foreach="result_class.assessment_ids.assessment_lines" t-as="assessment_line">-->
+                        <!--                                <tr>-->
+                        <!--                                    <td class="uk-text-center">-->
+                        <!--                                        <span  t-esc="assessment_line.student_id.name" style="font:bold; color:#007bff;"></span>-->
+                        <!--                                        <br/>-->
+                        <!--                                        (<span t-esc="assessment_line.student_id.code" style="font:bold; color:#007bff;"></span>)-->
+                        <!--                                    </td>-->
+                        <!--                                     <t t-foreach="result_class.assessment_ids" t-as="assessment">-->
+
+                        <!--                                    <td class="uk-text-center">-->
+                        <!--&lt;!&ndash;                                        <b t-esc="assessment.name"></b>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        | Marks&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                        <b t-esc="assessment.max_marks"></b>&ndash;&gt;-->
+                        <!--                                         <div class="uk-width-medium-1-1">-->
+                        <!--                                            <label>Marks Here</label>-->
+                        <!--                                            <input type="text" class="md-input uk-form-width-medium"/>-->
+                        <!--                                        </div>-->
+                        <!--                                    </td>-->
+
+                        <!--                                </t>-->
+
+
+                        <!--                                </tr>-->
+                        <!--                            </t>-->
+                        <!--                            &lt;!&ndash;                                <tr>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td class="uk-text-center"><span class="uk-text-small uk-text-muted uk-text-nowrap">CS-101</span></td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                        <a href="page_issue_details.html">Programming Fundamentals</a>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    </td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td>SEECS</td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td><span class="uk-badge uk-badge-info">DOC</span></td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td class="uk-text-small">2017</td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td class="uk-text-small">UnderGraduate</td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    <td><span class="uk-badge uk-badge-outline uk-text-upper">edit</span>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                        <span class="uk-badge uk-badge-outline uk-text-upper">view</span>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                    </td>&ndash;&gt;-->
+                        <!--                            &lt;!&ndash;                                </tr>&ndash;&gt;-->
+
+
+                        <!--                        </tbody>-->
+                    </table>
+
+                      <script>
+                    var blur = false;
+                    $('table').on('blur', 'td select', function() {
+                    if (!blur) {
+                    blur = true;
+                    var cell = $(this).closest('td');
+                    table.cell(cell).data('example data');
+                    blur = false;
+                    }
+                    });
+                    $(document).ready(function () {
+
+                    $('input').keyup(function (e) {
+                    if (e.which == 39) { // right arrow
+                    $(this).closest('td').next().find('input').focus();
+
+                    } else if (e.which == 37) { // left arrow
+                    $(this).closest('td').prev().find('input').focus();
+
+                    } else if (e.which == 40) { // down arrow
+                    $(this).closest('tr').next().find('td:eq(' + $(this).closest('td').index() + ')').find('input').focus();
+
+                    } else if (e.which == 38) { // up arrow
+                    $(this).closest('tr').prev().find('td:eq(' + $(this).closest('td').index() + ')').find('input').focus();
+                    }
+                    });
+
+                    // un-comment to display key code
+                    // $("input").keydown(function (e) {
+                    // console.log(e.which);
+                    // });
+                    });
+                </script>
+        </div>
+        <!--        </div>-->
+    </template>
+</odoo>

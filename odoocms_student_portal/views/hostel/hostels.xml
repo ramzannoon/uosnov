@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <template id="student_hostel_application" name="Student Hostel">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                    <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                              <li>
+                                <a href="/student/hostel/application">
+                                    Hostel Application
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Hostel Application</h3>
+                        <t t-if="student.campus_id.code =='H12'">
+                            <t t-if="hostel_app">
+                            <div class="md-card uk-margin-medium-bottom">
+                                <div class="md-card-content">
+    <!--                                <span>Hostel application already submitted on <t t-esc="hostel_app.app_date" /> </span>-->
+                                   <span>Hostel application already submitted </span>
+                                    <div>Current Status: <span class="uk-badge" t-esc="hostel_app.state.capitalize()"/> </div>
+                                    <div>
+                                        Cancel Application? <span><form action="/student/hostel/application/cancel" method="post"> <button type="submit" class="md-btn md-btn-small md-bg-red-700 " >Cancel</button> </form></span>
+                                    </div>
+    <!--                                <h3 class="heading_a uk-margin-bottom">Invoices List</h3>-->
+                                 <!--   <div class="uk-overflow-container">
+                                        <table id="" class="uk-table uk-table-nowrap table_check">
+                                            <thead class="md-bg-blue-grey-700 ">
+                                                <tr>
+                                                    <th class="uk-width-2-10 md-color-grey-50 ">Invoice No</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Invoice Date</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Due Date</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Term</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Semester</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Receipt For</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Barcode</th>
+                                                    <th class="uk-width-1-10  md-color-grey-50 ">Total Amount</th>
+                                                    <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                    <th class="uk-width-1-10 md-color-grey-50 ">Print/Save</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-foreach="invoices" t-as="invoice">
+                                                <tr>
+                                                    <td ><t t-esc="invoice.name" /></td>
+                                                    <td ><t t-esc="str(invoice.invoice_date)[:19]" /></td>
+                                                    <td ><t t-esc="str(invoice.invoice_date_due)[:19]" /></td>
+                                                    <td ><t t-esc="invoice.term_id.name" /></td>
+                                                    <td ><t t-esc="invoice.semester_id.name" /></td>
+                                                    <td ><t t-esc="invoice.receipt_type_ids.name" /></td>
+                                                    <td ><t t-esc="invoice.barcode" /></td>
+                                                    <td ><t t-esc="invoice.amount_residual" /></td>
+
+                                                    <td >
+                                                        <span class="uk-badge uk&#45;&#45;badge-success"><t t-esc="invoice.invoice_payment_state" /></span>
+                                                    </td>
+                                                    <td > <a t-attf-href="/student/invoices/download/{{invoice.id}}" >
+                                                        <i class="md-icon material-icons">print</i></a>
+                                                    </td>
+
+                                                </tr>
+                                                </t>
+                                            </tbody>
+                                        </table>
+                                    </div>-->
+                                </div>
+                            </div>
+                            </t>
+                            <t t-if="not hostel_app">
+                            <div class="md-card">
+                                 <form method="post" action="/student/hostel/application/save">
+                                    <div class="md-card-content">
+                                        <h3 class="heading_a uk-margin-bottom">Apply for Hostel</h3>
+                                        <div class="uk-grid" data-uk-grid-margin="">
+
+    <!--                                        <div class="uk-width-large-3-6">-->
+    <!--                                            <select id="select_demo_5" data-md-selectize="" data-md-selectize-bottom="" data-uk-tooltip="{pos:'top'}" title="Select with tooltip">-->
+    <!--                                                <option value="">Select Category...</option>-->
+    <!--                                                <option value="a">Update Name</option>-->
+    <!--                                                <option value="b">Update Father Name</option>-->
+    <!--                                                <option value="c">Update Temporary Address</option>-->
+    <!--                                                <option value="c">Update Permanent Address</option>-->
+    <!--                                            </select>-->
+    <!--                                        </div>-->
+                                             <div class="uk-width-large-2-6">
+                                                <div class="uk-form-row">
+                                                    <label>Registration Date <span class="md-color-red-A400">*</span></label>
+                                                    <input class="md-input " name="nust_reg_date"  type="text"  value="" data-uk-datepicker="{format:'YYYY-MM-DD'}" required="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-2-6">
+                                                <div class="uk-form-row">
+                                                    <label>Merit No. <span class="md-color-red-A400">*</span></label>
+                                                    <input type="number" name="merit_no" min="0" step="1" class="md-input" value="" required="true"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-10">
+                                                <div class="uk-form-row uk-margin-top">
+
+                                                    <input type="checkbox" id="orphan" name="orphan" />
+                                                    <label for="orphan" class="inline-label">Orphan</label>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row uk-margin-top">
+
+                                                    <input type="checkbox" id="shaheed" name="shaheed" value=""/>
+                                                    <label for="shaheed" class="inline-label">Child of Shaheed</label>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-6-6">
+                                            <h4 class="uk-badge" style="font-size: 14px; line-height: 25px;">Current Address</h4>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>House/Apartment <span class="md-color-red-A400">*</span></label>
+                                                    <input type="text" class="md-input" value="" name="house" required="true"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-3-6">
+                                                <div class="uk-form-row">
+                                                    <label>Street <span class="md-color-red-A400">*</span></label>
+                                                    <input type="text"  class="md-input" name="street" value="" required="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>City <span class="md-color-red-A400">*</span></label>
+                                                    <input type="text" class="md-input" value="" name="city" required="true"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Zip Code <span class="md-color-red-A400">*</span></label>
+                                                    <input type="number" min="0" step="1" class="md-input" name="zip_code" value="" required="true"/>
+                                                </div>
+                                            </div>
+                                              <div class="uk-width-large-6-6">
+                                            <h4 class="uk-badge" style="font-size: 14px; line-height: 25px;" >Parents Information</h4>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Name <span class="md-color-red-A400">*</span></label>
+                                                    <input type="text" class="md-input" value="" name="f_name" required="true"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father CNIC <span class="md-color-red-A400">*</span></label>
+                                                    <input type="number" min="0" step="1" class="md-input" name="f_cnic" value="" required="true"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Occupation</label>
+                                                    <input type="text" class="md-input" value="" name="f_occupation"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-3-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Office address</label>
+                                                    <input type="text" class="md-input" value="" name="f_office_address"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Phone</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="f_phone"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Mobile</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="f_mobile"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Mother Mobile</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="m_mobile"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-2-6">
+                                                <div class="uk-form-row">
+                                                    <label>Father Email</label>
+                                                    <input type="email" class="md-input" value="" name="f_email"/>
+                                                </div>
+                                            </div>
+
+                                            <div  class="  uk-width-large-6-6">
+                                             <h4 class="uk-badge" style="font-size: 14px; line-height: 25px;" >Family Information (if married)</h4>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Spouse Name</label>
+                                                    <input type="text" class="md-input" value="" name="s_name"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Spouse CNIC</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="s_cnic"/>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Spouse Mobile</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="s_mobile"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+                                                    <label>Number of Childrens</label>
+                                                    <input type="number" min="0" step="1" class="md-input" value="" name="no_of_children"/>
+                                                </div>
+                                            </div>
+
+
+                                             <div class="uk-width-large-6-6">
+                                            <h4 class="uk-badge" style="font-size: 14px; line-height: 25px;" >Medical record</h4>
+                                            </div>
+                                            <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row">
+    <!--                                                 <t t-set="blood_group" t-value="dict(faculty_staff.fields_get(allfields=['blood_group'])['blood_group']['selection'])"/>-->
+                                                    <label>Blood Group <span class="md-color-red-A400">*</span></label>
+                                                   <!-- <select id="" class="profile_edit_fields md-input uk-form-width-small" name="blood_group" title="Select your blood group" >
+
+                                                                                        <optgroup label="Bloodgroups">
+                                                                                            <t t-foreach="blood_group" t-as="bgroup">
+                                                                                                <t t-if="bgroup == faculty_staff.blood_group">
+                                                                                                    <option selected="true" t-att-value="bgroup">
+                                                                                                        <t t-esc="bgroup_value"/>
+                                                                                                    </option>
+                                                                                                </t>
+                                                                                                <t t-if="not bgroup == faculty_staff.blood_group">
+                                                                                                    <option t-att-value="bgroup">
+                                                                                                        <t t-esc="bgroup_value"/>
+                                                                                                    </option>
+                                                                                                </t>
+                                                                                                >
+                                                                                            </t>
+                                                                                        </optgroup>
+
+                                                                                    </select>-->
+                                                     <select id="" class="md-input " name="blood_group" title="Select your blood group" required="true">
+
+                                                                                        <optgroup label="Blood Groups">
+                                                                                                    <option selected="true" value="A+">A+ve</option>
+                                                                                             <option value="B+">B+ve</option>
+                                                                                            <option value="O+">O+ve</option>
+                                                                                             <option  value="AB+">AB+ve</option>
+                                                                                             <option value="A-">A-ve</option>
+                                                                                             <option value="B-">B-ve</option>
+                                                                                            <option value="O-">O-ve</option>
+                                                                                            <option  value="AB-">AB-ve</option>
+                                                                                        </optgroup>
+
+                                                                                    </select>
+                                                </div>
+                                            </div>
+                                                 <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row uk-margin-top">
+
+                                                    <input type="checkbox" id="medical" name="medical_history" value=""/>
+                                                    <label for="medical" class="inline-label">Medical History</label>
+                                                </div>
+                                            </div>
+                                             <div class="uk-width-large-1-6">
+                                                <div class="uk-form-row uk-margin-top">
+
+                                                    <input type="checkbox" id="disability" name="disability" value=""/>
+                                                    <label for="medical" class="inline-label">Disability</label>
+                                                </div>
+                                            </div>
+
+                                             <div class="uk-width-large-3-6">
+                                                <div class="uk-form-row">
+                                                    <label>Regularly Taking Medicine Name</label>
+                                                    <input type="text" class="md-input" value="" name="medicine"/>
+                                                </div>
+                                            </div>
+                                            <div class="uk-width-large-1-12">
+                                                <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                                <div class="uk-form-row">
+                                                    <label>Disease Description</label>
+                                                    <textarea cols="30" rows="4" name="medical_description" class="md-input"></textarea>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="uk-width-medium-1-5">
+                                                <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Apply</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            </t>
+                        </t>
+                         <t t-if="not student.campus_id.code =='H12'">
+                          <span>Only H-12 Campus students are eligible.</span>
+                        </t>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop" data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+                <script>
+                    $("#orphan").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'True');
+  } else {
+    $(this).attr('value', 'False');
+  }
+                    });
+                     $("#shaheed").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'True');
+  } else {
+    $(this).attr('value', 'False');
+  }
+                    });
+                      $("#medical").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'True');
+  } else {
+    $(this).attr('value', 'False');
+  }
+                    });
+                     $("#disability").on('change', function() {
+  if ($(this).is(':checked')) {
+    $(this).attr('value', 'True');
+  } else {
+    $(this).attr('value', 'False');
+  }
+                    });
+                </script>
+            </body>
+        </t>
+    </template>
+</odoo>

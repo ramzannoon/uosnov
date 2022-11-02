@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_notification_form" model="ir.ui.view">
+        <field name="name">odoocms.notification.form</field>
+        <field name="model">odoocms.notification</field>
+        <field name="arch" type="xml">
+            <form string="Notification" >
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date" readonly="1" required="1"/>
+                            <field name="expiry" required="1"/>
+                        </group>
+                        <group>
+                            <field name="uploaded_by" readonly="1"/>
+                            <field name="visible_for" required="1"/>
+                        </group>
+                        <group>
+                            <field name="image" />
+                            <field name="allow_preview"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="description" widget="html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_notification_tree" model="ir.ui.view">
+        <field name="name">odoocms.notification.tree</field>
+        <field name="model">odoocms.notification</field>
+        <field name="arch" type="xml">
+            <tree string="Notifications">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="expiry"/>
+                <field name="uploaded_by"/>
+                <field name="visible_for"/>
+                <field name="allow_preview"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_notification" model="ir.actions.act_window">
+        <field name="name">Notifications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.notification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to add new Notification here.</p>
+        </field>
+    </record>
+
+
+    <menuitem
+            id="menu_odoocms_notification_root"
+            name="Notifications"
+            groups="group_cms_user"
+            parent="menu_odoocms_root"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_notification"
+            parent="menu_odoocms_notification_root"
+            name="Notifications"
+            groups="odoocms.group_cms_user"
+            action="action_odoocms_notification"
+            sequence="50"/>
+
+
+</odoo>

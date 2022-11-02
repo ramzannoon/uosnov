@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="odoocms_fbs_tree" model="ir.ui.view">
+            <field name="name">odoocms.fbs.tree</field>
+            <field name="model">odoocms.fbs</field>
+            <field name="arch" type="xml">
+                <tree string='FBS' delete="false">
+                    <field name="name"/>
+                    <field name="institute_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_fbs_form" model="ir.ui.view">
+            <field name="name">odoocms.fbs.form</field>
+            <field name="model">odoocms.fbs</field>
+            <field name="arch" type="xml">
+                <form delete="false">
+                    <header>
+                        <button type="object" name="lock" string="Lock" groups="odoocms.group_cms_user" class="oe_highlight"
+                                attrs="{'invisible': ['|',('completed', '=', False),('state','=','done')]}"/>
+                        <field name="state" widget="statusbar"/>
+                        <field name="completed" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: A"/>
+                                <field name="date"/>
+                            </group>
+                            <group>
+                                <field name="institute_id"/>
+                                <field name="career_id"/>
+                                <field name="term_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Submitted Result">
+                                <field name="grade_class_ids" nolabel="1" context="{'fbs':True}">
+                                    <tree decoration-info="fbs_action=='new'" decoration-success="fbs_action=='approve'" decoration-danger="fbs_action=='revise'"
+                                        create="false" delete="false">
+                                        <field name="fbs_action" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="student_count"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Waiting...">
+                                <field name="waiting_ids" nolabel="1" context="{'fbs':True}">
+                                    <tree edit="false" create="false" delete="false">
+                                        <field name="fbs_action" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="student_count"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Minutes">
+                                <group>
+                                    <field name="remarks"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fbs" model="ir.actions.act_window">
+            <field name="name">FBS</field>
+            <field name="res_model">odoocms.fbs</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="academic_fbs_menu"
+                parent="menu_odoocms_academic_result"
+                name="FBS"
+                action="action_odoocms_fbs"
+                sequence="200"/>
+
+
+    </data>
+</odoo>

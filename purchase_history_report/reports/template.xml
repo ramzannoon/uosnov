@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <report
+                id="purchase_history"
+                model="product.product"
+                string="Purchase History Xlsx"
+                report_type="xlsx"
+                name="purchase_history_report.purchase_history_report_id"
+                file="Purchase History Xlsx"
+        />
+    </data>
+</odoo>

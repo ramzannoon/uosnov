@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="gxs_admission_inherit_view" model="ir.ui.view">
+        <field name="name">gxs.admisiion</field>
+        <field name="model">odoocms.admission.register</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_admission_register_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="gen_merit" type="object" string="Generate Merit List"
+                        class="btn-info" states="admission" invisible="1"/>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

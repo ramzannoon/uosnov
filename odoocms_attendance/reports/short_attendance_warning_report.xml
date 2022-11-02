@@ -1,0 +1,160 @@
+<odoo>
+
+	<template id ="odoocms_attendance.short_attendance_warning_report">
+			<t t-call="web.basic_layout">
+                <style>
+
+                    #subject-list {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    #subject-list td, #subject-list th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #subject-list tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #subject-list tr:hover {background-color: #ddd;}
+
+                    #subject-list th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    #personal-info td, #personal-info th {
+                      padding: 3px;
+                    }
+
+                    #personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; padding:10px ">
+
+                    <div class="row">
+                        <div class="col col-2">
+                            <img style="width:180px;height:180px;" t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+						    <img src="/web/static/src/img/user_menu_avatar.png" t-if="not company_id.logo"/>
+                        </div>
+                        <div class="col col-10" style="font-size:20px; font-weight:bold">
+                            <span t-esc="company_id.name" t-if="company_id.name"/>
+                        </div>
+                    </div>
+
+                    <t t-if="not lists">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="lists">
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col col-12" style="text-align:right">
+                                <span t-esc="today"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col col-10">
+                                <span t-esc="lists[0]['father']"/><br/>
+                                <span t-esc="lists[0]['street']"/><br/>
+                                <span t-esc="lists[0]['city']"/>&#160;<span t-esc="lists[0]['country']"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-5">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Registration No:</th> <td><span t-esc="lists[0]['code']"/> </td>
+                                     </tr>
+                                    <tr>
+                                         <th>Career:</th><td><span t-esc="lists[0]['career']"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Semester:</th><td><span t-esc="lists[0]['semester']"/></td>
+                                    </tr>
+                                </table>
+                             </div>
+                             <div class="col col-7">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Name:</th> <td><span t-esc="lists[0]['name']"/></td>
+                                     </tr>
+                                    <tr>
+                                         <th>Term:</th><td><span t-esc="lists[0]['term']"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Program:</th><td><span t-esc="lists[0]['program']"/>&#160;<span>Semester</span></td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col col-12">
+                                <span>Subject:</span>&#160;&#160;&#160;<span style="font-weight:bold;border-bottom:1px solid">WARNING LETTER FOR SHORT ATTENDANCE</span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-12">
+                                <span style="font-weight:bold">Dear Parent/Guardian</span><br/>
+                                    <p style="text-align:justify"><span>&#160;&#160;&#160;&#160;</span>This is inform you that the above named studet is short of class attendance in course(s)
+                                        listd below, and will be barred from taking term examination if it fails to meet <span style="font-weight:bold">75%</span> attendance requirement.</p>
+                                    <p style="text-align:justify"><span>&#160;&#160;&#160;&#160;</span>Being parent/guardian of your award, you are therefore requested to advise your son/daughter for
+                                    improving his/her attendance,otherwise action will taken as per University policy. I hope your good self will take serious congizance of this matter.</p>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col col-12">
+                                <table id="subject-list">
+                             <tr>
+                                 <th style="width:25%">Catalog</th>
+                                 <th style="width:35%">Subject</th>
+                                 <th style="tet-align:center; width:15%">Percentage</th>
+                                 <th style="tet-align:center; width:15%">Total Class Hours</th>
+                                 <th style="text-align:center;width:15%">Attended Hours</th>
+                             </tr>
+                             <!--<t t-foreach="student" t-as="st">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="st_index+1" /></td>
+                                     <td><span t-esc="st.code" /></td>
+                                     <td><span t-esc="st.name" /></td>
+                                     <td><span t-esc="st.father_name" /></td>
+                                     <td style="text-align:center"><span t-esc="st.cgpa" t-options='{"widget": "float", "precision": 2}' /></td>
+                                 </tr>
+                             </t>-->
+                         </table>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:15px;">
+                            <div class="col col-12">
+                                <span>Your Sincerely,</span>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top:25px;">
+                            <div class="col col-8">
+                                <span>Chairman,</span><br/>
+                                <span>Department of</span>&#160;<span t-esc="lists[0]['department']"/><span>,</span><br/>
+                                <span t-esc="company_id.name" t-if="company_id.name"/>
+                            </div>
+                        </div>
+
+                    </t>
+                </div>
+            </t>
+    </template>
+
+</odoo>

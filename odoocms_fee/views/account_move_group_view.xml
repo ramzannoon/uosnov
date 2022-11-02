@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_invoice_group_form" model="ir.ui.view">
+            <field name="name">account.move.group.form</field>
+            <field name="model">account.move.group</field>
+            <field name="arch" type="xml">
+                <form string="Invoice Group" edit="false" create="false" delete="false">
+                    <header>
+                        <button name="action_cancel_invoice_group" string="Cancel" type="object" class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tag"/>
+                                <field name="reference"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                        <field name="description"/>
+
+                        <notebook colspan="4">
+                            <page string="Invoices">
+                                <field name="invoice_ids" nolabel="1">
+                                    <tree string="Invoices" edit="false" create="false" delete="false">
+                                        <field name="student_id"/>
+                                        <field name="invoice_date"/>
+                                        <field name="invoice_date_due"/>
+                                        <field name="barcode"/>
+                                        <field name="term_id"/>
+                                        <field name="semester_id"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="create_uid"/>
+                                        <field name="invoice_payment_state"/>
+                                        <field name="amount_total_signed" string="Amount" sum="sum_total_amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_group_tree" model="ir.ui.view">
+            <field name="name">account.move.group.tree</field>
+            <field name="model">account.move.group</field>
+            <field name="arch" type="xml">
+                <tree string="Invoice Group" edit="false" create="false" delete="false">
+                    <field name="tag"/>
+                    <field name="reference"/>
+                    <field name="date"/>
+                    <field name="invoice_ids"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_group" model="ir.actions.act_window">
+            <field name="name">Invoice Group</field>
+            <field name="res_model">account.move.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_account_invoice_group"
+                parent="menu_odoocms_student_fee_main"
+                name="Invoice Group"
+                action="action_account_invoice_group"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="50"/>
+    </data>
+</odoo>

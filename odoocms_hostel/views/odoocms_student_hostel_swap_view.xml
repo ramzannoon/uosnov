@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- *****  Student Hostel Swap ***** -->
+        <record id="view_odoocms_student_hostel_swap_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.swap.tree</field>
+            <field name="model">odoocms.student.hostel.swap</field>
+            <field name="arch" type="xml">
+                <tree string="Hostel Swap" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="applicant_student_id" string="Student"/>
+                    <field name="applicant_registration_no" string="Registration"/>
+                    <field name="applicant_session_id" string="Academic Session"/>
+                    <field name="applicant_program_id" string="Program"/>
+
+                    <field name="swap_with_student_id" string="Swap With Student"/>
+                    <field name="swap_with_registration_no" string="Swap With Registration"/>
+                    <field name="swap_with_session_id" string="Swap With Academic Session"/>
+                    <field name="swap_with_program_id" string="Swap With Program"/>
+                    <field name="submission_date"/>
+                    <field name="state"/>
+                    <field name="active"/>
+                    <field name="applicant_gender" invisible="1"/>
+                    <field name="swap_with_gender" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_odoocms_student_hostel_swap_form" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.swap.form</field>
+            <field name="model">odoocms.student.hostel.swap</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Swap">
+                    <header>
+                        <button name="action_approved" states="Draft" string="Request Approved" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="action_rejected" states="Draft" string="Request Rejected" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Applicant Student">
+                                <field name="applicant_student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                       required="1" string="Student" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="applicant_gender" string="Gender"/>
+                                <field name="applicant_registration_no" string="Student ID"/>
+                                <field name="applicant_mobile" string="Mobile"/>
+                                <field name="applicant_email" string="Email"/>
+                            </group>
+
+                            <group string="Swap With Student">
+                                <field name="swap_with_student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                       required="1" string="Student" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="swap_with_gender" string="Gender"/>
+                                <field name="swap_with_registration_no" required="1" string="Student ID"/>
+                                <field name="swap_with_mobile" string="Mobile"/>
+                                <field name="swap_with_email" string="Email"/>
+                            </group>
+
+                            <group>
+                                <field name="applicant_session_id" string="Academic Session" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="applicant_career_id" string="Career" invisible="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="applicant_program_id" string="Program" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="swap_with_session_id" string="Academic Session" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="swap_with_career_id" string="Career" invisible="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="swap_with_program_id" string="Program" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+
+                            <group>
+                                <field name="applicant_hostel_id" string="Hostel" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="applicant_room_id" domain="[('room_blocked', '=', False)]" string="Room No." options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="applicant_room_type" string="Room Type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="swap_with_hostel_id" string="Hostel" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="swap_with_room_id" domain="[('room_blocked', '=', False)]" string="Room No." options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="swap_with_room_type" string="Room Type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+
+                            <group>
+                                <field name="submission_date" required="1"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="approved_date"/>
+                            </group>
+                        </group>
+
+                        <separator string="Remarks"/>
+                        <field name="remarks" placeholder="Specify Your Remarks Here..."/>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_swap_search" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.swap.search</field>
+            <field name="model">odoocms.student.hostel.swap</field>
+            <field name="arch" type="xml">
+                <search string="Student Hostel Swap">
+                    <field name="name"/>
+                    <field name="applicant_registration_no"/>
+                    <field name="applicant_student_id" string="Student Name"/>
+                    <field name="swap_with_registration_no"/>
+                    <field name="swap_with_student_id" string="Swap Student Name"/>
+                    <newline/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_applicant_student" string="Applicant Student" domain="[]" context="{'group_by':'applicant_student_id'}"/>
+                        <filter name="group_by_applicant_academic_session" string="Applicant Academic Session" domain="[]" context="{'group_by':'applicant_session_id'}"/>
+                        <filter name="group_by_applicant_program" string="Applicant Program" domain="[]" context="{'group_by':'applicant_program_id'}"/>
+                        <separator/>
+
+                        <filter name="group_by_swap_with_student" string="Swap Student" domain="[]" context="{'group_by':'swap_with_student_id'}"/>
+                        <filter name="group_by_swap_with_academic_session" string="Swap Academic Session" domain="[]" context="{'group_by':'swap_with_session_id'}"/>
+                        <filter name="group_by_swap_with_program" string="Swap Program" domain="[]" context="{'group_by':'swap_with_program_id'}"/>
+                        <separator/>
+
+                    </group>
+                    <searchpanel>
+                        <field name="applicant_session_id" icon="fa-building"/>
+                        <field name="applicant_program_id" icon="fa-building"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_swap_pivot" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.swap.pivot</field>
+            <field name="model">odoocms.student.hostel.swap</field>
+            <field name="arch" type="xml">
+                <pivot string="Hostel Swap Analysis" display_quantity="true">
+                    <field name="id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_swap_graph" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.swap.graph</field>
+            <field name="model">odoocms.student.hostel.swap</field>
+            <field name="arch" type="xml">
+                <graph string="Hostel Swap Analysis">
+                    <field name="id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_student_hostel_swap">
+            <field name="name">Student Hostel Swap</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.hostel.swap</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Hostel Swap.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_student_hostel_swap_menu"
+                name="Hostel Swap Application"
+                parent="menu_odoocms_hostel_swap_main"
+                action="action_odoocms_student_hostel_swap"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="10"/>
+
+    </data>
+</odoo>

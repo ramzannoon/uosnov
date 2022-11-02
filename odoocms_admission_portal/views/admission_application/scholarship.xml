@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_scholarship" name="Admission Scholarship">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <div class="block-info">
+            <div class="frm-row">
+                <div class="section colm colm4">
+                    <label for="nationality">Financial Assistance</label>
+                    <label class="field select">
+                        <input class="checkbox" name="finance_ass" id="finance_ass"
+                               t-att-checked="student.finance_ass"  t-att-disabled="readonly"
+                               onclick="on_change_financial_assistance()" type="checkbox"/>
+                        Financial Assistance Required?
+                    </label>
+                </div>
+                <div id="fin_req" class="section colm colm4">
+                    <label for="ass">Assistance required for:</label>
+                    <label class="field select">
+                        <select name="finance_ass_duration" id="finance_ass_duration" t-att-disabled="not student.finance_ass">
+                            <option value="one"
+                                t-att-selected="student.finance_ass_duration == 'one'"
+                                t-att-disabled="readonly and student.finance_ass_duration != 'one'"><span>One Year</span></option>
+                            <option value="two"
+                                t-att-selected="student.finance_ass_duration == 'two'"
+                                t-att-disabled="readonly and student.finance_ass_duration != 'two'"><span>Two Years</span></option>
+                            <option value="three"
+                                t-att-selected="student.finance_ass_duration == 'three'"
+                                t-att-disabled="readonly and student.finance_ass_duration != 'three'"><span>Three Years</span></option>
+                            <option value="four"
+                                t-att-selected="student.finance_ass_duration == 'four'"
+                                t-att-disabled="readonly and student.finance_ass_duration != 'four'"><span>Four Years</span></option>
+                        </select>
+                        <i class="arrow double"/>
+                    </label>
+                </div>
+                <div id="fin_amt" class="section colm colm4">
+                    <label for="ass">Assistance Amount Required:</label>
+                    <label class="field select">
+                        <select name="finance_ass_amt" id="finance_ass_amt" t-att-disabled="not student.finance_ass">
+                            <option value="one"
+                                t-att-selected="student.finance_ass_amt == 'one'"
+                                t-att-disabled="readonly and student.finance_ass_amt != 'one'"><span>100000-200000</span></option>
+                            <option value="two"
+                                t-att-selected="student.finance_ass_amt == 'two'"
+                                t-att-disabled="readonly and student.finance_ass_amt != 'two'"><span>200000-400000</span></option>
+                            <option value="four"
+                                t-att-selected="student.finance_ass_amt == 'four'"
+                                t-att-disabled="readonly and student.finance_ass_amt != 'four'"><span>400000-600000</span></option>
+                            <option value="full"
+                                t-att-selected="student.finance_ass_amt == 'full'"
+                                t-att-disabled="readonly and student.finance_ass_amt != 'full'"><span>Full Tution Fee</span></option>
+                        </select>
+                        <i class="arrow double"/>
+                    </label>
+                </div>
+
+                <div id="fin_note" class="section colm colm12">
+                    <strong>Financial assistance is the interest free educational loan given by GIK and have to be paid back in small installments
+                        after one year of graduation. To apply for Financial assistance carefully fill the separate form of Financial assistance.</strong>
+                    <br/><b style="color:blue"><a id="scholarship_link" style="display:none;" href="/financial/assistance" target="_blank">Click here to access the Financial Assistance Form</a></b>
+
+                </div>
+
+<!--                <div class="section colm colm4">-->
+<!--                    <label for="amount_needed">Assistance Amount Required </label>-->
+<!--                    <label class="field prepend-icon">-->
+<!--                        <input type="number"-->
+<!--                               name="finance_ass_amount" id="finance_ass_amount"-->
+<!--                               t-att-value="student.finance_ass_amount" t-att-raedonly="not student.finance_ass"-->
+<!--                               class="gui-input" placeholder="Amount"/>-->
+<!--                        <span class="field-icon">-->
+<!--                           &lt;!&ndash; <i class="fa fa-user"></i>&ndash;&gt;-->
+<!--                        </span>-->
+<!--                    </label>-->
+<!--                </div>-->
+            </div>
+
+        </div>
+            <script>
+                function on_change_financial_assistance() {
+                    if ($('#finance_ass').is(":checked")) {
+                        $("#finance_ass_duration").prop("disabled", false);
+                        $("#finance_ass_amt").prop("disabled", false);
+                         $("#scholarship_link").show();
+                    } else {
+                        $("#finance_ass_duration").prop("disabled", true);
+                        $("#finance_ass_amt").prop("disabled", true);
+                        $("#scholarship_link").hide();
+                    }
+                }
+            </script>
+        </fieldset>
+    </template>
+</odoo>

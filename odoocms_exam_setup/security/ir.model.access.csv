@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odoocms_exam_center_user,access.odoocms.exam.center.user,odoocms_exam_setup.model_odoocms_exam_center,base.group_user,1,1,1,1
+access_odoocms_exam_center_line_user,access.odoocms.exam.center.line.user,odoocms_exam_setup.model_odoocms_exam_center_line,base.group_user,1,1,1,1
+access_odoocms_exam_center_structure_user,access.odoocms.exam.center.structure.user,odoocms_exam_setup.model_odoocms_exam_center_structure,base.group_user,1,1,1,1
+access_odoocms_exam_center_assignment_line_user,access.odoocms.exam.center.assignment.line.user,odoocms_exam_setup.model_odoocms_exam_center_assignment_line,base.group_user,1,1,1,1
+access_odoocms_exam_center_assignment_user,access.odoocms.exam.center.assignment.user,odoocms_exam_setup.model_odoocms_exam_center_assignment,base.group_user,1,1,1,1
+access_odoocms_exam_staff_user,access.odoocms.exam.staff.user,odoocms_exam_setup.model_odoocms_exam_staff,base.group_user,1,1,1,1
+access_odoocms_exam_tag_user,access.odoocms.exam.tag.user,odoocms_exam_setup.model_odoocms_exam_tag,base.group_user,1,1,1,1
+access_odoocms_exam_sitting_user,access.odoocms.exam.sitting.user,odoocms_exam_setup.model_odoocms_exam_sitting,base.group_user,1,1,1,1
+access_odoocms_exam_sitting_line_user,access.odoocms.exam.sitting.line.user,odoocms_exam_setup.model_odoocms_exam_sitting_line,base.group_user,1,1,1,1

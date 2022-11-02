@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_student_grades">
+            <t t-call="web.html_container">
+                <div class="page">
+                    <t t-call="web.external_layout">
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th name="th_sr" class="text-left">Sr</th>
+                                    <th name="th_reg" class="text-left">Registration</th>
+                                    <th name="th_name" class="text-left">Name</th>
+
+                                    <th name="th_a" class="text-right">A</th>
+                                    <th name="th_b" class="text-right">B</th>
+                                    <th name="th_c" class="text-right">D</th>
+                                    <th name="th_d" class="text-right">D</th>
+                                    <th name="th_f" class="text-right">F</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                <t t-foreach="students" t-as="student">
+                                   <tr>
+                                    <td name="td_sr"><span t-esc="student_index+1" /></td>
+                                    <td name="td_reg"><span t-esc="student['student'].code" /></td>
+                                    <td name="td_name"><span t-esc="student['student'].name" /></td>
+
+                                    <td name="td_a" class="text-right"><span t-esc="student['A']" /></td>
+                                    <td name="td_b" class="text-right"><span t-esc="student['B']" /></td>
+                                    <td name="td_c" class="text-right"><span t-esc="student['C']" /></td>
+                                    <td name="td_d" class="text-right"><span t-esc="student['D']" /></td>
+                                    <td name="td_f" class="text-right"><span t-esc="student['F']" /></td>
+                                   </tr>
+
+                                </t>
+                            </tbody>
+                        </table>
+
+
+
+                    </t>
+                 </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

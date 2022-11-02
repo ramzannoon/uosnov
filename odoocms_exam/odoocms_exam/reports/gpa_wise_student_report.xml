@@ -1,0 +1,119 @@
+<odoo>
+
+	<template id ="odoocms_exam.gpa_wise_student_report">
+			<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+                <style>
+                    #merit-list {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    #merit-list td, #merit-list th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #merit-list tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #merit-list tr:hover {background-color: #ddd;}
+
+                    #merit-list th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    #personal-info td, #personal-info th {
+                      padding: 3px;
+                    }
+
+                    #personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; border-style: double; padding:10px ">
+
+                    <div class="row">
+                        <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company_id.name" t-if="company_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <t t-if="not student">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="student">
+                        <div style="text-align:center">
+                                <span>List of Student With GPA Greater than</span>&#160;<span t-esc="gpa" t-if="gpa"/>
+                        </div>
+                        <div class="row" style="margin-top:25px; height:">
+                            <div class="col col-6">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Institution:</th> <td><span t-esc="company_id.name"/> </td>
+                                     </tr>
+                                    <tr>
+                                         <th>Campus:</th><td><span t-esc="student[0].program_id.department_id.institute_id.campus_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Term:</th><td><span t-esc="student[0].term_id.name"/></td>
+                                    </tr>
+                                </table>
+                             </div>
+                             <div class="col col-6">
+                                <table id="personal-info">
+                                     <tr>
+                                         <th>Academic Career:</th> <td><span t-esc="student[0].career_id.name"/></td>
+                                     </tr>
+                                    <tr>
+                                         <th>Academic Program:</th><td><span t-esc="student[0].program_id.name"/></td>
+                                    </tr>
+                                    <tr>
+                                         <th>Academic Level:</th><td><span t-esc="student[0].semester_id.name"/>&#160;<span>Semester</span></td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+
+                        <table id="merit-list">
+                             <tr>
+                                 <th style="width:8%">Sr. No</th>
+                                 <th style="width:20%">Roll Number</th>
+                                 <th style="tet-align:center; width:30%">Name</th>
+                                 <th style="tet-align:center; width:30%">Father Name</th>
+                                 <th style="text-align:center;width:10%">GPA</th>
+                             </tr>
+                             <t t-foreach="student" t-as="st">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="st_index+1" /></td>
+                                     <td><span t-esc="st.code" /></td>
+                                     <td><span t-esc="st.name" /></td>
+                                     <td><span t-esc="st.father_name" /></td>
+                                     <td style="text-align:center"><span t-esc="st.cgpa" t-options='{"widget": "float", "precision": 2}' /></td>
+                                 </tr>
+                             </t>
+                         </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

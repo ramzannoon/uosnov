@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="odoocms_hostel_rooms_deallocation_wiz_view" model="ir.ui.view">
+			<field name="name">odoocms.hostel.rooms.deallocation.wiz.view</field>
+			<field name="model">odoocms.hostel.rooms.deallocation.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Hostel De-Allocation">
+                     <hr/>
+                    <p style="color:green">You can <b>De-Allocate the Rooms</b> of a specific Hostel by selecting the Hostel from <b>Hostels Table.</b>
+                        <b>OR</b>
+                        You can De-Allocate rooms of all the Hostel by Selecting the <b>All Hostel Check Box.</b>
+                        Note: If you Select the <b>All Hostel</b> Then <b>Hostels</b> Table will be Disappear.
+                    </p>
+                    <hr/>
+                    <label for="all_hostel" string="All Hostel" style="color:green'"/>
+                    <field name="all_hostel" style="color:green;"/>
+
+
+                    <group string="Hostels" attrs="{'invisible':[('all_hostel','=',True)]}" style="color:green;">
+                        <field name="hostel_ids" nolabel="1" style="color:green;">
+                            <tree style="color:green;">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="hostel_warden"/>
+                                <field name="hostel_type"/>
+                            </tree>
+                        </field>
+                     </group>
+
+                    <group string="Floors" attrs="{'invisible':[('all_hostel','=',True)]}" style="color:green;">
+                        <field name="floor_ids" domain="[('hostel_id','in', hostel_ids)]" nolabel="1" style="color:green;">
+                            <tree style="color:green;">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="floor_no"/>
+                                <field name="hostel_id"/>
+                            </tree>
+                        </field>
+                     </group>
+
+                    <hr/>
+                    <p style="color:red;font-weight:bold;font-size:15px;">
+                        Sometimes you want to Excluded Some Hostels,
+                        Rooms of the Selected Hostels,
+                        For that we will use the Below given Section.
+                    </p>
+                    <hr/>
+                    <group string="Excluded Areas" style="color:red;">
+                        <group>
+                            <field name="exclude_session_ids" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="exclude_hostel_ids" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="exclude_room_types" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="exclude_room_ids" widget="many2many_tags" domain="[('hostel_id','in', hostel_ids)]"
+                                   options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+				        <button name="deallocate_students_action" string="De-Allocate Students" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+				    </footer>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_odoocms_hostel_rooms_deallocation_wiz" model="ir.actions.act_window">
+            <field name="name">Hostel Rooms De-Allocation</field>
+            <field name="res_model">odoocms.hostel.rooms.deallocation.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_hostel_rooms_deallocation_wiz"
+                name="Hostel Rooms De-Allocation"
+                action="action_odoocms_hostel_rooms_deallocation_wiz"
+                parent="menu_odoocms_hostel_general"
+                sequence="100"
+                groups="odoocms_hostel.group_hostel_manager,odoocms_hostel.group_hostel_user"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="check_print_report">
+        <t t-call="web.html_container">
+            <t t-set="amount_in_words" t-value="0"/>
+            <t t-foreach="docs" t-as="o">
+                <div class="container">
+                    <div class="row">
+                        <span>
+                            FAYSAL BANK LIMITED
+                        </span>
+                        <span style="float: right" t-field="o.check_number"/>
+                        <span style="float: right">Cheque No:</span>
+                    </div>
+                </div>
+                <br/>
+                <div class="page">
+                    <div class="row">
+                        <span>IBB MODEL TOWN, LAHORE</span>
+                    </div>
+                    <br/>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 3%">
+                                Pay
+                            </td>
+                            <td style="border-bottom: 1px solid black; width: 87%">
+                                <span t-field="o.partner_id.name"/>
+                            </td>
+                            <td style="width: 10%">
+                                or bearer
+                            </td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%; margin-top: 35px">
+                        <tr>
+                            <td style="width: 5%">
+                                Rupees
+                            </td>
+                            <td style="width: 75%">
+                                <span t-esc="data['amount_in_words']"/>
+                            </td>
+                            <td style="border: 1px solid black; width: 15%; left-align:15px;">
+                                PKR
+                            </td>
+                        </tr>
+                    </table>
+                    <hr size="1" width="75%" style="border:1px solid black; margin-left:70px; margin-top:-5px"/>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        PK57FAYS0150145900227521
+                    </div>
+                    <br/>
+                    <div class="row">
+                        INSTITUTE FOR ART AND CULTURE
+                    </div>
+                    <br/>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 70%">
+                                Please do not write below this line : ______________________
+                            </td>
+
+                            <td style="width: 30%">
+                                <span>Signature :</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

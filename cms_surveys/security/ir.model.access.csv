@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_survey_cms_user,access.survey.cms.user,survey.model_survey_survey,base.group_user,1,1,1,1
+access_survey_user_input_cms_user,access.survey.user.input.cms.user,survey.model_survey_user_input,base.group_user,1,1,1,1
+access_survey_survey_question_cms_user,access.survey.survey.question.cms.user,survey.model_survey_question,base.group_user,1,1,1,1
+access_survey_types_cms_user,access.survey.types.cms.user,cms_surveys.model_survey_types,base.group_user,1,1,1,1
+access_survey_cms_user,access.survey.cms.user,odoocms.model_odoocms_batch,base.group_user,1,1,1,1
+access_survey_cms_coordinator,access.survey.cms.coordinator.user,odoocms_registration.model_odoocms_batch_section,odoocms.group_cms_coordinator,1,1,1,1
+access_survey_assess_cms_coordinator,access.survey..assess.cms.coordinator.user,model_survey_course_rev_assesments_types,base.group_user,1,1,1,1

@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+        <template id='student_asset' name='Student Portal'  active='True'>
+            <xpath expr='.' position='inside'>
+
+            </xpath>
+        </template>
+    </data>
+</odoo>

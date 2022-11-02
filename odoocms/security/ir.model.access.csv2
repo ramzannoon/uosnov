@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+
+
+access_odoocms_academic_session_coordinator,odoocms.academic.session.coordinator,model_odoocms_academic_session,odoocms.group_cms_coordinator,1,1,1,0
+access_odoocms_academic_session_manager,odoocms.academic.session.manager,model_odoocms_academic_session,odoocms.group_cms_manager,1,1,1,1
+
+
+
+
+
+
+
+

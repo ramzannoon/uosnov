@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_student_reg_change_form" model="ir.ui.view">
+			<field name="name">odoocms.student.reg.change.form</field>
+			<field name="model">odoocms.student.reg.change</field>
+			<field name="arch" type="xml">
+				<form string="Change Student Registration Number">
+					<group>
+						<field name="student_ids" colspan="4" nolabel="1">
+							<tree string="Students" editable="bottom">
+								<field name="code" readonly="1"/>
+								<field name="name" readonly="1"/>
+								<field name="gender" readonly="1"/>
+								<field name="mobile" readonly="1"/>
+								<field name="program_id" readonly="1"/>
+								<field name="semester_id" readonly="1"/>
+								<field name="state" invisible="1" readonly="1"/>
+								<field name="id_number" readonly="1"/>
+								<field name="new_id_number" />
+							</tree>
+						</field>
+					</group>
+					<footer>
+						<button name="change_student_reg_no" string="Change Reg Number" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_change_student_reg_number"
+				name="Change Registration Number"
+				binding_model="odoocms.student"
+				res_model="odoocms.student.reg.change"
+				binding_views="list,form"
+				view_mode="form"
+				target="new"
+				groups="odoocms.group_cms_user"
+		/>
+
+
+    </data>
+</odoo>

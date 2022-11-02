@@ -1,0 +1,1296 @@
+id,value,answer_score
+__export__.survey_label_1_93ed2ae3,Excellent,5
+__export__.survey_label_2_06e8c306,V Good,4
+__export__.survey_label_3_da0abd02,Good,3
+__export__.survey_label_4_a8cc10cb,Avg,2
+__export__.survey_label_5_c92a5305,Poor,1
+__export__.survey_label_6_47475868,"1. Your mix of research, teaching and community service.",0
+__export__.survey_label_7_08cc03a4,2. The intellectual stimulation of your work.,0
+__export__.survey_label_8_a2a16e3d,3. Type of teaching / research you currently do.,0
+__export__.survey_label_9_9f84dc2c,4. Your interaction with students.,0
+__export__.survey_label_10_41168ae7,5. Cooperation you receive from colleagues.,0
+__export__.survey_label_11_c79c7c85,6. The mentoring available to you.,0
+__export__.survey_label_12_7be669db,7. Administrative support from the department.,0
+__export__.survey_label_13_62ecf45f,8. Providing clarity about the faculty promotion process.,0
+__export__.survey_label_14_5ccda7bf,9. Your prospects for advancement and progress through ranks.,0
+__export__.survey_label_15_ee235f1e,10. Salary and compensation package,0
+__export__.survey_label_16_f55d612f,11. Job security and stability at the department,0
+__export__.survey_label_17_4165991e,12. Amount of time you have for yourself and family.,0
+__export__.survey_label_18_13805c4f,13. The overall climate at the department,0
+__export__.survey_label_19_a6c99162,14. Whether the department is utilizing your experience and knowledge,0
+__export__.survey_label_39_88e16ce4,Excellent,5
+__export__.survey_label_40_b5e4d1a9,V Good,4
+__export__.survey_label_41_a9d2569f,Good,3
+__export__.survey_label_42_99b9db0f,Avg,2
+__export__.survey_label_43_5de95e63,Poor,1
+__export__.survey_label_44_c2cd1c9c,1. The course objectives were clear,0
+__export__.survey_label_45_90e9c53a,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_46_917f5bf1,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_47_39b9e664,4. Regular classes were conducted during the course,0
+__export__.survey_label_48_09906560,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_49_455dec8f,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_50_4136ed91,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_51_8f0cd04f,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_52_a5d5af1d,9. The instructor was responsive to the students queries,0
+__export__.survey_label_53_af539601,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_54_3a0805c7,11. This course stimulated my interest,0
+__export__.survey_label_55_38ec584e,12. This course intellectually challenged me,0
+__export__.survey_label_56_49e75a1e,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_57_20555ce6,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_58_333bdf85,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_419_9649d78e,Excellent,5
+__export__.survey_label_420_c866d83b,V Good,4
+__export__.survey_label_421_aadb9f0f,Good,3
+__export__.survey_label_422_a4b217f9,Avg,2
+__export__.survey_label_423_3de8f2cc,Poor,1
+__export__.survey_label_424_4e3f56a1,1. The objective of the course and each lecture/lab./project was made clear and attainable,0
+__export__.survey_label_425_65b5c94e,2. Creates interest in the subject and helps develop understanding,0
+__export__.survey_label_5031_eede9786,Excellent,5
+__export__.survey_label_5036_0bdc0e6e,Excellent,5
+__export__.survey_label_5037_97affd3d,V Good,4
+__export__.survey_label_5038_c488d0f0,Good,3
+__export__.survey_label_5039_94aa0e17,Avg,2
+__export__.survey_label_5040_444a46e6,Poor,1
+__export__.survey_label_5041_f417ffb4,Excellent,5
+__export__.survey_label_5042_2c7f74a4,V Good,4
+__export__.survey_label_5043_c07635ef,Good,3
+__export__.survey_label_5044_4f4c7ee9,Avg,2
+__export__.survey_label_5045_617b18e1,Poor,1
+__export__.survey_label_5046_38108373,1. I am adequately prepared to enter professional life after attending the engineering program.,0
+__export__.survey_label_5047_d2d97825,2. I have effective analytical and problem solving skills.,0
+__export__.survey_label_5048_1c35c725,3. I can develop solutions for complex problems.,0
+__export__.survey_label_5049_25e13283,4. I can interpret the experimental data to derive valid conclusions.,0
+__export__.survey_label_5050_aef3457f,5. I can efficiently use modern tools in civil engineering industry.,0
+__export__.survey_label_5051_9ee1349e,"6. I am well aware to assess societal, health, safety, legal and cultural issues and the consequent responsibilities relevant to professional engineering practice.",0
+__export__.survey_label_5052_15f7f0ad,7. I am environmentally responsible and cognizant to develop friendly solutions.,0
+__export__.survey_label_5053_a4676e47,8. I am morally responsible.,0
+__export__.survey_label_5054_d17deacf,a) As an individual,0
+__export__.survey_label_5055_c920c836,b) As in a team,0
+__export__.survey_label_5056_586d437f,"10. I can now communicate effectively with clients, colleagues, and other members of interprofessional teams.",0
+__export__.survey_label_5057_a3cdb52b,11. I can manage my professional affairs.,0
+__export__.survey_label_5058_89d5e466,"12. I have the ability to recognize the importance of, and pursue lifelong learning in the broader context of innovation and technological developments",0
+__export__.survey_label_6187_39ca0a2c,Excellent,5
+__export__.survey_label_6188_3545b47c,V Good,4
+__export__.survey_label_6189_f5acae66,Good,3
+__export__.survey_label_6190_67624ffd,Avg,2
+__export__.survey_label_6191_17e7d82e,Poor,1
+__export__.survey_label_6192_cd067689,Excellent,5
+__export__.survey_label_6193_1e4ff138,V Good,4
+__export__.survey_label_6194_1094e0d4,Good,3
+__export__.survey_label_6195_bc09efe6,Avg,2
+__export__.survey_label_6196_056af855,Poor,1
+__export__.survey_label_6197_6ee81ab9,Excellent,5
+__export__.survey_label_6198_78bb5d9c,V Good,4
+__export__.survey_label_6199_7578b117,Good,3
+__export__.survey_label_6200_4ef76750,Avg,2
+__export__.survey_label_6201_7b651471,Poor,1
+__export__.survey_label_6202_7b2b5b1e,1. The course design was well thought and planned,0
+__export__.survey_label_6203_d160a78a,2. The achieved course outcomes were similar to what the intended course outcomes.,0
+__export__.survey_label_6204_25925949,3. The course’s assessment methodology/mechanism was able to comprehend the intended outcomes.,0
+__export__.survey_label_6205_c1fa676f,4. The course was well organized with even distribution of the content and assessment,0
+__export__.survey_label_6206_31dc65f1,5. The content was appropriate according to the number of credit hours assigned for this course.,0
+__export__.survey_label_6207_d8709a87,6. Consultation with the faculty who teaches the related or prerequisite contents was done to avoid content redundancy.,0
+__export__.survey_label_6208_8a58204c,7. This course stimulated the interest of the students.,0
+__export__.survey_label_6209_df3b0b53,8. This course intellectually challenged me.,0
+__export__.survey_label_6210_36f7d411,9. This course intellectually challenged the students.,0
+__export__.survey_label_6211_7e9dfce8,10. The assessment in this course truly reflected the intellectual gains of the students.,0
+__export__.survey_label_6212_7fca5a75,11. The classroom layout was suitable for this course.,0
+__export__.survey_label_6213_81e450b9,12. The class size (number of students) was appropriate.,0
+__export__.survey_label_6214_11872acf,13. The computing facilities and desired software applications for this course were sufficient (if any required).,0
+__export__.survey_label_6215_44ff01c9,"14. Facilities provided at the library e.g. latest books, access to journals etc. are sufficient.",0
+__export__.survey_label_6216_d4b5ad78,15. Updated data-streams were made available for research/assignments in this course.,0
+__export__.survey_label_6217_2eee5906,16. There was enough exposure to practical applications of this course.,0
+__export__.survey_label_6263_9f47d3ab,Excellent,5
+__export__.survey_label_6264_b301d949,V Good,4
+__export__.survey_label_6265_1127441c,Good,3
+__export__.survey_label_6266_d7f197a9,Avg,2
+__export__.survey_label_6267_8aee360a,Poor,1
+__export__.survey_label_6268_550d0b77,Excellent,5
+__export__.survey_label_6269_8aa85cae,V Good,4
+__export__.survey_label_6270_97869263,Good,3
+__export__.survey_label_6271_75974aed,Avg,2
+__export__.survey_label_6272_4654bd9c,Poor,1
+__export__.survey_label_6273_c7c2fe6f,Excellent,5
+__export__.survey_label_6274_6edf06e7,V Good,4
+__export__.survey_label_6275_f4d06875,Good,3
+__export__.survey_label_6276_55fdde7f,Avg,2
+__export__.survey_label_6277_132dac8a,Poor,1
+__export__.survey_label_6278_c5be5ce7,Excellent,5
+__export__.survey_label_6279_287dcf25,V Good,4
+__export__.survey_label_6280_d9fd0e86,Good,3
+__export__.survey_label_6281_3e5b453b,Avg,2
+__export__.survey_label_6282_ece77c72,Poor,1
+__export__.survey_label_6283_8c0aa501,Excellent,5
+__export__.survey_label_6284_1db7dacb,V Good,4
+__export__.survey_label_6285_8ee360af,Good,3
+__export__.survey_label_6286_f36bcae3,Avg,2
+__export__.survey_label_6287_878ca7e7,Poor,1
+__export__.survey_label_6288_0b0eeb92,1. Relevance and aptness of courses covered,0
+__export__.survey_label_6289_6c8b5f0b,2. Problem formulation and solving skills.,0
+__export__.survey_label_6290_0596df70,3. Designing model/framework/ or process.,0
+__export__.survey_label_6291_6f494ef8,4. Collecting and analyzing appropriate data.,0
+__export__.survey_label_6292_e06b6dd9,5. Ability to link theory to practice.,0
+__export__.survey_label_6293_d2541f9a,6. Ability to link theory to practice.,0
+__export__.survey_label_6294_d1d41249,7. Oral communication,0
+__export__.survey_label_6295_28a0ef57,8. Written Communication.,0
+__export__.survey_label_6296_b120d18c,9. Presentation skills,0
+__export__.survey_label_6297_633a75ff,10. Ability to work in teams.,0
+__export__.survey_label_6298_860f71f7,11. Ability to work in arduous/challenging situations.,0
+__export__.survey_label_6299_2f852876,12. Independent thinking.,0
+__export__.survey_label_6300_c6061ec9,13. Appreciation of Ethical values.,0
+__export__.survey_label_6301_628ce893,14. Resource management skills.,0
+__export__.survey_label_6302_3df7a13d,15. Time management skills.,0
+__export__.survey_label_6303_225aca30,16. Decision making ability.,0
+__export__.survey_label_6304_0700fe62,17. Professional discipline.,0
+__export__.survey_label_6305_42a8225d,18. Infrastructure,0
+__export__.survey_label_6306_d67b6aea,19. Faculty,0
+__export__.survey_label_6307_6ec72246,20. Repute at national level.,0
+__export__.survey_label_6308_ca1ad40f,21. Repute at international level.,0
+__export__.survey_label_6309_8ab72379,Excellent,5
+__export__.survey_label_6310_aeb80f6e,V Good,4
+__export__.survey_label_6311_536f92fa,Good,3
+__export__.survey_label_6312_174acbcd,Avg,2
+__export__.survey_label_6313_541f4e08,Poor,1
+__export__.survey_label_6314_e55d0e15,Excellent,5
+__export__.survey_label_6315_92f98892,V Good,4
+__export__.survey_label_6316_53a70798,Good,3
+__export__.survey_label_6317_89f25808,Avg,2
+__export__.survey_label_6318_8b83249c,Poor,1
+__export__.survey_label_6319_cfea9430,Excellent,5
+__export__.survey_label_6320_275fb0f7,V Good,4
+__export__.survey_label_6321_a154556c,Good,3
+__export__.survey_label_6322_fe2df367,Avg,2
+__export__.survey_label_6323_1213317c,Poor,1
+__export__.survey_label_6334_74784162,1. Subject Knowledge of their job function,0
+__export__.survey_label_6335_dd07cda5,2. Problem identification and solving skills,0
+__export__.survey_label_6336_293859f8,3. Information analysis & interpretation skills,0
+__export__.survey_label_6337_1ad4ed66,4. Ability to link theory to practice,0
+__export__.survey_label_6338_59181682,5. Ability to design a model/framework/system component or process,0
+__export__.survey_label_6339_bfe1d2a0,6. IT Knowledge,0
+__export__.survey_label_6340_17fd5b94,7. Oral communication,0
+__export__.survey_label_6341_7feeaa6f,8. Report writing/ Written Communication.,0
+__export__.survey_label_6342_13f2ae4d,9. Presentation skills,0
+__export__.survey_label_6343_1f9d732d,10. Teamwork.,0
+__export__.survey_label_6344_3c19a1a9,11. Leadership,0
+__export__.survey_label_6345_70d34672,12. Independent thinking.,0
+__export__.survey_label_6346_c569a271,13. Ability to take initiative,0
+__export__.survey_label_6642_e6da2161,Excellent,5
+__export__.survey_label_6643_c3565343,V Good,4
+__export__.survey_label_6644_7c852ca4,Good,3
+__export__.survey_label_6645_185a6756,Avg,2
+__export__.survey_label_6646_bb7ee472,Poor,1
+__export__.survey_label_6652_79cec0a7,1. The course objectives were clear,0
+__export__.survey_label_6653_23556e66,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_6654_9a4bae4d,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_6655_16d77913,4. Regular classes were conducted during the course,0
+__export__.survey_label_6656_e31391ce,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_6657_4d566d7c,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_6658_29309cec,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_6659_fb5e63b6,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_6660_d5985b64,9. The instructor was responsive to the students queries,0
+__export__.survey_label_6661_a863a699,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_6662_991aabf3,11. This course stimulated my interest,0
+__export__.survey_label_6663_55bf4926,12. This course intellectually challenged me,0
+__export__.survey_label_6664_fc743e15,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_6665_55dac37c,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_6666_c8a0c8eb,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9528_6c8411d8,Excellent,5
+__export__.survey_label_9529_6e2ca394,V Good,4
+__export__.survey_label_9530_1b83c1dd,Good,3
+__export__.survey_label_9531_043ab826,Avg,2
+__export__.survey_label_9532_7e9ac033,Poor,1
+__export__.survey_label_9538_2243257f,1. The course objectives were clear,0
+__export__.survey_label_9539_93a76312,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9540_98539360,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9541_938e1ba8,4. Regular classes were conducted during the course,0
+__export__.survey_label_9542_94557101,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9543_d0483dcf,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9544_1d9fc29a,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9545_12da459c,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9546_54167e8e,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9547_ae86782e,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9548_bc933814,11. This course stimulated my interest,0
+__export__.survey_label_9549_cb8f0283,12. This course intellectually challenged me,0
+__export__.survey_label_9550_3fe06dc9,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9551_fdfc239c,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9552_2700b10b,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9568_902dfbec,Excellent,5
+__export__.survey_label_9569_5b649b1b,V Good,4
+__export__.survey_label_9570_f99ff5fd,Good,3
+__export__.survey_label_9571_3ea30645,Avg,2
+__export__.survey_label_9572_494e9c26,Poor,1
+__export__.survey_label_9573_53c881d7,Excellent,5
+__export__.survey_label_9574_efd70b4f,V Good,4
+__export__.survey_label_9575_dd7c29f2,Good,3
+__export__.survey_label_9576_b017d5b7,Avg,2
+__export__.survey_label_9577_0a9d0371,Poor,1
+__export__.survey_label_9578_346b40de,1. The course objectives were clear,0
+__export__.survey_label_9579_276d853c,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9580_1d8d851d,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9581_aaf44da6,4. Regular classes were conducted during the course,0
+__export__.survey_label_9582_a01ec503,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9583_0670f6c1,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9584_8cc7e416,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9585_598feb76,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9586_c26a3fb8,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9587_c845b3d7,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9588_00c67202,11. This course stimulated my interest,0
+__export__.survey_label_9589_65abce78,12. This course intellectually challenged me,0
+__export__.survey_label_9590_5b7b613a,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9591_b46bfd37,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9592_4479b45c,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9593_ef7ce634,1. The course objectives were clear,0
+__export__.survey_label_9594_c3dc0960,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9595_59c303e3,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9596_e7445dcd,4. Regular classes were conducted during the course,0
+__export__.survey_label_9597_f6b76991,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9598_a15c8faa,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9599_a7c4767a,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9600_d268f3b2,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9601_a22ca463,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9602_18ce2979,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9603_5a62a532,11. This course stimulated my interest,0
+__export__.survey_label_9604_4986f039,12. This course intellectually challenged me,0
+__export__.survey_label_9605_3f64290e,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9606_e19644c8,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9607_14dcde08,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9608_79c4c180,Excellent,5
+__export__.survey_label_9609_d48879d1,V Good,4
+__export__.survey_label_9610_060276da,Good,3
+__export__.survey_label_9611_8ff7cc80,Avg,2
+__export__.survey_label_9612_faf6511a,Poor,1
+__export__.survey_label_9613_9b3f3d19,Excellent,5
+__export__.survey_label_9614_362d602f,V Good,4
+__export__.survey_label_9615_c55918f4,Good,3
+__export__.survey_label_9616_ce229f74,Avg,2
+__export__.survey_label_9617_f453f926,Poor,1
+__export__.survey_label_9618_7a395017,1. The course objectives were clear,0
+__export__.survey_label_9619_821affde,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9620_32b1cc9f,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9621_b8e060c3,4. Regular classes were conducted during the course,0
+__export__.survey_label_9622_4f0d776a,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9623_0d561e40,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9624_3d2d056e,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9625_2d81eb74,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9626_fd06cc39,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9627_ff0e6f96,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9628_fd610729,11. This course stimulated my interest,0
+__export__.survey_label_9629_b5c6d972,12. This course intellectually challenged me,0
+__export__.survey_label_9630_8b62c347,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9631_016459ef,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9632_56de0632,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9633_18c2e93a,1. The course objectives were clear,0
+__export__.survey_label_9634_dd252969,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9635_dbc31803,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9636_aae0e164,4. Regular classes were conducted during the course,0
+__export__.survey_label_9637_0cc6dfdb,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9638_f22fb2e8,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9639_db80dea5,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9640_4b1c1938,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9641_83271f8c,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9642_ef70ac16,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9643_b2aa1685,11. This course stimulated my interest,0
+__export__.survey_label_9644_0548d9f7,12. This course intellectually challenged me,0
+__export__.survey_label_9645_072afe84,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9646_43f09d16,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9647_bcf93428,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9648_9a6e467d,Excellent,5
+__export__.survey_label_9649_8e375ca3,V Good,4
+__export__.survey_label_9650_142bfc67,Good,3
+__export__.survey_label_9651_9f06e429,Avg,2
+__export__.survey_label_9652_73caba33,Poor,1
+__export__.survey_label_9653_7dae0e0e,Excellent,5
+__export__.survey_label_9654_460ccbcf,V Good,4
+__export__.survey_label_9655_869da9a4,Good,3
+__export__.survey_label_9656_7edb46b1,Avg,2
+__export__.survey_label_9657_d4c32fd9,Poor,1
+__export__.survey_label_9658_c1a4740f,1. The course objectives were clear,0
+__export__.survey_label_9659_0244a6b2,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9660_452eca1c,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9661_67afeb37,4. Regular classes were conducted during the course,0
+__export__.survey_label_9662_47002f1e,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9663_b299738c,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9664_7599b5a1,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9665_884d1ee6,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9666_9e9ffb47,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9667_0bb062ae,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9668_67db6478,11. This course stimulated my interest,0
+__export__.survey_label_9669_53710b2f,12. This course intellectually challenged me,0
+__export__.survey_label_9670_3a31128b,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9671_b6ecb153,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9672_7e0fd931,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9673_39732c11,1. The course objectives were clear,0
+__export__.survey_label_9674_897c69b8,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9675_1745f191,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9676_5f775bcb,4. Regular classes were conducted during the course,0
+__export__.survey_label_9677_26e973b8,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9678_dc4d65a6,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9679_228eeb0c,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9680_1d87554a,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9681_e28c4586,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9682_c4e29e61,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9683_90944518,11. This course stimulated my interest,0
+__export__.survey_label_9684_a6c8538b,12. This course intellectually challenged me,0
+__export__.survey_label_9685_ca401767,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9686_ba37e762,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9687_b38c9667,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9688_0a4ecc90,Excellent,5
+__export__.survey_label_9689_cef9822e,V Good,4
+__export__.survey_label_9690_979797ca,Good,3
+__export__.survey_label_9691_be857bd0,Avg,2
+__export__.survey_label_9692_15690bb3,Poor,1
+__export__.survey_label_9693_4507a625,Excellent,5
+__export__.survey_label_9694_2b453cc1,V Good,4
+__export__.survey_label_9695_ac1c049d,Good,3
+__export__.survey_label_9696_9a9de285,Avg,2
+__export__.survey_label_9697_6135133a,Poor,1
+__export__.survey_label_9698_e29314e9,1. The course objectives were clear,0
+__export__.survey_label_9699_51c7f604,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9700_76b458a7,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9701_d74399a4,4. Regular classes were conducted during the course,0
+__export__.survey_label_9702_73a25390,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9703_2db7436e,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9704_2032ac16,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9705_f5aa703a,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9706_473482ef,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9707_4d501d95,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9708_1ed63e89,11. This course stimulated my interest,0
+__export__.survey_label_9709_129aed81,12. This course intellectually challenged me,0
+__export__.survey_label_9710_ad1de761,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9711_f587bfa5,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9712_a513639f,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9713_10b5ad9d,1. The course objectives were clear,0
+__export__.survey_label_9714_beae87a7,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9715_ac767008,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9716_6f450f5a,4. Regular classes were conducted during the course,0
+__export__.survey_label_9717_cdd08f53,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9718_86af10c7,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9719_51cfb1cb,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9720_55ba2816,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9721_1c39f717,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9722_bef62d2b,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9723_551c293a,11. This course stimulated my interest,0
+__export__.survey_label_9724_37605275,12. This course intellectually challenged me,0
+__export__.survey_label_9725_9eaf68b0,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9726_c1bb3088,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9727_f22f4536,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9728_dde188ec,Excellent,5
+__export__.survey_label_9729_b6eb8304,V Good,4
+__export__.survey_label_9730_640df33a,Good,3
+__export__.survey_label_9731_8c0a4a2e,Avg,2
+__export__.survey_label_9732_82d21e62,Poor,1
+__export__.survey_label_9733_bba19594,Excellent,5
+__export__.survey_label_9734_0d1b4e26,V Good,4
+__export__.survey_label_9735_aabf38b1,Good,3
+__export__.survey_label_9736_c9ba33d3,Avg,2
+__export__.survey_label_9737_99a48d87,Poor,1
+__export__.survey_label_9738_da216db3,1. The course objectives were clear,0
+__export__.survey_label_9739_ba9d8e76,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9740_88589ed9,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9741_151f2834,4. Regular classes were conducted during the course,0
+__export__.survey_label_9742_0655139f,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9743_afc88373,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9744_6678fe1e,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9745_4cfe6dd5,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9746_c17d9d37,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9747_1a50aa9e,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9748_f7db2730,11. This course stimulated my interest,0
+__export__.survey_label_9749_d0a0dbb0,12. This course intellectually challenged me,0
+__export__.survey_label_9750_293fc944,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9751_faeaa9fe,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9752_0ed7d6e0,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9753_c3e5ea1e,1. The course objectives were clear,0
+__export__.survey_label_9754_72674eeb,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9755_fbdc609f,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9756_7a8c4b77,4. Regular classes were conducted during the course,0
+__export__.survey_label_9757_9585f0d6,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9758_75ba737b,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9759_c6d5e97f,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9760_5f41665e,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9761_5b30b11a,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9762_102be083,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9763_31137163,11. This course stimulated my interest,0
+__export__.survey_label_9764_9302b189,12. This course intellectually challenged me,0
+__export__.survey_label_9765_eb3a2337,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9766_49765bf0,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9767_9c0f24fa,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9768_f630b93d,Excellent,5
+__export__.survey_label_9769_897f00d3,V Good,4
+__export__.survey_label_9770_c716f951,Good,3
+__export__.survey_label_9771_af43f399,Avg,2
+__export__.survey_label_9772_2bfcf271,Poor,1
+__export__.survey_label_9773_a0089e45,Excellent,5
+__export__.survey_label_9774_1f6ca715,V Good,4
+__export__.survey_label_9775_b000a61e,Good,3
+__export__.survey_label_9776_74779bb3,Avg,2
+__export__.survey_label_9777_a2037739,Poor,1
+__export__.survey_label_9778_ef37e0e8,1. The course objectives were clear,0
+__export__.survey_label_9779_ae6414e0,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9780_b6c4f98a,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9781_c9335174,4. Regular classes were conducted during the course,0
+__export__.survey_label_9782_d3347ef1,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9783_86d85b6f,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9784_0cdc8fd8,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9785_b31caa9f,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9786_05672e15,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9787_b38229d8,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9788_3232a9f4,11. This course stimulated my interest,0
+__export__.survey_label_9789_9697ffb7,12. This course intellectually challenged me,0
+__export__.survey_label_9790_feb955c4,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9791_f4f7bdb1,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9792_5c9fea18,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9793_2b305130,1. The course objectives were clear,0
+__export__.survey_label_9794_ea436013,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9795_b4f197df,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9796_89af5c46,4. Regular classes were conducted during the course,0
+__export__.survey_label_9797_203b1353,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9798_37638724,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9799_05933de8,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9800_d855f465,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9801_45c85078,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9802_d11255dd,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9803_9dbc2135,11. This course stimulated my interest,0
+__export__.survey_label_9804_7c576da9,12. This course intellectually challenged me,0
+__export__.survey_label_9805_125e8e39,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9806_1cb59ce2,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9807_3204743e,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9808_4a1e80f2,Excellent,5
+__export__.survey_label_9809_0993aab0,V Good,4
+__export__.survey_label_9810_c9944c91,Good,3
+__export__.survey_label_9811_d6aa1eb4,Avg,2
+__export__.survey_label_9812_a7f1b54c,Poor,1
+__export__.survey_label_9813_eac228bc,Excellent,5
+__export__.survey_label_9814_a07f2acf,V Good,4
+__export__.survey_label_9815_1118003b,Good,3
+__export__.survey_label_9816_5cc95044,Avg,2
+__export__.survey_label_9817_fbcf3498,Poor,1
+__export__.survey_label_9818_d1e30947,1. The course objectives were clear,0
+__export__.survey_label_9819_dfcf1675,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9820_7814db96,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9821_192fad60,4. Regular classes were conducted during the course,0
+__export__.survey_label_9822_c7e1b073,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9823_a1727cfb,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9824_e83df6a4,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9825_8f1db04c,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9826_630bdd3a,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9827_cc8441a1,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9828_69dfa483,11. This course stimulated my interest,0
+__export__.survey_label_9829_f0a85430,12. This course intellectually challenged me,0
+__export__.survey_label_9830_c0157d26,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9831_32dd0d33,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9832_c413e7fa,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9833_740e5277,1. The course objectives were clear,0
+__export__.survey_label_9834_729f1b6a,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9835_f42680ed,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9836_7366a874,4. Regular classes were conducted during the course,0
+__export__.survey_label_9837_4ccfce61,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9838_91c8cd46,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9839_c99b13ec,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9840_3d747e55,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9841_2e25188a,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9842_e804299e,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9843_1a3db62b,11. This course stimulated my interest,0
+__export__.survey_label_9844_dbf073e0,12. This course intellectually challenged me,0
+__export__.survey_label_9845_ea89c007,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9846_09b2552f,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9847_53656c7e,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9848_4c67d3a7,Excellent,5
+__export__.survey_label_9849_23b62a1e,V Good,4
+__export__.survey_label_9850_768058f7,Good,3
+__export__.survey_label_9851_e31b8d8b,Avg,2
+__export__.survey_label_9852_4791d62f,Poor,1
+__export__.survey_label_9853_b62ca3ee,Excellent,5
+__export__.survey_label_9854_d19539f0,V Good,4
+__export__.survey_label_9855_e22a9371,Good,3
+__export__.survey_label_9856_a84e8eed,Avg,2
+__export__.survey_label_9857_63b20188,Poor,1
+__export__.survey_label_9858_d1b5e91f,1. The course objectives were clear,0
+__export__.survey_label_9859_32980fe1,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9860_4b69e489,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9861_4f2ae293,4. Regular classes were conducted during the course,0
+__export__.survey_label_9862_ae8dde85,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9863_03f017cc,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9864_7a448e9b,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9865_47421a50,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9866_d1e4261c,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9867_f8172a55,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9868_17195284,11. This course stimulated my interest,0
+__export__.survey_label_9869_5ed25681,12. This course intellectually challenged me,0
+__export__.survey_label_9870_a8dc1f0e,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9871_4c6f0ec1,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9872_053b6439,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9873_44c90454,1. The course objectives were clear,0
+__export__.survey_label_9874_b8227d57,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9875_454a5dc9,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9876_cb9fd99a,4. Regular classes were conducted during the course,0
+__export__.survey_label_9877_630d7dfa,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9878_ffeb2129,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9879_4ffb375f,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9880_b550cc70,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9881_b25f9c51,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9882_9a140194,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9883_68d28ceb,11. This course stimulated my interest,0
+__export__.survey_label_9884_06d0dbed,12. This course intellectually challenged me,0
+__export__.survey_label_9885_3c556f92,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9886_5e2a8759,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9887_9f15df9d,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9888_d484e801,Excellent,5
+__export__.survey_label_9889_f21c3fdf,V Good,4
+__export__.survey_label_9890_8ed5cd44,Good,3
+__export__.survey_label_9891_b876b192,Avg,2
+__export__.survey_label_9892_c1d1713c,Poor,1
+__export__.survey_label_9893_453ddd08,Excellent,5
+__export__.survey_label_9894_413d8c6f,V Good,4
+__export__.survey_label_9895_502692b9,Good,3
+__export__.survey_label_9896_dc91a1df,Avg,2
+__export__.survey_label_9897_1a424042,Poor,1
+__export__.survey_label_9898_4e678ca7,1. The course objectives were clear,0
+__export__.survey_label_9899_7de79ca4,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9900_7ed67287,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9901_a9d37ea4,4. Regular classes were conducted during the course,0
+__export__.survey_label_9902_91059f18,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9903_66a30261,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9904_247b363c,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9905_f9125e8d,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9906_9a421bed,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9907_6a425dad,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9908_d8f441df,11. This course stimulated my interest,0
+__export__.survey_label_9909_c49580ae,12. This course intellectually challenged me,0
+__export__.survey_label_9910_cca43ae6,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9911_8f33e42d,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9912_0dace3c8,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9913_5892cbf7,1. The course objectives were clear,0
+__export__.survey_label_9914_15ffd0d3,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9915_c3174506,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9916_fce37d52,4. Regular classes were conducted during the course,0
+__export__.survey_label_9917_128938f3,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9918_21e1b1f4,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9919_dc4f4ffa,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9920_1e813a1b,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9921_4a9f9bf4,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9922_2bcfff38,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9923_819f8ce1,11. This course stimulated my interest,0
+__export__.survey_label_9924_bf53c6fa,12. This course intellectually challenged me,0
+__export__.survey_label_9925_c8fb8303,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9926_903b423b,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9927_b4418856,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9928_a4b6ad34,Excellent,5
+__export__.survey_label_9929_edb56225,V Good,4
+__export__.survey_label_9930_cc221faf,Good,3
+__export__.survey_label_9931_e7562e34,Avg,2
+__export__.survey_label_9932_09cf20fd,Poor,1
+__export__.survey_label_9933_33e4848f,Excellent,5
+__export__.survey_label_9934_48fdf06c,V Good,4
+__export__.survey_label_9935_214cd057,Good,3
+__export__.survey_label_9936_fe834e8b,Avg,2
+__export__.survey_label_9937_66b29f77,Poor,1
+__export__.survey_label_9938_a1158d69,1. The course objectives were clear,0
+__export__.survey_label_9939_86087256,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9940_03dcecf4,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9941_54ca9b67,4. Regular classes were conducted during the course,0
+__export__.survey_label_9942_2cf6acb1,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9943_deeda3de,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9944_2664ff3b,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9945_a723a92e,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9946_6ab27dd7,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9947_b2018751,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9948_d5182254,11. This course stimulated my interest,0
+__export__.survey_label_9949_3650a903,12. This course intellectually challenged me,0
+__export__.survey_label_9950_e00dcc95,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9951_96cd4148,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9952_5f6bca55,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9953_e5c9c576,1. The course objectives were clear,0
+__export__.survey_label_9954_2e0fc784,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9955_dc919b3a,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9956_cd5cf334,4. Regular classes were conducted during the course,0
+__export__.survey_label_9957_9c548564,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9958_d436edcf,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9959_468ab05b,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9960_dedb3e93,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9961_04ed0a22,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9962_ccd733cb,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9963_4c6f20dd,11. This course stimulated my interest,0
+__export__.survey_label_9964_790d5e8e,12. This course intellectually challenged me,0
+__export__.survey_label_9965_ca5d8a4e,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9966_a992fee3,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9967_24042ec9,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9968_faa8b840,Excellent,5
+__export__.survey_label_9969_15ca00ad,V Good,4
+__export__.survey_label_9970_7b0f5aac,Good,3
+__export__.survey_label_9971_9a2448c4,Avg,2
+__export__.survey_label_9972_8612b724,Poor,1
+__export__.survey_label_9973_52c0b8b0,Excellent,5
+__export__.survey_label_9974_c24b821f,V Good,4
+__export__.survey_label_9975_11836aac,Good,3
+__export__.survey_label_9976_524a3674,Avg,2
+__export__.survey_label_9977_16d64db6,Poor,1
+__export__.survey_label_9978_c0b6a396,1. The course objectives were clear,0
+__export__.survey_label_9979_f8bf7cd3,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9980_cfda9f2b,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9981_6cc2303c,4. Regular classes were conducted during the course,0
+__export__.survey_label_9982_83506ff5,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9983_b4897775,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9984_4b39e86c,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_9985_d0a8730d,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_9986_fcb2480d,9. The instructor was responsive to the students queries,0
+__export__.survey_label_9987_d9deb0dc,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_9988_08f251ff,11. This course stimulated my interest,0
+__export__.survey_label_9989_166c2443,12. This course intellectually challenged me,0
+__export__.survey_label_9990_9037ba01,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_9991_a2007b20,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_9992_e2afe6ff,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_9993_5ee519b6,1. The course objectives were clear,0
+__export__.survey_label_9994_e2cc255b,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_9995_284103e7,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_9996_ba07ea6b,4. Regular classes were conducted during the course,0
+__export__.survey_label_9997_f5cc9dab,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_9998_e849cd0b,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_9999_009787e9,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10000_e45eeb70,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10001_2df56b64,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10002_3622bd24,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10003_9c463643,11. This course stimulated my interest,0
+__export__.survey_label_10004_279cd1bf,12. This course intellectually challenged me,0
+__export__.survey_label_10005_e9336c85,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10006_c52bedfb,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10007_1530b736,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10008_a74451f4,Excellent,5
+__export__.survey_label_10009_fb97fb45,V Good,4
+__export__.survey_label_10010_5abb6520,Good,3
+__export__.survey_label_10011_a02ae337,Avg,2
+__export__.survey_label_10012_587cf88a,Poor,1
+__export__.survey_label_10013_c9e4140e,Excellent,5
+__export__.survey_label_10014_e03ae64d,V Good,4
+__export__.survey_label_10015_3d030386,Good,3
+__export__.survey_label_10016_1a7ec9e3,Avg,2
+__export__.survey_label_10017_21436b55,Poor,1
+__export__.survey_label_10018_bcead920,1. The course objectives were clear,0
+__export__.survey_label_10019_65663627,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10020_1497f758,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10021_5267333e,4. Regular classes were conducted during the course,0
+__export__.survey_label_10022_05612e26,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10023_927538dc,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10024_7d3de7e0,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10025_5f85e4b0,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10026_f41004f0,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10027_d475d52f,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10028_55ffab0d,11. This course stimulated my interest,0
+__export__.survey_label_10029_3b7985b9,12. This course intellectually challenged me,0
+__export__.survey_label_10030_dfdf0dbb,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10031_2d4968a6,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10032_13ac6dd1,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10033_b86ca434,1. The course objectives were clear,0
+__export__.survey_label_10034_892a35cd,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10035_9c133acf,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10036_80391dba,4. Regular classes were conducted during the course,0
+__export__.survey_label_10037_80df5adb,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10038_014f2a19,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10039_7b66c5bc,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10040_951711e5,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10041_7410c1ac,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10042_d6b791bc,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10043_4b9d6029,11. This course stimulated my interest,0
+__export__.survey_label_10044_71b1772a,12. This course intellectually challenged me,0
+__export__.survey_label_10045_784d138f,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10046_7d10c0bb,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10047_d84e4e78,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10048_fcdaf6c7,Excellent,5
+__export__.survey_label_10049_88222384,V Good,4
+__export__.survey_label_10050_46f7b533,Good,3
+__export__.survey_label_10051_97bb7396,Avg,2
+__export__.survey_label_10052_d3d151b9,Poor,1
+__export__.survey_label_10053_bf75b1fa,Excellent,5
+__export__.survey_label_10054_41c04da5,V Good,4
+__export__.survey_label_10055_3338b4f8,Good,3
+__export__.survey_label_10056_de5fdd10,Avg,2
+__export__.survey_label_10057_e6e76a3b,Poor,1
+__export__.survey_label_10058_740ef46e,1. The course objectives were clear,0
+__export__.survey_label_10059_89f8c3b2,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10060_6c697441,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10061_55295cd8,4. Regular classes were conducted during the course,0
+__export__.survey_label_10062_53061eff,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10063_40a9cd9e,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10064_d7fa49e2,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10065_05e6ce20,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10066_8d68e131,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10067_f1c3cada,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10068_fd61a80d,11. This course stimulated my interest,0
+__export__.survey_label_10069_4fa1ebe1,12. This course intellectually challenged me,0
+__export__.survey_label_10070_2e5ac3e3,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10071_05a6bbce,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10072_f5d4e5d7,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10073_bc2b624c,1. The course objectives were clear,0
+__export__.survey_label_10074_c9078253,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10075_358e05fa,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10076_2c0abc5f,4. Regular classes were conducted during the course,0
+__export__.survey_label_10077_07091bba,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10078_18fd74c4,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10079_853a1db9,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10080_67689161,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10081_7b14ae09,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10082_dfe4d916,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10083_f1ade70a,11. This course stimulated my interest,0
+__export__.survey_label_10084_d6b83a60,12. This course intellectually challenged me,0
+__export__.survey_label_10085_ade1f9c1,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10086_5219cecb,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10087_9862b228,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10088_079f2c07,Excellent,5
+__export__.survey_label_10089_db37d242,V Good,4
+__export__.survey_label_10090_c9397fe5,Good,3
+__export__.survey_label_10091_5cc4eb67,Avg,2
+__export__.survey_label_10092_9e74d7e4,Poor,1
+__export__.survey_label_10093_2c38d863,Excellent,5
+__export__.survey_label_10094_9f0796a1,V Good,4
+__export__.survey_label_10095_88ac83f3,Good,3
+__export__.survey_label_10096_d32fa5e8,Avg,2
+__export__.survey_label_10097_576089c4,Poor,1
+__export__.survey_label_10098_d17716d4,1. The course objectives were clear,0
+__export__.survey_label_10099_93bca218,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10100_7880f08e,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10101_2655af2c,4. Regular classes were conducted during the course,0
+__export__.survey_label_10102_c3eeeae5,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10103_b94efaed,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10104_83fdb22c,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10105_cc8705b5,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10106_6ab47c12,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10107_dcdd9cdb,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10108_1ab84b69,11. This course stimulated my interest,0
+__export__.survey_label_10109_06694816,12. This course intellectually challenged me,0
+__export__.survey_label_10110_27ac8309,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10111_b69616ab,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10112_7060dd2a,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10113_e06370fc,1. The course objectives were clear,0
+__export__.survey_label_10114_fdaa8e12,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10115_77441da9,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10116_02a92adf,4. Regular classes were conducted during the course,0
+__export__.survey_label_10117_86ccee30,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10118_bc460f9a,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10119_03792d36,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10120_a7a2debb,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10121_e5a1a5de,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10122_fc5f9cff,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10123_4bf7f4d1,11. This course stimulated my interest,0
+__export__.survey_label_10124_3ab33336,12. This course intellectually challenged me,0
+__export__.survey_label_10125_3ebddbca,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10126_d1449183,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10127_baa1127e,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10128_eb332dd9,Excellent,5
+__export__.survey_label_10129_9faa4987,V Good,4
+__export__.survey_label_10130_11459cc9,Good,3
+__export__.survey_label_10131_dd180deb,Avg,2
+__export__.survey_label_10132_4243950f,Poor,1
+__export__.survey_label_10133_9358497b,Excellent,5
+__export__.survey_label_10134_0cf9c066,V Good,4
+__export__.survey_label_10135_ba56520c,Good,3
+__export__.survey_label_10136_e34bc571,Avg,2
+__export__.survey_label_10137_b3691a1e,Poor,1
+__export__.survey_label_10138_104917f0,1. The course objectives were clear,0
+__export__.survey_label_10139_6f938650,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10140_b38ea372,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10141_dba3730e,4. Regular classes were conducted during the course,0
+__export__.survey_label_10142_fbcc732f,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10143_226f658e,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10144_a873392e,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10145_11db5ce3,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10146_66a2da14,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10147_0d4c2eb0,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10148_94fe2d8e,11. This course stimulated my interest,0
+__export__.survey_label_10149_4e1eb8ea,12. This course intellectually challenged me,0
+__export__.survey_label_10150_f23089ee,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10151_b106f406,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10152_aadd679d,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10153_a85d8613,1. The course objectives were clear,0
+__export__.survey_label_10154_bfdcb8a9,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10155_85fc281f,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10156_3af11c9b,4. Regular classes were conducted during the course,0
+__export__.survey_label_10157_f5e12a38,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10158_cc1f965f,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10159_f252a465,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10160_7c72105c,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10161_a8ca7d0b,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10162_d49a6608,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10163_b9600a35,11. This course stimulated my interest,0
+__export__.survey_label_10164_51431736,12. This course intellectually challenged me,0
+__export__.survey_label_10165_cee6b92c,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10166_d4eaa0a4,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10167_f026e2ec,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10168_9b60af9c,Excellent,5
+__export__.survey_label_10169_f01f1e12,V Good,4
+__export__.survey_label_10170_54306230,Good,3
+__export__.survey_label_10171_fabcd1a3,Avg,2
+__export__.survey_label_10172_747271fb,Poor,1
+__export__.survey_label_10173_1a9aff5a,Excellent,5
+__export__.survey_label_10174_b6a7fa5b,V Good,4
+__export__.survey_label_10175_427e39e1,Good,3
+__export__.survey_label_10176_af81ed0f,Avg,2
+__export__.survey_label_10177_1a4288b7,Poor,1
+__export__.survey_label_10178_f2566905,1. The course objectives were clear,0
+__export__.survey_label_10179_50f10569,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10180_cdc8b0e2,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10181_3e71c35f,4. Regular classes were conducted during the course,0
+__export__.survey_label_10182_5ff5acb8,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10183_72028707,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10184_ae191c68,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10185_6a450c1f,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10186_c71d662b,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10187_e337ae2c,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10188_09261c8e,11. This course stimulated my interest,0
+__export__.survey_label_10189_9fb2b046,12. This course intellectually challenged me,0
+__export__.survey_label_10190_f838c3c2,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10191_af31cc80,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10192_ed74885d,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10193_1fedf95b,1. The course objectives were clear,0
+__export__.survey_label_10194_83ce6a6f,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10195_7cfcf94f,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10196_eea2d978,4. Regular classes were conducted during the course,0
+__export__.survey_label_10197_6527737c,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10198_416787b1,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10199_adaed5a2,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10200_6c580958,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10201_50093eab,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10202_382e715a,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10203_d8afc6c4,11. This course stimulated my interest,0
+__export__.survey_label_10204_5d030d1a,12. This course intellectually challenged me,0
+__export__.survey_label_10205_b8998bdc,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10206_e89ed0e6,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10207_9ff9b10e,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10208_de9914c6,Excellent,5
+__export__.survey_label_10209_36cc5935,V Good,4
+__export__.survey_label_10210_ef447e07,Good,3
+__export__.survey_label_10211_8bcb9f00,Avg,2
+__export__.survey_label_10212_5546b9b6,Poor,1
+__export__.survey_label_10213_e091994a,Excellent,5
+__export__.survey_label_10214_8456f07c,V Good,4
+__export__.survey_label_10215_db2c1f4e,Good,3
+__export__.survey_label_10216_1f76c671,Avg,2
+__export__.survey_label_10217_8b7c1416,Poor,1
+__export__.survey_label_10218_2897ce31,1. The course objectives were clear,0
+__export__.survey_label_10219_8386905a,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10220_3b309cd9,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10221_865e2b35,4. Regular classes were conducted during the course,0
+__export__.survey_label_10222_f77b4f11,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10223_31bf5f88,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10224_1432d168,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10225_38d2c1b6,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10226_968a6cba,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10227_50da4919,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10228_adab4742,11. This course stimulated my interest,0
+__export__.survey_label_10229_69d81582,12. This course intellectually challenged me,0
+__export__.survey_label_10230_de143303,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10231_f1ecd10e,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10232_c074d2db,15. The assessments and their feedback were timely shared,0
+__export__.survey_label_10233_f76779a1,1. The course objectives were clear,0
+__export__.survey_label_10234_777dc760,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+__export__.survey_label_10235_f3102eab,3. The Course was well organized with even distribution of the contents and assessments,0
+__export__.survey_label_10236_7db7ddeb,4. Regular classes were conducted during the course,0
+__export__.survey_label_10237_f98fbd3e,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+__export__.survey_label_10238_b99716e5,6. The course increased my knowledge in the subject area,0
+__export__.survey_label_10239_8c6cd891,7. I think I have made intellectual progress (apart from the grades) in this course,0
+__export__.survey_label_10240_b0c6224d,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+__export__.survey_label_10241_2d4fa0ee,9. The instructor was responsive to the students queries,0
+__export__.survey_label_10242_1a0d84ca,10. The overall environment in the class was conducive to learning,0
+__export__.survey_label_10243_574547de,11. This course stimulated my interest,0
+__export__.survey_label_10244_6430b09e,12. This course intellectually challenged me,0
+__export__.survey_label_10245_95d1103a,13. The learning resources regarding the course were adequate and appropriate in the library,0
+__export__.survey_label_10246_cde41f60,14. Recommended reading Books etc. were relevant and appropriate,0
+__export__.survey_label_10247_e258191a,15. The assessments and their feedback were timely shared,0
+survey.labels__Student Course Evaluation_1,1. The course objectives were clear,0
+survey.labels__Student Course Evaluation_10,10. The overall environment in the class was conducive to learning,0
+survey.labels__Student Course Evaluation_11,11. This course stimulated my interest,0
+survey.labels__Student Course Evaluation_12,12. This course intellectually challenged me,0
+survey.labels__Student Course Evaluation_13,13. The learning resources regarding the course were adequate and appropriate in the library,0
+survey.labels__Student Course Evaluation_14,14. Recommended reading Books etc. were relevant and appropriate,0
+survey.labels__Student Course Evaluation_15,15. The assessments and their feedback were timely shared,0
+survey.labels__Student Course Evaluation_2,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+survey.labels__Student Course Evaluation_3,3. The Course was well organized with even distribution of the contents and assessments,0
+survey.labels__Student Course Evaluation_4,4. Regular classes were conducted during the course,0
+survey.labels__Student Course Evaluation_5,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+survey.labels__Student Course Evaluation_6,6. The course increased my knowledge in the subject area,0
+survey.labels__Student Course Evaluation_7,7. I think I have made intellectual progress (apart from the grades) in this course,0
+survey.labels__Student Course Evaluation_8,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+survey.labels__Student Course Evaluation_9,9. The instructor was responsive to the students queries,0
+survey.labels__Teacher Evaluation_10,"5. Designs assignments and quizzes to help promote regularity in studies, understanding of subject and preparation of tests/exams",0
+survey.labels__Teacher Evaluation_11,6. Correlation/Relationship exists between course contents delivered/explained and scope of evaluations/exams,0
+survey.labels__Teacher Evaluation_12,7. Is Punctual to class and organizes lectures appropriately within class time,0
+survey.labels__Teacher Evaluation_13,"8. Conducts tests and assignments on time and shares the feedback promptly, letting the students know what is expected of them",0
+survey.labels__Teacher Evaluation_14,9. Remains available & guides during office hours to make interaction beneficial/productive,0
+survey.labels__Teacher Evaluation_15,10. Follows the course outline,0
+survey.labels__Teacher Evaluation_16,11. Uses appropriate language and gestures,0
+survey.labels__Teacher Evaluation_17,12. Audible and Clear in speech,0
+survey.labels__Teacher Evaluation_18,13. Maintains professional appearance inside and outside classroom,0
+survey.labels__Teacher Evaluation_19,14. Maintains conducive environment and discipline in class,0
+survey.labels__Teacher Evaluation_20,15. Takes the entire class along and pays attention to weak cases,0
+survey.labels__Teacher Evaluation_21,16. Maintains ONE standard against which papers are marked,0
+survey.labels__Teacher Evaluation_22,17. Demonstrates patience and effective interpersonal skills during class and outside interactions,0
+survey.labels__Teacher Evaluation_23,18. Encourages student participation and handles questions satisfactory to clarify ambiguities,0
+survey.labels__Teacher Evaluation_24,"19. Promotes good moral & ethical practices, personality development, sense of community, etc. though self- example, guidance, counseling and grooming",0
+survey.labels__Teacher Evaluation_25,"20. Evaluating your own self in the context of subject taught by the faculty, assess the contribution of faculty in knowledge/skills gained by you",0
+survey.labels__Teacher Evaluation_6,1. The objective of the course and each lecture/lab./project was made clear and attainable,0
+survey.labels__Teacher Evaluation_7,2. Creates interest in the subject and helps develop understanding,0
+survey.labels__Teacher Evaluation_8,3. Integrates knowledge/course contents with other subjects,0
+survey.labels__Teacher Evaluation_9,"4. Effectively uses teaching/training aids to deliver, explain and elaborate the lecture content appropriately",0
+survey.labels_Student Course Evaluation__1,Excellent,5
+survey.labels_Student Course Evaluation__2,V Good,4
+survey.labels_Student Course Evaluation__3,Good,3
+survey.labels_Student Course Evaluation__4,Avg,2
+survey.labels_Student Course Evaluation__5,Poor,1
+survey.labels_Teacher Evaluation__1,Excellent,5
+survey.labels_Teacher Evaluation__2,V Good,4
+survey.labels_Teacher Evaluation__3,Good,3
+survey.labels_Teacher Evaluation__4,Avg,2
+survey.labels_Teacher Evaluation__5,Poor,1
+__export__.survey_label_678_f6328aca,3. Integrates knowledge/course contents with other subjects,0
+__export__.survey_label_5032_e8d4a39b,V Good,4
+__export__.survey_label_6355_2a339c57,14. Work Discipline,0
+__export__.survey_label_679_82066868,"4. Effectively uses teaching/training aids to deliver, explain and elaborate the lecture content appropriately",0
+__export__.survey_label_5033_a56e6827,Good,3
+__export__.survey_label_6356_1e6e3433,15. Ability to demonstrate ethical standards and administrative responsibility,0
+__export__.survey_label_680_9b9cd9e2,"5. Designs assignments and quizzes to help promote regularity in studies, understanding of subject and preparation of tests/exams",0
+__export__.survey_label_5034_044654fc,Avg,2
+__export__.survey_label_681_fdd2b61f,6. Correlation/Relationship exists between course contents delivered/explained and scope of evaluations/exams,0
+__export__.survey_label_5035_b967bc31,Poor,1
+__export__.survey_label_682_cf3c8983,7. Is Punctual to class and organizes lectures appropriately within class time,0
+__export__.survey_label_683_11219aea,"8. Conducts tests and assignments on time and shares the feedback promptly, letting the students know what is expected of them",0
+__export__.survey_label_684_ef072e3e,9. Remains available & guides during office hours to make interaction beneficial/productive,0
+__export__.survey_label_685_ef19c077,10. Follows the course outline,0
+__export__.survey_label_686_71855a21,11. Uses appropriate language and gestures,0
+__export__.survey_label_687_dd4c763a,12. Audible and Clear in speech,0
+__export__.survey_label_688_c2671261,13. Maintains professional appearance inside and outside classroom,0
+__export__.survey_label_689_10361c74,14. Maintains conducive environment and discipline in class,0
+__export__.survey_label_690_7e290f3e,15. Takes the entire class along and pays attention to weak cases,0
+__export__.survey_label_1051_41f4da7e,16. Maintains ONE standard against which papers are marked,0
+__export__.survey_label_1052_19a01c67,17. Demonstrates patience and effective interpersonal skills during class and outside interactions,0
+__export__.survey_label_1053_67347617,18. Encourages student participation and handles questions satisfactory to clarify ambiguities,0
+__export__.survey_label_1054_e8a31734,"19. Promotes good moral & ethical practices, personality development, sense of community, etc. though self- example, guidance, counseling and grooming",0
+__export__.survey_label_1055_d8734883,"20. Evaluating your own self in the context of subject taught by the faculty, assess the contribution of faculty in knowledge/skills gained by you",0
+__export__.survey_label_1354_02ee0e29,Excellent,5
+__export__.survey_label_1355_eb45c6a6,V Good,4
+__export__.survey_label_1356_75c7c53a,Good,3
+__export__.survey_label_1357_829e6f5b,Avg,2
+__export__.survey_label_1358_18b04195,Poor,1
+__export__.survey_label_1359_6197e846,The faculty clearly stated the objectives of the lecture / lab/project/ assignment before its start.,0
+__export__.survey_label_1360_f6251409,The faculty was well prepared for the class and presented the material in an organized manner.,0
+__export__.survey_label_1361_f3817ed3,The faculty demonstrated adequate depth and breadth of knowledge related to the topic being taught.,0
+__export__.survey_label_1362_818c297d,The faculty used content and material at a level appropriate to the course and student understanding.,0
+__export__.survey_label_1363_ac779ffa,"The faculty effectively used teaching and training aids and combined various methods (visual, auditory, etc.) to accommodate the varying learning styles of students.",0
+__export__.survey_label_1364_348502a3,"The faculty encouraged student participation and patiently responded to questions asked, with appropriate examples and explanation.",0
+__export__.survey_label_1365_e118c362,"The faculty was punctual to class, maintained a conducive learning environment and classroom decorum.",0
+__export__.survey_label_1366_d58f0f04,The faculty demonstrates effective interpersonal skills and apt gestures.,0
+__export__.survey_label_1367_d56a09f5,The faculty is audible and clear in speech and used appropriate language.,0
+__export__.survey_label_1368_fb0171c2,The faculty encourages students to interact amongst themselves and with the faculty in a respectful manner during class discussions.,0
+__export__.survey_label_1369_3e523690,The faculty shared the course outline in the first week and followed the week-wise schedule.,0
+__export__.survey_label_1370_7a036590,"The faculty adheres to the academic regulations (Part II, Chapter 04 of NUST Academic Regulations).",0
+__export__.survey_label_1371_72d5beed,The faculty reviews the course content in light of the student course feedback and latest developments in the field to suggest changes / modifications for future.,0
+__export__.survey_label_1372_336ff54f,The faculty maintains professional appearance inside and outside the classroom and meets all work obligations in a professional manner.,0
+__export__.survey_label_1373_a362bd08,The faculty maintains an acceptable ethical and moral standard in their dealing with the students / colleagues / management.,0
+__export__.survey_label_1374_c774a776,The faculty remains available and provides necessary guidance to students during office hours.,0
+__export__.survey_label_1375_d4b0e9be,The faculty integrates knowledge from other relevant courses / fields and supplements the theoretical material with requisite examples and applications to augment student understanding and exposure.,0
+__export__.survey_label_1376_f225cb98,The faculty treats and evaluates all the students fairly.,0
+__export__.survey_label_1377_51cec9c6,"The faculty designs, conducts, grades and returns assignments, quizzes, one hour tests and mid-term and final exams promptly.",0
+__export__.survey_label_1378_3fdee53a,The faculty remains abreast with the latest academic rules and regulations as given in the NUST statutes and ensures that they are adhered to.,0
+__export__.survey_label_5910_2acc8b7e,On Time,0
+__export__.survey_label_5912_72b26892,Arrival of students,0
+__export__.survey_label_5915_e9ff6f23,Very Low,0
+__export__.survey_label_5920_00cad3f6,Adequacy of conducting staff,0
+__export__.survey_label_5926_42baa742,On Time,0
+__export__.survey_label_5928_48ed5381,Very Low,0
+__export__.survey_label_5933_e25bc114,Arrival of students,0
+__export__.survey_label_5936_761ad9c5,Adequacy of conducting staff,0
+__export__.survey_label_5942_a25c0343,On Time,0
+__export__.survey_label_5944_9e5aaa00,Govt,0
+__export__.survey_label_5949_3ebd44f9,Arrival of students,0
+__export__.survey_label_5958_510e130d,Manual,0
+__export__.survey_label_5961_b98e771a,Nature of Product/Services provided by company,0
+__export__.survey_label_6149_e34015d2,On Time,0
+__export__.survey_label_6151_85f3bc45,Very Low,0
+__export__.survey_label_6156_e7a1eba7,Arrival of students,0
+__export__.survey_label_6159_7b2e3645,Adequacy of conducting staff,0
+__export__.survey_label_6165_23d010e6,On Time,0
+__export__.survey_label_6167_2e695d4a,Very Low,0
+__export__.survey_label_6172_95004721,Arrival of students,0
+__export__.survey_label_6175_a4458e9a,Adequacy of conducting staff,0
+__export__.survey_label_6181_2e6731b1,On Time,0
+__export__.survey_label_6183_1b796347,Govt,0
+__export__.survey_label_6187_2bfd85b3,Manual,0
+__export__.survey_label_6190_4557d502,Arrival of students,0
+__export__.survey_label_6194_443b9f98,Nature of Product/Services provided by company,0
+__export__.survey_label_6200_7b8f6cee,On Time,0
+__export__.survey_label_6202_81c5778d,Very Low,0
+__export__.survey_label_6207_12c93949,Arrival of students,0
+__export__.survey_label_6210_da291dd0,Adequacy of conducting staff,0
+__export__.survey_label_6216_d9ba493a,On Time,0
+__export__.survey_label_6218_444d899d,Very Low,0
+__export__.survey_label_6223_fa16ae40,Arrival of students,0
+__export__.survey_label_6226_c895fc0e,Adequacy of conducting staff,0
+__export__.survey_label_6232_9021b7b9,On Time,0
+__export__.survey_label_6234_dc8a63b8,Govt,0
+__export__.survey_label_6238_f3025e13,Manual,0
+__export__.survey_label_6241_aa588367,Arrival of students,0
+__export__.survey_label_6245_c781ee6b,Nature of Product/Services provided by company,0
+__export__.survey_label_6251_253bdfe4,On Time,0
+__export__.survey_label_6253_ddbe03ef,Very Low,0
+__export__.survey_label_6258_65640428,Arrival of students,0
+__export__.survey_label_6261_ffd737aa,Adequacy of conducting staff,0
+__export__.survey_label_6267_5545a89b,On Time,0
+__export__.survey_label_6269_289de0cd,Very Low,0
+__export__.survey_label_6274_3d55eb6c,Arrival of students,0
+__export__.survey_label_6277_75c24ce9,Adequacy of conducting staff,0
+__export__.survey_label_6283_f6ad9cc7,On Time,0
+__export__.survey_label_6285_cc666300,Govt,0
+__export__.survey_label_6289_54dedfb1,Manual,0
+__export__.survey_label_6292_ca1771c8,Arrival of students,0
+__export__.survey_label_6296_ac41e5f3,Nature of Product/Services provided by company,0
+__export__.survey_label_6302_75289d00,On Time,0
+__export__.survey_label_6304_d4cf1702,Very Low,0
+__export__.survey_label_6309_bbc3ab24,Arrival of students,0
+__export__.survey_label_6312_d1f00c75,Adequacy of conducting staff,0
+__export__.survey_label_6318_6066db16,On Time,0
+__export__.survey_label_6320_ca094529,Very Low,0
+__export__.survey_label_6325_39d2bb7a,Arrival of students,0
+__export__.survey_label_6328_f76a203a,Adequacy of conducting staff,0
+__export__.survey_label_6334_d4f81771,On Time,0
+__export__.survey_label_6336_4c1240a5,Govt,0
+__export__.survey_label_6340_db6ed1e2,Manual,0
+__export__.survey_label_6343_ecf3b009,Arrival of students,0
+__export__.survey_label_6347_991b2b16,Nature of Product/Services provided by company,0
+__export__.survey_label_6353_6e4f941f,On Time,0
+__export__.survey_label_6355_000a1431,Very Low,0
+__export__.survey_label_6360_a16ba252,Arrival of students,0
+__export__.survey_label_6363_206dcdd1,Adequacy of conducting staff,0
+__export__.survey_label_6369_9ff6e407,On Time,0
+__export__.survey_label_6371_fcf7f331,Very Low,0
+__export__.survey_label_6376_1a814aa8,Arrival of students,0
+__export__.survey_label_6379_97872384,Adequacy of conducting staff,0
+__export__.survey_label_6385_0168da4e,On Time,0
+__export__.survey_label_6387_c0fc91ce,Govt,0
+__export__.survey_label_6391_23bef362,Manual,0
+__export__.survey_label_6394_b6f4481f,Arrival of students,0
+__export__.survey_label_6398_2ef18406,Nature of Product/Services provided by company,0
+__export__.survey_label_5911_53996431,Late,0
+__export__.survey_label_5913_4a20f5f3,Availability of transport,0
+__export__.survey_label_5916_5d942ede,Low,0
+__export__.survey_label_5921_0267374d,Time duration allocated for visit,0
+__export__.survey_label_5927_1db19277,Late,0
+__export__.survey_label_5929_d8ba6ccb,Low,0
+__export__.survey_label_5934_c489cc81,Availability of transport,0
+__export__.survey_label_5937_74f22479,Time duration allocated for visit,0
+__export__.survey_label_5943_237897bf,Late,0
+__export__.survey_label_5945_9662b063,Semi Govt,0
+__export__.survey_label_5950_2b1511e4,Availability of transport,0
+__export__.survey_label_5959_8e9c1ef5,Semi Automatic,0
+__export__.survey_label_5962_80a02621,Nature of Processes,0
+__export__.survey_label_6150_2219ead9,Late,0
+__export__.survey_label_6152_d589e978,Low,0
+__export__.survey_label_6157_f266706f,Availability of transport,0
+__export__.survey_label_6160_d5ac00f6,Time duration allocated for visit,0
+__export__.survey_label_6166_a13dc468,Late,0
+__export__.survey_label_6168_45d87f0f,Low,0
+__export__.survey_label_6173_7281ada8,Availability of transport,0
+__export__.survey_label_6176_1748627a,Time duration allocated for visit,0
+__export__.survey_label_6182_74f16823,Late,0
+__export__.survey_label_6184_af9e641c,Semi Govt,0
+__export__.survey_label_6188_9413acea,Semi Automatic,0
+__export__.survey_label_6191_f1077e30,Availability of transport,0
+__export__.survey_label_6195_3467f572,Nature of Processes,0
+__export__.survey_label_6201_3e2490ee,Late,0
+__export__.survey_label_6203_ca8e844a,Low,0
+__export__.survey_label_6208_7e79805b,Availability of transport,0
+__export__.survey_label_6211_e85784d4,Time duration allocated for visit,0
+__export__.survey_label_6217_4b07dcb9,Late,0
+__export__.survey_label_6219_422db436,Low,0
+__export__.survey_label_6224_6d512972,Availability of transport,0
+__export__.survey_label_6227_fd65437c,Time duration allocated for visit,0
+__export__.survey_label_6233_cfa156bf,Late,0
+__export__.survey_label_6235_66d8eb80,Semi Govt,0
+__export__.survey_label_6239_b356dfdb,Semi Automatic,0
+__export__.survey_label_6242_6f6ddde2,Availability of transport,0
+__export__.survey_label_6246_87de44df,Nature of Processes,0
+__export__.survey_label_6252_0e40fc6b,Late,0
+__export__.survey_label_6254_ae800855,Low,0
+__export__.survey_label_6259_8e5056d2,Availability of transport,0
+__export__.survey_label_6262_5201e3db,Time duration allocated for visit,0
+__export__.survey_label_6268_79a8f745,Late,0
+__export__.survey_label_6270_b94b6ce0,Low,0
+__export__.survey_label_6275_92e2620c,Availability of transport,0
+__export__.survey_label_6278_b679abf2,Time duration allocated for visit,0
+__export__.survey_label_6284_9db8ca82,Late,0
+__export__.survey_label_6286_b92fc299,Semi Govt,0
+__export__.survey_label_6290_bb49e7ee,Semi Automatic,0
+__export__.survey_label_6293_ad554bea,Availability of transport,0
+__export__.survey_label_6297_97885311,Nature of Processes,0
+__export__.survey_label_6303_c706b7cb,Late,0
+__export__.survey_label_6305_7d99aa20,Low,0
+__export__.survey_label_6310_4720d9dd,Availability of transport,0
+__export__.survey_label_6313_987237dc,Time duration allocated for visit,0
+__export__.survey_label_6319_9252edd1,Late,0
+__export__.survey_label_6321_dfdeb7ec,Low,0
+__export__.survey_label_6326_f06654be,Availability of transport,0
+__export__.survey_label_6329_af6148a8,Time duration allocated for visit,0
+__export__.survey_label_6335_26a37ff2,Late,0
+__export__.survey_label_6337_ece3a22c,Semi Govt,0
+__export__.survey_label_6341_861c3d80,Semi Automatic,0
+__export__.survey_label_6344_9e6e4401,Availability of transport,0
+__export__.survey_label_6348_3f891ddc,Nature of Processes,0
+__export__.survey_label_6354_b1fcd330,Late,0
+__export__.survey_label_6356_7be10898,Low,0
+__export__.survey_label_6361_40381e70,Availability of transport,0
+__export__.survey_label_6364_bb0e9ae6,Time duration allocated for visit,0
+__export__.survey_label_6370_c120e189,Late,0
+__export__.survey_label_6372_40d6fb42,Low,0
+__export__.survey_label_6377_443e66e2,Availability of transport,0
+__export__.survey_label_6380_1e084463,Time duration allocated for visit,0
+__export__.survey_label_6386_9c739e9e,Late,0
+__export__.survey_label_6388_bbd93058,Semi Govt,0
+__export__.survey_label_6392_ec46f815,Semi Automatic,0
+__export__.survey_label_6395_d59e107d,Availability of transport,0
+__export__.survey_label_6399_ffff1b15,Nature of Processes,0
+__export__.survey_label_5914_b96f0019,Arrival at destination,0
+__export__.survey_label_5917_25fad8de,Medium,0
+__export__.survey_label_5922_2723883b,Depth of information conveyed to students,0
+__export__.survey_label_5930_2c364f56,Medium,0
+__export__.survey_label_5935_5a2512db,Arrival at destination,0
+__export__.survey_label_5938_e77cf6fe,Depth of information conveyed to students,0
+__export__.survey_label_5946_1f374a92,Private,0
+__export__.survey_label_5951_82460965,Arrival at destination,0
+__export__.survey_label_5960_395facc2,Fully Automated,0
+__export__.survey_label_5963_474b471a,Quality Assurance functions,0
+__export__.survey_label_6153_aa22fd74,Medium,0
+__export__.survey_label_6158_6143d4eb,Arrival at destination,0
+__export__.survey_label_6161_cad31260,Depth of information conveyed to students,0
+__export__.survey_label_6169_ef802878,Medium,0
+__export__.survey_label_6174_ee90c3d2,Arrival at destination,0
+__export__.survey_label_6177_9c806242,Depth of information conveyed to students,0
+__export__.survey_label_6185_211c1e92,Private,0
+__export__.survey_label_6189_52b75910,Fully Automated,0
+__export__.survey_label_6192_f15514a2,Arrival at destination,0
+__export__.survey_label_6196_17c6ac89,Quality Assurance functions,0
+__export__.survey_label_6204_1238c977,Medium,0
+__export__.survey_label_6209_15d6e21b,Arrival at destination,0
+__export__.survey_label_6212_f351377d,Depth of information conveyed to students,0
+__export__.survey_label_6220_d78d0d98,Medium,0
+__export__.survey_label_6225_3741c0d9,Arrival at destination,0
+__export__.survey_label_6228_fb168dd9,Depth of information conveyed to students,0
+__export__.survey_label_6236_5c8cec98,Private,0
+__export__.survey_label_6240_e30a59c1,Fully Automated,0
+__export__.survey_label_6243_d23fad4c,Arrival at destination,0
+__export__.survey_label_6247_3708ac24,Quality Assurance functions,0
+__export__.survey_label_6255_d6fdaffb,Medium,0
+__export__.survey_label_6260_2c9905f9,Arrival at destination,0
+__export__.survey_label_6263_073ae644,Depth of information conveyed to students,0
+__export__.survey_label_6271_385a29fd,Medium,0
+__export__.survey_label_6276_edaf3f3a,Arrival at destination,0
+__export__.survey_label_6279_fd2b6b04,Depth of information conveyed to students,0
+__export__.survey_label_6287_bd93495b,Private,0
+__export__.survey_label_6291_d7e9d3bc,Fully Automated,0
+__export__.survey_label_6294_37fea883,Arrival at destination,0
+__export__.survey_label_6298_da0ba593,Quality Assurance functions,0
+__export__.survey_label_6306_90ae7f33,Medium,0
+__export__.survey_label_6311_a25c3ada,Arrival at destination,0
+__export__.survey_label_6314_59841b11,Depth of information conveyed to students,0
+__export__.survey_label_6322_f454fff7,Medium,0
+__export__.survey_label_6327_8070e3d3,Arrival at destination,0
+__export__.survey_label_6330_96f4cdf9,Depth of information conveyed to students,0
+__export__.survey_label_6338_06fcd214,Private,0
+__export__.survey_label_6342_3c882878,Fully Automated,0
+__export__.survey_label_6345_9e2407db,Arrival at destination,0
+__export__.survey_label_6349_976656c2,Quality Assurance functions,0
+__export__.survey_label_6357_50e76008,Medium,0
+__export__.survey_label_6362_2b974821,Arrival at destination,0
+__export__.survey_label_6365_49d86225,Depth of information conveyed to students,0
+__export__.survey_label_6373_2379272c,Medium,0
+__export__.survey_label_6378_c4213c97,Arrival at destination,0
+__export__.survey_label_6381_cf8595c9,Depth of information conveyed to students,0
+__export__.survey_label_6389_d2556049,Private,0
+__export__.survey_label_6393_3096746a,Fully Automated,0
+__export__.survey_label_6396_a09fd8eb,Arrival at destination,0
+__export__.survey_label_6400_f7d9bb42,Quality Assurance functions,0
+__export__.survey_label_5918_586cafda,High,0
+__export__.survey_label_5923_af48f1be,Administrative Arrangements,0
+__export__.survey_label_5931_3635567d,High,0
+__export__.survey_label_5939_ec630f8a,Administrative Arrangements,0
+__export__.survey_label_5947_081fd1f2,Public Ltd,0
+__export__.survey_label_5964_b69c1201,Material Handling methods,0
+__export__.survey_label_6154_0f9686e3,High,0
+__export__.survey_label_6162_d5f1589b,Administrative Arrangements,0
+__export__.survey_label_6170_96e2a396,High,0
+__export__.survey_label_6178_569ffda3,Administrative Arrangements,0
+__export__.survey_label_6186_19a61447,Public Ltd,0
+__export__.survey_label_6197_20552f27,Material Handling methods,0
+__export__.survey_label_6205_08ea5a0c,High,0
+__export__.survey_label_6213_e97f394a,Administrative Arrangements,0
+__export__.survey_label_6221_1a19edb7,High,0
+__export__.survey_label_6229_a25d63c5,Administrative Arrangements,0
+__export__.survey_label_6237_2d856162,Public Ltd,0
+__export__.survey_label_6248_37c972b0,Material Handling methods,0
+__export__.survey_label_6256_031a3936,High,0
+__export__.survey_label_6264_e548d90a,Administrative Arrangements,0
+__export__.survey_label_6272_9e2cc1f3,High,0
+__export__.survey_label_6280_d01d6c83,Administrative Arrangements,0
+__export__.survey_label_6288_0a00d905,Public Ltd,0
+__export__.survey_label_6299_79781ee7,Material Handling methods,0
+__export__.survey_label_6307_85b57b2f,High,0
+__export__.survey_label_6315_6f6d1cd1,Administrative Arrangements,0
+__export__.survey_label_6323_64df3b63,High,0
+__export__.survey_label_6331_b50fee52,Administrative Arrangements,0
+__export__.survey_label_6339_9d39f388,Public Ltd,0
+__export__.survey_label_6350_049ceede,Material Handling methods,0
+__export__.survey_label_6358_814a09a1,High,0
+__export__.survey_label_6366_a807c07f,Administrative Arrangements,0
+__export__.survey_label_6374_8ad8f337,High,0
+__export__.survey_label_6382_b50df102,Administrative Arrangements,0
+__export__.survey_label_6390_1695c36b,Public Ltd,0
+__export__.survey_label_6401_183aee74,Material Handling methods,0
+__export__.survey_label_5919_de69a0ad,Very High,0
+__export__.survey_label_5924_0c43d701,Other addministrative arrangements by the industry,0
+__export__.survey_label_5932_d3f24063,Very High,0
+__export__.survey_label_5940_0db03990,Other addministrative arrangements by the industry,0
+__export__.survey_label_5956_d3cf4654,Name of company's ownership?,0
+__export__.survey_label_5965_45c92ff0,Nature of Production Planning and Control,0
+__export__.survey_label_6155_3d9f65f1,Very High,0
+__export__.survey_label_6163_473b3cfd,Other addministrative arrangements by the industry,0
+__export__.survey_label_6171_7fa11105,Very High,0
+__export__.survey_label_6179_62ae52d8,Other addministrative arrangements by the industry,0
+__export__.survey_label_6193_5aad31dd,Name of company's ownership?,0
+__export__.survey_label_6198_16016ba1,Nature of Production Planning and Control,0
+__export__.survey_label_6206_4044b37b,Very High,0
+__export__.survey_label_6214_433b7749,Other addministrative arrangements by the industry,0
+__export__.survey_label_6222_e1165e00,Very High,0
+__export__.survey_label_6230_2432fe5a,Other addministrative arrangements by the industry,0
+__export__.survey_label_6244_ef7b4057,Name of company's ownership?,0
+__export__.survey_label_6249_9584c1ef,Nature of Production Planning and Control,0
+__export__.survey_label_6257_e8871aa7,Very High,0
+__export__.survey_label_6265_a12d1fa7,Other addministrative arrangements by the industry,0
+__export__.survey_label_6273_38bfcb6d,Very High,0
+__export__.survey_label_6281_655a417e,Other addministrative arrangements by the industry,0
+__export__.survey_label_6295_432dfc56,Name of company's ownership?,0
+__export__.survey_label_6300_3b00271a,Nature of Production Planning and Control,0
+__export__.survey_label_6308_a54a6763,Very High,0
+__export__.survey_label_6316_1398a78f,Other addministrative arrangements by the industry,0
+__export__.survey_label_6324_1d1910f4,Very High,0
+__export__.survey_label_6332_50f43cab,Other addministrative arrangements by the industry,0
+__export__.survey_label_6346_6020fcba,Name of company's ownership?,0
+__export__.survey_label_6351_f85109b0,Nature of Production Planning and Control,0
+__export__.survey_label_6359_de357782,Very High,0
+__export__.survey_label_6367_9fb26bed,Other addministrative arrangements by the industry,0
+__export__.survey_label_6375_735acc34,Very High,0
+__export__.survey_label_6383_45699c22,Other addministrative arrangements by the industry,0
+__export__.survey_label_6397_8a58e0ec,Name of company's ownership?,0
+__export__.survey_label_6402_ae1acfb2,Nature of Production Planning and Control,0
+__export__.survey_label_5925_9ad59774,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_5941_f699bace,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_5966_8bd2a9eb,Human Resource Development functions,0
+__export__.survey_label_6164_81ca48c4,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6180_9f565beb,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6199_bdd0a3ce,Human Resource Development functions,0
+__export__.survey_label_6215_3c85b315,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6231_ea4e3024,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6250_fc68028f,Human Resource Development functions,0
+__export__.survey_label_6266_59ba1312,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6282_910402b1,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6301_b829e1ba,Human Resource Development functions,0
+__export__.survey_label_6317_60d889c4,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6333_a0a9ce69,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6352_e8b19dca,Human Resource Development functions,0
+__export__.survey_label_6368_d90c41bb,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6384_517c75a4,Potential of joint research / coleboration with the visiting industry,0
+__export__.survey_label_6403_7a7a9a4e,Human Resource Development functions,0

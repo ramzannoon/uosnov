@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_dashboard" name="Dashboard">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+
+            </t>
+            <body class="sidebar_main_swipe header_full">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/dashboard">Dashboard</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <!--                        <h3 class="heading_b uk-margin-bottom">Dashboard</h3>-->
+                        <div class="uk-grid uk-grid-width-large-1-4 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="210">
+                            <div>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                        <span class="uk-text-muted uk-text-small">
+                                            <t t-esc="student.semester_id.name" t-if="student.semester_id"/>
+                                            | CGPA
+                                        </span>
+                                        <h2 class="uk-margin-remove">
+                                            <span>
+                                                <t t-esc="student.cgpa" t-if="student.cgpa"/>
+                                            </span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                                            <span class="peity_orders peity_data"><t t-esc="completed_credits"/>/
+                                                <t t-esc="student.batch_id.study_scheme_id.credits" t-if="student.batch_id.study_scheme_id.credits"/>
+                                            </span>
+                                        </div>
+                                        <span class="uk-text-muted uk-text-small">Completed CH./ Total CH.</span>
+                                        <h2 class="uk-margin-remove">
+                                            <span>
+                                                <t t-esc="completed_credits"/>
+                                                /
+                                                <t t-esc="student.batch_id.study_scheme_id.credits" t-if="student.batch_id.study_scheme_id.credits"/>
+                                            </span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                        <span class="uk-text-muted uk-text-small">Inprogress Courses</span>
+                                        <h2 class="uk-margin-remove">
+                                            <span>
+                                                <t t-esc="len(student.course_ids)" t-if="student.course_ids"/>
+                                                <t t-if="not student.course_ids">0</t>
+                                            </span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                        <span class="uk-text-muted uk-text-small">Inprogress Credits</span>
+                                        <h2 class="uk-margin-remove">
+                                            <span>
+                                                <t t-esc="inprogress_credits"/>
+                                                CH.
+                                            </span>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--     <div>
+                                      <div class="md-card">
+                                          <div class="md-card-content">
+                                              <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                              <span class="uk-text-muted uk-text-small">Inprogess Applications</span>
+                                              <h2 class="uk-margin-remove"><span>0</span></h2>
+                                          </div>
+                                      </div>
+                                  </div>
+                                <div>
+                                      <div class="md-card">
+                                          <div class="md-card-content">
+                                              <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                              <span class="uk-text-muted uk-text-small">Feedbacks Completed</span>
+                                              <h2 class="uk-margin-remove"><span>0</span></h2>
+                                          </div>
+                                      </div>
+                                  </div>-->
+
+                            <div>
+                                <div class="md-card uk-width-large" style="width: max-content !important">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                        <span class="uk-text-muted uk-text-small">Today Classes</span>
+                                        <t t-if="today_classes">
+                                            <t t-foreach="today_classes" t-as="today_class">
+                                                <div>
+
+
+                                                    <h2 class="uk-margin-remove uk-text-small">
+                                                        <span>
+                                                            <t t-esc="today_class.attendance_id.class_id.name"/>
+                                                            :
+                                                        </span>
+                                                        <!--                                                          "%02d:%02d" % (divmod(1.30 * 60, 60))-->
+                                                        <span>
+                                                            <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_from * 60, 60))"/>
+                                                            Hrs. -
+                                                            <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_to * 60, 60))"/>
+                                                            Hrs.
+                                                        </span>
+                                                    </h2>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-if="not today_classes">
+                                            <div>
+                                                No class is scheduled
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div>
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_live peity_data">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,7,3,5,2</span></div>
+                                        <span class="uk-text-muted uk-text-small">Visitors (live)</span>
+                                        <h2 class="uk-margin-remove" id="peity_live_text">46</h2>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <!-- <div class="md-card">
+                                       <div class="md-card-content">
+                                           <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_live peity_data">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,7,3,5,2</span></div>
+                                           <span class="uk-text-muted uk-text-small">AAR</span>
+                                           <h2 class="uk-margin-remove" id="peity_live_text">46</h2>
+                                       </div>
+                                   </div>-->
+                        </div>
+                        <!--  <div class="md-card">
+                              <div class="md-card-content">
+                                  <h3 class="heading_a uk-margin-bottom">Project</h3>
+
+                                  <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-12 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="120">
+                                      <div class="">
+                                         <div class="md-card">
+                          <div class="md-card-content">
+                              <div class="uk-overflow-container">
+
+                                  <table class="uk-table">
+                                      <thead>
+                                          <tr>
+                                              <th class="uk-text-nowrap">Project Name</th>
+                                              <th class="uk-text-nowrap">Supervisor</th>
+                                              <th class="uk-text-nowrap">Milestones</th>
+                                              <th class="uk-text-nowrap">Status</th>
+                                              <th class="uk-text-nowrap">Progress</th>
+                                              <th class="uk-text-nowrap uk-text-right">Due Date</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <t t-if="student_projects"></t>
+                                          <t t-foreach="student_projects" t-as="project" >
+                                              <div class="uk-modal" id="modal_project_description">
+                                  <div class="uk-modal-dialog">
+                                      <div class="uk-modal-header">
+                                          <h3 class="uk-modal-title">Description <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Project Description">&#xE8FD;</i></h3>
+                                      </div>
+                                      <p t-esc="project.description"/>
+                                      <div class="uk-modal-header">
+                                          <h3 class="uk-modal-title">Student Group <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Student Group Detail">&#xE8FD;</i></h3>
+                                      </div>
+                                      <t t-foreach="project.student_ids" t-as="student">
+                                      <div t-esc="student.name"/>
+                                      </t>
+                                      <div class="uk-modal-footer uk-text-right">
+                                          <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                      </div>
+                                  </div>
+                              </div>
+                                              <div class="uk-modal" id="modal_project_committee">
+                                  <div class="uk-modal-dialog">
+                                      <div class="uk-modal-header">
+                                          <h3 class="uk-modal-title">Supervisor And Co-Supervisor <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Project Supervisor">&#xE8FD;</i></h3>
+                                      </div>
+                                      <div style="display:flow-root" >
+
+                                           <span t-esc="project.supervisor.name" />
+                                          <span class="uk-align-right">
+                                              <img style="border-radius:5px; height:55px; width:55px;" t-att-src="image_data_uri(project.supervisor.image_1920)" alt="user" t-if="project.supervisor.image_1920"/>
+                                              </span>
+                                      </div>
+                                      <div style="display:flow-root">
+                                           <span t-esc="project.co_supervisor.name" />
+                                      <span class="uk-align-right">
+                                              <img style="border-radius:5px; height:55px;width:55px;" t-att-src="image_data_uri(project.co_supervisor.image_1920)" alt="user" t-if="project.co_supervisor.image_1920"/>
+                                              </span>
+                                          </div>
+                                      <div class="uk-modal-header uk-margin-medium-top" style="display:inline-block">
+                                          <h3 class="uk-modal-title">GEC Committee <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Project GEC Committee">&#xE8FD;</i></h3>
+                                      </div>
+                                      <t t-foreach="project.faculty_ids" t-as="faculty">
+                                      <div style="display:flow-root" >
+
+
+                                           <span t-esc="faculty.name" />
+                                          <span class="uk-align-right">
+                                              <img style="border-radius:5px; height:55px;width:55px;" t-att-src="image_data_uri(faculty.image_1920)" alt="user" t-if="faculty.image_1920"/>
+                                              </span>
+
+                                      </div>
+                                      </t>
+                                      <div class="uk-modal-footer uk-text-right">
+                                          <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <a  data-uk-modal="{target:'#modal_project_description'}"><t t-esc="project.project_title"/></a>
+                                          <tr class="uk-table-middle">
+                                              <td class="uk-width-2-10 uk-text-nowrap"><a  data-uk-modal="{target:'#modal_project_description'}"><t t-esc="project.project_title"/></a></td>
+                                              <td class="uk-width-2-10 uk-text-nowrap">
+                                                  <span class="user_avatar">
+                                              <img style="border-radius:5px; height:40px;" t-att-src="image_data_uri(project.supervisor.image_1920)" alt="user" t-if="project.supervisor.image_1920"/>
+                                                  </span>
+                                                <span> <a  data-uk-modal="{target:'#modal_project_committee'}"><t t-esc="project.supervisor.name"/></a></span> </td>
+                                              <td class="uk-width-2-10 uk-text-nowrap"></td>
+                                              <td class="uk-width-2-10 uk-text-nowrap"><span class="uk-badge"><t t-esc="project.state.capitalize()"/></span></td>
+                                              <td class="uk-width-3-10 uk-text-nowrap">
+                                                  <div class="uk-progress uk-progress-small uk-progress-warning uk-margin-remove">
+                                                      <div class="uk-progress-bar" t-attf-style="width: {{project.checklist_progress}}%;"></div>
+                                                  </div>
+                                              </td>
+                                              <td class="uk-width-2-10 uk-text-nowrap uk-text-right uk-text-muted "><t t-esc="project.date_end"/></td>
+                                          </tr>
+                                              <t t-foreach="project.selected_milestone_ids" t-as="mile_stone">
+                                          <tr class="uk-table-middle">
+                                              <td></td>
+                                              <td></td>
+                                              <td class="uk-width-3-10 uk-text-nowrap"><t t-esc="mile_stone.name"/></td>
+                                              <td class="uk-width-2-10 uk-text-nowrap"><span t-attf-class="{{'uk-badge uk-badge-warning' if not mile_stone.complition_status else 'uk-badge uk-badge-success'}}"><t t-if="mile_stone.complition_status" t-esc="mile_stone.complition_status"/> <span t-if="not mile_stone.complition_status">Pending</span></span></td>
+                                              &lt;!&ndash;<td class="uk-width-3-10">
+                                                 <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
+                                                      <div class="uk-progress-bar" style="width: 82%;"></div>
+                                                  </div>
+                                              </td>&ndash;&gt;
+                                              <td></td>
+                                              <td class="uk-width-2-10 uk-text-right uk-text-nowrap uk-text-muted"><t t-esc="mile_stone.end_date" /></td>
+                                          </tr>
+                                          </t>
+                                         &lt;!&ndash;  <tr class="uk-table-middle">
+                                               <td></td>
+                                              <td></td>
+                                              <td class="uk-width-3-10 uk-text-nowrap"><a href="">Proposal</a></td>
+                                               <td class="uk-width-2-10 uk-text-nowrap"><span class="uk-badge">In progress</span></td>
+                                              <td class="uk-width-3-10">
+                                                &lt;!&ndash;  <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
+                                                      <div class="uk-progress-bar" style="width: 82%;"></div>
+                                                  </div>&ndash;&gt;
+                                              </td>
+                                              <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small">12.12.2020</td>
+                                          </tr>
+                                          <tr class="uk-table-middle">
+                                              <td></td>
+                                              <td></td>
+                                              <td class="uk-width-3-10 uk-text-nowrap"><a href="">SRS</a></td>
+                                               <td class="uk-width-2-10 uk-text-nowrap"><span class="uk-badge uk-badge-warning">Pending</span></td>
+                                              <td class="uk-width-3-10">
+                                                &lt;!&ndash;  <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
+                                                      <div class="uk-progress-bar" style="width: 82%;"></div>
+                                                  </div>&ndash;&gt;
+                                              </td>
+                                              <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small">18.12.2020</td>
+                                          </tr>
+                                            <tr class="uk-table-middle">
+                                              <td></td>
+                                              <td></td>
+                                              <td class="uk-width-3-10 uk-text-nowrap"><a href="">Presentation</a></td>
+                                               <td class="uk-width-2-10 uk-text-nowrap"><span class="uk-badge uk-badge-warning">Pending</span></td>
+                                              <td class="uk-width-3-10">
+                                                &lt;!&ndash;  <div class="uk-progress uk-progress-mini uk-progress-warning uk-margin-remove">
+                                                      <div class="uk-progress-bar" style="width: 82%;"></div>
+                                                  </div>&ndash;&gt;
+                                              </td>
+                                              <td class="uk-width-2-10 uk-text-right uk-text-muted uk-text-small">27.01.2021</td>
+                                          </tr>&ndash;&gt;
+                                          </t>
+
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+
+                                      </div>
+
+                                     &lt;!&ndash; <div>
+                                          &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                          <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                              <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                  <h2 class="uk-margin-remove">
+                                                      <span class="countUpMe">0
+                                                          <noscript>12456</noscript>
+                                                      </span>
+                                                  </h2>
+                                                  <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                              </div>
+                                              <div class="md-card-overlay-content">
+                                                  <div class="uk-clearfix md-card-overlay-header">
+                                                      <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                      <h3>
+                                                          Publications
+                                                      </h3>
+                                                  </div>
+                                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                              </div>
+                                          </div>
+                                      </div>&ndash;&gt;
+                                  </div>
+
+                              </div>
+                          </div>-->
+                        <div class="md-card">
+
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom"></h3>
+
+                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                    <!--   <div class="">
+                                           <div class="container" id="attendance"></div>
+
+                                           <figure class="highcharts-figure">
+
+                                           </figure>
+
+                                       </div>-->
+
+                                    <div class="">
+                                        <div id="result" class="container"></div>
+
+                                        <figure class="highcharts-figure">
+
+                                        </figure>
+
+                                    </div>
+                                    <!-- <div>
+                                         &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                         <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                             <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                 <h2 class="uk-margin-remove">
+                                                     <span class="countUpMe">0
+                                                         <noscript>12456</noscript>
+                                                     </span>
+                                                 </h2>
+                                                 <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                             </div>
+                                             <div class="md-card-overlay-content">
+                                                 <div class="uk-clearfix md-card-overlay-header">
+                                                     <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                     <h3>
+                                                         Publications
+                                                     </h3>
+                                                 </div>
+                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             </div>
+                                         </div>
+                                     </div>-->
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <script>
+                    WebFontConfig = {
+                    google: {
+                    families: [
+                    'Source+Code+Pro:400,700:latin',
+                    'Roboto:400,300,500,700,400italic:latin'
+                    ]
+                    }
+                    };
+                    (function() {
+                    var wf = document.createElement('script');
+                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                    wf.type = 'text/javascript';
+                    wf.async = 'true';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(wf, s);
+                    })();
+                </script>
+                <t t-call-assets="odoocms_web.assets_aarsol_dashboard_portal" t-css="false"/>
+                <script src="/odoocms_student_portal/static/js/dashboard.js"/>
+                <script>
+                    Highcharts.chart('result', {
+                    chart: {
+                    type: 'cylinder',
+                    options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                    }
+                    },
+                    title: {
+                    text: 'Results'
+                    },
+                    subtitle: {
+                    text: 'Term wise GPA/CGPA report'
+                    },
+                    credits: {
+                    enabled: false
+                    },
+                    xAxis: {
+                    categories:<t t-esc="terms"/>,
+                    labels: {
+                    skew3d: true,
+                    style: {
+                    fontSize: '16px'
+                    }
+                    }
+                    },
+                    plotOptions: {
+
+                    series: {
+                    dataLabels: {
+                    enabled: true
+                    },
+                    }
+                    },
+                    series: [{
+                    data:<t t-esc="sgpa"/>,
+                    name: 'GPA',
+                    showInLegend: true
+                    },
+                    {
+                    data:<t t-esc="cgpa"/>,
+                    name: 'CGPA',
+                    showInLegend: true
+                    }],
+
+                    });
+
+                    Highcharts.chart('attendance', {
+                    chart: {
+                    type: 'column',
+                    options3d: {
+                    enabled: true,
+                    alpha: 10,
+                    beta: 25,
+                    depth: 70
+                    }
+                    },
+                    title: {
+                    text: 'Courses Attendance'
+                    },
+                    subtitle: {
+                    text: 'Fall 2020 attendance details'
+                    },
+                    plotOptions: {
+                    series: {
+                    dataLabels: {
+                    enabled: true,
+                    format: '{point.y:.1f}%'
+                    }},
+                    column: {
+                    depth: 25
+                    }
+                    },
+                    credits: {
+                    enabled: false
+                    },
+                    xAxis: {
+                    categories:<t t-esc="att_class"/>,
+                    labels: {
+                    skew3d: true,
+                    style: {
+                    fontSize: '16px'
+                    }
+                    }
+                    },
+                    yAxis: {
+                    title: {
+                    text: null
+                    }
+                    },
+                    series: [{
+                    name: 'Attendance %',
+                    data:<t t-esc="att_per"/>,
+                    },
+                    ]
+                    });
+                </script>
+            </body>
+        </t>
+    </template>
+    <template id="student_dashboard_new" name="Dashboard">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                <style>
+                    .user_heading_dash {
+
+                    position: relative;
+                    box-sizing: border-box;
+                    transition: all 280ms cubic-bezier(.4,0,.2,1);
+                    }
+                </style>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/dashboard">Dashboard</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner" style="padding:15px 4px 100px;">
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-tab">Academics</h3>
+
+
+                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                    <div class="uk-width-large-3-10">
+                                        <div class="user_heading_dash">
+                                            <div class="user_heading_avatar">
+
+                                                <div class="thumbnail">
+                                                    <!--                                                <img src="/odoocms_web/static/assets/img/avatars/avatar_11.png"-->
+                                                    <!--                                                     alt="user avatar"/>-->
+                                                    <img t-att-src="image_data_uri(student.image_1920)" alt="user" t-if="student and student.image_1920"/>
+                                                </div>
+                                            </div>
+                                            <div class="user_heading_content" style="padding:2px 0;">
+                                                <h2 class="heading_b" style="color:black;">
+                                                    <span class="uk-text-truncate" t-esc="student.name">
+
+                                                    </span>
+                                                    <span class="sub-heading" style="color:grey;" t-esc="student.id_number"/>
+
+
+                                                    <span class="sub-heading" style="color:grey;" t-esc="student.program_id.department_id.institute_id.name"/>
+
+                                                </h2>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-large-2-10">
+                                        <div class="user_heading_content">
+                                            Academic standings:
+                                           <!-- <t t-if="student.cgpa >= 3.0">
+                                                <t t-if="student.cgpa >= 3.50">
+                                                    <span class="md-color-green-700">Excellent</span>
+                                                </t>
+                                                <t t-if="not student.cgpa >= 3.50">
+                                                    <span class="md-color-green-700">Good</span>
+                                                </t>
+                                            </t>
+
+                                            <t t-if="not student.cgpa >= 3.0">
+                                                <t t-if="student.cgpa >= 2.50">
+                                                    <span class="md-color-orange-800">Satisfactory</span>
+                                                </t>
+                                                <t t-if="not student.cgpa >= 2.50">
+                                                    <span class="md-color-deep-orange-A400">Unsatisfactory</span>
+                                                </t>
+                                            </t>-->
+                                            -
+                                            <div>
+                                                Semester:
+                                                <t t-esc="student.semester_id.name" t-if="student.semester_id"/>
+                                            </div>
+                                            CGPA:
+
+                                            <span t-if="student.cgpa" t-attf-class="'md-color-green-700' if student.cgpa > 3.0 else 'md-color-orange-800'">
+                                                <!--<t t-esc="student.cgpa"/>--> -
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-large-2-10">
+                                        <div class="user_heading_content">
+
+                                            Completed Cr. / Total Cr :
+                                            <t t-esc="completed_credits"/>
+                                            /
+                                            <t t-esc="student.batch_id.study_scheme_id.credits" t-if="student.batch_id.study_scheme_id.credits"/>
+                                            <div>Inprogress Cr :
+                                                <t t-esc="inprogress_credits"/>
+                                            </div>
+                                            <!--<span><t t-esc="inprogress_credits" /> CH.</span>-->
+                                        </div>
+
+
+                                    </div>
+                                    <div class="uk-width-large-3-10">
+                                        <div class="user_heading_content">
+
+                                            Today Classes:
+                                            <t t-if="today_classes">
+                                                <t t-foreach="today_classes" t-as="today_class">
+
+
+                                                    <span>
+                                                        <t t-esc="today_class.attendance_id.class_id.name"/>
+                                                        :
+                                                    </span>
+                                                    <!--                                                          "%02d:%02d" % (divmod(1.30 * 60, 60))-->
+                                                    <span>
+                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_from * 60, 60))"/>
+                                                        Hrs. -
+                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.attendance_id.time_to * 60, 60))"/>
+                                                        Hrs.
+                                                    </span>
+
+                                                </t>
+                                            </t>
+                                            <t t-if="not today_classes">
+
+                                                <span class="md-color-green-700">No class is scheduled</span>
+
+                                            </t>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <h3 class="heading_a uk-tab">Classes, Grades and Attendance</h3>
+                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4  uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                    <t t-if="len(student.course_ids)>0">
+                                        <t t-foreach="student.course_ids" t-as="course">
+                                            <t t-if="course.primary_class_id.name">
+                                                <!--                                                                t-attf-style="background:{{color[course_index]}}" -->
+
+                                                <div>
+                                                    <!-- <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">
+                                                         <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>
+                                                        <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >
+                                                         <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>
+                                                            </div>
+                                                     </div>-->
+                                                    <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/results/id/{{course.id}}">
+                                                        <span class="md-list-heading md-color-grey-900" t-esc="course.primary_class_id.name"/>
+                                                        <div class="">
+                                                            <span class="sub-heading md-color-blue-grey-600 " t-esc="str(course.course_id.code)"/>
+                                                            <b class="uk-text-small md-color-blue-grey-600">Credits :</b>
+                                                            <span class="md-list-heading md-color-blue-grey-600" t-esc="course.credits"/>
+                                                             <t t-if="course.state in ('lock','submit','disposal','approval','verify')">
+                                                                                         <span class="md-color-blue-grey-600" >Grading in progress</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('draft','current')">
+                                                                                         <span class="md-color-blue-grey-600">Active Class</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('done','notify')">
+                                                                                        <b class="uk-text-small">Marks | Grade :</b>
+                                                                                        <span>
+                                                                                            <b t-esc="course.normalized_marks"></b>
+                                                                                            |
+                                                                                            <b t-esc="course.grade"></b>
+                                                                                        </span>
+                                                                                    </t>
+                                                            <div class="uk-text-small">Attendance:<t t-esc="course.attendance_percentage"/>%
+                                                                <span t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if course.attendance_percentage>=76 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">
+                                                                </span>
+                                                                <span class="uk-text-small"><t t-esc="course.term_id.name"/> </span>
+                                                            </div>
+
+                                                        </div>
+                                                        <!--                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>-->
+                                                        <!--                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>-->
+                                                    </a>
+
+                                                </div>
+
+
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-if="not len(student.course_ids)>0">
+                                        <div style="margin-left:3%;">Result classes not available.</div>
+                                    </t>
+                                </div>
+                                <h3 class="heading_a uk-tab">News and Announcements</h3>
+                              <!--  <t t-if="not len(notifications) > 0">
+                                    <span>Stay tuned.</span>
+                                </t>
+                                <t t-foreach="notifications" t-as="notification">
+                                    <li style="max-height: 150px">
+                                        <div class="md-card">
+                                            <div style="height: 180px;">
+                                                <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" t-if="not notification.image"/>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <strong>
+                                                    <a href="/student/notifications">
+                                                        <span class="md-list-heading">
+                                                            <t t-esc="notification.name"/>
+                                                        </span>
+                                                    </a>
+                                                </strong>
+                                                <br/>
+                                                <span class="uk-text-muted">
+                                                    <t t-esc="str(notification.date)[:19]"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </t>-->
+                                <t t-if="not len(notifications) > 0">
+                                                <span>Stay tuned.</span>
+                                            </t>
+                                <div class="uk-slidenav-position" data-uk-slider="{center:true,autoplay: true,autoplayInterval: '5000'}">
+
+                                    <div class="uk-slider-container">
+                                        <ul class="uk-slider uk-slider-center uk-grid-width-medium-1-5 uk-grid-width-small-1-2">
+                                            <t t-foreach="notifications" t-as="notification">
+                                                <li style="padding:10px;">
+                                                    <div class="md-card">
+                                                        <div style="height: 180px;">
+                                                            <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                            <img src="/odoocms_web/static/assets/img/superior1.jpg" alt="" t-if="not notification.image"/>
+                                                        </div>
+                                                        <div class="md-card-content">
+                                                            <strong>
+                                                                <a href="/student/notifications">
+                                                                    <span class="md-list-heading">
+                                                                        <t t-esc="notification.name"/>
+                                                                    </span>
+                                                                </a>
+                                                            </strong>
+                                                            <br/>
+                                                            <span class="uk-text-muted">
+                                                                <t t-esc="str(notification.date)[:19]"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </div>
+
+                                    <a href="#" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous"></a>
+                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <!-- <script src="/odoocms_student_portal/static/js/dashboard.js"/>-->
+            </body>
+        </t>
+    </template>
+</odoo>

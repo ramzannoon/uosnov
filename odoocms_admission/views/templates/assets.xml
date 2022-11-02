@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="odoocms_admission_online_frontend_style" name="Online Admission Form"
+              inherit_id="web.assets_frontend" active="True">
+        <xpath expr="." position="inside">
+			<link rel="stylesheet" href="/odoocms_admission/static/css/custom.css"/>
+
+
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_hostel_type_form" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.type.form</field>
+        <field name="model">odoocms.hostel.type</field>
+        <field name="arch" type="xml">
+            <form string="Hostel Type">
+                <header>
+                    <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                    <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <group col="4">
+                        <field name="name" placeholder="Hostel Name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                        <field name="code" placeholder="Hostel Code" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                        <field name="type" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                    </group>
+                    <group col="2">
+                        <field name="other_info" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Room Detail">
+                            <field name="room_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="hostel_type_id"/>
+                                    <field name="floor_no" optional="1"/>
+                                    <field name="hostel_id"/>
+                                    <field name="room_capacity"/>
+                                    <field name="allocated_number"/>
+                                    <field name="vacancy"/>
+                                </tree>
+                                <form>
+                                    <group col="4">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="hostel_type_id"/>
+                                        <field name="floor_no"/>
+                                        <field name="hostel_id"/>
+                                        <field name="room_capacity"/>
+                                        <field name="allocated_number"/>
+                                        <field name="vacancy"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_type_tree" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.type.tree</field>
+        <field name="model">odoocms.hostel.type</field>
+        <field name="arch" type="xml">
+            <tree string="Hostel Type" decoration-success="active == True">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="type"/>
+                <field name="state"/>
+                <field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_type_search" model="ir.ui.view">
+        <field name="name">odoocms.hostel.type.search</field>
+        <field name="model">odoocms.hostel.type</field>
+        <field name="arch" type="xml">
+            <search string="Hostel Types">
+                <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                <field name="code"/>
+                <newline/>
+                <filter string="Boys" name="filter_by_boys" domain="[('type', '=', 'Boys')]"/>
+                <filter string="Girls" name="filter_by_girls" domain="[('type', '=', 'Girls')]"/>
+                <filter string="Common" name="filter_by_common" domain="[('type', '=', 'Commons')]"/>
+                <group expand="0" string="Group By...">
+                    <filter name="group_by_type" string="Type" domain="[]" context="{'group_by':'type'}"/>
+                </group>
+                <searchpanel>
+                    <field name="type" icon="fa-building"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_type_pivot" model="ir.ui.view">
+        <field name="name">odoocms.hostel.type.pivot</field>
+        <field name="model">odoocms.hostel.type</field>
+        <field name="arch" type="xml">
+            <pivot string="Hostel Types" display_quantity="true">
+                <field name="id"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_type_graph" model="ir.ui.view">
+        <field name="name">odoocms.hostel.type.graph</field>
+        <field name="model">odoocms.hostel.type</field>
+        <field name="arch" type="xml">
+            <graph string="Hostel Types">
+                <field name="id"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_hostel_type" model="ir.actions.act_window">
+        <field name="name">OdooCMS Hostel</field>
+        <field name="res_model">odoocms.hostel.type</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to New Hostel Type.
+            </p>
+            <p>
+                Manage all Hostel Types.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="odoocms_hostel_type_menu"
+            name="Hostel Types"
+            parent="menu_odoocms_hostel_hostel_config"
+            action="action_odoocms_hostel_type"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="10"/>
+
+</odoo>

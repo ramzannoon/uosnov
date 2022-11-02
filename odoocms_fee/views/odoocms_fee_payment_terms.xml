@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- odoocms Fee Payment  -->
+        <record id="view_odoocms_fee_payment_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.payment.tree</field>
+            <field name="model">odoocms.fee.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Payment" delete="false" editable="bottom" decoration-success="state == 'done'" decoration-primary="state == 'draft'" decoration-danger="state == 'error'">
+                    <field name="receipt_number" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="student_id" readonly="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    <field name="date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="description" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="amount" readonly="1"/>
+                    <field name="id_number" readonly="1"/>
+                    <field name="transaction_date" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="invoice_id" readonly="1"/>
+                    <field name="session_id" readonly="1"/>
+                    <field name="campus_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="term_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="semester_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="state" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="journal_id" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    <field name="student_ledger_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="career_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="program_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="institute_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="discipline_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="campus_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="term_id" optional="hide" attrs="{'readonly':[('state','!=','draft')]}"/>
+                    <field name="tag" readonly="1"/>
+                    <field name="doc_no" invisible="1"/>
+                    <button name="action_read_fee_payments" type="object"
+                            string="Setup" class="float-right btn-secondary"
+                            attrs="{'readonly':[('state','!=','draft')]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.payment.form</field>
+            <field name="model">odoocms.fee.payment</field>
+            <field name="arch" type="xml">
+                <form string="Fee Payment">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="date" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="description" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="amount" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="received_amount" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="diff_amount" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="doc_no" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="receipt_number" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="invoice_id" context="{'form_view_ref': 'odoocms_fee.odoocms_receipt_form'}"
+                                       attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="journal_id" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="student_ledger_id" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                                <field name="payment_register_id" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            </group>
+
+                            <group>
+                                <field name="id_number"/>
+                                <field name="student_id"/>
+                                <field name="institute_id"/>
+                                <field name="campus_id"/>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="career_id"/>
+                                <field name="program_id"/>
+                                <field name="discipline_id"/>
+                                <field name="semester_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_pivot" model="ir.ui.view">
+            <field name="name">oodocms.fee.payment.pivot</field>
+            <field name="model">odoocms.fee.payment</field>
+            <field name="arch" type="xml">
+                <pivot string="Fee Payment" display_quantity="true">
+                    <field name="campus_id" type="row"/>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="amount" type="measure" widget="monetary"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_graph" model="ir.ui.view">
+            <field name="name">oodoocms.fee.payment.graph</field>
+            <field name="model">odoocms.fee.payment</field>
+            <field name="arch" type="xml">
+                <graph string="Fee Payment">
+                    <field name="campus_id" type="row"/>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="amount" type="measure" widget="monetary"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_payment_search_view" model="ir.ui.view">
+            <field name="name">oodoocms.fee.payment.search</field>
+            <field name="model">odoocms.fee.payment</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Fee Payment">
+                    <field name="receipt_number"/>
+                    <field name="student_id"/>
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="amount"/>
+                    <field name="id_number"/>
+                    <field name="transaction_date"/>
+                    <field name="invoice_id"/>
+                    <field name="session_id"/>
+                    <field name="campus_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="state"/>
+                    <field name="journal_id"/>
+                    <field name="student_ledger_id"/>
+                    <field name="career_id"/>
+                    <field name="program_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="campus_id"/>
+                    <field name="term_id"/>
+                    <field name="tag"/>
+
+                    <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                    <filter name="done" string="Done" domain="[('state', '=','done')]"/>
+                    <filter name="error" string="Error" domain="[('state', '=','error')]"/>
+                    <separator/>
+                    <filter name="date" string="Date" date="date"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_session_id" string="Academic Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career_id" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <separator/>
+                        <filter name="group_term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_semester_id" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                        <separator/>
+                    </group>
+
+                    <searchpanel>
+                        <field name="state"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_payment" model="ir.actions.act_window">
+            <field name="name">Fee Payment</field>
+            <field name="res_model">odoocms.fee.payment</field>
+            <field name="view_mode">tree,pivot,graph,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_payment"
+                parent="menu_odoocms_student_fee_payment_main"
+                name="Fee Payment"
+                action="action_odoocms_fee_payment"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="20"/>
+
+
+        <record id="view_odoocms_payment_terms_form" model="ir.ui.view">
+            <field name="name">odoocms.payment.terms.form</field>
+            <field name="model">odoocms.payment.terms</field>
+            <field name="arch" type="xml">
+                <form string="Payment Terms">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="code"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <group string="Description">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_payment_terms_tree" model="ir.ui.view">
+            <field name="name">odoocms.payment.terms.tree</field>
+            <field name="model">odoocms.payment.terms</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Terms">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_payment_terms_filter" model="ir.ui.view">
+            <field name="name">odoocms.payment.terms.filter</field>
+            <field name="model">odoocms.payment.terms</field>
+            <field name="arch" type="xml">
+                <search string="Payment Terms">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_payment_terms" model="ir.actions.act_window">
+            <field name="name">Payment Terms</field>
+            <field name="res_model">odoocms.payment.terms</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here to Create New Fee Payment Term here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_payment_terms"
+                action="action_odoocms_payment_terms"
+                parent="menu_fee_configuration_others"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="10"/>
+
+    </data>
+</odoo>

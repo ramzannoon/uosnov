@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <record id="view_odoocms_class_primary_form_exam" model="ir.ui.view">
+            <field name="name">odoocms.class.primary.form</field>
+            <field name="model">odoocms.class.primary</field>
+            <field name="priority">64</field>
+            <field name="arch" type="xml">
+                <form string="Primary Class">
+                    <header>
+<!--                        <button name="compute_result" type="object"-->
+<!--                            attrs="{'invisible': [('state','!=','disposal')]}"-->
+<!--                            class="oe_highlight" string="Compute Result"-->
+<!--                            groups="base.group_no_one,odoocms_exam.group_exam_manager"/>-->
+<!--                        <button name="finalize_result" type="object"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'approval')]}"-->
+<!--                            class="oe_highlight" string="Finalize Result"-->
+<!--                            groups="base.group_no_one,odoocms_exam.group_exam_manager"/>-->
+
+                        <field name="state" widget="statusbar" statusbar_visible="disposal,approval,done"/>
+                    </header>
+                    <sheet string="Class">
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_students" type="object" widget="statinfo"
+                                    class="oe_stat_button" icon="fa-user" attrs="{'invisible': [('student_count', '=', 0)]}">
+                                <field name="student_count" widget="statinfo" string="Students"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="career_id"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="batch_id" attrs="{'invisible': [('class_type','=', 'special')]}"/>
+                                <field name="section_id" attrs="{'invisible': [('class_type','in', ('elective','special'))]}"/>
+                                <field name="study_scheme_id"/>
+                            </group>
+                            <group>
+                                <field name="term_id"/>
+                                <field name="study_scheme_line_id"/>
+
+                            </group>
+                            <group>
+                                <field name="grade_staff_id" string="Faculty Member" readonly="1"/>
+                                <field name="student_count"/>
+                                <field name="class_type" invisible="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="students" string="Students">
+                                <field name="registration_ids" nolabel="1">
+                                    <tree string="Students" edit="false" delete="false" create="false">
+                                        <field name="student_id"/>
+                                        <field name="program_id"/>
+                                        <field name="session_id"/>
+                                        <field name="term_id"/>
+                                        <field name="grade"/>
+                                        <field name="gpa"/>
+                                        <field name="grade_points"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+<!--                            <page string="Assessment Types" name="Assessment_types">-->
+<!--                                <group>-->
+<!--                                    <field name="assessment_component_ids" nolabel="1">-->
+<!--                                        <tree edit="false" delete="false" create="false">-->
+<!--                                            <field name="assessment_type_id"/>-->
+<!--                                            <field name="weightage"/>-->
+<!--                                        </tree>-->
+<!--                                    </field>-->
+<!--                                </group>-->
+<!--                            </page>-->
+
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_class_primary_tree_exam" model="ir.ui.view">
+            <field name="name">odoocms.class.primary.tree</field>
+            <field name="priority">64</field>
+            <field name="model">odoocms.class.primary</field>
+            <field name="arch" type="xml">
+                <tree string="Class">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="term_id"/>
+                    <field name="student_count"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="view_odoocms_class_search_exam" model="ir.ui.view">-->
+<!--            <field name="name">odoocms.class.search</field>-->
+<!--            <field name="priority">64</field>-->
+<!--            <field name="model">odoocms.class</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Class">-->
+<!--                    <field name="name" />-->
+<!--                    <field name="code"/>-->
+<!--                    <newline />-->
+<!--                    <filter name='result_classes' string="Result" domain="[('state','in',('submit','grade','grade2'))]" />-->
+<!--                    <filter name='passed_classes' string="Passed" domain="[('state','=','done')]" />-->
+<!--                    <newline />-->
+<!--                    <group expand="0" string="Group By...">-->
+<!--                        <filter name="academic_session" string="Academic Session" domain="[]" context="{'group_by':'academic_session_id'}" />-->
+<!--                        <filter name="academic_semester" string="Academic Term" domain="[]" context="{'group_by':'term_id'}" />-->
+<!--                        <filter name="batch" string="Batch" domain="[]" context="{'group_by':'batch_id'}" />-->
+<!--                        <filter name="section" string='Section' domain="[]" context="{'group_by':'section_id'}"/>-->
+<!--                        <filter name="faculty_staff" string='Faculty Staff' domain="[]" context="{'group_by':'faculty_staff_id'}"/>-->
+<!--                    </group>-->
+<!--                     <searchpanel>-->
+<!--                    <field name="academic_session_id" icon="fa-users"/>-->
+<!--                    <field name="batch_id" icon="fa-users"/>-->
+<!--                     <field name="term_id" icon="fa-users"/>-->
+<!--                    <field name="section_id" icon="fa-users"/>-->
+<!--                </searchpanel>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+        <record id="action_odoocms_class_primary_exam" model="ir.actions.act_window">
+            <field name="name">Class Results</field>
+            <field name="res_model">odoocms.class.primary</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="search_view_id" ref="view_odoocms_class_search_exam"/>-->
+            <field name="view_ids"
+               eval="[(5, 0, 0),
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('view_odoocms_class_primary_tree_exam')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('view_odoocms_class_primary_form_exam')}),
+               ]"/>
+            <field name="domain">[('state','in',('disposal','approval','verify','done'))]</field>
+            <field name="context">{
+                'search_default_result_classes':1,
+                'search_default_academic_session':1,
+                'search_default_batch':1,
+                'search_default_section':1,
+                }</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_exam_result"
+                parent="menu_odoocms_exam_main1"
+                name="Exam Results"
+                action="action_odoocms_class_primary_exam"
+                sequence="20"/>
+
+<!--        <menuitem-->
+<!--                id="menu_odoocms_results_subject_line"-->
+<!--                parent="menu_odoocms_exam_report"-->
+<!--                action="action_odoocms_results_subject_line"-->
+<!--                name="Analysis"-->
+<!--                sequence="22"/>-->
+
+    </data>
+</odoo>

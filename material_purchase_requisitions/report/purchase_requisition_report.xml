@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="purchase_requisition_layout">
+            <div class="header">
+                <div class="row">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="width:100%;height:150px;"/>
+                    </div>
+                    <div class="col-9 text-center">
+                        <h2>
+                            <br/>
+                            <br/>
+                            <span>Requisition Form</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                <div>
+                    <table style="width:100%">
+                        <tr>
+                            <th style="width:70%">SIGNATURE OF RECIPIENT</th>
+                            <th style="width:30%;">SIGNATURE OF AUTHORIZED</th>
+                        </tr>
+                        <tr>
+                            <th style="padding-top:30px">Name: ________________________</th>
+                            <th>Name: ________________________</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </template>
+
+        <template id="purchase_requisition">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="material_purchase_requisitions.purchase_requisition_layout">
+                        <style>
+                            div{
+                            width: 100%;
+                            margin-top: 28px;
+                            }
+                            table{
+                            width: 100%;
+                            }
+                            th{
+                            padding: 2px;
+                            }
+                            td{
+                            padding: 2px;
+                            }
+                        </style>
+                        <div class="page">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th class="text-right" style="width:80%">Date</th>
+                                        <td style="width:20%; border-bottom:2px solid black"><span t-esc="get_date_format(doc.request_date)"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="text-center">
+                                <h4>Kindly allow the provision of the following items for official use:</h4>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th class="text-right" style="width:75%">Department</th>
+                                        <td style="width:25%; border-bottom:2px solid black"><span t-esc="doc.department_id.name"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <table>
+                                    <tr class="text-center">
+                                        <th style="width:10%; border:1px solid black;">Sr:#</th>
+                                        <th style="width:80%; border:1px solid black;">Items Description</th>
+                                        <th style="width:10%; border:1px solid black;">Nos.</th>
+                                    </tr>
+                                    <t t-set="sr_no" t-value="1"/>
+                                    <t t-foreach="doc.requisition_line_ids" t-as="line">
+                                        <tr>
+                                            <td class="text-center" style="border:1px solid black;"><span t-esc="sr_no"/></td>
+                                            <td style="border:1px solid black;"><span t-esc="line.description"/></td>
+                                            <td class="text-center" style="border:1px solid black;"><span t-esc="line.qty"/></td>
+                                        </tr>
+                                        <t t-set="sr_no" t-value="sr_no + 1"/>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

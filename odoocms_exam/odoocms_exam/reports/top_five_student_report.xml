@@ -1,0 +1,82 @@
+<odoo>
+
+	<template id ="odoocms_exam.top_five_student_report">
+			<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+                <style>
+                    #class-result {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    #class-result td, #class-result th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #class-result tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #class-result tr:hover {background-color: #ddd;}
+
+                    #class-result th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; border-style: double; padding:10px ">
+
+                    <div style="font-size:14px;font-weight:bold;text-align:center;">
+                          <span>Top </span><span t-esc="len_student_semester"/> <span> Students</span>
+                    </div>
+                    <div style="font-size:14px;text-align:left;">
+                        <span style="text-weight:bold ">Batch:</span>&#160;<span style="color:#4b1869" t-esc="batch_id.name"/>
+                    </div>
+                    <div style="font-size:14px; text-align:left;">
+                       <span style="text-weight:bold ">Term:</span>&#160; <span style="color:#4b1869" t-esc="term_id.name"/>
+                    </div>
+
+                    <table id="class-result">
+                         <tr>
+                             <th style="width:8%">Sr. No</th>
+                             <th style="width:20%">Roll Number</th>
+                             <th style="tet-align:center; width:30%">Name</th>
+                             <th style="tet-align:center; width:30%">Father Name</th>
+                             <th style="text-align:right;width:10%">SGPA</th>
+                             <th style="text-align:center;width:10%">CGPA</th>
+                         </tr>
+                         <t t-foreach="student_term" t-as="rec">
+                             <tr style="font-size:12px;">
+                                 <td><span t-esc="rec_index+1" /></td>
+                                 <td><span t-esc="rec.student_id.code" /></td>
+                                 <td><span t-esc="rec.student_id.name" /></td>
+                                 <td><span t-esc="rec.student_id.father_name" /></td>
+                                 <td style="text-align:right"><span t-esc="rec.sgpa" t-options='{"widget": "float", "precision": 2}' /></td>
+                                 <td style="text-align:center"><span t-esc="rec.student_id.cgpa" t-options='{"widget": "float", "precision": 2}'/></td>
+                             </tr>
+                         </t>
+                     </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

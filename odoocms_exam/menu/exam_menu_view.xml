@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <menuitem
+                id="menu_odoocms_exam_root"
+                name="Student Exam"
+                groups="odoocms.group_cms_manager,odoocms_exam.group_exam_user"
+                web_icon="odoocms_exam,static/description/icon.png"
+                sequence="14"/>
+
+        <menuitem
+                id="menu_odoocms_exam_main"
+                parent="menu_odoocms_exam_root"
+                name="Examination"
+                sequence="3"/>
+
+        <menuitem
+                id="menu_odoocms_exam_main1"
+                parent="menu_odoocms_exam_main"
+                name="Exam"
+                sequence="15"/>
+
+        <menuitem
+                id="menu_odoocms_student_course_request"
+                parent="menu_odoocms_exam_root"
+                name="Request"
+                sequence="50"/>
+
+         <menuitem
+                id="menu_odoocms_exam_report"
+                parent="menu_odoocms_exam_root"
+                name="Report"
+                sequence="75"/>
+
+        <menuitem
+                id="menu_odoocms_exam_configuration"
+                parent="menu_odoocms_exam_root"
+                groups="odoocms.group_cms_manager,odoocms_exam.group_exam_manager"
+                name="Configuration"
+                sequence="150"/>
+
+</odoo>
+

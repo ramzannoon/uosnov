@@ -1,0 +1,159 @@
+<odoo>
+
+	<template id ="odoocms_exam.student_term_dmc_report">
+		<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <style>
+                    #merit-list {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    #merit-list td, #merit-list th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #merit-list tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #merit-list tr:hover {background-color: #ddd;}
+
+                    #merit-list th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    #personal-info td, #personal-info th {
+                      padding: 6px;
+                    }
+
+                    #personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; border-style: double; padding:10px ">
+                    <div class="row">
+                        <div style="width:13%; height:100px; padding:5px; margin-left:10px; border:1px solid #f2f2f2">
+                            <img alt="..." width="200px" height="200px" class="rounded mb-2 img-thumbnail" t-att-src="image_data_uri(company.logo)" t-if="company.logo" />
+                        </div>
+                        <div style="width:84% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company.name" t-if="company"/>
+                            </div>
+                            <div>
+                                <span>Department of</span>&#160;
+                                <span t-esc="student.program_id.department_id.name" t-if="student.program_id.department_id.name"/>
+                            </div>
+                            <div>
+<!--                                 <span>Faculty of</span>&#160;-->
+<!--                                <span t-esc="student.program_id.department_id.institute_id.name" t-if="student.program_id.department_id.institute_id.name"/>-->
+                                <span>&#160;-&#160;</span>
+                            </div>
+                             <div>
+                                <span style="font-size:14px; font-weight:bold; text-align:center; margin-top:10px"> DMC Transcript</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="margin-top:25px; height:">
+                        <div style="display:block; width:50%; vertical-align: middle; float:left">
+                            <table id="personal-info">
+                                 <tr>
+                                     <th>Name:</th> <td style="white-space: nowrap"><span t-esc="student.first_name"/> <span style="padding-left:2px;" t-esc="student.last_name"/></td>
+                                 </tr>
+                                <tr>
+                                     <th>Father's Name:</th><td style="white-space: nowrap"><span t-esc="student.father_name"/></td>
+                                </tr>
+                                <tr>
+                                     <th>Program:</th><td style="white-space: nowrap"><span t-esc="student.program_id.name"/></td>
+                                </tr>
+                            </table>
+                         </div>
+                         <div style="display:block; width:50%; vertical-align: middle; float:left">
+                            <table id="personal-info">
+                                <tr>
+                                     <th>Registration No:</th><td style="white-space: nowrap" colspan="2"><span t-esc="student.code"/></td>
+                                </tr>
+                                <tr>
+                                     <th>Session:</th><td style="white-space: nowrap" colspan="2"><span t-esc="student.session_id.name"/></td>
+                                </tr>
+                                <tr>
+                                     <th >Semester:</th><td style="white-space: nowrap" colspan="2"><span  t-esc="term.term_id.name" t-if="term"/></td>
+                                </tr>
+                            </table>
+                         </div>
+
+
+                    </div>
+                    <table id="merit-list">
+                         <tr>
+<!--                             <th style="width:8%">Sr. No</th>-->
+                             <th style="width:22%">Course Code</th>
+                             <th style="width:40%">Course Title</th>
+                             <th style="width:10%">Credit Hrs</th>
+                             <th style="text-align:right; width:10%">Obtained % Marks</th>
+                             <th style="text-align:right; width:10%">GPA</th>
+                             <th style="text-align:center; width:10%">Grade</th>
+                         </tr>
+                         <t t-foreach="term.student_course_ids" t-as="course">
+                             <tr style="font-size:12px;">
+                                 <td><span t-esc="course.course_code" t-if="course.course_code"/></td>
+                                 <td><span t-esc="course.course_name" t-if="course.course_name"/></td>
+                                 <td><span t-esc="course.primary_class_id.credits" t-if="course.primary_class_id"/></td>
+                                 <td style="text-align:right"><span t-esc="'{0:,.2f}'.format(course.total_marks)" /></td>
+                                 <td style="text-align:right"><span t-esc="course.gpa" /></td>
+                                 <td style="text-align:center"><span t-esc="course.grade" /></td>
+                             </tr>
+                         </t>
+                        <tr>
+                             <td colspan="2" style="text-align:center">SGPA</td>
+                            <td colspan="4" style="text-align:center"><span t-esc="term.sgpa" /></td>
+                        </tr>
+                     </table>
+                    <div style="text-align:right; margin-top:30px; margin-bottom:15px">
+                        <span style="width=50%"> <span style="font-size:15px; font-weight:bold">HOD Signature:</span><span>__________________________</span></span>
+                    </div>
+                    <div style="margin-top:15px; margin-bottom:15px">
+                        <span style="width=30%">
+                                  <span style="font-size:15px; font-weight:bold">Generated Date:</span>
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y %H:%M')"/>
+                        </span>
+                    </div>
+<!--                    <div style="margin-top:15px; margin-bottom:15px">-->
+<!--                        <span>-->
+<!--                            <span style="font-weight:bold"> Note:</span> Errors/Omissions Expected. Any mistake must be intimated within 30 days of the issuance of this certificate.-->
+<!--                        </span>-->
+<!--                    </div>-->
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>

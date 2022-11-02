@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_student_ledger_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.tree</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="arch" type="xml">
+            <tree string="Ledger" create="false" duplicate="false" edit="false">
+                <field name="student_id"/>
+                <field name="slip_barcode" string="Slip Barcode"/>
+                <field name="date"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="program_id" optional="1"/>
+                <field name="institute_id" optional="1"/>
+                <field name="discipline_id" optional="1"/>
+                <field name="campus_id" optional="1"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="invoice_id"/>
+                <field name="payment_id"/>
+                <field name="description" optional="1"/>
+                <field name="debit"/>
+                <field name="credit"/>
+                <field name="balance_str" string="Balance"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_ledger_from" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.form</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="arch" type="xml">
+            <form string="Student Ledger" create="false" duplicate="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="invoice_id" context="{'form_view_ref': 'odoocms_fee.odoocms_fee.odoocms_receipt_form'}"/>
+                            <field name="payment_id"/>
+                            <field name="date"/>
+                            <field name="debit"/>
+                            <field name="credit"/>
+                            <field name="balance_str" string="Balances"/>
+                        </group>
+                        <group>
+                            <field name="session_id"/>
+                            <field name="career_id"/>
+                            <field name="program_id"/>
+                            <field name="institute_id"/>
+                            <field name="discipline_id"/>
+                            <field name="campus_id"/>
+                            <field name="term_id"/>
+                            <field name="semester_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Fee Concession  Search -->
+    <record id="view_odoocms_student_ledger_search" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.search</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="arch" type="xml">
+            <search string="Student Ledger">
+                <field name="name"/>
+                <field name="slip_barcode"/>
+                <field name="date"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="program_id"/>
+                <field name="institute_id"/>
+                <field name="discipline_id"/>
+                <field name="campus_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="invoice_id"/>
+                <field name="payment_id"/>
+                <newline/>
+
+                <group expand="0" string="Group By...">
+                    <filter name="group_session_id" string="Academic Session" domain="[]" context="{'group_by':'session_id'}"/>
+                    <filter name="group_career_id" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                    <separator/>
+                    <filter name="group_term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="group_semester_id" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                    <separator/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_odooscms_student_ledger_pivot" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.pivot</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="priority">64</field>
+        <field name="arch" type="xml">
+            <pivot string="Student Ledger" display_quantity="true">
+                <field name="student_id"/>
+                <field name="debit" type="measure"/>
+                <field name="credit" type="measure"/>
+                <field name="balance" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_ledger_graph" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.graph</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="arch" type="xml">
+            <graph string="Student Ledger">
+                <field name="student_id"/>
+                <field name="debit" type="measure"/>
+                <field name="credit" type="measure"/>
+                <field name="balance" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_ledger_calendar" model="ir.ui.view">
+        <field name="name">odoocms.student.ledger.calendar</field>
+        <field name="model">odoocms.student.ledger</field>
+        <field name="arch" type="xml">
+            <calendar string="Student Ledger" date_start="date">
+                <field name="student_id"/>
+                <field name="debit" type="measure"/>
+                <field name="credit" type="measure"/>
+                <field name="credit" type="measure"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_ledger" model="ir.actions.act_window">
+        <field name="name">Student Fee Ledger</field>
+        <field name="res_model">odoocms.student.ledger</field>
+        <field name="view_mode">tree,form,pivot,graph,calendar</field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_student_ledger"
+            action="action_odoocms_student_ledger"
+            parent="menu_odoocms_student_fee_main"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+            sequence="70"/>
+</odoo>

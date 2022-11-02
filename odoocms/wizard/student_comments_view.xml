@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_odoocms_student_comment_wiz_wiz" model="ir.ui.view">
+			<field name="name">odoocms.student.comment.wiz.wiz</field>
+			<field name="model">odoocms.student.comment.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Change Student State">
+					<sheet>
+						<group>
+							<group>
+								<field name="message_ref"/>
+								<field name="notfication_date"/>
+								<field name="cms_ref"/>
+							</group>
+						</group>
+						<field name="comment"/>
+					</sheet>
+					<notebook>
+						<page string="Students">
+							<group>
+								<field name="student_ids" colspan="4" nolabel="1">
+									<tree string="Students">
+										<field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="email"/>
+										<field name="mobile"/>
+										<field name="program_id" />
+										<field name="semester_id" />
+										<field name="state" invisible="1"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+
+					<footer>
+						<button name="add_comments" string="Add Comment" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_add_student_comment"
+				name="Add Comments"
+				binding_model="odoocms.student"
+				res_model="odoocms.student.comment.wiz"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+    </data>
+</odoo>

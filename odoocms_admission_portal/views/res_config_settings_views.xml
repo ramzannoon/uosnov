@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.university.admission.portal</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="OdooCMS Admission Portal"
+                     string="Admission Portal"
+                     data-key="odoocms_admission_portal"
+                     groups="odoocms.group_cms_manager">
+                    <h2>Admission Online Portal</h2>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different activities which is held in an institute.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Fee for admission Registration" for="registration_fee"/>
+                                <field name="registration_fee"/>
+                                <div class="text-muted">
+                                    Fee for admission Registration
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Fee for Additional Registration" for="additional_fee"/>
+                                <field name="additional_fee"/>
+                                <div class="text-muted">
+                                    Fee for Additional Registration
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Fee for admission Registration for international Students"
+                                       for="registration_fee_international"/>
+                                <field name="registration_fee_international"/>
+                                <div class="text-muted">
+                                    Fee for international students for admission Registration
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different activities which is held in an institute.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account for admission Registration" for="account_payable"/>
+                                <field name="account_payable"/>
+                                <div class="text-muted">
+                                    Account for admission Registration
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account Title admission Registration" for="account_title"/>
+                                <field name="account_title"/>
+                                <div class="text-muted">
+                                    Account Title admission Registration
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account Number admission Registration" for="account_no"/>
+                                <field name="account_no"/>
+                                <div class="text-muted">
+                                    Account Number admission Registration
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different activities which is held in an institute.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account2 for admission Registration" for="account_payable2"/>
+                                <field name="account_payable2"/>
+                                <div class="text-muted">
+                                    Account2 for admission Registration
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account2 Title admission Registration" for="account_title2"/>
+                                <field name="account_title2"/>
+                                <div class="text-muted">
+                                    Account2 Title admission Registration
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label string="Account2 Number admission Registration" for="account_no2"/>
+                                <field name="account_no2"/>
+                                <div class="text-muted">
+                                    Account2 Number admission Registration
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_admission_portal'}</field>
+    </record>
+
+    <record id="company_form_admission" model="ir.ui.view">
+        <field name="name">res.company.form.admission.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="admission_mail"/>
+                <field name="admission_phone"/>
+            </xpath>
+        </field>
+    </record>
+    <!--    <record id="view_odoocms_aggregate_config_tree" model="ir.ui.view">
+        <field name="name">odoocms.aggregate.config.tree</field>
+        <field name="model">odoocms.aggregate.config</field>
+        <field name="priority" eval="8" />
+        <field name="arch" type="xml">
+            <tree string="Admission Aggregate Configuration">
+                <field name="name" />
+                <field name="sequence" />
+                <field name="matric_o_level_score" />
+                <field name="intermediate" />
+                <field name="entry_test" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_aggregate_config_form" model="ir.ui.view">
+        <field name="name">odoocms.aggregate.config.form</field>
+        <field name="model">odoocms.aggregate.config</field>
+        <field name="priority" eval="8" />
+        <field name="arch" type="xml">
+            <form string="Admission Aggregate Configuration">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="sequence" />
+                        </group>
+                        <group>
+                            <field name="matric_o_level_score" />
+                            <field name="intermediate" />
+                            <field name="entry_test" />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_aggregate_config" model="ir.actions.act_window">
+        <field name="name">Aggregate Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.aggregate.config</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_odoocms_aggregate_config"
+        name="Admission Aggregate Config"
+        parent="odoocms_admission.menu_admission_configuration"
+        action="action_odoocms_aggregate_config"
+        groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+        sequence="170"/>-->
+
+</odoo>

@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+        <record id="res_partner_wth_inherit" model="ir.ui.view">
+            <field name="name">res.partner.inherit.for.tax</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[3]" position="after">
+                    <page name="tax_registration" string="Tax Registration">
+                        <group>
+                            <group name="wth_tax" string="Income Tax Registration">
+                                <field name="tax_payer_state_income"/>
+                                <field name="wth_for_goods"/>
+                                <field name="wth_for_service"/>
+                            </group>
+                            <group name="sales_tax" string="Sales Tax Registration">
+                                <field name="tax_payer_state_sales"/>
+                                <field name="sales_tax_for_goods"/>
+                                <field name="sales_tax_for_service"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

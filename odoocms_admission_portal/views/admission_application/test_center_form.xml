@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="test_center_form" name="Test">
+        <t t-call="website.layout">
+            <!-- <style>
+                 .wrap-1{
+                 max-width: 99.9%;
+                 }
+                 .smart-steps .wizard > .steps a {
+                 position: relative;
+                 font-family: 'Open Sans', sans-serif;
+                 font-size: 11px;
+                 font-weight: bold;
+                 }
+                 .stp-six .wizard > .steps > ul > li {
+                 width: 15%;
+                 }
+                 element.style {
+                 }
+                 .steps-theme-blue .wizard > .steps .done a, .steps-theme-blue .wizard > .steps .done a:hover,
+                 .steps-theme-blue .wizard > .steps .done a:active, .steps-theme-blue .wizard > .steps .done:before,
+                 .steps-theme-blue .wizard > .steps .done .number {
+                 background: #53CFFF;
+                 color: #fff;
+                 }
+                 .smart-steps .wizard > .steps a, .smart-steps .wizard > .steps a:hover, .smart-steps .wizard > .steps
+                 a:active {
+                 height: 54px;
+                 line-height: 14px;
+                 padding-left: 2em;
+                 padding-top: 0.8em;
+                 padding-right: 2em;
+                 }
+                 .capital_letters{
+                 text-transform: uppercase;
+                 }
+
+
+             </style>-->
+            <!--            <body class="woodbg">-->
+            <body style="background:#E6CCA6 url(/odoocms_admission_portal/static/images/wood.png) repeat fixed;">
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container wrap-1">
+                        <a class="btn btn-light"
+                           href="/admission/registration">
+                            Registration Form
+                        </a>
+                        <div>
+                            <hr/>
+                            <fieldset t-if="readonly or readonly2">
+                                <legend>Test Center</legend>
+                            </fieldset>
+                            <fieldset t-if="not readonly and not readonly2">
+                                <div class="frm-row" style="height:300px !important;">
+                                    <div class="section colm colm6">
+                                        <legend>Test Center</legend>
+                                        <input t-if="student.center_id" type="hidden" id="selected_center_id"
+                                               t-att-value="student.center_id.id"/>
+
+                                        <label class="field select">
+                                            <select t-if="not student.center_id" name="test_center" id="test_center"
+                                                    t-attf-disabled="disabled if student.confirm_test_center else False"
+                                                    onchange="on_change_test_center(cent_id= this.value)"
+                                                    required="True">
+                                                <option value="" selected="Selected">Select</option>
+                                                <t t-foreach="test_center_ids" t-as="test_center">
+                                                    <t t-foreach="test_center" t-as="test_center_disc">
+                                                        <option t-att-value="test_center_disc.id"
+                                                                t-att-selected="student.center_id.id == test_center_disc.id">
+                                                            <t t-esc="test_center_disc.name"/>
+                                                        </option>
+                                                    </t>
+                                                </t>
+                                            </select>
+                                            <select t-if="student.center_id" name="test_center" id="test_center"
+                                                    t-attf-disabled="disabled if student.confirm_test_center else False"
+                                                    onchange="on_change_test_center(cent_id= this.value)"
+                                                    required="True">
+                                                <option value="">Select</option>
+                                                <t t-foreach="test_center_ids" t-as="test_center">
+                                                    <t t-foreach="test_center" t-as="test_center_disc">
+
+                                                        <option t-att-value="test_center_disc.id"
+                                                                t-if="student.center_id.id == test_center_disc.id"
+                                                                selected="true">
+                                                            <t t-esc="test_center_disc.name"/>
+                                                        </option>
+                                                        <option t-att-value="test_center_disc.id"
+                                                                t-if="not student.center_id.id == test_center_disc.id">
+                                                            <t t-esc="test_center_disc.name"/>
+                                                        </option>
+                                                    </t>
+                                                </t>
+                                            </select>
+                                            <!-- -
+                                                            <t t-esc="test_center_disc.discipline_id.name"/> -->
+                                            <!--                            <select t-if="student.center_id" name="test_center" id="test_center"-->
+                                            <!--                                    onchange="on_change_test_center(cent_id= this.value)" required="True">-->
+                                            <!--                                <option value="">Select</option>-->
+                                            <!--                                <t t-foreach="test_center_ids" t-as="test_center">-->
+                                            <!--                                    <t t-foreach="test_center" t-as="test_center_disc">-->
+                                            <!--                                        <option t-att-value="test_center_disc.id"-->
+                                            <!--                                                t-if="student.center_id.id == test_center_disc.id" selected="true">-->
+                                            <!--                                            <t t-esc="test_center_disc.name"/>-->
+                                            <!--                                            - -->
+                                            <!--                                            <t t-esc="test_center_disc.discipline_id.name"/>-->
+                                            <!--                                        </option>-->
+                                            <!--                                        <option t-att-value="test_center_disc.id"-->
+                                            <!--                                                t-if="not student.center_id.id == test_center_disc.id">-->
+                                            <!--                                            <t t-esc="test_center_disc.name"/>-->
+                                            <!--                                            - -->
+                                            <!--                                            <t t-esc="test_center_disc.discipline_id.name"/>-->
+                                            <!--                                        </option>-->
+                                            <!--                                    </t>-->
+                                            <!--                                </t>-->
+                                            <!--                            </select>-->
+                                            <i class="arrow double"/>
+                                        </label>
+                                    </div>
+                                    <!--<div id="test_schedule_div" class="section colm colm6" style="display:none;"/>-->
+                                    <div id="test_schedule_div" class="section colm colm6">
+                                        <legend>Test Schedule</legend>
+                                        <label class="field select">
+                                            <p id="pbt"/>
+                                            <div id="cbt">
+                                                <t t-foreach="test_center_ids" t-as="test_center">
+                                                    <t t-foreach="test_center" t-as="test_center_disc">
+                                                        <div>
+                                                            <b>
+                                                                <t t-if="student.center_id.id == test_center_disc.id">
+                                                                    <t t-if="test_center_disc.test_type == 'cbt'">
+                                                                        Computer Based Entry Test
+                                                                    </t>
+                                                                    <t t-if="not test_center_disc.test_type == 'cbt'">
+                                                                        Paper Based Entry Test
+                                                                    </t>
+                                                                </t>
+                                                            </b>
+                                                        </div>
+
+                                                        <t t-foreach="test_center_disc.time_ids" t-as="time">
+                                                            <br/>
+                                                            <div>
+                                                                <input type="radio" required="true"
+                                                                       t-attf-disabled="True if student.confirm_test_center else False"
+                                                                       t-if="student.slot_id.id == time.id"
+                                                                       checked="true" onchange="on_change_test_time()"
+                                                                       t-value="time.id"
+                                                                       name='test_timing' t-attf-id="time_{{time.id}}">
+                                                                    Test
+                                                                    Date:
+                                                                    <t t-esc="time.date"/>
+                                                                    Time:
+                                                                    <t t-esc="'%02d:%02d' % (divmod(time.time * 60, 60))"/>
+                                                                </input>
+                                                                <t t-if="not student.slot_id.id == time.id and student.center_id.id == test_center_disc.id">
+                                                                    <input type="radio" required="true"
+                                                                           t-attf-disabled="True if student.confirm_test_center else False"
+                                                                           onchange="on_change_test_time()"
+                                                                           t-value="time.id"
+                                                                           name='test_timing'
+                                                                           t-attf-id="time_{{time.id}}">Test
+                                                                        Date:
+                                                                        <t t-esc="time.date"/>
+                                                                        Time:
+                                                                        <t t-esc="'%02d:%02d' % (divmod(time.time * 60, 60))"/>
+                                                                    </input>
+                                                                </t>
+                                                            </div>
+
+                                                        </t>
+                                                    </t>
+                                                </t>
+
+                                            </div>
+                                            <br/>
+                                            <br/>
+                                            <div class="margin-top">
+                                                <button class="btn btn-primary" id="test_center_lock" t-if="student.slot_id"
+                                                        t-attf-disabled="True if student.confirm_test_center else False"
+                                                        onclick="confirm_test_center()">Confirm
+                                                    Selection
+                                                </button>
+                                                <a t-if="student.center_id and student.confirm_test_center and student.slot_id" class="btn btn-light o_download_btn"
+                                                   href="/download/admit/card">
+                                                    Download Admit Card
+                                                </a>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--                <div class="frm-row">-->
+                                <!--                    Voucher Verification is in progress.-->
+                                <!--                </div>-->
+                                <!--                <div class="frm-row">-->
+                                <!--                </div>-->
+                                <!--                <div class="frm-row">-->
+                                <!--                </div>-->
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </t>
+        <!--  <script type="text/javascript" src="/odoocms_admission_portal/static/js/test_center_form.js"/>-->
+        <script>
+            function fun_my(){
+
+            var selected_center = document.getElementById("selected_center_id").value;
+            console.log('selected'+selected_center);
+
+            //selected_test_center(selected_center);
+
+            }
+        </script>
+
+    </template>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_form_admission_inherit" model="ir.ui.view">
+            <field name="name">odoocms.student.form.admission.inherit</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='visa_info']" position="after">
+                    <page string="Admission Details" name="admission_details">
+                        <group>
+                            <group name="application_details">
+                                <field name="application_id"/>
+                                <field name="sc_application_id"/>
+                                <field name="application_date"/>
+                                 <field name="entry_date"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

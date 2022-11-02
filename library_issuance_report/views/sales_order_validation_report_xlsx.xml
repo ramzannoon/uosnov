@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Report action for print Excel Report-->
+    <report
+            id="action_sales_order_validation_xlsx_report"
+            model="sale.order.validation.report"
+            string="Print to XLSX"
+            report_type="xlsx"
+            name="sales_order_validation_report.s_o_valid_s_xls_temp_id"
+            file="Sale Order Report"
+    />
+
+</odoo>

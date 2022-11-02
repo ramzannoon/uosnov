@@ -1,0 +1,348 @@
+<odoo>
+<data>
+    <record id="portal_menu_dashboard" model="odoocms.student.portal.menu">
+        <field name="name">Dashboard</field>
+        <field name="code">dashboard</field>
+        <field name="title">Dashboard</field>
+        <field name="href">/student/dashboard</field>
+        <field name="menu_icon">&#xE871;</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="css_class">border-bottom: 1px solid grey;</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="portal_menu_profile" model="odoocms.student.portal.menu">
+        <field name="name">Profile</field>
+        <field name="code">profile</field>
+        <field name="title">User Profile</field>
+        <field name="href">/student/profile</field>
+        <field name="menu_icon">&#xE87C;</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">100</field>
+    </record>
+
+    <record id="portal_menu_attendance" model="odoocms.student.portal.menu">
+        <field name="name">Attendance</field>
+        <field name="code">attendance</field>
+        <field name="title">Attendance</field>
+        <field name="menu_icon">spellcheck</field>
+        <field name="href">/student/attendance</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">200</field>
+    </record>
+
+    <record id="portal_menu_result" model="odoocms.student.portal.menu">
+        <field name="name">Results &amp; Exams</field>
+        <field name="code">result</field>
+        <field name="title">Results</field>
+        <field name="href">/student/results/</field>
+        <field name="menu_icon">assessment</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">300</field>
+    </record>
+
+    <record id="portal_menu_notifications" model="odoocms.student.portal.menu">
+        <field name="name">Notifications</field>
+        <field name="code">notifications</field>
+        <field name="title">Notifications</field>
+        <field name="menu_icon">announcement</field>
+        <field name="href">/student/notifications</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">400</field>
+    </record>
+
+    <record id="portal_menu_enrollment" model="odoocms.student.portal.menu">
+        <field name="name">Enrollments</field>
+        <field name="code">enrollment</field>
+        <field name="title">Enrollments</field>
+        <field name="menu_icon">work_outline</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">500</field>
+    </record>
+
+        <record id="portal_menu_enrolled_courses" model="odoocms.student.portal.menu">
+            <field name="name">Enrolled Courses</field>
+            <field name="code">enrolled</field>
+            <field name="title">Enrolled Courses</field>
+            <field name="href">/student/enrolled/courses</field>
+            <field name="parent_id" ref="portal_menu_enrollment"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">505</field>
+        </record>
+
+       <!-- <record id="portal_menu_student_enrollment" model="odoocms.student.portal.menu">
+            <field name="name">Self Enrollments</field>
+            <field name="code">enrollment</field>
+            <field name="title">Self Enrollments</field>
+            <field name="href">/student/enrollment</field>
+            <field name="parent_id" ref="portal_menu_enrollment"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">510</field>
+        </record>-->
+
+        <record id="portal_menu_enrollment_cards" model="odoocms.student.portal.menu">
+            <field name="name">Self Enrollment</field>
+            <field name="code">enrollment_cards</field>
+            <field name="title">Self Enrollment Cards</field>
+            <field name="href">/student/enrollment/cards</field>
+            <field name="parent_id" ref="portal_menu_enrollment"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">515</field>
+        </record>
+
+        <record id="portal_menu_enrollment_schedule" model="odoocms.student.portal.menu">
+            <field name="name">Enrollment Schedules</field>
+            <field name="code">enrollment_schedule</field>
+            <field name="title">Enrollment Schedules</field>
+            <field name="href">/student/enrollment/schedule</field>
+            <field name="parent_id" ref="portal_menu_enrollment"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">520</field>
+        </record>
+
+    <record id="portal_menu_feedback" model="odoocms.student.portal.menu">
+        <field name="name">Feedback</field>
+        <field name="code">feedback</field>
+        <field name="title">Feedback</field>
+        <field name="menu_icon">feedback</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">600</field>
+    </record>
+
+        <record id="portal_menu_faculty_survey" model="odoocms.student.portal.menu">
+            <field name="name">QA Feedback</field>
+            <field name="code">survey</field>
+            <field name="title">QA Feedback</field>
+            <field name="href">/student/qa/feedback</field>
+            <field name="parent_id" ref="portal_menu_feedback"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">605</field>
+        </record>
+
+    <record id="portal_menu_request" model="odoocms.student.portal.menu">
+        <field name="name">Requests</field>
+        <field name="code">request</field>
+        <field name="title">Requests</field>
+        <field name="menu_icon">published_with_changes</field>
+        <field name="enable_external">True</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">700</field>
+    </record>
+
+        <record id="portal_menu_course_drop" model="odoocms.student.portal.menu">
+            <field name="name">Course Drop</field>
+            <field name="code">course_drop</field>
+            <field name="title">Course Drop</field>
+            <field name="href">/student/coursedrop</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">705</field>
+        </record>
+
+        <record id="portal_menu_alternate" model="odoocms.student.portal.menu">
+            <field name="name">Alternative Course Enrollments</field>
+            <field name="code">course_alternate</field>
+            <field name="title">Alternative Course Enrollments</field>
+            <field name="href">/student/request/alternate/course</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">710</field>
+        </record>
+
+        <record id="portal_menu_igrade" model="odoocms.student.portal.menu">
+            <field name="name">I Grade Request</field>
+            <field name="code">course_igrade</field>
+            <field name="title">I Grade Request</field>
+            <field name="href">/student/igrade</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">715</field>
+        </record>
+       <!-- <record id="portal_menu_tuition_fee_defer" model="odoocms.student.portal.menu">
+            <field name="name">Tuition Fee Deferment</field>
+            <field name="code">Tuition_fee</field>
+            <field name="title">Tuition Fee Deferment</field>
+            <field name="href">/student/tuition/fee/defer/request</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">717</field>
+        </record>-->
+
+
+        <record id="portal_menu_degree" model="odoocms.student.portal.menu">
+            <field name="name">Final Degree</field>
+            <field name="code">degree</field>
+            <field name="title">Final Degree</field>
+            <field name="href">/student/degree</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">725</field>
+        </record>
+
+        <record id="portal_menu_transcript" model="odoocms.student.portal.menu">
+            <field name="name">Transcript</field>
+            <field name="code">transcript</field>
+            <field name="title">Transcript</field>
+            <field name="href">/student/transcript</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">730</field>
+        </record>
+
+        <record id="portal_menu_termdefer" model="odoocms.student.portal.menu">
+            <field name="name">Defer Term</field>
+            <field name="code">termdefer</field>
+            <field name="title">Defer Term</field>
+            <field name="href">/student/termdefer</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">735</field>
+        </record>
+
+        <record id="portal_menu_term_resume" model="odoocms.student.portal.menu">
+            <field name="name">Term Resume</field>
+            <field name="code">term_resume</field>
+            <field name="title">Term Resume</field>
+            <field name="href">/student/semester/resume</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">740</field>
+        </record>
+
+        <record id="portal_menu_term_retest" model="odoocms.student.portal.menu">
+            <field name="name">Retest</field>
+            <field name="code">retest</field>
+            <field name="title">Retest</field>
+            <field name="href">/student/retest</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">745</field>
+        </record>
+
+       <!-- <record id="portal_menu_leave" model="odoocms.student.portal.menu">
+            <field name="name">Leave</field>
+            <field name="code">leave</field>
+            <field name="title">Leave</field>
+            <field name="href">/student/leave</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">750</field>
+        </record>-->
+
+        <!--<record id="portal_menu_project" model="odoocms.student.portal.menu">
+            <field name="name">Project</field>
+            <field name="code">project</field>
+            <field name="title">Project</field>
+            <field name="href">/student/project/request</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">755</field>
+        </record>-->
+
+       <!-- <record id="portal_menu_profileupdate" model="odoocms.student.portal.menu">
+            <field name="name">Profile Update</field>
+            <field name="code">profileupdate</field>
+            <field name="title">Profile Update</field>
+            <field name="href">/student/profileupdate</field>
+            <field name="parent_id" ref="portal_menu_request"/>
+            <field name="enable_external">True</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">755</field>
+        </record>-->
+
+<!--        <a href="">Grade Change</a>-->
+<!--        <a href="#">Fee Refund</a>-->
+
+    <record id="portal_menu_timetable" model="odoocms.student.portal.menu">
+        <field name="name">Time Table</field>
+        <field name="code">timetable</field>
+        <field name="title">Time Table</field>
+        <field name="href">/student/class/schedule</field>
+        <field name="menu_icon">schedule</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">800</field>
+    </record>
+
+    <record id="portal_menu_invoices" model="odoocms.student.portal.menu">
+        <field name="name">Invoices</field>
+        <field name="code">invoices</field>
+        <field name="title">Invoices</field>
+        <field name="href">/student/invoices</field>
+        <field name="menu_icon">&#xE53E;</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">900</field>
+    </record>
+
+    <record id="portal_menu_hostel" model="odoocms.student.portal.menu">
+        <field name="name">Hostel</field>
+        <field name="code">hostel</field>
+        <field name="title">Hostel</field>
+        <field name="menu_icon">meeting_room</field>
+        <field name="enable_external">False</field>
+        <field name="visible_external">True</field>
+        <field name="role">All</field>
+        <field name="sequence">1200</field>
+    </record>
+
+        <record id="portal_menu_hostel_app" model="odoocms.student.portal.menu">
+            <field name="name">Hostel Application</field>
+            <field name="code">hostel_app</field>
+            <field name="title">Hostel Application</field>
+            <field name="href">/student/hostel/application</field>
+            <field name="parent_id" ref="portal_menu_hostel"/>
+            <field name="menu_icon">meeting_room</field>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="role">All</field>
+            <field name="sequence">1205</field>
+        </record>
+
+
+</data>
+</odoo>

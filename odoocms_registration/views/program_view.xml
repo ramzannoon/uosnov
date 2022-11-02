@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_program_form_registration_inherit" model="ir.ui.view">
+        <field name="name">odoocms.program.form.reg.inherit</field>
+        <field name="model">odoocms.program</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_program_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name = 'users']" position="after">
+                <page name="settings" string="Settings">
+                    <group>
+                        <field name="registration_domain" widget="domain" options="{'model': 'odoocms.class.primary', 'in_dialog': True}"/>
+                        <field name="elec_registration_domain" widget="domain" options="{'model': 'odoocms.class.primary', 'in_dialog': True}"/>
+                        <field name="additional_registration_domain" widget="domain" options="{'model': 'odoocms.class.primary', 'in_dialog': True}"/>
+                        <field name="minor_registration_domain" widget="domain" options="{'model': 'odoocms.class.primary', 'in_dialog': True}"/>
+                        <field name="repeat_registration_domain" widget="domain" options="{'model': 'odoocms.class.primary', 'in_dialog': True}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

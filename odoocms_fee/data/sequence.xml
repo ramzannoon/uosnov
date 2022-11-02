@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_odoocms_student_invoice_tag" model="ir.sequence">
+            <field name="name">Invoice Tag</field>
+            <field name="code">odoocms.student.invoice</field>
+            <field name="prefix">FEE</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_odoocms_student_payment_tag" model="ir.sequence">
+            <field name="name">Fee Payment Tag</field>
+            <field name="code">odoocms.fee.payment</field>
+            <field name="prefix">FEEP</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_student_fee_payment_register" model="ir.sequence">
+            <field name="name">Fee Payment Register</field>
+            <field name="code">odoocms.fee.payment.register</field>
+            <field name="prefix">BNK/SCROLL/001/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_fee_receipt_deletion_log" model="ir.sequence">
+            <field name="name">Fee Receipt Deletion Log</field>
+            <field name="code">odoocms.fee.receipt.deletion.log</field>
+            <field name="prefix">FEE/DEL/LOG</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_fee_receipt_barcode" model="ir.sequence">
+            <field name="name">Fee Receipt Barcode Sequence</field>
+            <field name="code">odoocms.fee.receipt.barcode.sequence</field>
+            <field name="prefix"></field>
+            <field name="padding">6</field>
+        </record>
+
+        <record id="seq_fee_ad_hoc_charges" model="ir.sequence">
+            <field name="name">Fee Ad Hoc Charges Sequence</field>
+            <field name="code">odoocms.fee.ad.hoc.charges</field>
+            <field name="prefix">Ad-hoc/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_tuition_fee_deferment_request" model="ir.sequence">
+            <field name="name">Tuition Fee Deferment Requests Sequence</field>
+            <field name="code">odoocms.tuition.fee.deferment.request</field>
+            <field name="prefix">TFDMR/</field>
+            <field name="padding">4</field>
+        </record>
+
+
+        <record id="seq_tuition_fee_knockoff_request" model="ir.sequence">
+            <field name="name">Late Fee Knockoff Requests Sequence</field>
+            <field name="code">odoocms.late.fee.knockoff.request</field>
+            <field name="prefix">KNOCKOFF/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_fee_advance_payment" model="ir.sequence">
+            <field name="name">Fee Advance Payment Sequence</field>
+            <field name="code">odoocms.fee.advance.payment</field>
+            <field name="prefix">FADV/PAY/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_scholarship" model="ir.sequence">
+            <field name="name">Student Scholarship Sequence</field>
+            <field name="code">odoocms.student.scholarship.request</field>
+            <field name="prefix">SCH/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_refund_requests" model="ir.sequence">
+            <field name="name">Student Refund Requests Sequence</field>
+            <field name="code">odoocms.fee.refund.request</field>
+            <field name="prefix">REFUND/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_adjustment_requests" model="ir.sequence">
+            <field name="name">Student Adjustment Requests Sequence</field>
+            <field name="code">odoocms.fee.adjustment.request</field>
+            <field name="prefix">ADJ/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_adjustment_requests_reversal" model="ir.sequence">
+            <field name="name">Student Adjustment Requests Reversal Sequence</field>
+            <field name="code">odoocms.fee.adjustment.request.reversal</field>
+            <field name="prefix">ADJ/REV/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_ledger" model="ir.sequence">
+            <field name="name">Student Ledger Sequence</field>
+            <field name="code">odoocms.student.ledger</field>
+            <field name="prefix">GL/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_receipts_fee_head_removal" model="ir.sequence">
+            <field name="name">Receipts Fee Head Removal</field>
+            <field name="code">odoocms.receipt.fee.head.removal</field>
+            <field name="prefix">FHR/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_cpr_register" model="ir.sequence">
+            <field name="name">CPR Register</field>
+            <field name="code">odoocms.student.cpr.register</field>
+            <field name="prefix">CPR/</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>
+

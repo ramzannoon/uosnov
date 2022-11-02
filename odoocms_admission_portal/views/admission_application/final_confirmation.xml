@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_final_confirmation" name="Admission Final Confirmation">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <fieldset t-if="not readonly2">
+            <div class="frm-row">
+                <div class="section colm colm12">
+                    <p style="text-align:center; font-size:18px; color:#00ff00"
+                       t-if="students.state == 'confirm'">Application Submitted!
+                    </p>
+
+                    <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-1:Personal Info Done.</span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-2:Contact Info Done.</span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-3:GuardianInfo Done.</span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-4:Quota Info Done.</span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-5:Program Choices Done.
+                            </span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-6:Voucher Info Done.</span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-7:Education Info
+                            </span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-8:Profile Photo Done
+                                Uploaded.
+                            </span>
+                        </div>
+                        <div style="padding:5px">
+                            <i class="fa fa-check"
+                               style="font-size:25px;color:white;background:#00ff00;border-radius:50%; padding:5px;"/>
+                            <span style="margin-left:5px;">Step-9:Documents Done and
+                                Uploaded.
+                            </span>
+                        </div>
+                </div>
+            </div>
+
+            <div class="section colm colm12" id="admission_form">
+                <button style="display:block; margin:auto">
+                    <a class="btn btn-secondary btn-block o_download_btn"
+                       href="/download/admission/form" title="Download">Download Form
+                    </a>
+                    <i class="fa fa-download"/>
+                </button>
+            </div>
+            <div class="section colm colm12">
+                <button style="display:block; margin:auto">
+                    <a class="btn btn-secondary btn-block o_download_btn"
+                       href="https://drive.google.com/file/d/1FCSWrVT8EdV23CJZn-Nv8PguX6ujzKua/view?usp=sharing" target="_blank" title="Download">Download Prospectus
+                    </a>
+                    <i class="fa fa-download"/>
+                </button>
+            </div>
+
+        </fieldset>
+        </fieldset>
+
+        <div t-if="not readonly2" id="final_confirmation" class="w3-modal cms-modal">
+            <!-- Modal content -->
+            <div id="body-overlay-confirm">
+                <div>
+                    <img src="/odoocms_admission_portal\static\images/loading.gif"
+                         width="64px" height="64px"/>
+                </div>
+            </div>
+            <div class="w3-modal-content cms-modal-content">
+                <div class="modal-header cms-modal-header">
+                    <h2>Confirmation Message</h2>
+                    <span class="close" id="close-final_confirmation"
+                          onclick="document.getElementById('final_confirmation').style.display='none';">
+                        X
+                    </span>
+                </div>
+                <div class="modal-body cms-modal-body"
+                     style="height: 200px; padding: 30px;">
+
+                    <div class="frm-row">
+                        <span style="margin-top:20px; margin-bottom-20px;">You are going
+                            to submit the form.<br/>After that you will no more able to
+                            edit the form. Are you sure?
+                        </span>
+                    </div>
+
+                </div>
+                <div class="modal-footer cms-modal-footer">
+                    <input type="submit" id="confirm_application"
+                           name="confirm_application" value="Confirm"
+                           onclick="confirm_application_form()"/>
+                </div>
+            </div>
+        </div>
+    </template>
+</odoo>

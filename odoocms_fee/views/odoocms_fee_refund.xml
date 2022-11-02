@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_fee_refund_type_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.type.form</field>
+            <field name="model">odoocms.fee.refund.type</field>
+            <field name="arch" type="xml">
+                <form string="Fee Refund Types">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="receipt_type" required="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_refund_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.type.tree</field>
+            <field name="model">odoocms.fee.refund.type</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Refund Types">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="receipt_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_refund_type" model="ir.actions.act_window">
+            <field name="name">Fee Refund Types</field>
+            <field name="res_model">odoocms.fee.refund.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="view_odoocms_student_fee_refund_request_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.request.form</field>
+            <field name="model">odoocms.fee.refund.request</field>
+            <field name="arch" type="xml">
+                <form string="Fee Refund Requests">
+                    <header>
+                        <button name="action_submitted" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_cms_cancel" string="Refund Cancellation"
+                                attrs="{'invisible': [('state', '!=', 'cms_done')]}"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approve,done"/>
+
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="student_id" requied="True"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="refund_by"/>
+                            <field name="reason_id"/>
+                        </group>
+                        <group>
+                            <field name="student_debit_id" attrs="{'invisible': [('state', '!=','done')]}"/>
+                            <field name="invoice_id" domain="[('student_id.id', '=', student_id),('state', '=', 'paid')]"/>
+                        </group>
+                        <group>
+                            <field name="description" colspan="4"/>
+                        </group>
+                        <group>
+                        </group>
+                        <notebook>
+                            <page>
+                                <field name="refund_ids"
+                                       nolabel="1">
+                                    <tree string="Refunds" editable="bottom">
+                                        <field name="invoice_id" readonly="1"/>
+                                        <field name="description" readonly="1"/>
+                                        <field name="refund_amount"/>
+                                        <field name="new_refund_amount"/>
+                                        <field name="state" readonly="1"/>
+                                        <button type="object" name="action_submit_refund" string="Refund"
+                                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                                class="oe_highlight"/>
+                                        <button type="object" name="action_cancel" string="Refund Cancellation"
+                                                attrs="{'invisible': [('state', '!=', 'cms_done')]}"
+                                                class="oe_highlight"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Refund Details">
+                                <field name="refund_line_ids" nolabel="1"> <!-- widget="one2many_list" mode="tree" -->
+                                    <tree string="Refunds" editable="bottom">
+                                        <field name="refund_type_id" required="1"/>
+                                        <field name="invoice_id"
+                                               attrs="{'invisible': ['|','|',('refund_type_id', 'not in',('late_fine','security')),('actual_amount','=','refund_amount'),('refund_amount','=',0)],'required': ['|','|',('refund_type_id', 'not in',('late_fine','security')),('actual_amount','=','refund_amount'),('actual_amount','=',0)]}"
+                                               domain="[('student_id.id', '=', parent.student_id),('state', '=', 'paid')]"/>
+                                        <field name="actual_amount"/>
+                                        <field name="refund_amount"/>
+                                        <field name="cancel_reason_id" attrs="{'invisible': [('state', '!=', 'cms_done')]}"/>
+                                        <field name="remarks" attrs="{'invisible': [('state', '!=', 'cms_done')]}"/>
+                                        <button type="object" name="action_cancel" string="Refund Cancellation"
+                                                attrs="{'invisible': [('state', '!=', 'cms_done')]}" class="oe_highlight"/>
+                                        <field name="state" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_fee_refund_request_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.request.tree</field>
+            <field name="model">odoocms.fee.refund.request</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Refund Requests">
+                    <field name="student_id"/>
+                     <field name="invoice_id"/>
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_odoocms_student_fee_refund_request" model="ir.actions.act_window">
+            <field name="name">Student Fee Refund Request</field>
+            <field name="res_model">odoocms.fee.refund.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_refund_type"
+                action="action_odoocms_fee_refund_type"
+                parent="menu_fee_configuration_others"
+                sequence="20"/>
+
+        <menuitem
+                id="menu_odoocms_student_fee_refund_request"
+                action="action_odoocms_student_fee_refund_request"
+                parent="menu_student_fee_request_root"
+                sequence="80"/>
+
+        <menuitem
+                id="menu_odoocms_student_fee_refund_request"
+                action="action_odoocms_student_fee_refund_request"
+                parent="menu_odoocms_student_fee_main"
+                sequence="300"/>
+
+    </data>
+</odoo>

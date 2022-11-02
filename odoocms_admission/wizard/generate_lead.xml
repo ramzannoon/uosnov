@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_odoocms_admission_lead_form" model="ir.ui.view">
+        <field name="name">odoocms.admission.lead.form</field>
+        <field name="model">odoocms.admission.lead</field>
+        <field name="arch" type="xml">
+            <form string="CRM Lead">
+                <group>
+                    <field name="application_ids"/>
+                </group>
+                <group>
+                    <field name="sales_person"/>
+                </group>
+                <footer>
+                    <button name="generate_admission_lead" string="Admission Lead" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+            id="odoocms_admission_lead"
+            name="Generate Lead"
+            res_model="odoocms.admission.lead"
+            binding_model="odoocms.application"
+            view_mode="form"
+            binding_views="list,form"
+            target="new"
+    />
+
+</odoo>

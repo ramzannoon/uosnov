@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="student_fin_report_summary_wiz_view_form" model="ir.ui.view">
+        <field name="name">student.fin.report.summary.wiz.form</field>
+        <field name="model">student.fin.report.summary.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Student Fin Report Summary Wiz">
+                <group>
+                    <group>
+                        <field name="program_id" required="1"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student_fin_report_summary_wiz" model="ir.actions.act_window">
+        <field name="name">Student Financial Report Summary</field>
+        <field name="res_model">student.fin.report.summary.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem
+            id="menu_student_fin_report_summary_wiz"
+            name="Student Financial Summary Report"
+            action="action_student_fin_report_summary_wiz"
+            parent="odoocms_fee.menu_fee_reports"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="140"/>
+
+    <!--<act_window
+				id="odoocms_fee_program_wise_fin_summary"
+				name="Get Financial Summary"
+				src_model="odoocms.program"
+				res_model="account.move"
+				view_type="form"  view_mode="form" multi="False"
+            	key2="client_action_multi" target="new"
+				groups="odoocms.group_cms_manager"/>-->
+
+</odoo>

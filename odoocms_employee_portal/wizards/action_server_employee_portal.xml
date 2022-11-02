@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- wizard action on res.partner -->
+    <act_window id="employee_wizard_action"
+                name="Create Employee Portal User"
+                binding_model="hr.employee"
+                res_model="employee.portal.wizard.actser"
+                view_mode="form" target="new"
+                groups="base.group_partner_manager"/>
+
+    <!-- wizard view -->
+    <record id="create_employee_portal_view" model="ir.ui.view">
+        <field name="name">Create Employee Portal User</field>
+        <field name="model">employee.portal.wizard.actser</field>
+        <field name="arch" type="xml">
+            <form string="Employee Portal Access">
+                <div>
+                    Select which contacts should belong to the portal in the list below.
+                    The email address of each selected contact must be valid and unique.
+                    If necessary, you can fix any contact's email address directly in the list.
+                </div>
+                <field name="user_ids">
+                    <tree string="Contacts" editable="bottom" create="false" delete="false">
+                        <field name="partner_id" force_save="1"/>
+                        <field name="email"/>
+                        <field name="in_portal"/>
+                    </tree>
+                </field>
+                <field name="welcome_message"
+                       placeholder="This text is included in the email sent to new portal users."/>
+                <footer>
+                    <button string="Apply" name="action_apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+<!--    <record id="act_hr_employee_portal_employee" model="ir.actions.server">-->
+<!--        <field name="name">Create Employee Portal User</field>-->
+<!--        <field name="model_id" ref="hr_holidays.model_hr_leave_report"/>-->
+<!--        <field name="binding_model_id" ref="hr.model_hr_employee"/>-->
+<!--        <field name="state">code</field>-->
+<!--        <field name="code">-->
+<!--            action = model.action_time_off_analysis()-->
+<!--        </field>-->
+<!--    </record>-->
+</odoo>

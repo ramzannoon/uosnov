@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="print_employee_details_layout">
+            <div class="header"/>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer"/>
+        </template>
+
+        <template id="print_employee_details">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="custom_payroll.print_employee_details_layout">
+                        <div class="page">
+                            <style>
+                                div{
+                                margin-top: 26px;
+                                }
+                                table th{
+                                padding: 5px;
+                                }
+                                table td{
+                                padding: 5px;
+                                }
+                                table.border{
+                                width: 100%;
+                                }
+                                table.border th{
+                                padding: 5px;
+                                border: 1px solid black;
+                                }
+                                table.border td{
+                                padding: 5px;
+                                border: 1px solid black;
+                                }
+                            </style>
+
+                            <div class="text-center">
+                                <h2>Employee Details</h2>
+                            </div>
+
+                            <div class="row" style="vertical-align:center">
+                                <div class="col-2">
+                                    <img t-if="o.image_1920" t-att-src="'data:image/png;base64,%s' % to_text(o.image_1920)" height="120" border="1" width="120"/>
+                                </div>
+                                <div class="col-10">
+                                    <br/>
+                                    <h3 t-esc="o.name"/>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="text-center">
+                                    <h4 style="color:white; padding:4px; background-color: #055DAB">Personal Information</h4>
+                                </div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="width:20%">Employee Name</th>
+                                        <td style="width:30%"><span t-esc="o.name"/></td>
+                                        <th style="width:20%">Designation</th>
+                                        <td style="width:30%"><span t-esc="o.job_title"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Work Email</th>
+                                        <td><span t-esc="o.work_email"/></td>
+                                        <th>Work Location</th>
+                                        <td><span t-esc="o.work_location"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Work Mobile</th>
+                                        <td><span t-esc="o.mobile_phone"/></td>
+                                        <th>Work Phone</th>
+                                        <td><span t-esc="o.work_phone"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <div class="text-center">
+                                    <h4 style="color:white; padding:4px; background-color: #055DAB">Education Information</h4>
+                                </div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th>Certificate Level</th>
+                                        <td><span t-field="o.certificate"/></td>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:20%">Field of Study</th>
+                                        <td style="width:30%"><span t-esc="o.study_field"/></td>
+                                        <th style="width:20%">School</th>
+                                        <td style="width:30%"><span t-esc="o.study_school"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <div class="text-center">
+                                    <h4 style="color:white; padding:4px; background-color: #055DAB">Emergency Information</h4>
+                                </div>
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th style="width:20%">Emergency Contact</th>
+                                        <td style="width:30%"><span t-esc="o.emergency_contact"/></td>
+                                        <th style="width:20%">Emergency Phone</th>
+                                        <td style="width:30%"><span t-esc="o.emergency_phone"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Emergency Contact Address</th>
+                                        <td><span t-esc="o.emergency_address"/></td>
+                                        <td/>
+                                        <td/>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div>
+                                <div class="text-center">
+                                    <h4 style="color:white; padding:4px; background-color: #055DAB">Family Information</h4>
+                                </div>
+                                <table class="border text-center">
+                                    <tr>
+                                        <th style="width:5%>">Sr. No</th>
+                                        <th style="width:35%>">Name</th>
+                                        <th style="width:20%>">Relationship</th>
+                                        <th style="width:20%>">CNIC/B-Form</th>
+                                        <th style="width:20%>">DOB</th>
+                                    </tr>
+                                    <t t-set="sr" t-value="0"/>
+                                    <t t-foreach="o.family_information_ids" t-as="line">
+                                        <t t-set="sr" t-value="sr+1"/>
+                                        <tr>
+                                            <td><t t-esc="sr"/></td>
+                                            <td><span t-esc="line.name"/></td>
+                                            <td><span t-field="line.relationship"/></td>
+                                            <td><span t-esc="line.cnic_no"/></td>
+                                            <td><span t-esc="line.dob" t-options="{'widget': 'date'}"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                            <div style="margin-top:60px">
+                                <table style="width: 25%;">
+                                    <tr>
+                                        <th style="border-top:1px solid black">Employee Signature</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

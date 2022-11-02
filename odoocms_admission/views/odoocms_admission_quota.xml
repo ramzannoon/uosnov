@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+    <record id="view_odoocms_admission_allocation_tree" model="ir.ui.view">
+        <field name="name">odoocms.admission.allocation.tree</field>
+        <field name="model">odoocms.admission.allocation</field>
+        <field name="arch" type="xml">
+            <tree string="CMS Admission Allocation">
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="view_odoocms_admission_allocation_form" model="ir.ui.view">
+        <field name="name">odoocms.admission.allocation.form</field>
+        <field name="model">odoocms.admission.allocation</field>
+        <field name="arch" type="xml">
+            <form string="CMS Admission Allocation">
+                <sheet>
+                    <group string="Allocation Details">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="academic_session_id"/>
+                            <field name="career_id"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Allocation Seats">
+                            <field name="seat_ids">
+                                <tree editable="bottom">
+                                    <field name="program_id"/>
+                                    <field name="seats"/>
+                                    <field name="category"/>
+                                    <field name="quota_id" attrs="{'invisible':[('category','!=','quota')]}" options="{'create': true, 'create_edit': true}"/>
+                                    <field name="merit_closed_one"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_odoocms_admission_allocation" model="ir.actions.act_window">
+        <field name="name">Admission Allocation</field>
+        <field name="res_model">odoocms.admission.allocation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create Your first Allocation Details here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_admission_allocation_line_tree" model="ir.ui.view">
+        <field name="name">odoocms.admission.allocation.line.tree</field>
+        <field name="model">odoocms.admission.allocation.line</field>
+        <field name="arch" type="xml">
+            <tree string="CMS Admission Allocation Seats">
+                <field name="program_id"/>
+                <field name="seats"/>
+                <field name="category"/>
+                <field name="quota_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_admission_allocation_line_search" model="ir.ui.view">
+        <field name="name">odoocms.admission.allocation.line.search</field>
+        <field name="model">odoocms.admission.allocation.line</field>
+        <field eval="14" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="Admission Allocation Seats">
+                <field name="program_id"/>
+                <field name="category"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter context="{'group_by':'program_id'}" domain="[]" name="program_id" string="program_id"/>
+                    <filter context="{'group_by':'category'}" domain="[]" name="category" string="category"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_admission_allocation_line" model="ir.actions.act_window">
+        <field name="name">Admission Allocation Seats</field>
+        <field name="res_model">odoocms.admission.allocation.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create Your first Allocation Seats here.
+            </p>
+        </field>
+    </record>
+
+
+
+    <record id="view_odoocms_admission_quota_tree" model="ir.ui.view">
+        <field name="name">odoocms.admission.quota.tree</field>
+        <field name="model">odoocms.admission.quota</field>
+        <field name="arch" type="xml">
+            <tree string="CMS Admission Quota">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="view_odoocms_admission_quota_form" model="ir.ui.view">
+        <field name="name">odoocms.admission.quota.form</field>
+        <field name="model">odoocms.admission.quota</field>
+        <field name="arch" type="xml">
+            <form string="CMS Admission Quota">
+                <sheet>
+                    <group string="Allocation Quota">
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_admission_quota" model="ir.actions.act_window">
+        <field name="name">Admission Quota</field>
+        <field name="res_model">odoocms.admission.quota</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create Your first Allocation Details here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_admission_quota"
+            name="Admission Quota"
+            parent="menu_admission_configuration"
+            action="action_odoocms_admission_quota"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="110"/>
+
+    <menuitem
+            id="menu_odoocms_admission_allocation"
+            name="Admission Seats"
+            parent="menu_admission_configuration"
+            action="action_odoocms_admission_allocation"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="120"/>
+
+    <!--
+    <menuitem
+            id="menu_odoocms_admission_quota_seats"
+            name="Admission Quota Seats"
+            parent="menu_odoocms_admission_root"
+            action="action_odoocms_admission_quota_seats"
+            sequence="120"/>
+    -->
+
+</odoo>

@@ -1,0 +1,147 @@
+<odoo>
+
+    <template id="odoocms_fee.receipt_received_detail_report">
+        <t t-call="web.basic_layout">
+
+            <style>
+                #invoice-report {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                }
+
+                #invoice-report td, #invoice-report th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                }
+
+                #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+
+                #invoice-report tr:hover {background-color: #ddd;}
+
+                #invoice-report th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #17134e;
+                color: white;
+                }
+
+                #top-info {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                margin-top:15px;
+                display: inline;
+                }
+
+                #top-info td, #personal-info th {
+                padding: 3px;
+                }
+
+            </style>
+
+            <div class="page" style='font-size: 14px; padding:10px; margin:5em; font-family: "Times New Roman", Times, serif;'>
+                <div>
+                    <div class="col col-12" style="font-size:25px; font-weight:bold; text-align:center;">
+                        <!--                        <span style="border-bottom:1px solid" t-esc="invoice[0].student_id.user_id.company_id.name" t-if="invoice[0].student_id.user_id.company_id.name"/>-->
+                    </div>
+                </div>
+
+                <table id="top-info">
+                    <tr>
+                        <td style="font-weight:bold;">Date From:</td>
+                        <td>
+                            <span style="margin-right:10px;" t-esc="date_from"/>
+                        </td>
+                        <td style="font-weight:bold;">Date To:</td>
+                        <td>
+                            <span style="margin-right:10px;" t-esc="date_to"/>
+                        </td>
+                        <td style="font-weight:bold;">Office:</td>
+                        <td>
+                            <!--                            <span style="margin-right:10px;" t-esc="invoice[0].program_id.department_id.institute_id.campus_id.name" t-if="invoice[0].program_id.department_id.institute_id.campus_id.code"/>-->
+                        </td>
+                    </tr>
+
+                </table>
+
+                <table id="invoice-report">
+                    <tr style="text-align:center">
+                        <th style="width:5%">Sr #</th>
+                        <th style="width:10%">Reg #</th>
+                        <th style="width:17%">Name</th>
+                        <th style="width:10%">Receipt Date</th>
+                        <th style="width:12%">Invoice No.</th>
+                        <th style="width:7%">Barcode</th>
+                        <th style="width:10%">Receipt Type</th>
+                        <th style="tet-align:center; width:10%">Inv Amount</th>
+                        <th style="tet-align:center; width:10%">Rev Amount</th>
+                        <th style="tet-align:center; width:6%">Deficit/(Surplus)</th>
+                    </tr>
+                    <t t-foreach="invoice" t-as="inv">
+                        <tr style="font-size:12px;">
+                            <td>
+                                <span t-esc="inv_index + 1"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['student_code']"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['student_name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['inv_date']"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['inv_no']"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['inv_barcode']"/>
+                            </td>
+                            <td>
+                                <span t-esc="inv['inv_type']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <span t-esc="inv['inv_amount']"/>
+                            </td>
+                            <td style="text-align:right">
+                                <span t-esc="inv['received_amount']"/>
+                            </td>
+                            <t t-if="inv['diff'] &gt; 0">
+                                <td style="text-align:right;background-color: #CBC3E3;">
+                                    <span t-esc="inv['diff']"/>
+                                </td>
+                            </t>
+                            <t t-if="inv['diff'] &lt; 0">
+                                <td style="text-align:right;background-color: #FFFF00;">
+                                    <span t-esc="inv['diff']"/>
+                                </td>
+                            </t>
+                            <t t-if="inv['diff'] == 0">
+                                <td style="text-align:right;">
+                                    <span t-esc="inv['diff']"/>
+                                </td>
+                            </t>
+
+                        </tr>
+                    </t>
+                    <tr style="font-weight:bold;font-size:12px;">
+                        <td colspan="7">Grand Total</td>
+                        <td style="text-align:right">
+                            <span t-esc="total_inv_amount"/>
+                        </td>
+                        <td style="text-align:right">
+                            <span t-esc="total_amount"/>
+                        </td>
+                        <td style="text-align:right">
+                            <span t-esc="amount_diff"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

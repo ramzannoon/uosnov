@@ -1,0 +1,91 @@
+<odoo>
+
+	<template id ="odoocms_attendance.summary_attendance_report">
+			<t t-call="web.basic_layout">
+                <style>
+                    #subject-list {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    #subject-list td, #subject-list th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #subject-list tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #subject-list tr:hover {background-color: #ddd;}
+
+                    #subject-list th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    #personal-info td, #personal-info th {
+                      padding: 3px;
+                    }
+
+                    #personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; padding:10px ">
+                    <t t-if="not courses">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="courses">
+                        <div class="row" style="margin-top:5px;">
+                            <div class="col col-12" style="text-align:right">
+                                <span t-esc="today"/>
+                            </div>
+                        </div>
+
+                        <table id="merit-list">
+                             <tr>
+                                 <th style="width:8%">Sr. No</th>
+                                 <th style="width:15%">Student Code</th>
+                                 <th style="width:15%">Student Name</th>
+                                 <t t-foreach="courses" t-as="course">
+                                    <th style="text-align:right; width:10%"><span t-esc="course" /></th>
+                                 </t>
+                             </tr>
+                             <t t-foreach="lines" t-as="line">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="line_index+1"/></td>
+                                     <td><span t-esc="line['student_code']"/></td>
+                                     <td><span t-esc="line['student_name']"/></td>
+                                     <t t-foreach="courses" t-as="course">
+                                         <t t-if="line[course]['highlight']">
+                                            <td style="text-align:right; color:red; width:10%"><span t-esc="line[course]['percentage']"/></td>
+                                         </t>
+                                         <t t-if="not line[course]['highlight']">
+                                            <td style="text-align:right; width:10%"><span t-esc="line[course]['percentage']"/></td>
+                                         </t>
+                                     </t>
+<!--                                     <td style="text-align:right"><span t-esc="course['percentage']" t-options='{"widget": "float", "precision": 2}' /></td>-->
+                                 </tr>
+                             </t>
+                         </table>
+
+                    </t>
+                </div>
+            </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,196 @@
+<odoo>
+    <data>
+        <record id="iac_moodle_connector_form" model="ir.ui.view">
+            <field name="name">Moodle Connector</field>
+            <field name="model">iac.moodle.connector</field>
+            <field name="arch" type="xml">
+                <form string="Create Moodle Instance">
+                    <header>
+                        <field name="status" widget="statusbar" statusbar_visible="connected,disconnected"
+                               statusbar_colors='{"disconnected":"red","connected":"blue"}'></field>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <div style="margin-bottom:20px">
+                                    <h2 style="color: #687cb3;">
+                                        <b>Moodle Connector</b>
+                                    </h2>
+                                </div>
+                                <field name="access_token"/>
+                                <field name="requested_url"/>
+
+                                <div style="margin-top: 40px;margin-left: 150px;">
+                                    <button name="moodle_login" string="Login" type="object"
+                                            class="btn-primary" attrs="{'invisible':[('status','=','connected')]}"/>
+                                </div>
+                                <div style="margin-top: 40px;">
+                                    <button name="moodle_logout" string="Logout" type="object"
+                                            class="btn-danger btn-primary"
+                                            attrs="{'invisible':[('status','=','disconnected')]}"/>
+                                </div>
+                            </group>
+                            <!--                            <group>-->
+                            <!--                                <field name="campus_ids" string="Select Campuses" widget='many2many_tags'/>-->
+                            <!--                            </group>-->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="iac_moodle_connector_window">
+            <field name="name">Odoo Moodle Connector</field>
+            <field name="res_model">iac.moodle.connector</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="IAC Moodle Connector"
+                  id="iac_moodle_connector_menu_root"
+                  web_icon="iac_moodle_connector,static/description/icon.png"
+                  sequence="9"/>
+
+
+        <menuitem name="Moodle Instance" id="iac_moodle_connector_instance_menu"
+                  parent="iac_moodle_connector_menu_root"
+                  action="iac_moodle_connector_window" sequence="1"/>
+
+        <menuitem name="Course Category" id="iac_moodle_connector_category_menu"
+                  parent="iac_moodle_connector_menu_root" sequence="2"/>
+
+        <!--        <menuitem name="Course Category" id="iac_moodle_connector_category_menu"-->
+        <!--                  parent="iac_moodle_connector_menu_root" sequence="2"/>-->
+
+        <!--        &&&&&&&&&&&&&&&&& MENU SERVER WINDOW FOR CAMPUSES &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_campus_server_action">
+            <field name="name">iac_moodle_campus_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Campuses',
+                "res_model": "odoocms.campus",
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "context": {'search_default_group_iac_sync_state': 1,},
+                }
+            </field>
+        </record>
+        <menuitem name="Campuses" id="iac_moodle_connector_campus_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_campus_server_action"
+                  sequence="1"/>
+
+        <!--        &&&&&&&&&&&&&&&&& MENU SERVER WINDOW FOR INSTITUTES &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_institute_server_action">
+            <field name="name">iac_moodle_institute_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Institutes',
+                "res_model": "odoocms.institute",
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "context": {'search_default_group_iac_sync_state': 1,},
+                }
+            </field>
+        </record>
+        <menuitem name="Institute" id="iac_moodle_connector_institute_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_institute_server_action"
+                  sequence="2"/>
+
+        <!--        &&&&&&&&&&&&&&&&& MENU SERVER WINDOW FOR DEPARTMENTS &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_department_server_action">
+            <field name="name">iac_moodle_department_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'DepartmentS',
+                "res_model": "odoocms.department",
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "context": {'search_default_group_iac_sync_state': 1,},
+                }
+            </field>
+        </record>
+        <menuitem name="Department" id="iac_moodle_connector_department_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_department_server_action"
+                  sequence="3"/>
+
+        <!-- &&&&&&&&&&&&&&&&& MENU SERVER WINDOW FOR PROGRAM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_program_server_action">
+            <field name="name">iac_moodle_program_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Programs',
+                "res_model": "odoocms.program",
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "context": {'search_default_group_iac_sync_state': 1,},
+                }
+            </field>
+        </record>
+        <menuitem name="Program" id="iac_moodle_connector_program_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_program_server_action"
+                  sequence="4"/>
+
+        <!-- &&&&&&&&&&&&&&&&& MENU SERVER WINDOW FOR BATCH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_batch_server_action">
+            <field name="name">iac_moodle_batch_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Batches',
+                "res_model": "odoocms.batch",
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                "context": {'search_default_group_iac_sync_state': 1,},
+                }
+            </field>
+        </record>
+        <menuitem name="Batches" id="iac_moodle_connector_batch_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_batch_server_action"
+                  sequence="5"/>
+
+        <!--&&&&&&&&&&&&&&&&& MENU AND SERVER WINDOW TO RETURN PRIMARY CLASS VIEW AND FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_section_server_action">
+            <field name="name">iac_moodle_section_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Class Courses Section',
+                "res_model": 'odoocms.class',
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                }
+            </field>
+        </record>
+        <menuitem name="Sections" id="iac_moodle_connector_section_menu"
+                  parent="iac_moodle_connector_category_menu" action="iac_moodle_section_server_action"
+                  sequence="6"/>
+
+        <!--&&&&&&&&&&&&&&&&& MENU AND SERVER WINDOW TO RETURN PRIMARY CLASS VIEW AND FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record model="ir.actions.server" id="iac_moodle_course_server_action">
+            <field name="name">iac_moodle_course_server_action</field>
+            <field name="model_id" ref="model_iac_moodle_connector"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = {
+                "name": 'Class Courses',
+                "res_model": 'odoocms.class',
+                "type": "ir.actions.act_window",
+                "view_mode": "tree,form",
+                }
+            </field>
+        </record>
+        <menuitem name="Sync Courses" id="iac_moodle_connector_course_menu"
+                  parent="iac_moodle_connector_menu_root" action="iac_moodle_course_server_action"
+                  sequence="3"/>
+
+    </data>
+</odoo>

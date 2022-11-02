@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<report
+		id="partnerstatement"
+		string= "Partner Statement"
+		model = "res.partner"
+		report_type="qweb-html"
+		file="aarsol_common.partner_statement"
+		name="aarsol_common.partner_statement"
+		menu="False"
+	/>
+
+
+<template id="partner_statement">
+    <t t-call="web.html_container">
+        <t t-set="data_report_margin_top" t-value="24"/>
+        <t t-set="data_report_header_spacing" t-value="20"/>
+        <t t-set="data_report_dpi" t-value="110"/>
+        
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.internal_layout">  <!--   external_layout2 -->
+                <div class="page">
+                
+                	<style>
+						.tabhead{font-family:georgia,garamond,serif;font-size:14px;}
+						.tabcol{font-family:georgia,garamond,serif;font-size:12px;}
+						table th { background-color:#d4e3e5;padding: 10px;}
+						tr:nth-child(even) {background-color: #FFEBCD;}
+						tr:nth-child(odd) {background-color: #cdcdcd;}
+					</style>
+					
+                    <h2>Partner Ledger Of <span t-esc="data['target_move']"/> Entries </h2>
+
+                    <div class="row" style="font-family:georgia,garamond,serif;font-size:12px;">
+                        <div class="col-xs-6">
+                        	<strong>Partner: </strong>
+                            <span t-esc="o.code"/> - <span t-esc="o.name"/>                            
+                        </div>
+                        <div class="col-xs-3">
+		                    <t t-if="data['date_from']"><strong>Date From :</strong> <span t-esc="data['date_from']"/><br/></t>
+		                    <t t-if="data['date_to']"><strong>Date To :</strong> <span t-esc="data['date_to']"/></t>
+		                </div>
+                    </div>
+					<t t-set="th_style" t-value="'border-bottom: 1px solid #ddd !important; white-space:nowrap;'"/>
+      				<table class="table  table-condensed" t-attf-style="color:#111111;" >
+             			<thead t-attf-style="background-color:#111111; page-break-inside: avoid; color:#000000;">
+				            <tr t-attf-style="page-break-inside: avoid !important; border-bottom: 1px solid #111111 !important;">
+				                <th t-attf-style="{{th_style}}"><i class="fa fa-list-ol"></i></th>
+				                <th t-attf-style="{{th_style}}"><i class="fa fa-calendar"> Date</i></th> 
+				                <th t-attf-style="{{th_style}}"><i class="fa fa-bars"> JRNL</i></th>
+				                <th t-attf-style="{{th_style}}"><i class="fa fa-database"> Account</i></th> 
+				                <th t-attf-style="{{th_style}}"><i class="fa fa-th-large"> Ref</i></th> 
+				                                               
+				                <th class="text-right" t-attf-style="{{th_style}}"><i class="fa fa-credit-card"> Debit</i></th>
+				                <th class="text-right" t-attf-style="{{th_style}}"><i class="fa fa-credit-card"> Credit</i></th>                                                
+				                <th class="text-right" t-attf-style="{{th_style}}"><i class="fa fa-balance-scale"> Balance</i></th>
+				            </tr>
+				     	</thead>             
+                   
+                        <tbody>
+                        	<tr>
+                        		<td colspan="5"> Opening Balance</td>
+                        		<td style="text-align:right"> 
+                        			<span t-esc="Debit_OB and ('{0:,.2f}'.format(Debit_OB) if int(Debit_OB) > 0 else '{0:,.2f}'.format(abs(Debit_OB))) or '-'" />
+		                         </td>
+                        		<td style="text-align:right">
+                        			<span t-esc="Credit_OB and ('{0:,.2f}'.format(Credit_OB) if int(Credit_OB) > 0 else '{0:,.2f}'.format(abs(Credit_OB))) or '-'" />
+		                         
+		                         </td>
+                        		<td style="text-align:right">
+                        			<span t-esc="Bal_OB and ('{0:,.2f}'.format(Bal_OB) if int(Bal_OB) > 0 else '({0:,.2f})'.format(abs(Bal_OB))) or '-'" />
+		                         </td>
+                        	</tr> 
+                        	
+                        	<t t-foreach="lines" t-as="line">                            
+		                        <tr t-attf-style="background-color:#F2F2F2 if line_parity in 'odd' else #FFFFFF; page-break-inside: avoid !important;">
+		                            
+		                            <td style="font-size:12px;"><span t-esc="line_index + 1"/></td>
+		                            <td style="font-size:12px;width:10%;"><span t-esc="get_date_formate(line['date'])"/></td>
+		                            <td style="font-size:12px;"><span t-esc="line['code']"/></td>
+		                            <td style="font-size:12px;"><span t-esc="line['a_code']"/></td>
+		                            <td style="font-size:12px;"><span t-esc="line['displayed_name']"/></td>
+									<td style="text-align:right">
+										<span t-esc="line['debit'] and ('{0:,.2f}'.format(line['debit']) if int(line['debit']) > 0 else '({0:,.2f})'.format(abs(line['debit']))) or '-'" />	
+		                            </td>
+		                            <td style="text-align:right;font-size:12px;">
+										<span t-esc="line['credit'] and ('{0:,.2f}'.format(line['credit']) if int(line['credit']) > 0 else '({0:,.2f})'.format(abs(line['credit']))) or '-'" />
+		                            </td>
+		                            <td style="text-align:right;font-size:12px;">
+										<span t-esc="line['progress'] and ('{0:,.2f}'.format(line['progress']) if int(line['progress']) > 0 else '({0:,.2f})'.format(abs(line['progress']))) or '-'" />
+		                            </td> 
+		                        </tr>
+		                     </t>
+		                      
+		                     <tr>
+		                     	<td colspan="5" style="text-align:right;font-size:10px; font-weight: bold; padding-right: 5px;"> TOTALS: </td>
+		                     	<td style="text-align:right;font-size:10px; font-weight: bold;"> <span t-esc="Debit and ('{0:,.2f}'.format(Debit) if int(Debit) > 0 else '{0:,.2f}'.format(abs(Debit))) or '-'" /></td>
+		                     	<td style="text-align:right;font-size:10px; font-weight: bold;"> <span t-esc="Credit and ('{0:,.2f}'.format(Credit) if int(Credit) > 0 else '{0:,.2f}'.format(abs(Credit))) or '-'" /></td>
+		                     	<td style="text-align:right;font-size:10px; font-weight: bold;"> <span t-esc="Bal and ('{0:,.2f}'.format(Bal) if int(Bal) > 0 else '({0:,.2f})'.format(abs(Bal))) or '-'" /></td>
+		                     </tr>
+		                     
+		                     <tr>
+		                     	<td colspan="7" style="text-align:right;font-size:12px; font-weight: bold; padding-right: 5px;background-color:#aed6f1;">Balance Due</td>	
+		                     	<td style="text-align:right;font-size:12px; font-weight: bold;background-color:#aed6f1;"> <span t-esc="Bal and ('{0:,.2f}'.format(Bal) if int(Bal) > 0 else '({0:,.2f})'.format(abs(Bal))) or '-'" /></td>
+		                     </tr>
+		                     
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>

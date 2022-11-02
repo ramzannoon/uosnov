@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		<record id="view_receipt_received_detail_wiz_form" model="ir.ui.view">
+			<field name="name">receipt.received.detail.wiz.form</field>
+			<field name="model">receipt.received.detail.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Receipt Received Detail Report">
+					<group>
+						<field name="date_from" />
+						<field name="date_to" />
+					</group>
+					<footer>
+						<button name="print_report" string="Get Report" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_receipt_received_detail_wiz" model="ir.actions.act_window">
+			<field name="name">Receipt Received Detail Report</field>
+			<field name="res_model">receipt.received.detail.wiz</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+
+		 <menuitem
+				id="menu_receipt_received_detail_wiz"
+				name="Receipt Received Detail"
+				action="action_receipt_received_detail_wiz"
+				parent="odoocms_fee.menu_fee_reports"
+				sequence="140"/>
+
+
+		<!--<act_window
+				id="act_odoocms_process_fee_payment"
+				name="Process Fee Payment"
+				res_model="odoocms.process.fee.payment"
+				src_model="odoocms.fee.payment"
+				view_mode="form"
+				multi="True"
+            	target="new"
+            	key2="client_action_multi"/>
+-->
+</odoo>

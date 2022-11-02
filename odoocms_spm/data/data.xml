@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="portal_menu_project_faculty" model="odoocms.faculty.portal.menu">
+            <field name="name">Student Projects</field>
+            <field name="code">projects</field>
+            <field name="title">Projects</field>
+            <field name="menu_icon">announcement</field>
+            <field name="href">/faculty/projects</field>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">600</field>
+        </record>
+
+
+        <record id="portal_menu_project_student" model="odoocms.student.portal.menu">
+            <field name="name">Student Projects</field>
+            <field name="code">project</field>
+            <field name="title">Project Management</field>
+            <field name="href">/student/project</field>
+            <field name="menu_icon">code</field>
+            <field name="enable_external">False</field>
+            <field name="visible_external">True</field>
+            <field name="sequence">1300</field>
+        </record>
+    </data>
+</odoo>

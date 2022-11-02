@@ -1,0 +1,241 @@
+/* image uploader  */
+.bgColor {
+    max-width: 440px;
+    height: 330px;
+    border-radius: 4px;
+	text-align: center;    
+}
+#targetOuter{	
+	position:relative;
+    text-align: center;
+    background-color: #F0E8E0;
+    margin: 20px auto;
+    width: 214px;
+    height: 214px;
+	border-radius: 4px;
+	border: 1px solid;
+    padding: 5px;
+}
+.btnSubmit {
+    background-color: #565656;
+    border-radius: 4px;
+    padding: 10px;
+    border: #333 1px solid;
+    color: #FFFFFF;
+    width: 200px;
+	cursor:pointer;
+}
+.inputFile {
+    padding: 5px 0px;
+	margin-top:8px;	
+    background-color: #FFFFFF;
+    width: 48px;	
+    overflow: hidden;
+	opacity: 0;	
+	cursor:pointer;
+}
+.icon-choose-image {
+    position: absolute;
+    opacity: 0.1;
+    top: 50%;
+    left: 50%;
+    margin-top: -24px;
+    margin-left: -24px;
+    width: 48px;
+    height: 48px;
+}
+.upload-preview {border-radius:4px;}
+#body-overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
+#body-overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
+#body-overlay-documents {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
+
+
+.documents_images{
+	width:50px;
+	height:50px;
+	float:right;
+	display:block;
+	padding: 5px;
+	background-color: #F0E8E0;
+	border: 1px solid;
+	border-radius: 4px;
+	cursor:zoom-in;
+	margin-top: -15px;
+	
+}
+/* Above code is for image upload */
+.animate-zoom {animation:animatezoom 0.6s}@keyframes animatezoom{from{transform:scale(0)} to{transform:scale(1)}}
+
+
+/*for check box*/
+.checkboxcontainer {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxcontainer:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxcontainer input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxcontainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxcontainer .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*End for check box*/
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #33a7d7;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #33a7d7;
+  color: white;
+}
+
+
+/* .hidden_choices{ */
+	/* display:none; */
+/* } */
+
+
+legend {
+    padding: 0px 7px 0px 7px;
+    border: 0px none;
+    font-size: 13px;
+    font-weight: bold;
+    width: auto;
+    display: inline;
+    margin-bottom: 15px;
+	line-height: inherit;
+    color: #333;
+
+}
+
+.block-info {
+	border: 2px solid #ddd; 
+	padding: 20px 10px 10px 10px;
+	margin-bottom:10px;
+}
+
+.block-documents {
+	display:block; 
+	margin:auto; 
+	margin-bottom:2%; 
+	margin-right:2%; 
+	padding:20px; 
+	width:48%; 
+	float:left
+}
+
+
+.smart-steps .wizard > .steps a {
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+	font-weight:bold;
+}
+
+
+.smart-steps .wizard > .steps a, .smart-steps .wizard > .steps a:hover, .smart-steps .wizard > .steps a:active {
+    height: 54px;
+    line-height: 17px;
+    /* padding: 0 1em; */
+    padding-left: 2em;
+    padding-top: 1em;
+}
+
+
+/* This is to show steps and icons behind the modal; */
+
+.smart-steps .wizard > .steps {
+    position: relative;
+    z-index: 1;
+}
+.smart-forms .append-icon .field-icon, .smart-forms .prepend-icon .field-icon{
+	z-index: 1;
+}
+
+/* This is for width of modal */
+.w3-modal-content {
+    width: 550px;
+}
+
+@media (min-width: 993px)
+.w3-modal-content {
+    width: 550px;
+}

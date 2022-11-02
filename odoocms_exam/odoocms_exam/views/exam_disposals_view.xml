@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_batch_term_form_exam" model="ir.ui.view">
+            <field name="name">odoocms.batch.term.form.exam</field>
+            <field name="model">odoocms.batch.term</field>
+            <field name="inherit_id" ref="odoocms_academic.view_odoocms_batch_term_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <button type="object" name="apply_disposal_rules" string="Apply Disposal Rules"
+                        states='disposal' groups="odoocms.group_cms_manager" class="oe_highlight"/>
+                    <button name="result_verified" string="Verify Result" type="object" class="oe_highlight"
+                        states='verify'/>
+                </field>
+<!--                <xpath expr="//group[@name='out']" position="after">-->
+<!--                    <group>-->
+<!--                        <field name="disposal_rule_ids" widget="many2many_tags"/>-->
+<!--                    </group>-->
+<!--                </xpath>-->
+            </field>
+        </record>
+
+<!--        <record id="view_odoocms_batch_form_inherit_exam_disposal" model="ir.ui.view">-->
+<!--            <field name="name">odoocms.batch.form.exam</field>-->
+<!--            <field name="model">odoocms.batch</field>-->
+<!--            <field name="inherit_id" ref="odoocms_registration.view_odoocms_batch_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//notebook/page[@name='othersettings']//group" position="after">-->
+<!--                    <group>-->
+<!--                        <field name="disposal_rule_ids" widget="many2many_tags"/>-->
+<!--                    </group>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="odoocms_exam_disposal_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.type.tree</field>
+            <field name="model">odoocms.exam.disposal.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" placeholder="i.e Warning, Suspension, Withdrawn etc" required="1"/>
+                    <field name="tag_id" domain="[('category_code','=','disposal')]"
+                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    <field name="state"
+                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_exam_disposal_rule_tree" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.rule.tree</field>
+            <field name="model">odoocms.exam.disposal.rule</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="domain" widget="domaintree" options="{'model': 'odoocms.batch', 'in_dialog': True}"/>
+                    <field name="disposal_type_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_exam_disposal_rule_form" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.rule.form</field>
+            <field name="model">odoocms.exam.disposal.rule</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="disposal_type_id" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="domain" widget="domain" options="{'model': 'odoocms.batch', 'in_dialog': True}"/>
+                        </group>
+                        <notebook>
+                            <page name="rule_lines" string="Rule Lines">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="type"/>
+                                        <field name="domain" widget="domaintree" options="{'model': 'odoocms.student', 'in_dialog': true}" attrs="{'invisible': [('type','=','code')]}"/>
+                                        <field name="code" attrs="{'invisible': [('type','!=','code')]}"/>
+                                        <field name="limit" attrs="{'invisible': [('type','=','code')]}"/>
+                                        <field name="operator" attrs="{'invisible': [('type','=','code')]}"/>
+                                        <field name="count" attrs="{'invisible': [('type','=','code')]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="exam_disposal_rule_line_form" model="ir.ui.view">
+            <field name="name">exam.disposal.rule.line.form</field>
+            <field name="model">exam.disposal.rule.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="domain" widget="domain" options="{'model': 'odoocms.student', 'in_dialog': True}"
+                                   attrs="{'invisible': [('type','=','code')]}"/>
+                            <field name="code" attrs="{'invisible': [('type','!=','code')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('type','=','code')]}">
+                            <group>
+                                <field name="operator"/>
+                                <field name="limit"/>
+                            </group>
+                            <group>
+                                <field name="count"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="odoocms_exam_disposal_history_tree" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.history.tree</field>
+            <field name="model">odoocms.exam.disposal.history</field>
+            <field name="arch" type="xml">
+                <tree create="false" edit="false" delete="false">
+                    <field name="name"/>
+                    <field name="batch_id"/>
+                    <field name="term_id"/>
+                    <field name="user_id"/>
+                    <field name="date" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="odoocms_exam_disposal_history_form" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.history.form</field>
+            <field name="model">odoocms.exam.disposal.history</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <field name="name" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="batch_id"/>
+                            <field name="term_id"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="date" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="line_ids" string="History Lines">
+                                <field name="line_ids">
+                                    <tree>
+                                        <field name="student_id"/>
+                                        <field name="pre_disposal_type_id"/>
+                                        <field name="disposal_type_id"/>
+                                        <field name="rule_line_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="odoocms_exam_disposal_history_search" model="ir.ui.view">
+            <field name="name">odoocms.exam.disposal.history.search</field>
+            <field name="model">odoocms.exam.disposal.history</field>
+            <field name="arch" type="xml">
+            <search string="Disposal History">
+                <field name="name"/>
+                <field name="batch_id"/>
+                <field name="term_id"/>
+                <separator/>
+                <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Batch" domain="[]" name="batch" context="{'group_by':'batch_id'}" />
+                        <filter string="Term" domain="[]" name="term" context="{'group_by':'term_id'}" />
+                    </group>
+            </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_exam_disposal_type" model="ir.actions.act_window">
+            <field name="name">Disposal Types</field>
+            <field name="res_model">odoocms.exam.disposal.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="action_odoocms_exam_disposal_rule" model="ir.actions.act_window">
+            <field name="name">Disposal Rule</field>
+            <field name="res_model">odoocms.exam.disposal.rule</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="action_odoocms_exam_disposal_history" model="ir.actions.act_window">
+            <field name="name">Disposal History</field>
+            <field name="res_model">odoocms.exam.disposal.history</field>
+            <field name="search_view_id" ref="odoocms_exam_disposal_history_search"/>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_exam_disposal_type"
+                parent="menu_odoocms_exam_main1"
+                name="Disposal Types"
+                action="action_odoocms_exam_disposal_type"
+                sequence="50"/>
+
+        <menuitem
+                id="menu_odoocms_exam_disposal_rule"
+                parent="menu_odoocms_exam_main1"
+                name="Disposal Rules"
+                action="action_odoocms_exam_disposal_rule"
+                sequence="60"/>
+
+        <menuitem
+                id="menu_odoocms_exam_disposal_history"
+                parent="menu_odoocms_exam_main1"
+                name="Disposal History"
+                action="action_odoocms_exam_disposal_history"
+                sequence="70"/>
+
+    </data>
+</odoo>

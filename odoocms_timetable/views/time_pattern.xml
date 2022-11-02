@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="odoocms_time_pattern_form" model="ir.ui.view">
+            <field name="name">odoocms.time.pattern.form</field>
+            <field name="model">odoocms.time.pattern</field>
+            <field name="arch" type="xml">
+                <form string="Time Pattern">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <label for="nbrMeetings" string="Meetings"/>
+                                <div>
+                                    <field name="nbrMeetings" class="oe_inline" style="width: 30%%"/> x
+                                    <field name="minsPerMeeting" class="oe_inline" style="width: 30%%"/>
+                                    <field name="type" class="oe_inline" style="width: 35%%"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="nbrSlotsPerMeeting"/>
+                                <field name="breakTime"/>
+                                <field name="visible"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Days &amp; Slots">
+                                <group>
+                                    <group>
+                                        <field name="pattern_days">
+                                            <tree>
+                                                <field name="code"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                    <group>
+                                        <field name="pattern_times">
+                                            <tree>
+                                                <field name="start"/>
+                                            </tree>
+                                        </field>
+                                    </group>
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="odoocms_time_pattern_tree" model="ir.ui.view">
+            <field name="name">odoocms.time.pattern.tree</field>
+            <field name="model">odoocms.time.pattern</field>
+            <field name="arch" type="xml">
+                <tree string="Timetable Schedule">
+                    <field name="name"/>
+                    <field name="nbrSlotsPerMeeting"/>
+                    <field name="breakTime"/>
+                    <field name="visible"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_odoocms_time_pattern" model="ir.actions.act_window">
+            <field name="name">Time Pattern</field>
+            <field name="res_model">odoocms.time.pattern</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    You have'nt created any Time Pattern yet.
+                </p>
+            </field>
+        </record>
+
+
+
+
+        <menuitem
+                id="menu_odoocms_time_pattern"
+                name="Time Pattern"
+                parent="menu_odoocms_timetable_configuration"
+                action="action_odoocms_time_pattern"/>
+    </data>
+</odoo>

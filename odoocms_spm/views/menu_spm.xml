@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <menuitem id="menu_student_project_management_root"
+             name="Student Project Management"
+              groups="odoocms_spm.group_cms_student_project_management_user"
+              web_icon="odoocms_spm,static/description/icon.png"
+             sequence="1"/>
+
+   <menuitem id="menu_student_project_management_main"
+             name="SPM"
+             parent="menu_student_project_management_root"
+             sequence="1"/>
+   <menuitem id="menu_student_project_management_configuration"
+             name="Configuration"
+             parent="menu_student_project_management_root"
+             sequence="2"/>
+</odoo>
+
+

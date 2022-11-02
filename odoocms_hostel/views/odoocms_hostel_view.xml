@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_hostel_kanban" model="ir.ui.view">
+            <field name="name">odoocms.hostel.kanban</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <kanban class="odoocms_hostel_kanban">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="warden_mobile"/>
+                    <field name="image_128"/>
+                    <field name="hostel_type"/>
+                    <field name="hostel_warden"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click  o_res_partner_kanban">
+                                <div class="o_kanban_image">
+                                    <t t-if="record.image_128.raw_value">
+                                        <img t-att-src="kanban_image('odoocms.hostel', 'image_128', record.id.raw_value)" alt="Hostel"/>
+                                    </t>
+                                    <t t-if="!record.image_128.raw_value">
+                                        <img t-att-src='_s + "/base/static/img/avatar.png"' alt="Hostel"/>
+                                    </t>
+                                </div>
+
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title oe_partner_heading">
+                                        <field name="name"/>
+                                    </strong>
+                                    <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+                                    <ul>
+                                        <li t-if="record.code.raw_value">
+                                            Code:
+                                            <field name="code"/>
+                                        </li>
+                                        <li t-if="record.hostel_type.raw_value">
+                                            Type:
+                                            <field name="hostel_type"/>
+                                        </li>
+                                        <li t-if="record.hostel_warden.raw_value">
+                                            Manager:
+                                            <field name="hostel_warden"/>
+                                        </li>
+                                        <li t-if="record.warden_email.raw_value">
+                                            Manager Email:
+                                            <field name="warden_email"/>
+                                        </li>
+                                        <li t-if="record.warden_mobile.raw_value">
+                                            Manager Mobile:
+                                            <field name="warden_mobile"/>
+                                        </li>
+                                        <!--                                        <li t-if="record.phone.raw_value">-->
+                                        <!--                                            Tel:-->
+                                        <!--                                            <field name="phone" />-->
+                                        <!--                                        </li>-->
+                                        <li t-if="record.hostel_supervisor.raw_value">
+                                            Caretaker:
+                                            <field name="hostel_supervisor"/>
+                                        </li>
+                                        <li t-if="record.hostel_supervisor.raw_value">
+                                            Caretaker Tel:
+                                            <field name="supervisor_mobile"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.tree</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <tree string="Hostels" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="hostel_warden"/>
+                    <field name="total_students"/>
+                    <field name="vacancy"/>
+                    <field name="hostel_type"/>
+                    <field name="electrical_meter_no"/>
+                    <field name="sui_gas_meter_no"/>
+                    <field name="hostel_supervisor" optional="1"/>
+                    <field name="supervisor_mobile" optional="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.form</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <form string="Hostels">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="image_1920" widget='image' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}'/>
+
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Hostel Name"/>
+                            <h2>
+                                <table>
+                                    <tr>
+                                        <td style="padding-right:10px;">
+                                            <field style="width:inherit;" name="name" attrs="{'readonly':[('state', '=', 'lock')]}" required="1" placeholder="Name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </h2>
+                        </div>
+
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                    <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                </div>
+                                <field name="hostel_type" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="code" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="hostel_warden" attrs="{'readonly':[('state', '=', 'lock')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="phone" widget="phone" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="warden_mobile" widget="phone" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="warden_email" widget="email" context="{'gravatar_image': True}" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="electrical_meter_no" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="sui_gas_meter_no" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="hostel_supervisor" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="supervisor_mobile" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                        </group>
+
+                        <notebook colspan="4">
+                            <page string="Basic Info" attrs="{'readonly':[('state', '=', 'lock')]}">
+                                <group>
+                                    <table class="table table-bordered">
+                                        <tr bgcolor="#a8aba3">
+                                            <th colspan="4" style="text-align:center;">Hostel Info</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Hostel Capacity</th>
+                                            <th>
+                                                <field name="hostel_capacity" nolabel="1"/>
+                                            </th>
+                                            <th>Students</th>
+                                            <th>
+                                                <field name="total_students" nolabel="1"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Allocated</th>
+                                            <th>
+                                                <field name="allocated_number" nolabel="1"/>
+                                            </th>
+                                            <th>Vacancy</th>
+                                            <th>
+                                                <field name="vacancy" nolabel="1"/>
+                                            </th>
+                                        </tr>
+
+                                        <tr bgcolor="#a8aba3">
+                                            <th colspan="4" style="text-align:center;">Total Rooms</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Single Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="total_single_rooms" nolabel="1"/>
+                                            </th>
+                                            <th>Double Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="total_double_rooms" nolabel="1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Triple Occupancy with Community Bath</th>
+                                            <th>
+                                                <field name="total_triple_rooms" nolabel="1"/>
+                                            </th>
+
+                                            <th>Double Occupancy With Community Bath</th>
+                                            <th>
+                                                <field name="total_double_rooms2" nolabel="1"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Rooms</th>
+                                            <th>
+                                                <field name="total_rooms" nolabel="1"/>
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+
+                                        <tr bgcolor="#a8aba3">
+                                            <th colspan="4" style="text-align:center;">Fully Occupied Rooms</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Single Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="full_occupied_single_bed" nolabel="1"/>
+                                                <button name="fully_occupied_single_bed_view" string="View" type="object"/>
+                                            </th>
+                                            <th>Double Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="full_occupied_double_bed" nolabel="1"/>
+                                                <button name="fully_occupied_double_bed_view" string="View" type="object"/>
+                                            </th>
+
+
+                                        </tr>
+                                        <tr>
+                                            <th>Triple Occupancy with Community Bath</th>
+                                            <th>
+                                                <field name="full_occupied_triple_bed" nolabel="1"/>
+                                                <button name="fully_occupied_triple_bed_view" string="View" type="object"/>
+                                            </th>
+                                            <th>Double Occupancy With Community Bath</th>
+                                            <th>
+                                                <field name="full_occupied_double_bed2" nolabel="1"/>
+                                                <button name="fully_occupied_double_bed_view2" string="View" type="object"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Rooms</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+
+                                        <tr bgcolor="#a8aba3">
+                                            <th colspan="4" style="text-align:center;">Partially Occupied Rooms</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Double Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="double_partial_occupied_bed" nolabel="1"/>
+                                                <button name="partially_occupied_double_bed_view" string="View" type="object"/>
+                                            </th>
+                                            <th>Double Occupancy With Community Bath</th>
+                                            <th>
+                                                <field name="triple_partial_occupied_bed" nolabel="1"/>
+                                                <button name="partially_occupied_triple_bed_view" string="View" type="object"/>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>Triple Occupancy With Community Bath</th>
+                                            <th>
+                                                <field name="double_partial_occupied_bed2" nolabel="1"/>
+                                                <button name="partially_occupied_double_bed_view2" string="View" type="object"/>
+                                            </th>
+                                            <th>Total Rooms</th>
+                                            <th>
+                                                <field name="partially_occupied_total" nolabel="1"/>
+                                            </th>
+                                        </tr>
+                                        <tr bgcolor="#a8aba3">
+                                            <th colspan="4" style="text-align:center;">Vacant Rooms</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th>Single Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="single_bed_vacant" nolabel="1"/>
+                                                <button name="single_bed_vacant_view" string="View" type="object"/>
+                                            </th>
+                                            <th>Double Occupancy With Attached Bath</th>
+                                            <th>
+                                                <field name="double_bed_vacant" nolabel="1"/>
+                                                <button name="double_bed_vacant_view" string="View" type="object"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Triple Occupancy with Community Bath</th>
+                                            <th>
+                                                <field name="triple_bed_vacant" nolabel="1"/>
+                                                <button name="triple_bed_vacant_view" string="View" type="object"/>
+                                            </th>
+
+                                            <th>Double With Community Bath</th>
+                                            <th>
+                                                <field name="double_bed_vacant2" nolabel="1"/>
+                                                <button name="double_bed_vacant_view2" string="View" type="object"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th>Total Rooms</th>
+                                            <th>
+                                                <field name="total_vacant" nolabel="1"/>
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </table>
+                                </group>
+                            </page>
+
+                            <page string="Floors">
+                                <field name="floor_ids" readonly="1"/>
+                            </page>
+
+                            <page string="Rooms">
+                                <field name="hostel_rooms" readonly="1"/>
+                            </page>
+
+                            <page string="Students">
+                                <field name="student_ids">
+                                    <tree string="Students" default_order="id_number" readonly="1" decoration-primary="active == False " decoration-success="active == True">
+                                        <field name="id_number"/>
+                                        <field name="name"/>
+                                        <field name="program_id"/>
+                                        <field name="career_id" invisible="1"/>
+                                        <field name="room_id"/>
+                                        <field name="room_type"/>
+                                        <field name="hostel_state" optional="1"/>
+                                        <field name="allocated_date" optional="1"/>
+                                        <field name="state" optional="1"/>
+                                        <field name="active" optional="1"/>
+                                        <field name="session_id"/>
+                                        <field name="vacated_date" optional="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Faculty">
+                                <field name="faculty_ids">
+                                    <tree string="faculty" readonly="1">
+<!--                                          decoration-primary="active==False" decoration-success="active==True">-->
+                                        <field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="work_email"/>
+										<field name="mobile_phone"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="campus_users" string="Users" groups="account.group_account_manager">
+                                <field name="user_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.search</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <search string="Hostel Filter">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="hostel_warden" string="Manager Name"/>
+                    <field name="electrical_meter_no"/>
+                    <field name="sui_gas_meter_no"/>
+                    <newline/>
+
+<!--                     <filter string="Boys Hostel" name="filter_by_male" domain="[('hostel_type', '=', 1)]"/> -->
+<!--                     <filter string="Girls Hostel" name="filter_by_female" domain="[('type', '=', 2)]"/>
+                    <filter string="Common Hostel" name="filter_by_common" domain="[('type', '=', 3)]"/>
+ -->
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_hostel_type" string="Type" domain="[]" context="{'group_by':'hostel_type'}"/>
+                        <filter name="group_by_warden" string="Managers" domain="[]" context="{'group_by':'hostel_warden'}"/>
+                        <separator/>
+                    </group>
+                    <searchpanel>
+                        <field name="hostel_type" icon="fa-building"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_pivot" model="ir.ui.view">
+            <field name="name">odoocms.hostel.pivot</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <pivot string="Hostel Analysis" display_quantity="true">
+                    <field name="id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_graph" model="ir.ui.view">
+            <field name="name">odoocms.hostel.graph</field>
+            <field name="model">odoocms.hostel</field>
+            <field name="arch" type="xml">
+                <graph string="Hostel Analysis">
+                    <field name="id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel">
+            <field name="name">Hostel</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel</field>
+            <field name="view_mode">kanban,tree,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Hostel.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_menu"
+                name="Hostels"
+                parent="menu_odoocms_hostel_main"
+                action="action_odoocms_hostel"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="10"/>
+    </data>
+</odoo>

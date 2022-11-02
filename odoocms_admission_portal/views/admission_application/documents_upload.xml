@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_documents_upload" name="Admission Documents Upload">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <fieldset t-if="readonly2">
+                <div id="body-overlay-documents">
+                    <div>
+                        <img src="/odoocms_admission_portal\static\images/loading.gif"
+                             width="64px" height="64px"/>
+                    </div>
+                </div>
+
+                <div id="doc_note" class="section colm colm12" style="color:red">
+                    <h4>Format of the required document files should be valid PNG or JPG
+                    </h4>
+                </div>
+
+                <div class="block-info block-documents">
+                    <legend style="color: #0393DC">SSC/Equivalence Certificate</legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" name="matric" id="matriccertificate"
+                               t-att-required="not application_documents.matric_scaned_copy" accept="image/*"
+                               onChange="show_pre_matric(this)"
+                               t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.matric_scaned_copy">
+                                <span t-esc="application_documents.matric_scaned_copy_name"/>
+                                <img onclick="document.getElementById('matric_modal').style.display='block'"
+                                     class="documents_images" id="matric_scaned_copy"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.matric_scaned_copy)"/>
+                            </t>
+                            <t t-if="not application_documents.matric_scaned_copy">
+                                <img class="documents_images" id="matric_scaned_copy"/>
+                            </t>
+                        </div>
+                        <div id="matric_modal" class="w3-modal" onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id='matric_scaned_copy_modal_image'
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.matric_scaned_copy)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-info block-documents">
+                    <legend style="color: #0393DC">HSSC/Equivalence Certificate</legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" name="inter" id="intercertificate"
+                                   accept="image/*" onChange="show_pre_inter(this)"
+                                   t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.inter_scaned_copy">
+                                <span t-esc="application_documents.inter_scaned_copy_name"/>
+                                <img onclick="document.getElementById('inter_modal').style.display='block'"
+                                     class="documents_images" id="inter_scaned_copy"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.inter_scaned_copy)"/>
+                            </t>
+                            <t t-if="not application_documents.inter_scaned_copy">
+                                <img class="documents_images" id="inter_scaned_copy"/>
+                            </t>
+                        </div>
+                        <div id="inter_modal" class="w3-modal" onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id="inter_scaned_copy_modal_image"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.inter_scaned_copy)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <t t-if="inter_education and inter_education.degree_level == 'DAE'">
+                    <div class="block-info block-documents">
+                        <legend style="color: #0393DC">DAE First Year Certificate</legend>
+                        <div class="frm-row">
+                            <div class="form-2col">
+                                <input type="file" accept="image/*"
+                                       onChange="show_pre_dae_first_year(this)"
+                                       t-att-disabled="readonly"/>
+                            </div>
+                            <div class="form-2col" style="margin-top:10px">
+                                <t t-if="application_documents.dae_first_year">
+                                    <span t-esc="application_documents.dae_first_year_name"/>
+                                    <img onclick="document.getElementById('dae_first_year_modal').style.display='block'"
+                                         class="documents_images" id="dae_first_year"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_first_year)"/>
+                                </t>
+                                <t t-if="not application_documents.dae_first_year">
+                                    <img class="documents_images" id="dae_first_year"/>
+                                </t>
+                            </div>
+                            <div id="dae_first_year_modal" class="w3-modal" onclick="this.style.display='none'">
+                                <div class="w3-modal-content w3-animate-zoom">
+                                    <img id="dae_first_year_modal_image"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_first_year)"
+                                         style="width:100%"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-info block-documents">
+                        <legend style="color: #0393DC">DAE 2nd Year Certificate</legend>
+                        <div class="frm-row">
+                            <div class="form-2col">
+                                <input type="file" accept="image/*"
+                                       onChange="show_pre_dae_second_year(this)"
+                                       t-att-disabled="readonly"/>
+                            </div>
+                            <div class="form-2col" style="margin-top:10px">
+                                <t t-if="application_documents.dae_second_year">
+                                    <span t-esc="application_documents.dae_second_year_name"/>
+                                    <img onclick="document.getElementById('dae_second_year_modal').style.display='block'"
+                                         class="documents_images" id="dae_second_year"
+                                         t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_second_year)"/>
+                                </t>
+                                <t t-if="not application_documents.dae_second_year">
+                                    <img class="documents_images" id="dae_second_year"/>
+                                </t>
+                            </div>
+                            <div id="dae_second_year_modal" class="w3-modal"
+                                 onclick="this.style.display='none'">
+                                <div class="w3-modal-content w3-animate-zoom">
+                                    <img id='dae_second_year_modal_image'
+                                         t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_second_year)"
+                                         style="width:100%"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-info block-documents">
+                    <legend style="color: #0393DC">DAE 3rd Year Certificate</legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" accept="image/*"
+                                   onChange="show_pre_dae_third_year(this)"
+                                   t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.dae_third_year">
+                                <span t-esc="application_documents.dae_third_year_name"/>
+                                <img onclick="document.getElementById('dae_third_year_modal').style.display='block'"
+                                     class="documents_images" id="dae_third_year"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_third_year)"/>
+                            </t>
+                            <t t-if="not application_documents.dae_third_year">
+                                <img class="documents_images" id="dae_third_year"/>
+                            </t>
+                        </div>
+                        <div id="dae_third_year_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id="dae_third_year_modal_image"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.dae_third_year)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </t>
+
+                <div class="block-info block-documents">
+                    <legend style="color: #0393DC">Test Certificate</legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" accept="image/*"
+                               onChange="show_pre_test(this)"
+                               t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.test_certificate">
+                                <img onclick="document.getElementById('test_certificate_modal').style.display='block'"
+                                     class="documents_images" id="test_certificate"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.test_certificate)"/>
+                            </t>
+                            <t t-if="not application_documents.test_certificate">
+                                <img class="documents_images" id="test_certificate"/>
+                            </t>
+                        </div>
+                        <div id="test_certificate_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id='test_certificate_copy_modal_image'
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.test_certificate)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="block-info block-documents">
+                    <legend style="color: #0393DC">CNIC Front Scanned/Form-B Copy</legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" accept="image/*"
+                               onChange="show_pre_cnic(this)" t-att-required="not application_documents.cnic_scanned_copy"
+                               t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.cnic_scanned_copy">
+                                <img onclick="document.getElementById('cnic_modal').style.display='block'"
+                                     class="documents_images" id="cnic_scanned_copy"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.cnic_scanned_copy)"/>
+                            </t>
+                            <t t-if="not application_documents.cnic_scanned_copy">
+                                <img class="documents_images" id="cnic_scanned_copy"/>
+                            </t>
+                        </div>
+                        <div id="cnic_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id='cnic_scanned_copy_modal_image'
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.cnic_scanned_copy)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-info block-documents">
+                <legend style="color: #0393DC">CNIC Back Scanned Copy</legend>
+                <div class="frm-row">
+                    <div class="form-2col">
+                        <input type="file" accept="image/*"
+                           onChange="show_pre_cnic_back(this)"
+                           t-att-disabled="readonly"/>
+                    </div>
+                    <div class="form-2col" style="margin-top:10px">
+                        <t t-if="application_documents.cnic_back_scanned_copy">
+                            <img onclick="document.getElementById('cnic_back_modal').style.display='block'"
+                                 class="documents_images" id="cnic_back_scanned_copy"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(application_documents.cnic_back_scanned_copy)"/>
+                        </t>
+                        <t t-if="not application_documents.cnic_back_scanned_copy">
+                            <img class="documents_images" id="cnic_back_scanned_copy"/>
+                        </t>
+                    </div>
+                    <div id="cnic_back_modal" class="w3-modal"
+                         onclick="this.style.display='none'">
+                        <div class="w3-modal-content w3-animate-zoom">
+                            <img id='cnic_back_scanned_copy_modal_image'
+                                 t-att-src="'data:image/png;base64,%s' % to_text(application_documents.cnic_back_scanned_copy)"
+                                 style="width:100%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="block-info block-documents" name="domicile_div">
+                    <legend style="color: #0393DC">
+                        Domicile
+                        <span style="color:red; font-size:11px; font-weight:normal; padding-left: 7px; display:block">
+                            Note: In case of none availability of Domicile please upload CNIC of your father.
+                        </span>
+                    </legend>
+                    <div class="frm-row">
+                        <div class="form-2col">
+                            <input type="file" name="domicile" id="domicilecertificate"
+                               accept="image/*" onChange="show_pre_domicile(this)"
+                               t-att-disabled="readonly"/>
+                        </div>
+                        <div class="form-2col" style="margin-top:10px">
+                            <t t-if="application_documents.domicile_scaned_copy">
+                                <span t-esc="application_documents.domicile_scaned_copy_name"/>
+                                <img onclick="document.getElementById('domicile_modal').style.display='block'"
+                                     class="documents_images" id="domicile_scaned_copy"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.domicile_scaned_copy)"/>
+                            </t>
+                            <t t-if="not application_documents.domicile_scaned_copy">
+                                <img class="documents_images" id="domicile_scaned_copy"/>
+                            </t>
+                        </div>
+                        <div id="domicile_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id="domicile_scaned_copy_modal_image"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(application_documents.domicile_scaned_copy)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div t-if="inter_education and inter_education[0].inter_result_status == 'Result Waited'" class="block-info block-documents">
+                <legend style="color: #0393DC">
+                    Hope Certificate
+                    <span style="color:red; font-size:11px; font-weight:normal; display:block">
+                        Note:Result awaiting students should submit hope certificate duly sign and stamp by head of institution.
+                        That can be consider as 60% in calculation.
+                    </span>
+                </legend>
+                <div class="frm-row">
+                    <div class="form-2col">
+                        <input type="file" name="hope_certificate" id="hope_certificate"
+                           accept="image/*" onChange="show_pre_hope_certificate(this)"
+                           t-att-disabled="readonly"/>
+                    </div>
+                    <div class="form-2col" style="margin-top:10px">
+                        <t t-if="application_documents.hope_certificate_scanned_copy">
+                            <span t-esc="application_documents.hope_certificate_scanned_copy_name"/>
+                            <img onclick="document.getElementById('hope_certificate_modal').style.display='block'"
+                                 class="documents_images" id="hope_certificate_scanned_copy"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(application_documents.hope_certificate_scanned_copy)"/>
+                        </t>
+                        <t t-if="not application_documents.hope_certificate_scanned_copy">
+                            <img class="documents_images" id="hope_certificate_scanned_copy"/>
+                        </t>
+                    </div>
+                    <div id="hope_certificate_modal" class="w3-modal"
+                         onclick="this.style.display='none'">
+                        <div class="w3-modal-content w3-animate-zoom">
+                            <img id="hope_certificate_scanned_copy_modal_image"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(application_documents.hope_certificate_scanned_copy)"
+                                 style="width:100%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </fieldset>
+        </fieldset>
+
+    </template>
+</odoo>

@@ -1,0 +1,200 @@
+id,Question,Question 2,Suggested value,Score for this choice
+survey.labels_alumni_survey_1,a) Knowledge,,Excellent,5
+survey.labels_alumni_survey_10,b) Communications Skills,,Poor,0
+survey.labels_alumni_survey_11,c)  Interpersonal Skills,,Excellent,5
+survey.labels_alumni_survey_12,c)  Interpersonal Skills,,V Good,4
+survey.labels_alumni_survey_13,c)  Interpersonal Skills,,Good,3
+survey.labels_alumni_survey_14,c)  Interpersonal Skills,,Avg,2
+survey.labels_alumni_survey_15,c)  Interpersonal Skills,,Poor,0
+survey.labels_alumni_survey_16,d) Planning/Management/Leadership Skills,,Excellent,5
+survey.labels_alumni_survey_17,d) Planning/Management/Leadership Skills,,V Good,4
+survey.labels_alumni_survey_18,d) Planning/Management/Leadership Skills,,Good,3
+survey.labels_alumni_survey_19,d) Planning/Management/Leadership Skills,,Avg,2
+survey.labels_alumni_survey_2,a) Knowledge,,V Good,4
+survey.labels_alumni_survey_20,d) Planning/Management/Leadership Skills,,Poor,0
+survey.labels_alumni_survey_21,e) Department Status,,Excellent,5
+survey.labels_alumni_survey_22,e) Department Status,,V Good,4
+survey.labels_alumni_survey_23,e) Department Status,,Good,3
+survey.labels_alumni_survey_24,e) Department Status,,Avg,2
+survey.labels_alumni_survey_25,e) Department Status,,Poor,0
+survey.labels_alumni_survey_26,,a) Knowledge,1. Relevance and aptness of courses covered,0
+survey.labels_alumni_survey_27,,a) Knowledge,2. Problem formulation and solving skills.,0
+survey.labels_alumni_survey_28,,a) Knowledge,3. Designing model/framework/ or process.,0
+survey.labels_alumni_survey_29,,a) Knowledge,4. Collecting and analyzing appropriate data.,0
+survey.labels_alumni_survey_3,a) Knowledge,,Good,3
+survey.labels_alumni_survey_30,,a) Knowledge,5. Ability to link theory to practice.,0
+survey.labels_alumni_survey_31,,a) Knowledge,6. Ability to link theory to practice.,0
+survey.labels_alumni_survey_32,,b) Communications Skills,7. Oral communication,0
+survey.labels_alumni_survey_33,,b) Communications Skills,8. Written Communication.,0
+survey.labels_alumni_survey_34,,b) Communications Skills,9. Presentation skills,0
+survey.labels_alumni_survey_35,,c)  Interpersonal Skills,10. Ability to work in teams.,0
+survey.labels_alumni_survey_36,,c)  Interpersonal Skills,11. Ability to work in arduous/challenging situations.,0
+survey.labels_alumni_survey_37,,c)  Interpersonal Skills,12. Independent thinking.,0
+survey.labels_alumni_survey_38,,c)  Interpersonal Skills,13. Appreciation of Ethical values.,0
+survey.labels_alumni_survey_39,,d) Planning/Management/Leadership Skills,14. Resource management skills.,0
+survey.labels_alumni_survey_4,a) Knowledge,,Avg,2
+survey.labels_alumni_survey_40,,d) Planning/Management/Leadership Skills,15. Time management skills.,0
+survey.labels_alumni_survey_41,,d) Planning/Management/Leadership Skills,16. Decision making ability.,0
+survey.labels_alumni_survey_42,,d) Planning/Management/Leadership Skills,17. Professional discipline.,0
+survey.labels_alumni_survey_43,,e) Department Status,18. Infrastructure,0
+survey.labels_alumni_survey_44,,e) Department Status,19. Faculty,0
+survey.labels_alumni_survey_45,,e) Department Status,20. Repute at national level.,0
+survey.labels_alumni_survey_46,,e) Department Status,21. Repute at international level.,0
+survey.labels_alumni_survey_5,a) Knowledge,,Poor,0
+survey.labels_alumni_survey_6,b) Communications Skills,,Excellent,5
+survey.labels_alumni_survey_7,b) Communications Skills,,V Good,4
+survey.labels_alumni_survey_8,b) Communications Skills,,Good,3
+survey.labels_alumni_survey_9,b) Communications Skills,,Avg,2
+survey.labels_employer_survey_1,a) Knowledge,,Excellent,5
+survey.labels_employer_survey_10,b) Communications Skills,,Poor,0
+survey.labels_employer_survey_11,c)  Interpersonal Skills,,Excellent,5
+survey.labels_employer_survey_12,c)  Interpersonal Skills,,V Good,4
+survey.labels_employer_survey_13,c)  Interpersonal Skills,,Good,3
+survey.labels_employer_survey_14,c)  Interpersonal Skills,,Avg,2
+survey.labels_employer_survey_15,c)  Interpersonal Skills,,Poor,0
+survey.labels_employer_survey_16,,a) Knowledge,1. Subject Knowledge of their job function,0
+survey.labels_employer_survey_17,,a) Knowledge,2. Problem identification and solving skills,0
+survey.labels_employer_survey_18,,a) Knowledge,3. Information analysis & interpretation skills,0
+survey.labels_employer_survey_19,,a) Knowledge,4. Ability to link theory to practice,0
+survey.labels_employer_survey_2,a) Knowledge,,V Good,4
+survey.labels_employer_survey_20,,a) Knowledge,5. Ability to design a model/framework/system component or process,0
+survey.labels_employer_survey_21,,a) Knowledge,6. IT Knowledge,0
+survey.labels_employer_survey_22,,b) Communications Skills,7. Oral communication,0
+survey.labels_employer_survey_23,,b) Communications Skills,8. Report writing/ Written Communication.,0
+survey.labels_employer_survey_24,,b) Communications Skills,9. Presentation skills,0
+survey.labels_employer_survey_25,,c)  Interpersonal Skills,10. Teamwork.,0
+survey.labels_employer_survey_26,,c)  Interpersonal Skills,11. Leadership,0
+survey.labels_employer_survey_27,,c)  Interpersonal Skills,12. Independent thinking.,0
+survey.labels_employer_survey_28,,c)  Interpersonal Skills,13. Ability to take initiative,0
+survey.labels_employer_survey_29,,c)  Interpersonal Skills,14. Work Discipline,0
+survey.labels_employer_survey_3,a) Knowledge,,Good,3
+survey.labels_employer_survey_30,,c)  Interpersonal Skills,15. Ability to demonstrate ethical standards and administrative responsibility,0
+survey.labels_employer_survey_4,a) Knowledge,,Avg,2
+survey.labels_employer_survey_5,a) Knowledge,,Poor,0
+survey.labels_employer_survey_6,b) Communications Skills,,Excellent,5
+survey.labels_employer_survey_7,b) Communications Skills,,V Good,4
+survey.labels_employer_survey_8,b) Communications Skills,,Good,3
+survey.labels_employer_survey_9,b) Communications Skills,,Avg,2
+survey.labels_faculty_course_review_1,a) Content and organization,,Excellent,5
+survey.labels_faculty_course_review_10,b) Intellectual stimulation,,Poor,0
+survey.labels_faculty_course_review_11,c) Facilities and resources,,Excellent,5
+survey.labels_faculty_course_review_12,c) Facilities and resources,,V Good,4
+survey.labels_faculty_course_review_13,c) Facilities and resources,,Good,3
+survey.labels_faculty_course_review_14,c) Facilities and resources,,Avg,2
+survey.labels_faculty_course_review_15,c) Facilities and resources,,Poor,0
+survey.labels_faculty_course_review_16,,a) Content and organization,1. The course design was well thought and planned,0
+survey.labels_faculty_course_review_17,,a) Content and organization,2. The achieved course outcomes were similar to what the intended course outcomes.,0
+survey.labels_faculty_course_review_18,,a) Content and organization,3. The course’s assessment methodology/mechanism was able to comprehend the intended outcomes.,0
+survey.labels_faculty_course_review_19,,a) Content and organization,4. The course was well organized with even distribution of the content and assessment,0
+survey.labels_faculty_course_review_2,a) Content and organization,,V Good,4
+survey.labels_faculty_course_review_20,,a) Content and organization,5. The content was appropriate according to the number of credit hours assigned for this course.,0
+survey.labels_faculty_course_review_21,,a) Content and organization,6. Consultation with the faculty who teaches the related or prerequisite contents was done to avoid content redundancy.,0
+survey.labels_faculty_course_review_22,,b) Intellectual stimulation,7. This course stimulated the interest of the students.,0
+survey.labels_faculty_course_review_23,,b) Intellectual stimulation,8. This course intellectually challenged me.,0
+survey.labels_faculty_course_review_24,,b) Intellectual stimulation,9. This course intellectually challenged the students.,0
+survey.labels_faculty_course_review_25,,b) Intellectual stimulation,10. The assessment in this course truly reflected the intellectual gains of the students.,0
+survey.labels_faculty_course_review_26,,c) Facilities and resources,11. The classroom layout was suitable for this course.,0
+survey.labels_faculty_course_review_27,,c) Facilities and resources,12. The class size (number of students) was appropriate.,0
+survey.labels_faculty_course_review_28,,c) Facilities and resources,13. The computing facilities and desired software applications for this course were sufficient (if any required).,0
+survey.labels_faculty_course_review_29,,c) Facilities and resources,"14. Facilities provided at the library e.g. latest books, access to journals etc. are sufficient.",0
+survey.labels_faculty_course_review_3,a) Content and organization,,Good,3
+survey.labels_faculty_course_review_30,,c) Facilities and resources,15. Updated data-streams were made available for research/assignments in this course.,0
+survey.labels_faculty_course_review_31,,c) Facilities and resources,16. There was enough exposure to practical applications of this course.,0
+survey.labels_faculty_course_review_4,a) Content and organization,,Avg,2
+survey.labels_faculty_course_review_5,a) Content and organization,,Poor,0
+survey.labels_faculty_course_review_6,b) Intellectual stimulation,,Excellent,5
+survey.labels_faculty_course_review_7,b) Intellectual stimulation,,V Good,4
+survey.labels_faculty_course_review_8,b) Intellectual stimulation,,Good,3
+survey.labels_faculty_course_review_9,b) Intellectual stimulation,,Avg,2
+survey.labels_Faculty_survey__1,Faculty Survey,,Excellent,5
+survey.labels_Faculty_survey__10,,Faculty Survey,5. Cooperation you receive from colleagues.,0
+survey.labels_Faculty_survey__11,,Faculty Survey,6. The mentoring available to you.,0
+survey.labels_Faculty_survey__12,,Faculty Survey,7. Administrative support from the department.,0
+survey.labels_Faculty_survey__13,,Faculty Survey,8. Providing clarity about the faculty promotion process.,0
+survey.labels_Faculty_survey__14,,Faculty Survey,9. Your prospects for advancement and progress through ranks.,0
+survey.labels_Faculty_survey__15,,Faculty Survey,10. Salary and compensation package,0
+survey.labels_Faculty_survey__16,,Faculty Survey,11. Job security and stability at the department,0
+survey.labels_Faculty_survey__17,,Faculty Survey,12. Amount of time you have for yourself and family.,0
+survey.labels_Faculty_survey__18,,Faculty Survey,13. The overall climate at the department,0
+survey.labels_Faculty_survey__19,,Faculty Survey,14. Whether the department is utilizing your experience and knowledge,0
+survey.labels_Faculty_survey__2,Faculty Survey,,V Good,4
+survey.labels_Faculty_survey__3,Faculty Survey,,Good,3
+survey.labels_Faculty_survey__4,Faculty Survey,,Avg,2
+survey.labels_Faculty_survey__5,Faculty Survey,,Poor,0
+survey.labels_Faculty_survey__6,,Faculty Survey,"1. Your mix of research, teaching and community service.",0
+survey.labels_Faculty_survey__7,,Faculty Survey,2. The intellectual stimulation of your work.,0
+survey.labels_Faculty_survey__8,,Faculty Survey,3. Type of teaching / research you currently do.,0
+survey.labels_Faculty_survey__9,,Faculty Survey,4. Your interaction with students.,0
+survey.labels_Student Course Evaluation__1,Student Course Evaluation,,Excellent,5
+survey.labels_Student Course Evaluation__10,,Student Course Evaluation,5. Learning aids were utilized to deliver the contents properly and efficiently,0
+survey.labels_Student Course Evaluation__11,,Student Course Evaluation,6. The course increased my knowledge in the subject area,0
+survey.labels_Student Course Evaluation__12,,Student Course Evaluation,7. I think I have made intellectual progress (apart from the grades) in this course,0
+survey.labels_Student Course Evaluation__13,,Student Course Evaluation,"8. The course was taught  with a good balance of lectures, tutorials, practical examples etc.",0
+survey.labels_Student Course Evaluation__14,,Student Course Evaluation,9. The instructor was responsive to the students queries,0
+survey.labels_Student Course Evaluation__15,,Student Course Evaluation,10. The overall environment in the class was conducive to learning,0
+survey.labels_Student Course Evaluation__16,,Student Course Evaluation,11. This course stimulated my interest,0
+survey.labels_Student Course Evaluation__17,,Student Course Evaluation,12. This course intellectually challenged me,0
+survey.labels_Student Course Evaluation__18,,Student Course Evaluation,13. The learning resources regarding the course were adequate and appropriate in the library,0
+survey.labels_Student Course Evaluation__19,,Student Course Evaluation,14. Recommended reading Books etc. were relevant and appropriate,0
+survey.labels_Student Course Evaluation__2,Student Course Evaluation,,V Good,4
+survey.labels_Student Course Evaluation__20,,Student Course Evaluation,15. The assessments and their feedback were timely shared,0
+survey.labels_Student Course Evaluation__3,Student Course Evaluation,,Good,3
+survey.labels_Student Course Evaluation__4,Student Course Evaluation,,Avg,2
+survey.labels_Student Course Evaluation__5,Student Course Evaluation,,Poor,0
+survey.labels_Student Course Evaluation__6,,Student Course Evaluation,1. The course objectives were clear,0
+survey.labels_Student Course Evaluation__7,,Student Course Evaluation,2. The course workload was manageable and credit hours were sufficient for the topics  to be covered,0
+survey.labels_Student Course Evaluation__8,,Student Course Evaluation,3. The Course was well organized with even distribution of the contents and assessments,0
+survey.labels_Student Course Evaluation__9,,Student Course Evaluation,4. Regular classes were conducted during the course,0
+survey.labels_survey_graduating_students_1,Survey Questions,,Excellent,5
+survey.labels_survey_graduating_students_10,Professional Training,,Avg,2
+survey.labels_survey_graduating_students_11,Professional Training,,Poor,0
+survey.labels_survey_graduating_students_12,,Survey Questions,1. I am adequately prepared to enter professional life after attending the engineering program.,0
+survey.labels_survey_graduating_students_13,,Survey Questions,2. I have effective analytical and problem solving skills.,0
+survey.labels_survey_graduating_students_14,,Survey Questions,3. I can develop solutions for complex problems.,0
+survey.labels_survey_graduating_students_15,,Survey Questions,4. I can interpret the experimental data to derive valid conclusions.,0
+survey.labels_survey_graduating_students_16,,Survey Questions,5. I can efficiently use modern tools in civil engineering industry.,0
+survey.labels_survey_graduating_students_17,,Survey Questions,"6. I am well aware to assess societal, health, safety, legal and cultural issues and the consequent responsibilities relevant to professional engineering practice.",0
+survey.labels_survey_graduating_students_18,,Survey Questions,7. I am environmentally responsible and cognizant to develop friendly solutions.,0
+survey.labels_survey_graduating_students_19,,Survey Questions,8. I am morally responsible.,0
+survey.labels_survey_graduating_students_2,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",,Excellent,5
+survey.labels_survey_graduating_students_20,,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",a) As an individual,0
+survey.labels_survey_graduating_students_21,,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",b) As in a team,0
+survey.labels_survey_graduating_students_22,,Professional Training,"10. I can now communicate effectively with clients, colleagues, and other members of interprofessional teams.",0
+survey.labels_survey_graduating_students_23,,Professional Training,11. I can manage my professional affairs.,0
+survey.labels_survey_graduating_students_24,,Professional Training,"12. I have the ability to recognize the importance of, and pursue lifelong learning in the broader context of innovation and technological developments",0
+survey.labels_survey_graduating_students_25,Survey Questions,,V Good,4
+survey.labels_survey_graduating_students_26,Survey Questions,,Good,3
+survey.labels_survey_graduating_students_27,Survey Questions,,Avg,2
+survey.labels_survey_graduating_students_28,Survey Questions,,Poor,0
+survey.labels_survey_graduating_students_3,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",,V Good,4
+survey.labels_survey_graduating_students_4,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",,Good,3
+survey.labels_survey_graduating_students_5,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",,Avg,2
+survey.labels_survey_graduating_students_6,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",,Poor,0
+survey.labels_survey_graduating_students_7,Professional Training,,Excellent,5
+survey.labels_survey_graduating_students_8,Professional Training,,V Good,4
+survey.labels_survey_graduating_students_9,Professional Training,,Good,3
+survey.labels_Teacher Evaluation__1,Teacher Evaluation,,Excellent,5
+survey.labels_Teacher Evaluation__10,,Teacher Evaluation,"5. Designs assignments and quizzes to help promote regularity in studies, understanding of subject and preparation of tests/exams",0
+survey.labels_Teacher Evaluation__11,,Teacher Evaluation,6. Correlation/Relationship exists between course contents delivered/explained and scope of evaluations/exams,0
+survey.labels_Teacher Evaluation__12,,Teacher Evaluation,7. Is Punctual to class and organizes lectures appropriately within class time,0
+survey.labels_Teacher Evaluation__13,,Teacher Evaluation,"8. Conducts tests and assignments on time and shares the feedback promptly, letting the students know what is expected of them",0
+survey.labels_Teacher Evaluation__14,,Teacher Evaluation,9. Remains available & guides during office hours to make interaction beneficial/productive,0
+survey.labels_Teacher Evaluation__15,,Teacher Evaluation,10. Follows the course outline,0
+survey.labels_Teacher Evaluation__16,,Teacher Evaluation,11. Uses appropriate language and gestures,0
+survey.labels_Teacher Evaluation__17,,Teacher Evaluation,12. Audible and Clear in speech,0
+survey.labels_Teacher Evaluation__18,,Teacher Evaluation,13. Maintains professional appearance inside and outside classroom,0
+survey.labels_Teacher Evaluation__19,,Teacher Evaluation,14. Maintains conducive environment and discipline in class,0
+survey.labels_Teacher Evaluation__2,Teacher Evaluation,,V Good,4
+survey.labels_Teacher Evaluation__20,,Teacher Evaluation,15. Takes the entire class along and pays attention to weak cases,0
+survey.labels_Teacher Evaluation__21,,Teacher Evaluation,16. Maintains ONE standard against which papers are marked,0
+survey.labels_Teacher Evaluation__22,,Teacher Evaluation,17. Demonstrates patience and effective interpersonal skills during class and outside interactions,0
+survey.labels_Teacher Evaluation__23,,Teacher Evaluation,18. Encourages student participation and handles questions satisfactory to clarify ambiguities,0
+survey.labels_Teacher Evaluation__24,,Teacher Evaluation,"19. Promotes good moral & ethical practices, personality development, sense of community, etc. though self- example, guidance, counseling and grooming",0
+survey.labels_Teacher Evaluation__25,,Teacher Evaluation,"20. Evaluating your own self in the context of subject taught by the faculty, assess the contribution of faculty in knowledge/skills gained by you",0
+survey.labels_Teacher Evaluation__3,Teacher Evaluation,,Good,3
+survey.labels_Teacher Evaluation__4,Teacher Evaluation,,Avg,2
+survey.labels_Teacher Evaluation__5,Teacher Evaluation,,Poor,0
+survey.labels_Teacher Evaluation__6,,Teacher Evaluation,1. The objective of the course and each lecture/lab./project was made clear and attainable,0
+survey.labels_Teacher Evaluation__7,,Teacher Evaluation,2. Creates interest in the subject and helps develop understanding,0
+survey.labels_Teacher Evaluation__8,,Teacher Evaluation,3. Integrates knowledge/course contents with other subjects,0
+survey.labels_Teacher Evaluation__9,,Teacher Evaluation,"4. Effectively uses teaching/training aids to deliver, explain and elaborate the lecture content appropriately",0

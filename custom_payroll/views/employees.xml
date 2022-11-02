@@ -1,0 +1,59 @@
+<odoo>
+
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <data>
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="employee_type"/>
+                </xpath>
+
+                <xpath expr="//field[@name='km_home_work']" position="after">
+                    <field name="employee_address"/>
+                    <field name="father_name"/>
+                    <field name="next_to_kin"/>
+                    <field name="number_of_next_to_kin"/>
+                    <field name="permanent_address"/>
+                </xpath>
+
+                <xpath expr="//field[@name='country_of_birth']" position="after">
+                    <field name="religion"/>
+                    <field name="blood_group"/>
+                </xpath>
+
+                <xpath expr="//field[@name='emergency_phone']" position="after">
+                    <field name="emergency_address"/>
+                </xpath>
+
+                <xpath expr="//group[@name='work_permit']" position="after">
+                    <group name="Reference" string="Reference">
+                        <field name="ref_one_name"/>
+                        <field name="ref_one_phone"/>
+                        <field name="ref_one_relation"/>
+                        <field name="ref_two_name"/>
+                        <field name="ref_two_phone"/>
+                        <field name="ref_two_relation"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="family_information" string="Family Information">
+                        <field name="family_information_ids">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="relationship"/>
+                                <field name="cnic_no"/>
+                                <field name="dob"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+            </data>
+        </field>
+    </record>
+
+</odoo>

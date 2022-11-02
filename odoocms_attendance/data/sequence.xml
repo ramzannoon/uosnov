@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="attendance_lock_cron" model="ir.cron">
+            <field name="name">Attendance: Lock</field>
+            <field name="model_id" ref="model_odoocms_class_attendance"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_lock_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="attendance_unlock_to_lock_cron" model="ir.cron">
+            <field name="name">Attendance: Unlock 2 Lock</field>
+            <field name="model_id" ref="model_odoocms_class_attendance_open"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_lock_attendance()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="attendance_assign_xf" model="ir.cron">
+            <field name="name">Assign: XF</field>
+            <field name="model_id" ref="model_odoocms_class_primary"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_xf()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record id="seq_odoocms_class_attendance" model="ir.sequence">
+            <field name="name">Attendance Seq</field>
+            <field name="code">odoocms.class.attendance</field>
+            <field name="prefix">ATT</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_class_attendance_open" model="ir.sequence">
+            <field name="name">Attendance Unlock Seq</field>
+            <field name="code">odoocms.class.attendance.open</field>
+            <field name="prefix">ATTU</field>
+            <field name="padding">4</field>
+        </record>
+
+
+    </data>
+</odoo>

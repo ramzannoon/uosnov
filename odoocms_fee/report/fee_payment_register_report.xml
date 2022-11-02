@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="odoocms_fee.fee_payment_register_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <t t-if="not company">
+                            <t t-if="company_id">
+                                <t t-set="company" t-value="company_id"/>
+                            </t>
+                            <t t-elif="o and 'company_id' in o">
+                                <t t-set="company" t-value="o.company_id.sudo()"/>
+                            </t>
+                            <t t-else="else">
+                                <t t-set="company" t-value="res_company"/>
+                            </t>
+                        </t>
+
+                        <style>
+                            #top-info {
+                            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                            border-collapse: collapse;
+                            width: 100%;
+                            margin-top:15px;
+                            display: inline;
+                            }
+                            #top-info td, #personal-info th {
+                            padding: 3px;
+                            }
+                        </style>
+                        <div class="page">
+                            <p style="font-size:20px;font-weight:bold;text-align:center;">Fee Bank Scroll</p>
+
+                            <div class="row">
+                                <div class="col col-6" style="text-align:left; font-weight:bold;font-size:14px;padding-left:7px;">
+                                    Name:
+                                    <span style="padding-left:8px;" t-esc="o.name"/>
+                                </div>
+                                <div class="col col-6" style="text-align:left; font-weight:bold;font-size:14px;padding-left:7px;">
+                                    Date:
+                                    <span style="padding-left:16px;" t-field="o.date" t-field-options='{"format": "MM-dd-yyyy"}'/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col col-6" style="text-align:left; font-weight:bold;font-size:14px;padding-left:7px;">
+                                    Total Receipts:
+                                    <span style="padding-left:8px;" t-esc="o.total_receipts"/>
+                                </div>
+                                <div class="col col-6" style="text-align:left; font-weight:bold;font-size:14px;padding-bottom:5px;">
+                                    Total Amount:
+                                    <span style="padding-left:8px;" t-esc="o.total_amount"/>
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered">
+                                <tr style="font-size:13px;">
+                                    <th>Sr#</th>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Receipt Number</th>
+                                    <th>Invoice</th>
+                                    <th>Session</th>
+                                    <th>Career</th>
+                                    <th>Term</th>
+                                    <th>Semester</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                </tr>
+                                <t t-foreach="o.fee_payment_ids" t-as="line">
+                                    <tr>
+                                        <td>
+                                            <span t-esc="line_index + 1"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.id_number"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.student_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.receipt_number"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.invoice_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.session_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.career_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.term_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.semester_id.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.date" t-field-options='{"format": "MM-dd-yyyy"}'/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

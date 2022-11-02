@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+            id="menu_odoocms_root"
+            name="CMS Administration"
+            web_icon="odoocms,static/description/icon.png"
+            groups="group_cms_user"
+            sequence="5"/>
+
+
+    <menuitem
+            id="menu_odoocms_students_root"
+            name="Students"
+            groups="group_cms_user"
+            parent="menu_odoocms_root"
+            sequence="10"/>
+
+    <menuitem
+            id="menu_odoocms_faculty_root"
+            name="Faculty"
+            groups="group_cms_user"
+            parent="menu_odoocms_root"
+            sequence="15"/>
+
+
+
+    <menuitem
+            id="menu_odoocms_organization"
+            name="Organization"
+            groups="group_cms_user"
+            parent="menu_odoocms_root"
+            sequence="30"/>
+
+            <menuitem
+                    id="menu_odoocms_organization_structure"
+                    name="Organization Structure"
+                    parent="menu_odoocms_organization"
+                    sequence="10"/>
+
+            <menuitem
+                    id="menu_odoocms_academic_structure"
+                    name="Academic Structure"
+                    parent="menu_odoocms_organization"
+                    sequence="20"/>
+
+            <menuitem
+                    id="menu_odoocms_organization_infrastructure"
+                    name="Organization Infra-Structure"
+                    parent="menu_odoocms_organization"
+                    sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_academic_setup"
+            name="Academic Setup"
+            groups="group_cms_user"
+            parent="menu_odoocms_root"
+            sequence="40"/>
+
+    <menuitem
+            id="menu_odoocms_report"
+            name="Reports"
+            parent="menu_odoocms_root"
+            groups="group_cms_user"
+            sequence="80"/>
+
+    <menuitem
+            id="menu_odoocms_configuration"
+            parent="menu_odoocms_root"
+            name="Configuration"
+            groups="group_cms_manager"
+            sequence="100"/>
+
+
+    <!--			<menuitem-->
+    <!--					id="menu_odoocms_settings"-->
+    <!--                  	name="Settings"-->
+    <!--                  	parent="menu_odoocms_configuration"-->
+    <!--                  	action="action_config_settings"-->
+    <!--                  	groups="base.group_system"-->
+    <!--                  	sequence="1"/>-->
+
+            <menuitem
+                    id="menu_odoocms_config_general"
+                    name="General"
+                    groups="group_cms_manager,group_cms_user"
+                    parent="menu_odoocms_configuration"
+                    sequence="20"/>
+
+
+
+
+
+</odoo>

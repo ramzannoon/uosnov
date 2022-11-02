@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_stock_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <!--                <xpath expr="//field[@name='origin']" position="after">-->
+                <!--                    <field name="name_vr"/>-->
+                <!--                    <field name="vehicle_number"/>-->
+                <!--                    <field name="date"/>-->
+                <!--                    <field name="igp"/>-->
+                <!--                    <field name="vourier_no"/>-->
+                <!--                    <field name="department_id"/>-->
+                <!--                </xpath>-->
+
+                <xpath expr="//button[@name='button_validate']" position="attributes">
+                    <attribute name="groups">purchase_reports.group_internal_transfer_hod_approval</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="replace">
+                    <field name="quantity_done" string="Received"/>
+                </xpath>
+                <xpath expr="//field[@name='group_id']" position="after">
+                    <field name="name_vr"/>
+                    <field name="vehicle_number"/>
+                    <field name="date"/>
+                    <field name="igp"/>
+                    <field name="vourier_no"/>
+                    <field name="department_id"/>
+                    <field name="out_date"/>
+                    <field name="intime_date"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,206 @@
+<odoo>
+    <data>
+        
+        <record id="view_crm_tag_tree_inherit_new" model="ir.ui.view">
+            <field name="name">crm.tag.tree.view.inherit</field>
+            <field name="model">crm.tag</field>
+            <field name="inherit_id" ref="sales_team.sales_team_crm_tag_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='color']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sales_team.crm_team_salesteams_pipelines_act">
+            <field name="name">Team Pipelines</field>
+        </record>
+
+         <record model="ir.actions.act_window" id="sales_team.sales_team_crm_tag_action">
+            <field name="name">Source of Information</field>
+        </record>
+
+        
+        
+        <record id="view_crm_tag_tree_inherit_new" model="ir.ui.view">
+            <field name="name">crm.tag.tree.view.inherit</field>
+            <field name="model">crm.tag</field>
+            <field name="inherit_id" ref="sales_team.sales_team_crm_tag_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='color']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_lead_tree_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.tree.view.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="description"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_crm_lead_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <!-- Opportunity -->
+                    <xpath expr="//header" position="replace">
+                        <header>
+                            <button name="action_set_won_rainbowman" string="Mark Won" type="object" class="oe_highlight" attrs="{'invisible': ['|','|', ('active','=',False), ('probability', '=', 100), ('type', '=', 'lead')]}" groups="customized_crm.group_mark_won_button"/>
+                            
+                            
+                             <button name="%(crm.crm_lead_lost_action)d" string="Mark Lost" type="action" class="oe_highlight" context="{'default_lead_id': active_id}" 
+                                    attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False),('probability', '&lt;', 100)]}"/>
+
+                            
+                            
+                            
+                            <button name="160" string="Convert to Opportunity" type="action" help="Convert to Opportunity" class="oe_highlight" attrs="{'invisible': ['|', ('type', '=', 'opportunity'), ('active', '=', False)]}"/>
+                            <button name="toggle_active" string="Restore" type="object" attrs="{'invisible': ['|', ('probability', '&gt;', 0), ('active', '=', True)]}"/>
+                            <button name="action_set_lost" string="Mark as Lost" type="object" attrs="{'invisible': ['|', ('type', '=', 'opportunity'), '&amp;', ('probability', '=', 0), ('active', '=', False)]}"/>
+                            <button name="send_confirm_btn"
+                                    string="notification" type="object"
+                                    class="oe_highlight" invisible="1"/>
+                            <button name="send_mail_msg"
+                                    string="Send Mail" type="object"
+                                    class="oe_highlight"/>
+                            <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" domain="['|', ('team_id', '=', team_id), ('team_id', '=', False)]" attrs="{'invisible': [('active', '=', False)]}"/>
+                        </header>
+                    </xpath>
+
+                    <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr="//field[@name='tag_ids']" position="attributes">
+                        <attribute name="string">Source of Information</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='tag_ids']" position="after">
+                        <field name="lead_type_id"/>
+                        <field name="visitor_check"/>
+                        <field name="pending_reasons_id"/>
+                    </xpath>
+
+                    <xpath expr="//field[@name='user_id']" position="attributes">
+                        <attribute name="attrs">{'readonly': [('compute_field', '=', False)]}</attribute>
+                    </xpath>
+
+                    <xpath expr="//field[@name='partner_name']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='email_cc']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='function']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+<!--                     <xpath expr="//sheet/group/group[3]/field[@name='phone']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath> -->
+                    <xpath expr="//sheet/group/group[1]/field[@name='website']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+                    <xpath expr="//sheet/group/group[1]/field[@name='lang_id']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr="//group[@name='lead_priority']" position="attributes">
+                        <attribute name="invisible">1</attribute>
+                    </xpath>
+
+                    <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="after">
+                        <field name="calls_opportunity"/>
+                        <field name="date"/>
+                        <field name="cnic"/>
+                        <field name="inter_marks"/>
+                        <field name="interested_program"/>
+                        <field name="expected_visit"/>
+                        <field name="reminder"/>
+                        <field name="compute_field" invisible="1"/>
+                    </xpath>
+
+                    <!-- Notebook -->
+                    <xpath expr="//page[1]" position="before">
+                        <page string="Query">
+                            <group>
+                                <field name="followup_1"/>
+                                <field name="followup_2"/>
+                                <field name="followup_3"/>
+                            </group>
+                        </page>
+                    </xpath>
+                    <xpath expr="//page[2]" position="attributes">
+                        <attribute name="string">Remarks</attribute>
+                    </xpath>
+                    <xpath expr="//page[@name='lead']" position="attributes">
+                        <attribute name="string">Additional Information</attribute>
+                    </xpath>
+
+                </data>
+            </field>
+        </record>
+
+        <record id="view_crm_case_opportunities_filter_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.search.opportunity.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <search string="Search Opportunities">
+                    <field name="phone"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="crm_lead_action_outgoing">
+            <field name="name">Outgoing Calls</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,pivot,form,calendar,activity</field>
+            <field name="domain">[('calls_opportunity','=','outgoing')]</field>
+            <field name="context">{
+                'default_calls_opportunity': 'outgoing',
+                'search_default_assigned_to_me': 1
+                }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="crm_lead_action_incoming">
+            <field name="name">Incoming Calls</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,pivot,form,calendar,activity</field>
+            <field name="domain">[('calls_opportunity','=','incoming')]</field>
+            <field name="context">{
+                'default_calls_opportunity': 'incoming',
+                'search_default_assigned_to_me': 1
+                }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+
+        <record model="ir.ui.menu" id="crm.menu_crm_lead_categ">
+            <field name="name">Source of Information</field>
+        </record>
+
+<!--         <record model="ir.actions.act_window" id="crm.crm_lead_tag_action">
+            <field name="name">Source of Information</field>
+        </record> -->
+
+        <menuitem id="menu_outgoing_calls"
+                  name="Outgoing Calls"
+                  sequence="3"
+                  parent="crm.crm_menu_sales"
+                  action="customized_crm.crm_lead_action_outgoing"/>
+
+        <menuitem id="menu_incoming_calls"
+                  name="Incoming Calls"
+                  sequence="2"
+                  parent="crm.crm_menu_sales"
+                  action="customized_crm.crm_lead_action_incoming"/>
+
+    </data>
+</odoo>

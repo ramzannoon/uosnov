@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--        career-->
+        <record id="odoocms_career_ug" model="odoocms.career">
+            <field name="name">Under Graduate</field>
+            <field name="code">UG</field>
+            <field name="description">Under Graduate Career</field>
+        </record>
+        <record id="odoocms_career_pg" model="odoocms.career">
+            <field name="name">Post Graduate</field>
+            <field name="code">PG</field>
+            <field name="description">Post Graduate Career</field>
+        </record>
+        <record id="odoocms_career_phd" model="odoocms.career">
+            <field name="name">Doctoral</field>
+            <field name="code">PHD</field>
+            <field name="description">Higher Digree</field>
+        </record>
+
+
+    </data>
+</odoo>

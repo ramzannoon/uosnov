@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_search" model="ir.ui.view">
+            <field name="name">odoocms.student.search</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_search"/>
+            <field name="arch" type="xml">
+                <filter name="term" position="after">
+                    <filter name="section" string="Section" domain="[]" context="{'group_by':'section_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_form_inherit" model="ir.ui.view">
+            <field name="name">odoocms.student.form.inherit</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="arch" type="xml">
+<!--                <header position="inside">-->
+<!--                    <button type="object" name="register_first_semester" string="Register First Semester" groups="odoocms.group_cms_user"-->
+<!--                        class="oe_highlight" attrs="{'invisible': [('course_ids', '!=', [])]}"/>-->
+<!--                </header>-->
+
+                <xpath expr="//notebook/page[@name='academic_information']/group/group[@name='academic_session']" position="after">
+                     <group>
+                        <field name="batch_id"
+                           options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                           domain="[('program_id','=',program_id)]"/>
+                        <field name="section_id"
+                           options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                           domain="[('batch_id','=',batch_id)]"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='batch_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':0}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='section_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':0}</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='academic_information']" position="after">
+                    <page string="Registered Courses" name="registered_courses">
+                        <group string="Current">
+                            <field name="course_ids" nolabel="1">
+                                <tree create="false" edit="false" readonly="1">
+                                    <field name="term_id" optional="show"/>
+                                    <field name="program_id" optional="hide"/>
+                                    <field name="course_id" string="Course (Catalogue)" optional="hide"/>
+                                    <field name="primary_class_id" optional="show"/>
+                                    <field name="credits"/>
+                                    <field name="course_type" optional="show"/>
+                                    <field name="state" optional="show"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Dropped">
+                            <field name="dropped_course_ids" nolabel="1">
+                                <tree create="false" delete="false" edit="false" readonly="1">
+                                    <field name="term_id" optional="show"/>
+                                    <field name="program_id" optional="hide"/>
+                                    <field name="course_id" string="Course (Catalogue)" optional="hide"/>
+                                    <field name="primary_class_id" optional="show"/>
+                                    <field name="credits"/>
+                                    <field name="course_type" optional="show"/>
+                                    <field name="state" optional="show"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page name='othersettings' string="Other Settings" groups="odoocms.group_cms_manager">
+                        <group>
+                            <group>
+                                <field name="allow_re_reg_wo_fee"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

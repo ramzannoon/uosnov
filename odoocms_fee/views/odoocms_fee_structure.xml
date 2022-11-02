@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--********** Fee Structures **********-->
+        <record id="view_odoocms_fee_structure_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.form</field>
+            <field name="model">odoocms.fee.structure</field>
+            <field name="arch" type="xml">
+                <form string="Fee Structure" class="o_invoice_form">
+                    <header>
+                        <button name="lock_structure" type="object" class="oe_highlight" string="Lock" groups="odoocms.group_cms_manager"/>
+                        <button name="unlock_structure" type="object" string="UnLock" groups="odoocms.group_cms_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet string="Fee Structure">
+                        <h1 class="mt0">
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="name" required="1" placeholder="2019-2020"/>
+                                <field name="journal_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="effective_date"/>
+                                <field name="current"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                            </group>
+                            <group>
+                                <field name="session_id" required="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="term_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="career_id" required="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Structure Heads">
+                                <field name="head_ids" nolabel="1" context="{'default_fee_structure_id':id}"> <!-- widget="one2many_list" mode="tree" -->
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="category_id"/>
+                                        <field name="fee_head_id" domain="[('category_id','=',category_id)]"/>
+                                        <field name="payment_type"/>
+                                        <field name="current"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Description">
+                                <group>
+                                    <field name="description" nolabel="1" placeholder="Description..."/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_structure_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.tree</field>
+            <field name="model">odoocms.fee.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Structure">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="journal_id"/>
+                    <field name="effective_date"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="current"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_structure_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.search</field>
+            <field name="model">odoocms.fee.structure</field>
+            <field name="arch" type="xml">
+                <search string="Fee Structure">
+                    <field name="name"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="journal_id"/>
+                    <field name="effective_date"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="current"/>
+                    <field name="state"/>
+                    <field name="create_uid" string="Deleted By"/>
+                    <field name="create_date" string="Deletion Date"/>
+
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_session_id" string="Academic Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career_id" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <separator/>
+                        <filter name="group_term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_state" string="State" domain="[]" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <!--********** Fee Structure Head **********-->
+        <record id="view_odoocms_fee_structure_head_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.head.form</field>
+            <field name="model">odoocms.fee.structure.head</field>
+            <field name="arch" type="xml">
+                <form string="Fee Structure Head" class="o_invoice_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="category_id"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="fee_head_id" domain="[('category_id','=',category_id)]"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="payment_type"/>
+                                <field name="fee_description" string="Head Description"/>
+                            </group>
+                            <group>
+                                <field name="reference"/>
+                                <field name="current"/>
+                                <field name="effective_date"/>
+                                <field name="sequence"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page name="head_lines" string="Head Lines">
+                                <group>
+                                    <field name="line_ids" nolabel="1" context="{'default_structure_head_id':id}">
+                                        <tree>
+                                            <field name="sequence" widget="handle"/>
+                                            <field name="name"/>
+                                            <field name="domain" placeholder="Criteria" widget="domaintree" options="{'model': 'odoocms.student', 'in_dialog': true}"/>
+                                            <field name="amount_text"/>
+                                            <field name="currency_id"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="description" string="Description">
+                                <group>
+                                    <field name="description" nolabel="1" placeholder="Description..."/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_structure_head_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.head.tree</field>
+            <field name="model">odoocms.fee.structure.head</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Structure Head">
+                    <field name="sequence" widget="handle"/>
+                    <field name="fee_head_id"/>
+                    <field name="category_id"/>
+                    <field name="payment_type"/>
+                    <field name="effective_date"/>
+                    <field name="current"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--********** Fee Structure Head Line **********-->
+        <record id="view_odoocms_fee_structure_head_line_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.head.line.form</field>
+            <field name="model">odoocms.fee.structure.head.line</field>
+            <field name="arch" type="xml">
+                <form string="Fee Structure Head Line">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="structure_head_id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="sequence"/>
+                                <field name="current"/>
+                            </group>
+                            <group>
+                                <field name="fee_type"/>
+                                <field name="currency_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="amount" widget="monetary"
+                                       attrs="{
+                                            'invisible' : [('fee_type', '==', 'percentage')],
+                                            'required' : [('fee_type', '==', 'fixed')]
+                                       }"/>
+
+                                <label for="percentage" attrs="{'invisible' : [('fee_type', '!=', 'percentage')]}"/>
+                                <div class="o_row" attrs="{'invisible' : [('fee_type', '!=', 'percentage')]}">
+                                    <field name="percentage" class="ml100" nolabel="1"
+                                           attrs="{'required': [('fee_type', '=', 'percentage')]}"/>
+
+                                    <span class="ml20 mr20">% of</span>
+                                    <field name="percentage_of" class="ml8" widget="selection"
+                                           domain="[('structure_head_id','=',structure_head_id)]"
+                                           attrs="{'required': [('fee_type', '=', 'percentage')]}"/>
+                                </div>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="domain" widget="domain" options="{'model': 'odoocms.student', 'in_dialog': True}"/>
+                        </group>
+                        <group>
+                            <field name="description" placeholder="Description..."/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_structure_head_line_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.structure.head.line.tree</field>
+            <field name="model">odoocms.fee.structure.head.line</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Structure Head Line">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="domain"/>
+                    <field name="current"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_structure" model="ir.actions.act_window">
+            <field name="name">Fee Structure</field>
+            <field name="res_model">odoocms.fee.structure</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Fee Structure here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_structure_head" model="ir.actions.act_window">
+            <field name="name">Fee Structure Heads</field>
+            <field name="res_model">odoocms.fee.structure.head</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Fee Structure Here here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_action_fee_structure"
+                name="Fee Structure"
+                parent="menu_fee_configuration_setup"
+                action="action_odoocms_fee_structure"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="40"/>
+
+        <menuitem
+                id="menu_action_fee_structure_head"
+                name="Fee Structure Head"
+                parent="menu_fee_configuration_setup"
+                action="action_odoocms_fee_structure_head"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="30"/>
+
+    </data>
+</odoo>
+

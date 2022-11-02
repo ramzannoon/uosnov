@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="employee_leaves_template" name="Employee Leaves">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <center>
+                        <h4>Your Leaves</h4>
+                    </center>
+                    <br/>
+
+                    <div class="container" style="text-align:center; font-size: 15px; width:60% ;">
+                        <div class="row">
+                            <!--                            <center>-->
+                            <a t-attf-href="/customer/form">
+                                <div class="s_website_form_label"/>
+                                <button type="button" class="btn btn-primary btn-md o_website_form_send"
+                                        style="margin-right:27px">
+                                    Leave Request
+                                </button>
+                            </a>
+                            <!--                            </center>-->
+                            <br></br>
+                            <!--                            <center>-->
+                            <a t-attf-href="/leaves/summary/details">
+                                <div class="s_website_form_label"/>
+                                <button type="button" class="btn btn-primary btn-md o_website_form_send"
+                                        style="margin-right:27px">
+                                    Leave Summary Details
+                                </button>
+                            </a>
+
+                        </div>
+                    </div>
+                    <table class="table-striped table" style="font-size: 15px; width:100%">
+                        <thead style="font-size: 15px;">
+                            <tr>
+                                <h6>
+
+                                    <th style="width:22%">Leave Type</th>
+                                    <th style="width:22%">Start Date</th>
+                                    <th style="width:22%">End Date</th>
+                                    <th style="width:22%">Duration (Days)</th>
+                                    <th style="width:10%">Status</th>
+
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--                            <t t-foreach="request.env['hr.leave.type'].search([])" t-as="leave">-->
+                            <!--                                <t t-foreach="request.env['hr.leave.allocation'].search([('employee_id','=',request.env.user.name),-->
+                            <!--                                                                                          ('holiday_status_id','=', leave.id)])"-->
+                            <!--                                   t-as="allocation">-->
+                            <t t-foreach="request.env['hr.leave'].sudo().search([('employee_id','=',request.env.user.name)])"
+                               t-as="leaves">
+                                <!--                                <t t-if="leaves.state==validate">-->
+                                <tr>
+                                    <td>
+                                        <!--                                        <a t-attf-href="/editleave/form">-->
+                                        <span t-esc="leaves.holiday_status_id.name"/>
+                                        <!--                                        </a>-->
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <span t-esc="leaves.name"/>-->
+                                    <!--                                    </td>-->
+                                    <td>
+                                        <span t-esc="leaves.date_from"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="leaves.date_to"/>
+                                    </td>
+                                    <!--                                    <td>-->
+                                    <!--                                        <span t-esc="leaves.employee_id.name"/>-->
+                                    <!--                                    </td>-->
+
+
+                                    <!--                                    <td>-->
+                                    <!--                                        <span t-esc="leaves.employee_id.department_id.name"/>-->
+                                    <!--                                    </td>-->
+                                    <td>
+                                        <span t-esc="leaves.duration_display"/>
+                                    </td>
+
+                                    <td>
+                                        <!--                                        <t t-if="state==validate">-->
+                                        <span t-field="leaves.state"/>
+                                        <!--                                        </t>-->
+                                    </td>
+
+                                </tr>
+                                <!--                                </t>-->
+                            </t>
+                            <!--                                </t>-->
+                            <!--                            </t>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+
+    <template id="tmp_customer_form" name="Partner Form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <form action="/customer/form">
+                            <center>
+                                <h1>New Leave Request</h1>
+                            </center>
+                            <div class="form-group">
+                                <label for="date">Leave Type:</label>
+                                <label class="field select">
+                                    <select name="leaves_id" t-attf-class="form-control s_website_form_input"
+                                            id="leaves_id" required="True">
+                                        <option t-att-disabled="readonly" value="">None</option>
+                                        <t t-foreach="leaves_id" t-as="leaves">
+                                            <option t-att-value="leaves.id"
+                                                    selected="true">
+                                                <span t-esc="leaves.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                    <!--                                    <i class="arrow double"/>-->
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date">From Date:</label>
+                                <input type="date" class="form-control" name="date_from" id="date_from"
+                                       required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="date">To Date:</label>
+                                <input type="date" class="form-control" name="date_to" id="date_to"
+                                       required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Duration (days):</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                       required="true"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Description :</label>
+                                <input type="text" class="form-control" name="duration_display" id="duration_display"
+                                       required="true"/>
+                            </div>
+                            <center>
+                                <a t-attf-href="/customer/form/submit">
+                                    <!--                                    <button type="button" class="btn btn-primary btn-md o_website_form_send">-->
+                                    <!--                                        submit-->
+                                    <!--                                    </button>-->
+                                    <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                        Submit
+                                    </button>
+                                </a>
+                                <br></br>
+                                <!--                                <button type="cancel" class="btn btn-primary">Cancel</button>-->
+                            </center>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="tmp_customer_form_success" name="Customer Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div id="top_bar">
+                    <ul id="breadcrumbs">
+                        <li>
+                            <a href="/employee/dashboard">
+                                <i class="material-icons">Home</i>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            Customer created successfully.
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <a t-attf-href="/customer/back">
+                        <button type="Back" class="btn btn-default btn-primary mb32 a-submit">
+                            Submit
+                        </button>
+                    </a>
+                    <br></br>
+                    <!--                                <button type="cancel" class="btn btn-primary">Cancel</button>-->
+                </center>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="leaves_summary_details_template" name="Leaves Summary details">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <center>
+                        <h3>Leaves Summary details</h3>
+                    </center>
+                    <br/>
+                    <table class="table-striped table" style="table-layout:100px;font-size:15px">
+                        <thead style="font-size: 15px; width:100%">
+                            <tr>
+                                <h6>
+                                    <th style="width:25%">Leave Type</th>
+                                    <th style="width:25%">Total Allocated Leaves</th>
+                                    <th class="text-right" style="width:25%;">Taken Leaves</th>
+                                    <th class="text-right" style="width:25%;">Remaining Leaves</th>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="request.env['hr.leave.type'].sudo().search([])" t-as="leave">
+                                <t t-set="total_allocation_leave" t-value="0"/>
+                                <t t-set="total_taken_leave" t-value="0"/>
+                                <t t-foreach="request.env['hr.leave.allocation'].sudo().search([('employee_id','=',request.env.user.name),
+                                                                                           ('holiday_status_id','=', leave.id),
+                                                                                           ('state','=', 'validate')])"
+                                   t-as="allocation">
+                                    <t t-set="total_allocation_leave"
+                                       t-value="total_allocation_leave + allocation.number_of_days"/>
+                                </t>
+
+                                <t t-foreach="request.env['hr.leave.allocation'].sudo().search([('employee_id','=',request.env.user.name),
+                                                                                  ('holiday_status_id','=', leave.id),
+                                                                                  ('state','=', 'validate')])"
+                                   t-as="taken_leaves">
+                                    <t t-set="total_taken_leave"
+                                       t-value="total_taken_leave + taken_leaves.number_of_days"/>
+                                </t>
+                                <t t-if="total_allocation_leave or total_taken_leave">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="leave.name"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="total_allocation_leave"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="total_taken_leave"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="total_allocation_leave - total_taken_leave"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+
+
+        <!--  chatter  -->
+        <!--        <div id="admission_communication" class="mt-4">-->
+        <!--            <h2>History</h2>-->
+        <!--            <t t-call="portal.message_thread">-->
+        <!--&lt;!&ndash;                <t t-set="object" t-value="assignment"/>&ndash;&gt;-->
+        <!--            </t>-->
+        <!--        </div>-->
+    </template>
+
+
+    <template id="annual_leaves_summary_details_template" name="Annual Leaves Summary details">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <center>
+                        <h3>Annual Leaves details</h3>
+                    </center>
+                    <br/>
+                    <!--                    hr.leave.allocation-->
+                    <table class="table-striped table">
+                        <thead style="font-size: 23px;">
+                            <tr>
+                                <h6>
+                                    <b>
+                                        <th>
+                                            Employee Id
+                                        </th>
+                                        <th>Employee Name</th>
+                                        <th>Total Number of Leaves Taken</th>
+                                        <th>Available Balance</th>
+                                        <th>Balance Till End of Year</th>
+                                    </b>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="available_balance" t-value="0"/>
+                            <t t-set="total_annual_leave" t-value="0"/>
+                            <t t-foreach="request.env['hr.leave'].sudo().search([('employee_id','=',request.env.user.name)])"
+                               t-as="taken_leaves">
+                                <t t-set="total_annual_leave"
+                                   t-value="total_annual_leave + taken_leaves.number_of_days"/>
+
+                                <t t-set="available_balance"
+                                   t-value="available_balance + taken_leaves.number_of_days"/>
+                            </t>
+                            <tr>
+                                <td>
+                                    <span t-esc="request.env.user.id"/>
+                                </td>
+                                <td>
+                                    <span t-esc="request.env.user.name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="total_annual_leave"/>
+                                </td>
+                                <td>
+                                    <t t-esc="available_balance - total_annual_leave"/>
+                                </td>
+                                <td>
+                                    <span t-esc="total_annual_leave"/>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

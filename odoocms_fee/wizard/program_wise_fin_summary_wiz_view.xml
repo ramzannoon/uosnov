@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="program_wise_fin_summary_wiz_view_form" model="ir.ui.view">
+        <field name="name">program.wise.fin.summary.wiz.form</field>
+        <field name="model">program.wise.fin.summary.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Program Wise Financial Report">
+                <group>
+                	<group>
+                        <field name="program_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+		            <group>
+
+		            </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_program_wise_fin_summary_wiz" model="ir.actions.act_window">
+        <field name="name">Program Wise Financial Report</field>
+        <field name="res_model">program.wise.fin.summary.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_program_wise_fin_summary_wiz"
+            name="Program Wise Financial Report Summary"
+            action="action_program_wise_fin_summary_wiz"
+            parent="odoocms_fee.menu_fee_reports"
+            sequence="130"/>
+
+    <act_window
+				id="odoocms_fee_program_wise_fin_summary"
+				name="Get Financial Summary"
+				binding_model="odoocms.program"
+				res_model="account.move"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+</odoo>

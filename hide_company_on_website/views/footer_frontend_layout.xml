@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="new_frontend_layout" name="New Frontend Layout" inherit_id="website.layout">
+        <xpath expr="//footer" position="replace">
+            <footer t-if="not no_footer" id="bottom" data-anchor="true" class="bg-light o_footer">
+                <div id="footer"/>
+                <div class="o_footer_copyright">
+                    <div class="container py-3">
+                        <div class="row">
+                            <div class="col-sm text-center text-sm-left text-muted">
+                                <t t-call="web.debug_icon"/>
+                                <span>Copyright &amp;copy;</span>
+                                <span>Infinite Digital Transformation</span>
+                            </div>
+                            <div class="col-sm text-center text-sm-right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </xpath>
+    </template>
+
+</odoo>

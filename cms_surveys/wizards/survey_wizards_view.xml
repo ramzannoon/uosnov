@@ -1,0 +1,97 @@
+<odoo>
+    <data>
+        <record id="view_survey_wizard_form" model="ir.ui.view">
+            <field name="name">survey.wizard.form</field>
+            <field name="model">survey.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Survey Wizard">
+                    <sheet>
+                        <group>
+                            <field name="template" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}" />
+                            <field name="template_seq_no" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="survey_form_type"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="student_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       attrs="{'invisible':[('template_seq_no', '!=', 'Temp/0006')]}" readonly="0"/>
+                                <field name="batch_ids" widget="many2many_tags"
+                                       placeholder="Select Batches for Surveys."
+                                       attrs="{'invisible':['|',('template_seq_no', '=', 'Temp/0003'),('template_seq_no', '=', 'Temp/0012')],
+                                       'required':[('template_seq_no', '!=', 'Temp/0003'),('template_seq_no', '!=', 'Temp/0012')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"/>
+                                <field name="institute_id"
+                                       invisible="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0" />
+                                <field name="term_id"
+                                       attrs="{'invisible':[('template_seq_no', '!=', 'Temp/0012'),('template_seq_no', '!=', 'Temp/0003')], 'required':['|',('template_seq_no', '=', 'Temp/0012'),('template_seq_no', '=', 'Temp/0003')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"/>
+                                <field name="faculty_institute_id"
+                                       attrs="{'invisible':[('template_seq_no', '!=', 'Temp/0012'),('template_seq_no', '!=', 'Temp/0003')], 'required':['|',('template_seq_no', '=', 'Temp/0012'),('template_seq_no', '=', 'Temp/0003')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"
+                                />
+                                <field name="faculty_department_id"
+                                       attrs="{'invisible':[('template_seq_no', '!=', 'Temp/0012'),('template_seq_no', '!=', 'Temp/0003')]}"
+                                       domain="[('institute_id', '=', faculty_institute_id)]"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"/>
+                                <field name="campus_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       invisible="1"
+                                       readonly="0"/>
+                                <field name="career_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       invisible="1"
+                                       readonly="0"/>
+                                <field name="section_id"
+                                       invisible="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="department_id"
+                                       invisible="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"/>
+
+                                <field name="program_id"
+                                       invisible="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       readonly="0"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="survey_form_type_name" invisible="1"/>
+                                <!--                                <field name="industry_visit" attrs="{'invisible':[('survey_form_type', '!=', 4)]}"/>-->
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_survey_form" string="Generate Surveys" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_wizard">
+            <field name="name">Survey Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_survey_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_survey_wizards_submenu" name="Wizard" sequence="20"
+                  parent="menu_survey_template"/>
+
+        <menuitem id="menu_survey_wizards_action" name="Survey Wizard" sequence="30"
+                  parent="menu_survey_wizards_submenu" action="action_survey_wizard"/>
+    </data>
+</odoo>

@@ -1,0 +1,17 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_odoocms_exam_valuation_user,access.odoocms.exam.valuation.user,odoocms_exam.model_odoocms_exam_valuation,odoocms_exam.group_exam_user,1,1,1,0
+access_odoocms_exam_valuation_coordinator,access.odoocms.exam.valuation.coordinator,odoocms_exam.model_odoocms_exam_valuation,odoocms_exam.group_exam_coordinator,1,1,1,0
+access_odoocms_exam_valuation_manager,access.odoocms.exam.valuation.manager,odoocms_exam.model_odoocms_exam_valuation,odoocms_exam.group_exam_manager,1,1,1,1
+
+access_odoocms_exam_valuation_line_user,access.odoocms.exam.valuation.line.user,odoocms_exam.model_odoocms_exam_valuation_line,odoocms_exam.group_exam_user,1,1,1,0
+access_odoocms_exam_valuation_line_coordinator,access.odoocms.exam.valuation.line.coordinator,odoocms_exam.model_odoocms_exam_valuation_line,odoocms_exam.group_exam_coordinator,1,1,1,0
+access_odoocms_exam_valuation_line_manager,access.odoocms.exam.valuation.line.manager,odoocms_exam.model_odoocms_exam_valuation_line,odoocms_exam.group_exam_manager,1,1,1,1
+
+
+
+access_odoocms_portal_class_assessment_result_user,access.odoocms.portal.class.assessment.result.user,odoocms_exam.model_odoocms_portal_class_assessment_result,odoocms_exam.group_exam_user,1,1,1,0
+access_odoocms_portal_class_assessment_result_coordinator,access.odoocms.portal.class.assessment.result.coordinator,odoocms_exam.model_odoocms_portal_class_assessment_result,odoocms_exam.group_exam_coordinator,1,1,1,0
+access_odoocms_portal_class_assessment_result_manager,access.odoocms.portal.class.assessment.result.manager,odoocms_exam.model_odoocms_portal_class_assessment_result,odoocms_exam.group_exam_manager,1,1,1,1
+
+

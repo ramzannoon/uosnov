@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.fee</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Odoo Fee"
+                     string="OdooCMS Fee"
+                     data-key="odoocms_fee"
+                     groups="odoocms.group_cms_manager">
+                    <h2>OdooCMS Fee Apps</h2>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different activities which is held in an institute.">
+
+                        <div name="Semester Freeze Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="transcript_fee"/>
+                                    <field name="transcript_fee"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration For Transcript Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Degree Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="degree_fee"/>
+                                    <field name="degree_fee"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration for Degree Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Copied from cms_registration -->
+                        <div name="Re Enroll Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="repeat_receipt_type"/>
+                                    <field name="repeat_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration of Fee Receipt type for Course repeat.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Term Defer Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="sm_defer_receipt_type"/>
+                                    <field name="sm_defer_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration Fee Receipt type for Term Defer for Odoo CMS Registration.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Term Resume Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="sm_resume_receipt_type"/>
+                                    <field name="sm_resume_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration Fee Receipt type for Term Un Defer for Odoo CMS Registration.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Late Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="latefee_receipt_type"/>
+                                    <field name="latefee_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration of Fee Receipt type for Late Fee Fine.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Rechecking Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="re_checking_receipt_type"/>
+                                    <field name="re_checking_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="re_checking_subject_limit"/>
+                                    <field name="re_checking_subject_limit" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration of Fee Receipt type for Rechecking Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Degree Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="degree_receipt_type"/>
+                                    <field name="degree_receipt_type" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration of Fee Receipt type for Degree Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Journal For Refunds" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="refundable_journal_id"/>
+                                    <field name="refundable_journal_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration for linking Journal for fee Refunds. Please add default credit and debit accounts in Journal Form as well.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Maximum Installments" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="max_installment_no"/>
+                                    <field name="max_installment_no"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configuration of Maximum Installments No.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="1st Due Date Days" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="first_due_date_days"/>
+                                    <field name="first_due_date_days"/>Days
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure First Due Date After Invoice Due Date.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="2nd Due Date Days" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="second_due_date_days"/>
+                                    <field name="second_due_date_days"/>Days
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Second Due Date After Invoice Due Date.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Fine Charge Type" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="fine_charge_type"/>
+                                    <field name="fine_charge_type"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Fine Charging Type, it will be Either Fixed amount or Percentage of Total Amount
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="First Due Date Fine" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="first_due_date_fine"/>
+                                    <field name="first_due_date_fine"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Late Payment Fine For First Fifteen Days after Due Date
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Second Due Date Fine" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="second_due_date_fine"/>
+                                    <field name="second_due_date_fine"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Late Payment Fine After First Fifteen Days Up to One Month after Due Date
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Hostel Fee Charge Months" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="hostel_fee_charge_months"/>
+                                    <field name="hostel_fee_charge_months"/>Months
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure No. of Months for Hostel Fee, how many Months we should charge Hostel Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Fee Tax Rate" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="tax_rate"/>
+                                    <field name="tax_rate"/>%
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Tax Rate to Charge on Student Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Fee Taxable Amount Limit" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="taxable_amount"/>
+                                    <field name="taxable_amount"/>%
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Taxable Amount to Charge on Tax.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Challan Valdity" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="challan_validity_days"/>
+                                    <field name="challan_validity_days"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Challan Valdity Days Afte the Due Date, After that Challan will not be Valid.
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div name="UG First Semester Defer Value" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="ug_first_semester_defer_value"/>
+                                    <field name="ug_first_semester_defer_value"/>%
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure UG First Semester Defer Value.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="PG First Semester Defer Value" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="pg_first_semester_defer_value"/>
+                                    <field name="pg_first_semester_defer_value"/>%
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure PG First Semester Defer Value.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Second Semester Defer Value" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="second_semester_defer_value"/>
+                                    <field name="second_semester_defer_value"/>%
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Second Semester Defer Value.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Local Student Credit Hour Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="local_student_credit_hour_fee"/>
+                                    <field name="local_student_credit_hour_fee"/>Rs.
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Local Student Credit Hour Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Foreign Student Credit Hour Fee" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="foreign_student_credit_hour_fee"/>
+                                    <field name="foreign_student_credit_hour_fee"/>$
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Foreign Student Credit Hour Fee.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div name="Hostel Fee Charge Timimg" class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="hostel_fee_charge_timing"/>
+                                    <field name="hostel_fee_charge_timing" class="oe_inline"/>
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Configure Hostel Fee Generation Schedule.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_fee'}</field>
+    </record>
+
+    <menuitem
+            id="menu_cms_fee_config_settings"
+            parent="menu_fee_configuration"
+            action="action_config_settings"
+            groups="odoocms.group_cms_manager,odoocms_academic.group_academic_manager"
+            name="Settings"
+            sequence="1"/>
+
+</odoo>

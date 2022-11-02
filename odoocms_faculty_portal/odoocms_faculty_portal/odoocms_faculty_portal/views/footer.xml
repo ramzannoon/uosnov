@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <template id="studentweb_portal_o_footer_copyright_custom" name="Footer" inherit_id="website.layout">
+            <xpath expr="//div[hasclass('o_footer_copyright')]" position="replace">
+                <div t-attf-class="o_footer_copyright {{ 'd-none' if hide_footer == 'Yes' else '' }}">
+                </div>
+            </xpath>
+        </template>
+        <template id="studentweb_portal_footer_custom" name="Footer" inherit_id="website.layout">
+            <xpath expr="//div[@id='footer']" position="replace">
+                <div id="footer" t-attf-class="oe_structure oe_structure_solo {{ 'd-none' if hide_footer == 'Yes' else '' }}" t-ignore="true" t-if="not no_footer">
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

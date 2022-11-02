@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_faculty_staff_form_registration" model="ir.ui.view">
+            <field name="name">odoocms.faculty.staff.form.registration</field>
+            <field name="model">odoocms.faculty.staff</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_faculty_staff_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='contact']" position="after">
+                    <page name="work_load" string="Work Load">
+                        <group>
+                            <group>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="credits"/>
+                            </group>
+                        </group>
+                        <field name="class_ids" readonly="1">
+                            <tree>
+                                <field name="class_id"/>
+                                <field name="term_id"/>
+                                <field name="role_id"/>
+                                <field name="credits"/>
+                                <field name="student_count"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_faculty_staff_search_registration" model="ir.ui.view">
+            <field name="name">odoocms.faculty.staff.search.registration</field>
+            <field name="model">odoocms.faculty.staff</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_faculty_staff_search"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <newline/>
+                    <filter name='zero_load' string="Zero Load" domain="[('credits','=',0)]"/>
+                </field>
+                <filter name="group_gender" position="after">
+                    <filter string='Term' name="group_term" domain="[]" context="{'group_by' : 'term_id'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_odoocms_faculty_staff_tree_registration" model="ir.ui.view">
+            <field name="name">odoocms.faculty.staff.tree.registration</field>
+            <field name="model">odoocms.faculty.staff</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_faculty_staff_tree"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="credits"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+
+</odoo>

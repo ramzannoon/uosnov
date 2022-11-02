@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<report
+            id="action_student_grades"
+            model="odoocms.student"
+            string="Students Grades"
+            report_type="qweb-html"
+            name="odoocms_exam.report_student_grades"
+            file="odoocms_exam.report_student_grades"
+        />
+
+		<!-- Student Transcript Report-->
+		<report
+			id="action_report_student_transcript_docp"
+			string="Student Transcript"
+			model="odoocms.student"
+			report_type="qweb-docp"
+			name="odoocms_exam.student_transcript_report"
+			file="odoocms_exam.student_transcript_report"
+			menu="True"
+		/>
+
+		<!-- Student Transcript Report -->
+<!--		<reports-->
+<!--			id="action_report_student_transcript_docp2"-->
+<!--			string="Student Unofficial Transcript"-->
+<!--			model="odoocms.student"-->
+<!--			report_type="qweb-docp"-->
+<!--			name="odoocms_exam.student_transcript_report2"-->
+<!--			file="odoocms_exam.student_transcript_report2"-->
+<!--			menu="True"-->
+<!--		/>-->
+
+		<!--	Student Provisional Certificate-->
+		<report
+			id="action_report_student_provisional_certificate"
+			string="Student Provisional Certificate"
+			model="student.provisional.certificate.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.student_provisional_certificate_report"
+			file="odoocms_exam.student_provisional_certificate_report"
+			menu="True"
+		/>
+
+		<!-- GPA Wise Students-->
+		<report
+			id="action_report_gpa_wise_student"
+			string="GPA Wise Students"
+			model="gpa.wise.student.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.gpa_wise_student_report"
+			file="odoocms_exam.gpa_wise_student_report"
+			menu="True"
+		/>
+
+		<!-- Grade Wise Courses-->
+		<report
+			id="action_report_grade_wise_course"
+			string="Grade Wise Courses"
+			model="grade.wise.course.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.grade_wise_course_report"
+			file="odoocms_exam.grade_wise_course_report"
+			menu="False"
+		/>
+
+		<!-- Less GPA Warning-->
+		<report
+			id="action_report_gpa_warning"
+			string="GPA Warning"
+			model="gpa.warning.wizard"
+			report_type="qweb-html"
+			name="odoocms_exam.gpa_warning_report"
+			file="odoocms_exam.gpa_warning_report"
+			menu="True"
+		/>
+
+		<!-- Student Exam Slip-->
+		<report
+			id="action_report_student_exam_slip"
+			string="Exam Slip"
+			model="odoocms.student"
+			report_type="qweb-html"
+			name="odoocms_exam.student_exam_slip_report"
+			file="odoocms_exam.student_exam_slip_report"
+			menu="True"
+		/>
+
+		<report
+			id="action_report_student_dmc"
+			string="Student DMC"
+			model="student.dmc.wiz"
+			report_type="qweb-pdf"
+			name="odoocms_exam.student_term_dmc_report"
+			file="odoocms_exam.student_term_dmc_report"
+			menu="False"
+		/>
+
+		<report
+			id="action_report_class_result"
+			string="Class Result"
+			model="class.result.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.class_result_report"
+			file="odoocms_exam.class_result_report"
+			menu="False"
+			/>
+
+		<!-- Term Wise Grade Changed	-->
+		<report
+			id="action_report_grade_change_term"
+			string="Term Wise Grade Changed"
+			model="grade.change.term.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.grade_change_term_report"
+			file="odoocms_exam.grade_change_term_report"
+			menu="False"
+			/>
+
+		<!-- Department Wise Grade Changed	-->
+		<report
+			id="action_report_grade_change_department"
+			string="Department Wise Grade Changed"
+			model="grade.change.department.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.grade_change_department_report"
+			file="odoocms_exam.grade_change_department_report"
+			menu="False"
+			/>
+
+		<!-- Student Provisional Result -->
+		<report
+			id="action_report_student_provisional_result"
+			string="Student Provisional Result"
+			model="student.provisional.result"
+			report_type="qweb-html"
+			name="odoocms_exam.student_provisional_result_report"
+			file="odoocms_exam.student_provisional_result_report"
+			menu="False"
+			/>
+
+		<!-- Batch Term Result Notification -->
+		<report
+			id="action_report_batch_term_result_notification"
+			string="Batch Term Result Notification"
+			model="batch.term.result.notification.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.batch_term_result_notification_report"
+			file="odoocms_exam.batch_term_result_notification_report"
+			menu="False"
+			/>
+
+		<!-- Student Term Result Letter -->
+		<report
+			id="action_report_student_term_result_letter"
+			string="Student Term Result Letter"
+			model="student.term.result.letter.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.student_term_result_letter"
+			file="odoocms_exam.student_term_result_letter"
+			menu="False"
+			/>
+
+		<!-- Top Five Students -->
+		<report
+			id="action_report_student_exam_top_five"
+			string="Top Five Students"
+			model="student.exam.top.five.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.top_five_student_report"
+			file="odoocms_exam.top_five_student_report"
+			menu="False"
+			/>
+
+		<!-- Academic Deficiency(Warning) -->
+		<report
+			id="action_report_academic_deficiency_warning"
+			string="Academic Deficiency(Warning)"
+			model="academic.deficiency.warning.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.academic_deficiency_warning_report"
+			file="odoocms_exam.academic_deficiency_warning_report"
+			menu="False"
+			/>
+
+		<!-- Academic Deficiency(Probation) -->
+		<report
+			id="action_report_academic_deficiency_probation"
+			string="Academic Deficiency(Probation)"
+			model="academic.deficiency.probation.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.academic_deficiency_probation_report"
+			file="odoocms_exam.academic_deficiency_probation_report"
+			menu="False"
+			/>
+
+		<!-- Academic Deficiency(Suspension) -->
+		<report
+			id="action_report_academic_deficiency_suspension"
+			string="Academic Deficiency(Suspension)"
+			model="academic.deficiency.suspension.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.academic_deficiency_suspension_report"
+			file="odoocms_exam.academic_deficiency_suspension_report"
+			menu="False"
+			/>
+
+		<!-- Academic Deficiency(Withdraw) -->
+		<report
+			id="action_report_academic_deficiency_withdraw"
+			string="Academic Deficiency(Withdraw)"
+			model="academic.deficiency.withdraw.wiz"
+			report_type="qweb-html"
+			name="odoocms_exam.academic_deficiency_withdraw_report"
+			file="odoocms_exam.academic_deficiency_withdraw_report"
+			menu="False"
+			/>
+
+<!--		&lt;!&ndash;		DateSheet Report&ndash;&gt;-->
+
+<!--		<report-->
+<!--			id="action_report_datesheet"-->
+<!--			string="Department Datesheet "-->
+<!--			model="datesheet.wiz"-->
+<!--			report_type="qweb-html"-->
+<!--			name="odoocms_exam.datesheet_report"-->
+<!--			file="odoocms_exam.datesheet_report"-->
+<!--			menu="False"-->
+<!--			/>-->
+
+<!--		<report-->
+<!--			id="action_report_datesheet_semester"-->
+<!--			string="Semester DateSheet"-->
+<!--			model="datesheet.semester.wiz"-->
+<!--			report_type="qweb-html"-->
+<!--			name="odoocms_exam.datesheet_semester_report"-->
+<!--			file="odoocms_exam.datesheet_semester_report"-->
+<!--			menu="False"-->
+<!--			/>-->
+
+
+
+
+
+	</data>
+</odoo>

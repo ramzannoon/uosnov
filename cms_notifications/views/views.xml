@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cms_notification_form" model="ir.ui.view">
+        <field name="name">cms.notification.form</field>
+        <field name="model">cms.notification</field>
+        <field name="arch" type="xml">
+            <form string="Notification" >
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="date" readonly="1" required="1"/>
+                            <field name="expiry" required="1"/>
+                        </group>
+                        <group>
+                            <field name="uploaded_by" readonly="1"/>
+                            <field name="visible_for" required="1" />
+                        </group>
+                        <group>
+                            <field name="image" />
+                            <field name="allow_preview"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                            <!--<field name="student_domain" placeholder="Filter"
+                                                widget="domain" options="{'model': 'odoocms.student', 'in_dialog': true}" attrs="{'invisible': [('visible_for', '=','faculty')]}"/>
+                            <field name="faculty_domain" widget="domain" options="{'model': 'odoocms.faculty.staff', 'in_dialog': True}" attrs="{'invisible': [('visible_for', '=','student')]}"/>-->
+                        </group>
+                    </group>
+                    <group>
+                    	<field name="recipient_ids" widget="many2many_tags" />
+                    </group>
+                    <group>
+                        <field name="description" widget="html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cms_notification_tree" model="ir.ui.view">
+        <field name="name">cms.notification.tree</field>
+        <field name="model">cms.notification</field>
+        <field name="arch" type="xml">
+            <tree string="Notifications">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="expiry"/>
+                <field name="uploaded_by"/>
+                <field name="visible_for"/>
+                <field name="allow_preview"/>
+                <field name="priority"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cms_notification" model="ir.actions.act_window">
+        <field name="name">Notifications</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cms.notification</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to add new Notification here.</p>
+        </field>
+    </record>
+
+
+
+</odoo>

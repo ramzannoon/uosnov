@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_student_project_milestone_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.project.milestone.tree</field>
+        <field name="model">odoocms.student.project.milestone</field>
+        <field name="arch" type="xml">
+            <tree string="Student Project">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="effective_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_student_project_milestone_form" model="ir.ui.view">
+        <field name="name">odoocms.student.project.milestone.form</field>
+        <field name="model">odoocms.student.project.milestone</field>
+        <field name="arch" type="xml">
+            <form string="Student Project">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="effective_date"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_student_project_milestone" model="ir.actions.act_window">
+        <field name="name">Student Project MileStones</field>
+        <field name="res_model">odoocms.student.project.milestone</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Project MileStones Here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_student_project_milestone_action"
+              name="Manage MileStones"
+              parent="odoocms_spm.menu_student_project_management_configuration"
+              action="action_student_project_milestone"
+              sequence="2"/>
+
+</odoo>
+

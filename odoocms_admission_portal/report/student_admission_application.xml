@@ -1,0 +1,853 @@
+<odoo>
+    <template id="header_student_admission">
+        <t t-foreach="docs" t-as="doc">
+            <div class="header">
+                <div class="row" style="padding:30px">
+                    <div class="col-7">
+                        <table style="width:100%; text-right;font-size:11px;">
+                            <tr>
+                                <td>Application ID : <span t-field="doc.application_no"/></td>
+                            </tr>
+                        </table>
+                        <table style="width:100%; margin-top:16px">
+                            <tr>
+                                <td>
+                                    <img t-if="doc.company_id.logo" t-att-src="image_data_uri(doc.company_id.logo)" alt="Logo" style="width:200px; max-height:200px"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width:100%; margin-top:16px">
+                            <tr>
+                                <td>
+                                    <h5>
+                                        <b>Online Application Form for Admission</b>
+                                    </h5>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-2"> </div>
+                    <div class="col-3" style="padding:8px">
+                        <img t-if="doc.image" t-att-src="image_data_uri(doc.image)" alt="Logo" style="width:80%;height:130px;"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer">
+                <div class="row">
+                    <div class="col-9"/>
+                    <div class="col-3" style="font-size:11px">
+                        <span><strong>Form submitted on:</strong></span>
+                        <br/>
+                        <span t-field="doc.application_date"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="student_admission_application_mine">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="odoocms_admission_portal.header_student_admission">
+                    <!--                 <t t-call="web.external_layout"> -->
+                    <style> table{ width: 100%; } table.border th{ padding: 5px; } table.border td{ padding: 5px; border: 1px solid black; } </style>
+                    <div class="page" style="font-size:11px;padding:20px">
+                        <div class="oe_structure"/>
+                        <div class="container" style="text-align: left;margin: 5px;padding:10px;font-size:11px;">
+                            <b> Attach the following attested documents: </b>
+                            <div class="row" style="width:100%;height:110px;padding:4px">
+                                <div class="col-6">
+                                    <table style="text-right;padding:5px">
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> F.A./F.Sc/ICS/D.Com/DAE/A’Level Certificate or Equivalent </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </td>
+                                            <td style="width:90%"> Character Certificate (from Head of Institution last attended) </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> Applicant’s CNIC or B.Form Copy </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> Matric/O’Level Certificate or Equivalent </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-6">
+                                    <table style="text-right;padding:5px">
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> Father/Mother/Guardian CNIC Copy </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> Attach three photographs and Domicile Certificate (if any) </td>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:10%">
+                                                <input type="checkbox" id="oe_import_tracking"/>
+                                            </th>
+                                            <td style="width:90%"> Equivalent certificate issued by IBCC in case of O/A levels or qualifications from Foreign Universities/Institutes only </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="text-align: left;margin: 3px; font-size:14px;">
+                            <span><b> Note : </b>Before submitting your application, please make sure that above documents have been attached. </span>
+                        </div>
+                        <table name="student_employee_infos" class="border">
+                            <tr>
+                                <td>
+                                    <b>Applicant's Name:Mr./Miss(As per Matric/O-level Certificate</b>
+                                </td>
+                                <td>
+                                    <span t-field="o.first_name"/>
+                                    <span t-field="o.last_name"/>
+                                </td>
+                                <td>
+                                    <strong>CNIC</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.cnic"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Email Address</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.email"/>
+                                </td>
+                                <td>
+                                    <strong>Phone/Cell</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.mobile"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Date of Birth</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.date_of_birth"/>
+                                </td>
+                                <td>
+                                    <strong>Nationality</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.nationality"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Religion</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.religion_id"/>
+                                </td>
+                                <td>
+                                    <strong>Gender</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.gender"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Postal/Present Address</strong>
+                                </td>
+                                <td colspan="3">
+                                    <t t-if="o.street"> <span t-field="o.street"/>, </t>
+                                    <t t-if="o.street2"> <span t-field="o.street2"/>, </t>
+                                    <t t-if="o.city"> <span t-field="o.city"/>,</t>
+                                    <t t-if="o.zip"> <span t-field="o.zip"/>,</t>
+                                    <t t-if="o.state_id"> <span t-field="o.state_id.name"/>,</t>
+                                    <t t-if="o.present_country_id"> <span t-field="o.present_country_id.name"/>,</t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Permanent Address</strong>
+                                </td>
+                                <td colspan="3">
+                                    <t t-if="o.is_same_address">
+                                        <t t-if="o.street"> <span t-field="o.street"/>, </t>
+                                        <t t-if="o.street2"> <span t-field="o.street2"/>, </t>
+                                        <t t-if="o.city"> <span t-field="o.city"/>,</t>
+                                        <t t-if="o.zip"> <span t-field="o.zip"/>,</t>
+                                        <t t-if="o.state_id"> <span t-field="o.state_id.name"/>,</t>
+                                        <t t-if="o.present_country_id"> <span t-field="o.present_country_id.name"/>,</t>
+                                    </t>
+                                    <t t-if="not o.is_same_address">
+                                        <t t-if="o.per_street"> <span t-field="o.per_street"/>, </t>
+                                        <t t-if="o.per_street2"> <span t-field="o.per_street2"/>, </t>
+                                        <t t-if="o.per_city"> <span t-field="o.per_city"/>,</t>
+                                        <t t-if="o.per_zip"> <span t-field="o.per_zip"/>,</t>
+                                        <t t-if="o.per_state_id"> <span t-field="o.per_state_id.name"/>,</t>
+                                        <t t-if="o.per_country_id"> <span t-field="o.per_country_id.name"/>,</t>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Father/Mother/Guardian Name</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_name"/>
+                                </td>
+                                <td>
+                                    <strong>CNIC.</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_cnic"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Father/Mother/Guardian Cell No.</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_mobile"/>
+                                </td>
+                                <td>
+                                    <strong>Email</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_email"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Father/Mother/Guardian Occupation</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_occupation"/>
+                                </td>
+                                <td>
+                                    <strong>Sallary</strong>
+                                </td>
+                                <td>
+                                    <span t-field="o.father_income"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="container" style="text-align: left;margin-top:20px;">
+                            <strong>
+                                <b> Person to be informed in case of emergency (Preferably from Lahore) </b>
+                            </strong>
+                        </div>
+                        <table name="student_person_emergency" class="border">
+                            <tr>
+                                <td style="width:35%">
+                                    <strong>Name : </strong><span t-field="o.emergency_name"/>
+                                </td>
+                                <td style="width:30%">
+                                    <strong>Relation : </strong><span t-field="o.emergency_relation"/>
+                                </td>
+                                <td style="width:35%">
+                                    <strong>Cell Number : </strong><span t-field="o.emergency_mobile"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="margin-top: 40px;" id="academic_record" class="table table-striped table-hover">
+                            <th>
+                                <b>ACADEMIC RECORD</b>
+                            </th>
+                        </table>
+                        <div>
+                            <table class="border">
+                                <tr style="background-color: #0a0a0a">
+                                    <th style="width:10%; color: white"> Examination Passed: </th>
+                                    <th style="width:30%; color: white"> Name of Board i.e(BISE of lahore): </th>
+                                    <th style="width:10%; color: white"> Passing year: </th>
+                                    <th style="width:10%; color: white">
+                                        <span>Roll No:</span>
+                                    </th>
+                                    <th style="width:10%; color: white">
+                                        <span>Total Marks:</span>
+                                    </th>
+                                    <th style="width:10%; color: white">
+                                        <span>Marks Obtained:</span>
+                                    </th>
+                                    <th style="width:10%; color: white">
+                                        <span>Marks/Grade Percentage:</span>
+                                    </th>
+                                    <th style="width:10%; color: white">
+                                        <span>Result Awaiting:</span>
+                                    </th>
+                                </tr>
+                                <t t-foreach="o.academic_ids" t-as="academic">
+                                    <tr style="padding:1px">
+                                        <td>
+                                            <strong>
+                                                <b>
+                                                    <t t-esc="academic.degree_level"/>
+                                                </b>
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <t t-esc="academic.board"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="academic.year"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="academic.roll_number"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="academic.total_marks"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="academic.obtained_marks"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <t t-esc="academic.percentage"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <t t-if="academic.result_awaiting">
+                                                <span>✔</span>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                        <table class="border" style="margin-top: 20px;">
+                            <tr style="background-color: #0a0a0a">
+                                <th style="color: white">
+                                    <b>DEGREE APPLIED FOR</b>
+                                </th>
+                            </tr>
+                        </table>
+                        <table>
+                            <tr>
+                                <th>1)</th>
+                                <td>
+                                    <t t-esc="o.choice_one.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>2)</th>
+                                <td>
+                                    <t t-esc="o.choice_two.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>3)</th>
+                                <td>
+                                    <t t-esc="o.choice_three.name"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="margin-top:10px">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12" style="background-color: black; color: white; padding:4px">
+                                        <span>
+                                            <b>DECLARATION BY THE APPLICANT</b>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12" style="background-color: #b8c2cb">
+                                        <span>I hearby solemnly declare.</span>
+                                    </div>
+                                </div>
+                                <div class="row" style="background-color: #b8c2cb">
+                                    <div class="col-1">
+                                        <span>✔</span>
+                                    </div>
+                                    <div class="col-11">
+                                        <span>
+                                            <b>THAT</b>
+                                            the particulars filled in the application for admission are true to the best of my knowledge and I shall be responsible for any misstatement therein.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row" style="background-color: #b8c2cb">
+                                    <div class="col-1">
+                                        <span>✔</span>
+                                    </div>
+                                    <div class="col-11">
+                                        <span>
+                                            <b>THAT</b>
+                                            I shall abide by the rules, regulations and conditions of Admission and Post Admission tenure.
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row" style="background-color: #b8c2cb">
+                                    <div class="col-1">
+                                        <span>✔</span>
+                                    </div>
+                                    <div class="col-11">
+                                        <span>
+                                            <b>Result awaiting applicants;</b>
+                                            THAT I undertake to submit original/attested copies of my Intermediate/A’ Level results to the Registrar’s Office as soon as the result is declared. If I fail to fulfill the eligibility criteria for admission, Institute has the right to cancel/terminate my admission.
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:5px">
+                            <div class="col-12">
+                                <span>
+                                    <b>NOTE:</b>
+                                    The administration reserves the right to make any changes and addition to the program/course regulation and condition governing the conduct of students at any time without notice.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+        <!--<odoo>-->
+        <!--    <template id="student_admission_application_mine">-->
+        <!--        <t t-call="web.html_container">-->
+        <!--            <t t-foreach="docs" t-as="o">-->
+        <!--                <t t-call="web.external_layout">-->
+        <!--                    <style>-->
+        <!--                        table{-->
+        <!--                        width: 100%;-->
+        <!--                        }-->
+        <!--                        th{-->
+        <!--                        padding: 5px;-->
+        <!--                        }-->
+        <!--                        td{-->
+        <!--                        padding: 5px;-->
+        <!--                        border: 1px solid black;-->
+        <!--                        }-->
+        <!--                    </style>-->
+        <!--                    <div class="page" style="background:#cedae766">-->
+        <!--                        <div class="oe_structure"/>-->
+        <!--                        <div class="container" style="text-align: center;">-->
+        <!--                            <h1>Online Application Form for Admission</h1>-->
+        <!--                        </div>-->
+        <!--                        <table id="personal_information" style="background-color: #b8c2cb">-->
+        <!--                            <th>-->
+        <!--                                <b>APPLICANT’S PERSONAL INFORMATION</b>-->
+        <!--                            </th>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>First Name:</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>CNIC or B-Form No:</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Cell No:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.first_name"/>-->
+        <!--                                    <t t-esc="o.last_name"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.entryID"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.mobile"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                            <tr style="padding:2px 0;">-->
+        <!--                                <th>-->
+        <!--                                    <span>Email:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Date of Birth:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Nationality:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.email"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.date_of_birth"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.nationality.name"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                            <tr style="padding:2px 0;">-->
+        <!--                                <th>-->
+        <!--                                    <span>Gender:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Religion:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Hafiz-e-Quran:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr style="padding:2px 0;">-->
+        <!--                                <td>-->
+        <!--                                    <t t-if="o.gender == 'm'">-->
+        <!--                                        <span>Male</span>-->
+        <!--                                    </t>-->
+        <!--                                    <t t-if="o.gender == 'f'">-->
+        <!--                                        <span>Female</span>-->
+        <!--                                    </t>-->
+        <!--                                    <t t-if="o.gender == 'o'">-->
+        <!--                                        <span>Other</span>-->
+        <!--                                    </t>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.religion_id.name"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-if="o.is_hafiz">-->
+        <!--                                        <span>Yes</span>-->
+        <!--                                    </t>-->
+        <!--                                    <t t-else="">-->
+        <!--                                        <span>No</span>-->
+        <!--                                    </t>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <table style="background-color: #b8c2cb; margin-top: 40px" id="guardian_information">-->
+        <!--                            <span>-->
+        <!--                                <th>-->
+        <!--                                    <b>FATHER'S /GUARDIAN INFORMATION</b>-->
+        <!--                                </th>-->
+        <!--                            </span>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Father's/Guardian Name:</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>CNIC No:</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Email(if any):</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.father_name"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.father_cnic"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.father_email"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <th>-->
+        <!--                                    <span>Father's/Guardian Cell:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Father's/Guardian Occupation:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Monthly Salary Income:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.guardian_mobile"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.guardian_occupation"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.father_income"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <table style="background-color: #b8c2cb; margin-top: 40px;" id="contact_information">-->
+        <!--                            <th> CONTACT INFORMATION </th>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <th style="width:30%"> Postal/Present Address: </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>City:</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Province:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.street"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.city"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.province_id.name"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <th>-->
+        <!--                                    <span>Permamnet Address:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>City:</span>-->
+        <!--                                </th>-->
+        <!--                                <th/>-->
+        <!--                                <th>-->
+        <!--                                    <span>Province:</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.per_street"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.per_city"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.province_id.name"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <th>-->
+        <!--                                    <span>Person to be informed in case of Emergency(Preferably from lahore):</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <td style="width:30%">-->
+        <!--                                    <t t-esc="o.emergency_name"/>-->
+        <!--                                </td>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <td style="width:30%">-->
+        <!--                                    <t t-esc="o.emergency_mobile"/>-->
+        <!--                                </td>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <td style="width:30%">-->
+        <!--                                    <t t-esc="o.province_id.name"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <p style="page-break-after:always;"/>-->
+        <!--                        <table style="background-color: #b8c2cb; margin-top: 40px;" id="academic_record">-->
+        <!--                            <th>-->
+        <!--                                <b>ACADEMIC RECORD</b>-->
+        <!--                            </th>-->
+        <!--                        </table>-->
+        <!--                        <div>-->
+        <!--                            <table>-->
+        <!--                                <tr>-->
+        <!--                                    <th style="width:10%"> Examination Passed: </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:35%"> Name of Board i.e(BISE of lahore): </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:10%"> Passing year: </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:10%">-->
+        <!--                                        <span>Roll No:</span>-->
+        <!--                                    </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:5%">-->
+        <!--                                        <span>Total Marks:</span>-->
+        <!--                                    </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:5%">-->
+        <!--                                        <span>Marks Obtained:</span>-->
+        <!--                                    </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:5%">-->
+        <!--                                        <span>Marks/Grade Percentage:</span>-->
+        <!--                                    </th>-->
+        <!--                                    <th style="width:5%"/>-->
+        <!--                                    <th style="width:5%">-->
+        <!--                                        <span>Result Awaiting:</span>-->
+        <!--                                    </th>-->
+        <!--                                </tr>-->
+        <!--                                <t t-foreach="o.academic_ids" t-as="academic">-->
+        <!--                                    <tr style="padding:1px">-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.degree_level"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.board"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.year"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.roll_number"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.total_marks"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.obtained_marks"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.percentage"/>-->
+        <!--                                        </td>-->
+        <!--                                        <th/>-->
+        <!--                                        <td>-->
+        <!--                                            <t t-esc="academic.roll_number"/>-->
+        <!--                                        </td>-->
+        <!--                                    </tr>-->
+        <!--                                    <th/>-->
+        <!--                                </t>-->
+        <!--                            </table>-->
+        <!--                        </div>-->
+        <!--                        <table style="background-color: #b8c2cb; margin-top: 40px;" id="preferences_choices">-->
+        <!--                            <th>-->
+        <!--                                <b>Preferenece Choice</b>-->
+        <!--                            </th>-->
+        <!--                        </table>-->
+        <!--                        <table>-->
+        <!--                            <tr>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Choice 1 :</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Choice 2 :</span>-->
+        <!--                                </th>-->
+        <!--                                <th style="width:5%"/>-->
+        <!--                                <th style="width:30%">-->
+        <!--                                    <span>Choice 3 :</span>-->
+        <!--                                </th>-->
+        <!--                            </tr>-->
+        <!--                            <tr>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.choice_one.name"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.choice_two.name"/>-->
+        <!--                                </td>-->
+        <!--                                <th/>-->
+        <!--                                <td>-->
+        <!--                                    <t t-esc="o.choice_three.name"/>-->
+        <!--                                </td>-->
+        <!--                            </tr>-->
+        <!--                        </table>-->
+        <!--                        <div style="margin-top:10px">-->
+        <!--                            <div class="col-12">-->
+        <!--                                <div class="row">-->
+        <!--                                    <div class="col-12" style="background-color: black; color: white; padding:4px">-->
+        <!--                                        <span>-->
+        <!--                                            <b>DECLARATION BY THE APPLICANT</b>-->
+        <!--                                        </span>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row">-->
+        <!--                                    <div class="col-12" style="background-color: #b8c2cb">-->
+        <!--                                        <span>I hearby solemnly declare.</span>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row" style="background-color: #b8c2cb">-->
+        <!--                                    <div class="col-1">-->
+        <!--                                        <span>✔</span>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-11">-->
+        <!--                                        <span>-->
+        <!--                                            <b>THAT</b>-->
+        <!--                                            the particulars filled in the application for admission are true to the best of my knowledge and I shall be responsible for any misstatement therein.-->
+        <!--                                        </span>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row" style="background-color: #b8c2cb">-->
+        <!--                                    <div class="col-1">-->
+        <!--                                        <span>✔</span>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-11">-->
+        <!--                                        <span>-->
+        <!--                                            <b>THAT</b>-->
+        <!--                                            I shall abide by the rules, regulations and conditions of Admission and Post Admission tenure.-->
+        <!--                                        </span>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="row" style="background-color: #b8c2cb">-->
+        <!--                                    <div class="col-1">-->
+        <!--                                        <span>✔</span>-->
+        <!--                                    </div>-->
+        <!--                                    <div class="col-11">-->
+        <!--                                        <span>-->
+        <!--                                            <b>Result awaiting applicants;</b>-->
+        <!--                                            THAT I undertake to submit original/attested copies of my Intermediate/A’ Level results to the Registrar’s Office as soon as the result is declared. If I fail to fulfill the eligibility criteria for admission, Institute has the right to cancel/terminate my admission.-->
+        <!--                                        </span>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="row">-->
+        <!--                            <div class="col-12">-->
+        <!--                                <span>-->
+        <!--                                    <b>NOTE:</b>-->
+        <!--                                    Click finalize and submit, only when you are ready to submit the application. Once the application form is submitted, you will NOT be able to edit your application/information.-->
+        <!--                                </span>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </t>-->
+        <!--            </t>-->
+        <!--        </t>-->
+        <!--    </template>-->
+        <!--</odoo>-->

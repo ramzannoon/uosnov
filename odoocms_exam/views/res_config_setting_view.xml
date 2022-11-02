@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_config_settings_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.exam</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="60"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Odoo Exam"
+                     string="OdooCMS Exam"
+                     data-key="odoocms_exam"
+                     groups="odoocms_exam.group_exam_manager,odoocms.group_cms_manager">
+                    <h2>OdooCMS Exam</h2>
+
+                    <div class="row mt16 o_settings_container"
+                         title="Specify different setting for Exams Module.">
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="excluded_grades" />
+                                    <field name="excluded_grades"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Grades excluded from CGPA Calculation.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="freshman_grading"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="freshman_grading"/>
+                                <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                                <div class="text-muted">
+                                    Use Freshman Grading
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('freshman_grading', '=', False)]}">
+                                    <div class="row mt8">
+                                        <label for="freshman_semesters" class="col-lg-4 o_light_label"/>
+                                        <field name="freshman_semesters" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="text-muted">
+                                        Freshman Semesters.
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="freshman_passing_grades" class="col-lg-4 o_light_label"/>
+                                        <field name="freshman_passing_grades" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="text-muted">
+                                        Freshman Passing Grades.
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="freshman_exculded_grades" class="col-lg-4 o_light_label"/>
+                                        <field name="freshman_exculded_grades" widget="many2many_tags"/>
+                                    </div>
+                                    <div class="text-muted">
+                                        Freshman Excluded Grades.
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="minimum_cgpa_required" />
+                                    <field name="minimum_cgpa_required"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Minimum CGPA Required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="grading_method" />
+                                    <field name="grading_method"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Grading Method.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="assign_grade_portal" />
+                                    <field name="assign_grade_portal"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Grade Assigning Allowed From.
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group mt16">
+                                    <label class="o_form_label o_light_label" for="gradpoints_method" />
+                                    <field name="gradpoints_method"/>
+                                 </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted">
+                                    Grade Point Method.
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="view_config_settings_form"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoocms_exam'}</field>
+    </record>
+
+    <record id="mail_activity_type_action" model="ir.actions.act_window">
+        <field name="name">Exam Approvals</field>
+        <field name="res_model">mail.activity.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                    (0, 0, {
+                        'view_mode': 'tree',
+                        'view_id': ref('aarsol_activity.mail_activity_type_view_tree')
+                    }),
+               ]"/>
+        <field name="domain"
+               eval="[('module_category_id','=',ref('module_category_odoocms_exam'))]"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+            id="menu_exam_config_settings"
+            parent="menu_odoocms_exam_configuration"
+            action="action_config_settings"
+            groups="odoocms.group_cms_manager,odoocms_exam.group_exam_manager"
+            name="Settings"
+            sequence="1"/>
+
+    <menuitem
+            id="menu_mail_activity_type"
+            parent="menu_odoocms_exam_configuration"
+            action="mail_activity_type_action"
+            groups="odoocms.group_cms_manager,odoocms_exam.group_exam_manager"
+            name="Activity Types"
+            sequence="5"
+    />
+
+</odoo>

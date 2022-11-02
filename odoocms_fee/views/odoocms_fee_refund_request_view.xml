@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_fee_refund_request_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.request.form</field>
+            <field name="model">odoocms.fee.refund.request</field>
+            <field name="arch" type="xml">
+                <form string="Fee Refund Requests">
+                    <header>
+                        <button name="action_approve_refund" string="Approve" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_refund_paid" string="Paid" type="object" class="oe_highlight" states="approve"/>
+                        <button name="action_refund_cancel" string="Cancel" type="object" class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,done,cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="True"
+                                       options="{'no_create':True, 'limit': 10}"/>
+                                <field name="session_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="career_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="term_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="batch_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                            </group>
+                            <group>
+                                <field name="semester_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="institute_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="campus_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                                <field name="discipline_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_create':True}"/>
+                            </group>
+
+                            <group>
+                                <field name="date"/>
+                                <field name="refund_type"/>
+                                <field name="total_amount"/>
+                                <field name="total_refund_amount"/>
+                                <field name="student_ledger_id" readonly="1" attrs="{'invisible':[('state','!=','done')]}"/>
+                            </group>
+                            <group>
+                                <field name="reason_id" options="{'no_create':True, 'limit': 10}" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="refund_by" attrs="{'readonly':[('state','=','done')]}"/>
+                                <field name="payment_journal_id" options="{'no_create':True}"
+                                       attrs="{'required':[('state','=','approve')], 'invisible':[('state','=','draft')], 'readonly':[('state','=','done')]}"/>
+                                <field name="payment_id" readonly="1" attrs="{'invisible':[('state','!=','done')]}"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="description" colspan="4"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Refund Details">
+                                <field name="refund_line_ids" nolabel="1">
+                                    <tree string="Refunds" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="refund_type" required="1"/>
+                                        <field name="description"/>
+                                        <field name="actual_amount" sum="sum_actual_amount"/>
+                                        <field name="refund_amount" sum="sum_refund_amount"/>
+                                        <field name="state" readonly="1"/>
+                                    </tree>
+                                    <form>
+                                        <header>
+                                            <field name="state" widget="statusbar"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="refund_type" required="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="actual_amount"/>
+                                                    <field name="refund_amount"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_fee_refund_request_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.request.tree</field>
+            <field name="model">odoocms.fee.refund.request</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Refund Requests" decoration-primary="state=='draft'" decoration-info="state=='approve'" decoration-success="state == 'done'" decoration-danger="state=='cancel'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id" optional="1"/>
+                    <field name="institute_id" optional="1"/>
+                    <field name="discipline_id" optional="1"/>
+                    <field name="campus_id" optional="1"/>
+                    <field name="date"/>
+                    <field name="description" string="Description"/>
+                    <field name="total_amount" sum="sum_total_amount"/>
+                    <field name="total_refund_amount" sum="sum_total_refund_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_fee_refund_request_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.refund.request.search</field>
+            <field name="model">odoocms.fee.refund.request</field>
+            <field name="arch" type="xml">
+                <search string="Fee Refund Requests">
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="campus_id"/>
+                    <field name="date"/>
+                    <field name="description"/>
+                    <field name="state"/>
+
+                    <filter name="draft" string="Submitted" domain="[('state', '=', 'draft')]"/>
+                    <filter name="approve" string="Approve" domain="[('state', '=','approve')]"/>
+                    <filter name="done" string="Done" domain="[('state', '=','Done')]"/>
+                    <filter name="cancel" string="Cancel" domain="[('state', '=','Cancel')]"/>
+                    <separator/>
+
+                    <group expand="0" string="Group By...">
+                        <separator/>
+                        <filter name="group_by_session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <filter name="group_term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_semester" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                        <filter name="group_institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+                        <separator/>
+                        <filter string="Status" name="group_by_status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Refund Type" name="group_by_refund_type" domain="[]" context="{'group_by':'refund_type'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_fee_refund_request" model="ir.actions.act_window">
+            <field name="name">Student Fee Refund Request</field>
+            <field name="res_model">odoocms.fee.refund.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_student_fee_refund_request"
+                action="action_odoocms_student_fee_refund_request"
+                parent="menu_student_fee_request_root"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="20"/>
+
+        <menuitem
+                id="menu_odoocms_student_fee_refund_request"
+                action="action_odoocms_student_fee_refund_request"
+                parent="menu_student_fee_request_root"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="30"/>
+
+    </data>
+</odoo>

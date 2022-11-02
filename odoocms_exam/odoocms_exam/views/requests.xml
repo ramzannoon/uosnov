@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_student_grade_change_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.grade.change.tree</field>
+            <field name="model">odoocms.student.grade.change</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="term_id"/>
+                    <field name="batch_id"/>
+                    <field name="registration_id"/>
+                    <field name="prev_grade"/>
+                    <field name="grade"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_grade_change_form" model="ir.ui.view">
+            <field name="name">odoocms.student.grade.change.form</field>
+            <field name="model">odoocms.student.grade.change</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_done" string="Done"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="approve"/>
+                        <field name="state" readonly="1" widget="statusbar"
+                               statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="batch_id"/>
+                                <field name="program_id"/>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="registration_id"
+                                       domain="[('student_id','=',student_id),('state','=',('done'))]"
+                                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="primary_class_id"/>
+                            </group>
+                            <group>
+                                <field name="prev_grade"/>
+                                <field name="date_request"/>
+                            </group>
+                            <group>
+                                <field name="grade"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_grade_change" model="ir.actions.act_window">
+            <field name="name">Grade Change Request</field>
+            <field name="res_model">odoocms.student.grade.change</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!-- *************** Administrative Grade Change *********************-->
+
+        <record id="view_odoocms_course_grade_change_tree" model="ir.ui.view">
+            <field name="name">odoocms.course.grade.change.tree</field>
+            <field name="model">odoocms.course.grade.change</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="batch_id"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_course_grade_change_form" model="ir.ui.view">
+            <field name="name">odoocms.course.grade.change.form</field>
+            <field name="model">odoocms.course.grade.change</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_done" string="Done"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="approve"/>
+                        <field name="state" readonly="1" widget="statusbar"
+                               statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="program_id"/>
+                                <field name="batch_id" domain="[('program_id','=',program_id)]"/>
+                                <field name="primary_class_id"
+                                       domain="[('batch_id','=',batch_id),('term_id','=',term_id)]"/>
+                            </group>
+                            <group>
+                                <field name="term_id"/>
+                                <field name="date_request"/>
+
+
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Grade Change Details">
+                                <field name="grade_ids">
+                                    <tree editable="bottom">
+                                        <!--                                        <field name="student_id" domain="[('batch_id','=',parent.batch_id),('term_id','=',parent.term_id)]"/>-->
+                                        <field name="student_course_id"
+                                               domain="[('primary_class_id','=',parent.primary_class_id),('term_id','=',parent.term_id),('state','in',('disposal','approval','done'))]"/>
+                                        <field name="primary_class_id" readonly="1"/>
+                                        <field name="prev_grade"/>
+                                        <field name="grade"/>
+                                        <field name="program_id" invisible="1"/>
+                                        <field name="session_id" invisible="1"/>
+                                        <field name="primary_class_id" invisible="1"/>
+                                        <field name="reason"/>
+                                        <field name="state" invisible="1"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_odoocms_course_grade_change" model="ir.actions.act_window">
+            <field name="name">Grade Change Request</field>
+            <field name="res_model">odoocms.course.grade.change</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!--************************************ W Grade**************************************-->
+        <record id="view_odoocms_student_course_withdraw_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.withdraw.form</field>
+            <field name="model">odoocms.student.course.withdraw</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="draft"/>
+                        <field name="state" readonly="1" widget="statusbar"
+                               statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="term_id"/>
+                                <field name="registration_id"
+                                       domain="[('student_id','=',student_id),('term_id','=',term_id)]"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                                <field name="primary_class_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                            </group>
+                            <group>
+                                <field name="grade"/>
+                                <field name="request_time"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_withdraw_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.withdraw.tree</field>
+            <field name="model">odoocms.student.course.withdraw</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="registration_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="primary_class_id"/>
+                    <field name="date_request"/>
+                    <field name="request_time"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_withdraw" model="ir.actions.act_window">
+            <field name="name">W Grade Change Request</field>
+            <field name="res_model">odoocms.student.course.withdraw</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!--************************************ I Grade******************************************************-->
+        <record id="view_odoocms_student_course_incomplete_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.incomplete.form</field>
+            <field name="model">odoocms.student.course.incomplete</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_approve" string="Approve"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="submit"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="term_id" required="1"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="registration_id"
+                                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                       domain="[('student_id','=',student_id),('term_id','=',term_id)]"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                                <field name="primary_class_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="request_time" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                        <notebook>
+                            <page string="Course Components">
+                                <field name="line_ids">
+                                    <tree edit="false" create="false" delete="false">
+                                        <field name="registration_id"/>
+                                        <field name="registration_component_id"/>
+                                        <field name="total_marks"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_incomplete_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.incomplete.tree</field>
+            <field name="model">odoocms.student.course.incomplete</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="registration_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="primary_class_id"/>
+                    <field name="date_request"/>
+                    <field name="request_time"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_incomplete" model="ir.actions.act_window">
+            <field name="name">I Grade Request</field>
+            <field name="res_model">odoocms.student.course.incomplete</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!--************************************ Re-test Request******************************************************-->
+        <record id="view_odoocms_student_course_retest_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.retest.form</field>
+            <field name="model">odoocms.student.course.retest</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_current" string="Open Case"
+                                groups="odoocms.group_cms_coordinator"
+                                class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_submit" string="Submit for DBS"
+                                groups="odoocms.group_cms_coordinator"
+                                class="oe_highlight" states="current,lock"/>
+                        <button type="object" name="action_disposal" string="Apply Disposal"
+                                groups="odoocms_exam.group_exam_coordinator"
+                                class="oe_highlight" states="disposal"/>
+                        <button type="object" name="action_cancel" string="Cancel"
+                                groups="odoocms.group_cms_coordinator"
+                                states="draft,current,lock"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,current,submit,approval,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="term_id" required="1"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="registration_id"
+                                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                       domain="[('student_id','=',student_id),('term_id','=',term_id),('grade','in',('F','I'))]"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                                <field name="primary_class_id"/>
+                            </group>
+                            <group>
+                                <field name="pre_total_marks"/>
+                                <field name="pre_normalized_marks" invisible="1"/>
+                                <field name="total_marks" readonly="1"/>
+                                <field name="normalized_marks" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="pre_grade" />
+                                <field name="grade"
+                                       attrs="{'invisible': [('state','in',('draft', 'current'))]}"/>
+                                <field name="disposal_history_id"
+                                       attrs="{'invisible': [('disposal_history_id','=',False)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                        <notebook>
+                            <page string="Course Components">
+                                <field name="line_ids">
+                                    <tree editable="bottom" create="false" delete="false">
+                                        <field name="registration_id" invisible="1"/>
+                                        <field name="registration_component_id" readonly="1"/>
+                                        <field name="pre_total_marks" readonly="1"/>
+                                        <field name="pre_final_obtained_marks" readonly="1"/>
+                                        <field name="pre_final_max_marks" readonly="1"/>
+                                        <field name="new_final_marks"
+                                            attrs="{'readonly': [('state','not in',('current','lock'))]}"/>
+                                        <field name="new_total_marks" readonly="1"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_retest_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.retest.tree</field>
+            <field name="model">odoocms.student.course.retest</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="registration_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="primary_class_id"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_retest" model="ir.actions.act_window">
+            <field name="name">Re-Test Request</field>
+            <field name="res_model">odoocms.student.course.retest</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!--************************************ W Grade**************************************-->
+        <record id="view_odoocms_student_course_waiting_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.waiting.form</field>
+            <field name="model">odoocms.student.course.waiting</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_assign_grade" type="object"
+                                attrs="{'invisible': [('state','!=','approve')]}"
+                                class="oe_highlight" string="Resolve and Assign Grade"
+                                groups="base.group_no_one,odoocms_exam.group_exam_user"/>
+                        <field name="state" readonly="1" widget="statusbar"
+                               statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="term_id"/>
+                                <field name="registration_id"
+                                       domain="[('student_id','=',student_id),('term_id','=',term_id)]"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                                <field name="primary_class_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                            </group>
+                            <group>
+                                <field name="grade"/>
+                                <field name="request_time"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_waiting_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.waiting.tree</field>
+            <field name="model">odoocms.student.course.waiting</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="registration_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="primary_class_id"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_waiting" model="ir.actions.act_window">
+            <field name="name">RW Grade Change Request</field>
+            <field name="res_model">odoocms.student.course.waiting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!-- Course Equivalence -->
+        <record id="view_odoocms_student_course_equivalence_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.equivalence.form</field>
+            <field name="model">odoocms.student.course.equivalence</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                                groups="odoocms.group_cms_manager"
+                                class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,done"/>
+                    </header>
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="student_id" required="1"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="registration_id"
+                                    domain="[('student_id','=',student_id)]" required="1"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                            <group>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                            </group>
+                            <group>
+                                <field name="term_id" required="1" string="Registration Term"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="new_registration_id"
+                                    domain="[('student_id','=',student_id),('term_id','=',term_id)]"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="equivalent_class_id"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                       attrs="{'invisible': [('new_registration_id','!=',False)], 'required': [('new_registration_id','=',False)]}"/>
+                                <field name="date_request"/>
+                            </group>
+                            <group>
+                                <field name="grade"/>
+                                <field name="request_time"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_equivalence_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.equivalence.tree</field>
+            <field name="model">odoocms.student.course.equivalence</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="registration_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_equivalence" model="ir.actions.act_window">
+            <field name="name">Course Equivalence</field>
+            <field name="res_model">odoocms.student.course.equivalence</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <!-- Course Alternate -->
+        <record id="view_odoocms_student_course_alternate_form" model="ir.ui.view">
+            <field name="name">odoocms.student.course.alternate.form</field>
+            <field name="model">odoocms.student.course.alternate</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_submit" string="Submit for Approval"
+                             groups="odoocms.group_cms_user" class="oe_highlight" states="draft"/>
+                        <button type="object" name="action_approve" string="Approve"
+                             groups="odoocms.group_cms_manager" class="oe_highlight" states="submit"/>
+                        <button type="object" name="action_cancel" string="Refuse"
+                             groups="odoocms.group_cms_manager" class="oe_highlight" states="submit"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="session_id"/>
+                                <field name="program_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="date_approve"/>
+                            </group>
+
+                            <group colspan="4">
+                                <field name="type" widget="radio" options="{'horizontal': true}"/>
+                            </group>
+                            <group string="Original Course">
+                                <field name="registration_id"
+                                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                       attrs="{'invisible': [('type','=','scheme')], 'required': [('type','=','grade')]}"/>
+<!--                                        domain="[('student_id','=',student_id),('state','in',('done','notify'))]"-->
+                                <field name="term_id" string="Registration Term" attrs="{'invisible': [('type','=','scheme')]}"/>
+                                <field name="grade" attrs="{'invisible': [('type','=','scheme')]}"/>
+                                <field name="course_id"
+                                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                       attrs="{'invisible': [('type','=','grade')], 'required': [('type','=','scheme')]}"/>
+                            </group>
+                            <group string="Alternative">
+                                <field name="alternate_course_id"
+                                    attrs="{'required': [('state','=','submit')]}"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="reason"/>
+                        </group>
+                    </sheet>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_alternate_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.course.alternate.tree</field>
+            <field name="model">odoocms.student.course.alternate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="course_id"/>
+                    <field name="registration_id"/>
+                    <field name="alternate_course_id"/>
+                    <field name="session_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="date_request"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_course_alternate" model="ir.actions.act_window">
+            <field name="name">Course Alternate</field>
+            <field name="res_model">odoocms.student.course.alternate</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+
+        <record id="view_request_rechecking_tree" model="ir.ui.view">
+            <field name="name">odoocms.request.subject.rechecking.tree</field>
+            <field name="model">odoocms.request.subject.rechecking</field>
+            <field name="arch" type="xml">
+                <tree string="Request subject delete">
+                    <!--                <field name="batch_id"/>-->
+                    <field name="student_id"/>
+                    <field name="term_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_request_rechecking_form" model="ir.ui.view">
+            <field name="name">odoocms.request.subject.rechecking.form</field>
+            <field name="model">odoocms.request.subject.rechecking</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Request subject Rechecking">
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_invoice" string="Generate Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'approve')]}"/>
+                        <field name="state" statusbar_visible="draft,approve,invoice_generated,done" widget="statusbar"/>
+                        <button name="action_update_result" string="Update Result" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'invoice_generated')]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <!--                            <field name="batch_id"/>-->
+                                <field name="invoice_created" invisible="1"/>
+                                <field name="student_id"/>
+                                <field name="term_id"/>
+                                <field name="rechecking_subject"/>
+                                <field  name="rechecking_id" invisible="1"/>
+                            </group>
+
+                            <group>
+                                <field name="reason_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+
+                        <notebook>
+                            <page string='Rechecking Details'>
+                                <field name="rechecking_line_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="registration_id" domain="[('student_id', '=', parent.student_id),('term_id', '=', parent.term_id),('state', '=', 'done')]"/>
+<!--                                        <field name="primary_class_id"-->
+<!--                                               domain="[('student_id', '=', parent.student_id),('term_id', '=', parent.term_id),('state', '=', 'done')]"/>-->
+                                        <field name="pre_normalized_marks"/>
+                                        <field name="pre_gpa"/>
+                                        <field name="new_marks"
+                                               attrs="{'invisible': [('parent.state', 'not in',('approve','done','cancel'))]}"/>
+                                        <field name="state" invisible="1" />
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_request_rechecking_view" model="ir.actions.act_window">
+            <field name="name">Rechecking Request Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.request.subject.rechecking</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="view_student_degree_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.degree.tree</field>
+            <field name="model">odoocms.student.degree</field>
+            <field name="arch" type="xml">
+                <tree string="Student Degree">
+                    <field name="student_id"/>
+                    <field name="term_id"/>
+                    <field name="date_request"/>
+                    <field name="date_approve"/>
+                    <field name="date_done"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_student_degree_form" model="ir.ui.view">
+            <field name="name">odoocms.student.degree.form</field>
+            <field name="model">odoocms.student.degree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Student Degree">
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_invoice" string="Generate Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('invoice_created', '=', True),('state', '!=', 'approve')]}"/>
+                        <field name="state" statusbar_visible="draft,submit,approve,invoice,done" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="invoice_created" invisible="1"/>
+                                <field name="student_id"/>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="date_approve"/>
+                                <field name="date_done"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="act_student_degree_view" model="ir.actions.act_window">
+            <field name="name">Student Degree</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.degree</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_request_rechecking"
+                action="act_request_rechecking_view"
+                name="Rechecking Request"
+                parent="odoocms_registration.menu_student_request_root"
+                sequence="110"/>
+
+        <menuitem
+                id="menu_odoocms_student_grade_change"
+                parent="menu_odoocms_student_course_request"
+                name="Grade Change Request"
+                action="action_odoocms_student_grade_change"
+                sequence="10"/>
+
+        <menuitem
+                id="menu_odoocms_course_grade_change"
+                parent="menu_odoocms_student_course_request"
+                name="Grade Change (Admin)"
+                action="action_odoocms_course_grade_change"
+                sequence="20"/>
+
+
+        <!--<menuitem
+                id="menu_odoocms_student_course_withdraw"
+                parent="menu_odoocms_student_course_request"
+                name="W Grade Request"
+                action="action_odoocms_student_course_withdraw"
+                sequence="20"/>-->
+
+        <menuitem
+                id="menu_odoocms_student_course_incomplete"
+                parent="menu_odoocms_student_course_request"
+                name="I Grade Request"
+                action="action_odoocms_student_course_incomplete"
+                sequence="30"/>
+
+        <menuitem
+                id="menu_odoocms_student_course_retest"
+                parent="menu_odoocms_student_course_request"
+                name="Requests For Re-Test"
+                action="action_odoocms_student_course_retest"
+                sequence="40"/>
+
+        <menuitem
+                id="menu_odoocms_student_course_waiting"
+                parent="menu_odoocms_student_course_request"
+                name="RW Grade Request"
+                action="action_odoocms_student_course_waiting"
+                sequence="10"/>
+
+        <menuitem
+                id="menu_odoocms_student_course_equivalence"
+                parent="menu_odoocms_student_course_request"
+                name="Course Equivalence"
+                action="action_odoocms_student_course_equivalence"
+                sequence="110"/>
+
+        <menuitem
+                id="menu_odoocms_student_course_alternate"
+                parent="menu_odoocms_student_course_request"
+                name="Course Alternate"
+                action="action_odoocms_student_course_alternate"
+                sequence="111"/>
+
+        <menuitem
+                id="menu_odoocms_student_degree"
+                action="act_student_degree_view"
+                name="Degree Request"
+                parent="odoocms_registration.menu_student_request_root"
+                sequence="210"/>
+
+    </data>
+</odoo>

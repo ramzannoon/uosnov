@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_enroll_courses" name="Courses">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/enroll/courses">Enrolled Courses</a>
+
+                            </li>
+                            <!--                            <li><a href="">Attendance Class</a></li>-->
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Enrolled Courses</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                    <li class="uk-active">
+                                        <t t-if="len(student.course_ids)>0">
+                                            <a href="#" style="color:#008744;">Active Classes (<t t-esc="term.name"/> <!--<t t-esc="student.course_ids[0].term_id.name"/>-->)
+                                            </a>
+                                        </t>
+                                        <t t-if="not len(student.course_ids)>0">
+                                            <a href="#" style="color:#008744;">Active Classes ()</a>
+                                        </t>
+
+                                    </li>
+                                </ul>
+                                <ul id="tabs_anim1" class="uk-switcher ">
+                                    <li>
+                                        <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-margin-bottom uk-grid-width-large-1-4 uk-margin-large-top  uk-margin-small-left  hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="280">
+                                            <!--                                                        <div class="uk-width-medium-1-4 md-bg-blue-grey-200 uk-margin-small-left">-->
+                                            <t t-if="not len(student.course_ids) > 0">
+                                                <span>No record to show.</span>
+                                            </t>
+                                            <t t-if="len(student.course_ids) > 0">
+                                                <t t-foreach="student.course_ids" t-as="course">
+                                                    <t t-if="course.course_id.name">
+                                                        <div style="padding-left:15px;">
+                                                            <div class="md-card md-card-hover md-bg-indigo-50">
+                                                                <!-- <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">
+                                                                     <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>
+                                                                    <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >
+                                                                     <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>
+                                                                        </div>
+                                                                 </div>-->
+                                                                <div data-uk-tooltip="{pos:'top'}" t-attf-title="{{course.program_id.department_id.institute_id.name}}" class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/nust.jpeg')">
+                                                                    <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top"><t t-esc="student.course_ids[0].program_id.department_id.institute_id.code"/></div>
+                                                                    <div class="uk-text-center uk-position-absolute uk-position-bottom-left">
+
+
+                                                                        <img data-uk-tooltip="{pos:'top'}" t-attf-title="{{course.primary_class_id.grade_staff_id.first_name}}" width="100" height="100%" t-att-src="image_data_uri(course.primary_class_id.grade_staff_id.image_1920)" t-if="course.primary_class_id.grade_staff_id.image_1920" alt=""/>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="md-card-content">
+                                                                    <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/results/id/{{course.id}}">
+                                                                        <h4 class="heading_c ">
+
+                                                                            <t t-if="len(str(course.course_id.name)) >= 31">
+                                                                                <span class="md-list-heading" t-esc="str(course.course_id.name)[:31]+'..'"></span>
+                                                                            </t>
+                                                                            <t t-if="not len(str(course.course_id.name)) > 31">
+                                                                                <span class="md-list-heading" t-esc="course.course_id.name"></span>
+                                                                            </t>
+                                                                           <span class="sub-heading" t-esc="str(course.course_id.code)"></span>
+                                                                            <span class="sub-heading" > <b>Credits: </b> <t t-esc="course.credits"/></span>
+                                                                            <span class="sub-heading" ><b>Course Type: </b> <t t-esc="course.course_type.capitalize()"/> </span>
+
+                                                                            <!--                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>-->
+                                                                            <!--                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>-->
+                                                                        </h4>
+                                                                    </a>
+
+
+                                                                </div>
+                                                            </div>
+                                                            <!--<ul t-attf-class="{{color[course_index]}} md-color-grey-50 md-list md-list-addon md-list-right classCards">
+                                                                <li>
+                                                                    <a t-attf-href="/student/results/id/{{course.id}}" class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open class">&#xE163;</i>
+                                                                    </a>
+                                                                    <div class="md-list-content">
+                                                                        <t t-if="len(str(course.course_id.name)) >= 28">
+                                                                        <span class="md-list-heading" t-esc="str(course.course_id.name)[:28]+'..'"></span>
+                                                                            <span class="md-list-heading" t-esc="course.course_id.code"></span>
+                                                                        </t>
+                                                                        <t t-if="not len(str(course.course_id.name)) > 28">
+                                                                                <span class="md-list-heading" t-esc="course.course_id.name"></span>
+                                                                            <span class="md-list-heading" t-esc="course.course_id.code"></span>
+                                                                        </t>
+
+                                                                        <span class="uk-text-small ">Course</span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-content">
+
+                                                                        <span class="md-list-heading"> <t  t-esc="course.course_type.capitalize()" /> | <t t-esc="course.credits" /></span>
+
+                                                                        <span class="uk-text-small">Course Type | Credits </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="course.primary_class_id.grade_staff_id.name"></span>
+                                                                        <span class="uk-text-small">Faculty</span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>-->
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                            <!--                                                        <div class="uk-width-medium-1-4 uk-margin-small-left md-bg-blue-grey-200 ">-->
+                                            <!--                                                        <div class="md-bg-blue-grey-200 uk-margin-small-left">-->
+                                            <!--                                                            -->
+                                            <!--                                                            <ul class="md-list md-list-addon md-list-right">-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course Code</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+                                            <!--                                                                    &lt;!&ndash;                                    <div class="md-list-addon-element">&ndash;&gt;-->
+                                            <!--                                                                    &lt;!&ndash;                                        <i class="md-list-addon-icon material-icons">&#xE8DC;</i>&ndash;&gt;-->
+                                            <!--                                                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fall 2020</span>-->
+                                            <!--                                                                        <span class="uk-text-small">Term Session</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+
+                                            <!--                                                            </ul>-->
+
+                                            <!--                                                        </div>-->
+                                            <!--&lt;!&ndash;                                                        <div class="uk-width-medium-1-4 uk-margin-small-left md-bg-blue-grey-200" >&ndash;&gt;-->
+                                            <!--                                                        <div class="md-bg-blue-grey-200 uk-margin-small-left">-->
+
+                                            <!--                                                            <ul class="md-list md-list-addon md-list-right">-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">CS-114-A-Sec-lecture</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course Code</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">2020</span>-->
+                                            <!--                                                                        <span class="uk-text-small">Term Session</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+
+                                            <!--                                                            </ul>-->
+
+                                            <!--                                                        </div>-->
+                                            <!--&lt;!&ndash;                                                        <div class="uk-width-medium-1-4 uk-margin-small-left md-bg-blue-grey-200 " >&ndash;&gt;-->
+                                            <!--                                                        <div class="md-bg-blue-grey-200 uk-margin-small-left">-->
+
+                                            <!--                                                            <ul class="md-list md-list-addon md-list-right">-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">CS-114-A-Sec-lecture</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course Code</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">2020</span>-->
+                                            <!--                                                                        <span class="uk-text-small">Term Session</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+
+                                            <!--                                                            </ul>-->
+
+                                            <!--                                                        </div>-->
+                                            <!--&lt;!&ndash;                                                        <div class="uk-width-medium-1-4 uk-margin-small-left md-bg-blue-grey-200">&ndash;&gt;-->
+                                            <!--                                                        <div class="md-bg-blue-grey-200 uk-margin-small-left">-->
+
+                                            <!--                                                            <ul class="md-list md-list-addon md-list-right">-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                            <!--                                                                        <span class="uk-text-small ">Course Code</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                                <li>-->
+                                            <!--                                                                    <div class="md-list-content">-->
+                                            <!--                                                                        <span class="md-list-heading">Fall-2020</span>-->
+                                            <!--                                                                        <span class="uk-text-small">Term</span>-->
+                                            <!--                                                                    </div>-->
+                                            <!--                                                                </li>-->
+                                            <!--                                                            </ul>-->
+
+                                            <!--                                                        </div>-->
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <!--                                                    <div style="padding:2%;">-->
+                                        <!--                                                        <h3 class="heading_a uk-margin-bottom">Filtering</h3>-->
+
+                                        <!--                                                        <ul id="filter" class="uk-subnav uk-subnav-pill">-->
+                                        <!--                                                            <li class="uk-active" data-uk-filter="">-->
+                                        <!--                                                                <a href="#">All</a>-->
+                                        <!--                                                            </li>-->
+                                        <!--                                                            <li data-uk-filter="Spring">-->
+                                        <!--                                                                <a href="#">Spring</a>-->
+                                        <!--                                                            </li>-->
+                                        <!--                                                            <li data-uk-filter="Fall">-->
+                                        <!--                                                                <a href="#">Fall</a>-->
+                                        <!--                                                            </li>-->
+                                        <!--                                                            <li data-uk-filter="Summer">-->
+                                        <!--                                                                <a href="#">Summer</a>-->
+                                        <!--                                                            </li>-->
+                                        <!--                                                        </ul>-->
+
+                                        <!--                                                        <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 uk-margin-large-bottom hierarchical_show" data-uk-grid="{gutter: 50, controls: '#filter'}" data-show-delay="280">-->
+                                        <!--                                                            <div data-uk-filter="Spring">-->
+                                        <!--                                                                 <div class="md-card md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Spring 2020</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Summer">-->
+                                        <!--                                                                 <div class="md-card  md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Summer 2020</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Fall">-->
+                                        <!--                                                                 <div class="md-card  md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Fall 2020</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Spring">-->
+                                        <!--                                                                <div class="md-card md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Spring 2019</h4>-->
+                                        <!--                                                                     <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Summer">-->
+                                        <!--                                                                <div class="md-card  md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Summer 2019</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Fall">-->
+                                        <!--                                                                 <div class="md-card  md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Fall 2019</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                            <div data-uk-filter="Fall">-->
+                                        <!--                                                                <div class="md-card md-bg-blue-grey-200">-->
+                                        <!--                                                                    <div class="md-card-content">-->
+                                        <!--                                                                        <h4 class="heading_c uk-margin-bottom">Fall 2018</h4>-->
+                                        <!--                                                                        <ul class="md-list md-list-addon md-list-right">-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">Fundamentals of Programming</span>-->
+                                        <!--                                                                        <span class="uk-text-small ">Course</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+                                        <!--                                                                <li>-->
+
+                                        <!--                                                                    <div class="md-list-content">-->
+                                        <!--                                                                        <span class="md-list-heading">CS-114</span>-->
+                                        <!--                                                                        <span class="uk-text-small">Course Code</span>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </li>-->
+
+                                        <!--                                                            </ul>-->
+                                        <!--                                                                    </div>-->
+                                        <!--                                                                </div>-->
+                                        <!--                                                            </div>-->
+                                        <!--                                                        </div>-->
+                                        <!--                                                    </div>-->
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+            </body>
+        </t>
+    </template>
+</odoo>

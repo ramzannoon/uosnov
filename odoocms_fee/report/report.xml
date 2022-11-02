@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Program Wise Financial Report Summary -->
+        <report
+                id="odoocms_fee.action_report_program_financial_summary"
+                string="Program Financial Report Summary"
+                model="program.wise.fin.summary.wiz"
+                report_type="qweb-html"
+                name="odoocms_fee.program_wise_fin_summary_report"
+                file="odoocms_fee.program_wise_fin_summary_report"
+                menu="True"
+        />
+
+        <!-- Student Warning Letter for Outstanding Views -->
+        <report
+                id="odoocms_fee.action_report_student_dues_warning_letter"
+                string="Student Outstanding Dues Warning"
+                model="program.wise.fin.summary.wiz"
+                report_type="qweb-html"
+                name="odoocms_fee.student_dues_warning_letter_report"
+                file="odoocms_fee.student_dues_warning_letter_report"
+                menu="True"
+        />
+
+        <!-- Receipt Received Detail -->
+        <report
+                id="odoocms_fee.action_report_receipt_received_detail"
+                string="Receipt Received Detail Report"
+                model="receipt.received.detail.wiz"
+                report_type="qweb-html"
+                name="odoocms_fee.receipt_received_detail_report"
+                file="odoocms_fee.receipt_received_detail_report"
+                menu="True"
+        />
+
+        <!-- Receipt Received Summary -->
+        <report
+                id="odoocms_fee.action_report_receipt_received_summary"
+                string="Receipt Received Summary Report"
+                model="receipt.received.summary.wiz"
+                report_type="qweb-html"
+                name="odoocms_fee.receipt_received_summary_report"
+                file="odoocms_fee.receipt_received_summary_report"
+                menu="True"
+        />
+
+        <!-- Student Financial Report Summary -->
+        <report
+                id="odoocms_fee.action_report_student_fin_report_summary"
+                string="Student Financial Report Summary"
+                model="student.fin.report.summary.wiz"
+                report_type="qweb-html"
+                name="odoocms_fee.student_fin_report_summary_report"
+                file="odoocms_fee.student_fin_report_summary_report"
+                menu="True"
+        />
+
+        <record id="paperformat_student_invoice" model="report.paperformat">
+            <field name="name">Student Invoice</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">2</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!--        <report-->
+        <!--                id="student_report_invoice_report"-->
+        <!--                model="account.move"-->
+        <!--                string="Student Invoice 123"-->
+        <!--                report_type="qweb-pdf"-->
+        <!--                name="odoocms_fee.student_report_invoice"-->
+        <!--                file="odoocms_fee.student_report_invoice"-->
+        <!--                attachment="(object.state in ('open','in_payment','paid')) and ('INV'+(object.name or '').replace('/','')+'.pdf')"-->
+        <!--                paperformat="odoocms_fee.paperformat_student_invoice"-->
+        <!--                print_report_name="(object._get_report_base_filename())"-->
+        <!--        />-->
+
+        <record id="paperformat_student_invoice_landscape" model="report.paperformat">
+            <field name="name">Student Landscape Invoice</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">3</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">5</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <!-- Student Fee Invoice Landscape-->
+        <report
+                id="odoocms_fee.action_report_student_invoice_landscape"
+                string="Student Fee Receipt"
+                model="account.move"
+                report_type="qweb-html"
+                name="odoocms_fee.student_invoice_landscape"
+                file="odoocms_fee.student_invoice_landscape"
+                paperformat="odoocms_fee.paperformat_student_invoice_landscape"
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.report_fee_payment_register'
+                string='Bank Scroll'
+                model='odoocms.fee.payment.register'
+                report_type='qweb-html'
+                file='odoocms_fee.fee_payment_register_report'
+                name='odoocms_fee.fee_payment_register_report'
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.action_student_tax_certificate_report'
+                string='Tax Certificate'
+                model='account.move'
+                report_type='qweb-html'
+                file='odoocms_fee.student_tax_certificate_report'
+                name='odoocms_fee.student_tax_certificate_report'
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.action_head_wise_fee_received_summary_report'
+                string='Head Wise Fee Received Summary'
+                model='head.wise.fee.received.summary.rep.wiz'
+                report_type='qweb-html'
+                file='odoocms_fee.head_wise_fee_received_summary_report'
+                name='odoocms_fee.head_wise_fee_received_summary_report'
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.action_head_wise_fee_charged_summary_report'
+                string='Head Wise Fee Charged Summary'
+                model='head.wise.fee.charged.summary.rep.wiz'
+                report_type='qweb-html'
+                file='odoocms_fee.head_wise_fee_charged_summary_report'
+                name='odoocms_fee.head_wise_fee_charged_summary_report'
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.action_monthly_head_wise_fee_charged_summary_report'
+                string='Monthly Head Wise Fee Charged Summary'
+                model='monthly.head.wise.fee.charged.summary.rep.wiz'
+                report_type='qweb-html'
+                file='odoocms_fee.monthly_head_wise_fee_charged_summary_report'
+                name='odoocms_fee.monthly_head_wise_fee_charged_summary_report'
+                menu="True"
+        />
+
+        <report
+                id='odoocms_fee.action_student_ledger_report'
+                string='Student Ledger'
+                model='odoocms.student'
+                report_type='qweb-html'
+                file='odoocms_fee.student_ledger_report'
+                name='odoocms_fee.student_ledger_report'
+                menu="True"
+        />
+
+    </data>
+</odoo>

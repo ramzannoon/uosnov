@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_short_course_tree" model="ir.ui.view">
+        <field name="name">odoocms.short.course.tree</field>
+        <field name="model">odoocms.short.course</field>
+        <field name="arch" type="xml">
+            <tree string="Academic Programs">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="department_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_short_course_form" model="ir.ui.view">
+        <field name="name">odoocms.short.course.form</field>
+        <field name="model">odoocms.short.course</field>
+        <field name="arch" type="xml">
+            <form string="Academic Program">
+                <sheet>
+                    <group string="Program">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="department_id"
+                                options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_short_course_search" model="ir.ui.view">
+        <field name="name">odoocms.short.course.search</field>
+        <field name="model">odoocms.short.course</field>
+        <field name="priority" eval="14"/>
+        <field name="arch" type="xml">
+            <search string="Short Course">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter string="Department" domain="[]" name="department" context="{'group_by':'department_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="department_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_short_course" model="ir.actions.act_window">
+        <field name="name">Short Courses</field>
+        <field name="res_model">odoocms.short.course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_short_course_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Short Course here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_short_course"
+            parent="menu_odoocms_academic_structure"
+            name="Short Courses"
+            action="action_odoocms_short_course"
+            sequence="32"/>
+
+</odoo>

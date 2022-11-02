@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_promote_student_form" model="ir.ui.view">
+            <field name="name">odoocms.promote.student.form</field>
+            <field name="model">odoocms.promote.student</field>
+            <field name="arch" type="xml">
+                <form string="Promote Students">
+                    <group>
+                        <field name="batch_id"/>
+                        <field name="term_id"/>
+                    </group>
+                    <footer>
+                        <button name="promote_students" string="Promote" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+                id="act_odoocms_promote_students"
+                name="Promote Students"
+                binding_model="odoocms.batch"
+                res_model="odoocms.promote.student"
+                binding_views="form"
+                view_mode="form"
+                target="new"
+                groups="odoocms.group_cms_user"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_fee_voucher" name="Admission Fee Voucher">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <div class="block-info">
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <button style="display:block; margin:auto"
+                                t-attf-onclick="downloadVoucher('{{ student.fee_voucher_state }}');" t-att-disabled="readonly">
+                            <a class="btn btn-secondary btn-block o_download_btn"
+                               href="/download/admission/slip" title="Download">Download Voucher
+                            </a>
+                            <i class="fa fa-download"/>
+                        </button>
+                    </div>
+                    <div class="section colm colm12">
+                        <p style="font-weight:bold;color:#ff0000">
+                            <b>Please read the Eligibility criteria <a
+                                    title="Check Eligibility Criteria"
+                                    style="font-size:18px; color:#0393DC"
+                                    onclick="document.getElementById('eligibility-criteria').style.display='block';">
+                                Click Here</a>. Download the voucher and deposit the fee. In case you are not meeting the criteria
+                                University will not be responsible for any refund.
+                            </b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm12"
+                         style="text-align:center;font-weight:bold;color:#ff0000">
+                        <p>After downloading the fee voucher please deposit the fee in bank and
+                            upload copy of deposited fee voucher (voucher must be stamped from bank).
+                            On verification of fee voucher you will be informed by email to proceed further.
+                        </p>
+                    </div>
+                    <div class="section colm colm12"
+                         style="text-align:center;font-weight:bold;color:#ff0000">
+                        <p>Note:in case of total amount of voucher is not submitted the first three preferences will be Considered an so on.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="step_text" class="frm-row">
+                    <div class="section colm colm12" style="text-align:center;">   <!-- t-if="student.step_number &gt; 4 and student.step_number &lt; 6 " -->
+                        <label for="city" style="font-size:20px; padding:10px; border:1px solid; margin:5px">
+                            <b>
+                                <span id="step_text_msg" t-esc="dict(student.fields_get(allfields=['fee_voucher_state'])['fee_voucher_state']['selection'])[student.fee_voucher_state]"/>
+                                <span id="fee_voucher_state" t-esc="student.fee_voucher_state" style="display:none;"/>
+                            </b>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Upload Voucher -->
+                <div id="voucher_div_title"
+                     t-att-style="student.fee_voucher_state in ['no','verify']
+                    and 'display:none; margin:5px; padding:10px'
+                    or 'display:block; margin:5px; padding:10px'">
+                    <h5 style="color: #0393DC">Upload Voucher Copy (JPG or PNG format with good resolution)</h5>
+                </div>
+                <div id="voucher_div"
+                     t-att-style="student.fee_voucher_state in ['no','verify']
+                    and 'display:none; border:1px solid; margin:5px; padding:10px'
+                    or 'display:block; border:1px solid; margin:5px; padding:10px'">
+                    <div class="frm-row">
+                        <div style='display:none' id="body-overlay-voucher">
+                            <div>
+                                <img src="/odoocms_admission_portal\static\images/loading.gif"/>
+                            </div>
+                        </div>
+
+                        <div class="section colm colm3">
+                            <input name="voucher_image" id="voucher_image" type="file"
+                                   onChange="showVoucherPreview(this);"
+                                   t-att-readonly="readonly"
+                                   accept="image/x-png,image/gif,image/jpeg,image/jpg"/>
+                        </div>
+                        <div class="section colm colm2" style="margin-top:10px">
+                            <t t-if="student.voucher_image">
+                                <img id="voucher_image_preview" onclick="document.getElementById('voucher_modal').style.display='block'"
+                                     class="documents_images"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(student.voucher_image)"/>
+                            </t>
+                            <t t-if="not student.voucher_image">
+                                <img id="voucher_image_preview"
+                                     onclick="document.getElementById('voucher_modal2').style.display='block'"
+                                     class="documents_images" src=""/>
+                            </t>
+                        </div>
+                        <div id="voucher_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(student.voucher_image)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                        <div id="voucher_modal2" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img id='voucher_modal_image_preview' src=""
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="frm-row">
+                        <div class="section colm colm3">
+                            <label for="phone">Voucher Number<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input type="text" name="voucher_number" id="voucher_number"
+                                       class="gui-input" t-att-value="student.voucher_number"
+                                       required="True" t-att-readonly="readonly"/>
+                                <span class="field-icon"/>
+                            </label>
+                        </div>
+
+                        <div class="section colm colm3">
+                            <label for="phone">Deposit Date<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input type="date" t-att-min="register.date_start"
+                                       t-att-max="register.date_end" name="voucher_date"
+                                       id="voucher_date" class="gui-input"
+                                       t-att-value="student.voucher_date" required="true"
+                                       t-att-readonly="readonly"/>
+                                <span class="field-icon"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm3">
+                            <label for="phone">Deposit Amount<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input type="number" min="0"
+                                       name="voucher_amount"
+                                       id="voucher_amount" class="gui-input"
+                                       t-att-value="student.voucher_amount" required="true"
+                                       t-att-readonly="readonly"/>
+                                <span class="field-icon"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm3">
+                            <label for="phone"/>
+                            <label class="field prepend-icon">
+                                <input type="button" name="voucher_detail_submit"
+                                       id="voucher_detail_submit" class="btn btn-primary"
+                                       value="Submit Voucher Details"
+                                       onclick="save_voucher_details()"
+                                       t-att-readonly="readonly"/>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div style=" border:1px solid; margin:5px; padding:10px"
+                     t-if="student.fee_voucher_state == 'verify' ">
+                    <div class="frm-row">
+                        <div class="section colm colm5">
+                            <label for="phone">Voucher Number</label>
+                            <label class="field prepend-icon">
+                                <input type="text" name="voucher_number" id="voucher_number"
+                                       class="gui-input" t-att-value="student.voucher_number"
+                                       readonly="True"/>
+                                <span class="field-icon"/>
+                            </label>
+                        </div>
+
+                        <div class="section colm colm5">
+                            <label for="phone">Deposit Date</label>
+                            <label class="field prepend-icon">
+                                <input type="date" name="voucher_date" id="voucher_date"
+                                       class="gui-input" t-att-value="student.voucher_date"
+                                       readonly="True"/>
+                                <span class="field-icon"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm2" style="margin-top:10px">
+                            <t t-if="student.voucher_image">
+                                <img onclick="document.getElementById('voucher_modal').style.display='block'"
+                                     class="documents_images" style="float:none; margin:auto"
+                                     id="matric"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(student.voucher_image)"/>
+                            </t>
+                        </div>
+                        <div id="voucher_modal" class="w3-modal"
+                             onclick="this.style.display='none'">
+                            <div class="w3-modal-content w3-animate-zoom">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(student.voucher_image)"
+                                     style="width:100%"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </template>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="odoocms_assign_grades_wiz_form" model="ir.ui.view">
+        <field name="name">odoocms.assign.grades.wiz.form</field>
+        <field name="model">odoocms.assign.grades.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Assign Grades Wizard">
+                <group>
+                	<group>
+						<field name="grade_class_id" readonly="1"/>
+                        <field name="grade_method_id" required="1"
+                           options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="event"/>
+		            </group>
+		            <group>
+		            </group>
+                </group>
+                <footer>
+                    <button name="assign_grades" string="Assign Grades" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>

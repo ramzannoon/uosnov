@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_student_suspension_request_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.suspension.request.tree</field>
+        <field name="model">odoocms.student.suspension.request</field>
+        <field name="arch" type="xml">
+            <tree string="Student Suspension Request" decoration-primary="state=='draft'" decoration-info="state=='approve'" decoration-success="state == 'done'" decoration-danger="state=='cancel'">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <field name="section_id"/>
+                <field name="term_id"/>
+                <field name="semester_id"/>
+                <field name="amount" sum="sum_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_student_suspension_request_form" model="ir.ui.view">
+        <field name="name">odoocms.student.suspension.request.form</field>
+        <field name="model">odoocms.student.suspension.request</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Student Suspension Requests">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                    <button name="action_approve" string="Approve" type="object" class="oe_highlight" states="submit"/>
+                    <button name="action_done" string="Done" type="object" class="oe_highlight" states="approve"/>
+                    <button name="action_cancel" string="Cancel" type="object" class="oe_highlight" states="draft,submit"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id" required="1"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="program_id"/>
+                            <field name="batch_id"/>
+                        </group>
+                        <group>
+                            <field name="section_id"/>
+                            <field name="semester_id"/>
+                            <field name="current_term_id"/>
+                            <field name="term_id" required="1" domain="[('number','>=',term_seq)]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="term_seq" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount" required="1"/>
+                            <field name="ad_hoc_type_id" required="1"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="ad_hoc_charges_id" readonly="1" groups="base.group_no_one"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <group string="Reason">
+                        <field name="reason" nolable="1"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_student_suspension_request_search" model="ir.ui.view">
+        <field name="name">odoocms.student.suspension.request.search</field>
+        <field name="model">odoocms.student.suspension.request</field>
+        <field name="arch" type="xml">
+            <search string="Student Suspension Requests">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="program" string="Program" domain="[]"
+                            context="{'group_by':'program_id'}"/>
+                    <filter name="batch" string="Batch" domain="[]"
+                            context="{'group_by':'batch_id'}"/>
+                    <separator/>
+                    <filter string="Terms" name="group_term" domain="[]"
+                            context="{'group_by' : 'term_id'}"/>
+                    <filter string="Career" name="career" domain="[]"
+                            context="{'group_by' : 'career_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="career_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="act_student_suspension_request_view" model="ir.actions.act_window">
+        <field name="name">Suspension Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.suspension.request</field>
+        <field name="search_view_id" ref="view_student_suspension_request_search"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            action="act_student_suspension_request_view"
+            id="menu_odoocms_student_suspension_request"
+            name="Student Suspension Request"
+            parent="menu_student_fee_request_root"
+            sequence="500"/>
+
+</odoo>

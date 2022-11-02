@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_fee_category_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.category.tree</field>
+            <field name="model">odoocms.fee.category</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Category" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="parent_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_category_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.category.form</field>
+            <field name="model">odoocms.fee.category</field>
+            <field name="arch" type="xml">
+                <form string="Fee Category">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: Institutional"/>
+                                <field name="code"/>
+                            </group>
+                            <group>
+                                <field name="sequence"/>
+                                <field name="parent_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.form</field>
+            <field name="model">odoocms.fee.head</field>
+            <field name="arch" type="xml">
+                <form string="Fee Heads">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: Admission Fee"/>
+                                <field name="payment_type"/>
+                                <field name="category_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="sequence"/>
+                                <field name="effective_date"/>
+                            </group>
+                            <group>
+                                <field name="refund"/>
+                                <field name="security_refund"/>
+                                <field name="late_fine"/>
+                                <field name="taxable"/>
+                                <field name="waiver"/>
+                                <field name="hostel_fee"/>
+                            </group>
+                            <group>
+                                <field name="account_analytic_id"/>
+                                <field name="analytic_tag_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="property_account_income_id" string="GL Account" required="1"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                            <field name="description_sale" placeholder="Details about the fee" string="Description"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.tree</field>
+            <field name="model">odoocms.fee.head</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Heads">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="payment_type"/>
+                    <field name="category_id"/>
+                    <field name="property_account_income_id" string="GL Account"/>
+                    <field name="refund"/>
+                    <field name="security_refund"/>
+                    <field name="late_fine"/>
+                    <field name="effective_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.select</field>
+            <field name="model">odoocms.fee.head</field>
+            <field name="arch" type="xml">
+                <search string="Search Fee Heads">
+                    <field name="name"/>
+                    <field name="payment_type"/>
+                    <field name="security_refund"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_payment_type" string="Payment Type"
+                                context="{'group_by':'payment_type'}"/>
+                        <filter name="group_by_category_id" string="Category" context="{'group_by':'category_id'}"/>
+                        <filter name="group_by_account_income_id" string="GL Account"
+                                context="{'group_by':'property_account_income_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="payment_type" icon="fa-users"/>
+                        <field name="category_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_merge_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.merge.form</field>
+            <field name="model">odoocms.fee.head.merge</field>
+            <field name="arch" type="xml">
+                <form string="Fee Head Merge">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" placeholder="Eg: Tuition Fee" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                                <field name="code" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="fee_heads" required="1" attrs="{'readonly':[('state','!=','draft')]}"
+                                       widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_merge_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.merge.tree</field>
+            <field name="model">odoocms.fee.head.merge</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Head Merge">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="fee_heads" widget="many2many_tags"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_head_merge_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.head.merge.select</field>
+            <field name="model">odoocms.fee.head.merge</field>
+            <field name="arch" type="xml">
+                <search string="Fee Heads Merge">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="Status" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_head_merge" model="ir.actions.act_window">
+            <field name="name">Fee Heads Merge</field>
+            <field name="res_model">odoocms.fee.head.merge</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="view_odoocms_receipt_type_form" model="ir.ui.view">
+            <field name="name">odoocms.receipt.type.form</field>
+            <field name="model">odoocms.receipt.type</field>
+            <field name="arch" type="xml">
+                <form string="Receipt Types">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1" placeholder="Eg: Semester Fee"/>
+                                <field name="code"/>
+                                <field name="semester_required"/>
+                                <field name="override_amount"/>
+                            </group>
+                            <group>
+                                <field name="fee_head_ids" widget="many2many_tags" required="1"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="comment"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_receipt_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.receipt.type.tree</field>
+            <field name="model">odoocms.receipt.type</field>
+            <field name="arch" type="xml">
+                <tree string="receipt Types">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="semester_required"/>
+                    <field name="override_amount"/>
+                    <field name="fee_head_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_category" model="ir.actions.act_window">
+            <field name="name">Fee Category</field>
+            <field name="res_model">odoocms.fee.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Fee Category here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_head" model="ir.actions.act_window">
+            <field name="name">Fee Heads</field>
+            <field name="res_model">odoocms.fee.head</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Fee Head here.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_odoocms_receipt_type" model="ir.actions.act_window">
+            <field name="name">Receipt Types</field>
+            <field name="res_model">odoocms.receipt.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the First Fee Receipt Type here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_category"
+                action="action_odoocms_fee_category"
+                parent="menu_fee_configuration_setup"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="10"/>
+
+        <menuitem
+                id="menu_odoocms_fee_head"
+                action="action_odoocms_fee_head"
+                parent="menu_fee_configuration_setup"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="20"/>
+
+        <menuitem
+                id="menu_odoocms_receipt_types"
+                action="action_odoocms_receipt_type"
+                parent="menu_fee_configuration_setup"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="100"/>
+        <menuitem
+                id="menu_odoocms_fee_heads_merge"
+                action="action_odoocms_fee_head_merge"
+                parent="menu_fee_configuration_setup"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="101"/>
+
+    </data>
+</odoo>

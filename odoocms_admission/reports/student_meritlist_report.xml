@@ -1,0 +1,83 @@
+<odoo>
+
+	<template id ="odoocms_admission.student_merit_list_report">
+		<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+
+		<style>
+			#merit-list {
+			  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			#merit-list td, #merit-list th {
+			  border: 1px solid #ddd;
+			  padding: 8px;
+			}
+
+			#merit-list tr:nth-child(even){background-color: #f2f2f2;}
+
+			#merit-list tr:hover {background-color: #ddd;}
+
+			#merit-list th {
+			  padding-top: 12px;
+			  padding-bottom: 12px;
+			  text-align: left;
+			  background-color: #4CAF50;
+			  color: white;
+			}
+			</style>
+				<div class="page" style="font-size: 12px; padding:30px">
+					<div style="display:block; margin: auto; font-weight:bold; font-size:13px; text-align:center">
+						<span>Institute for Art and Culture</span>
+					</div>
+					<div style="display:block; margin: auto; font-weight:bold; font-size:12px;text-align:center">
+						<span>Directorate of Admissions</span>
+					</div>
+					<div style="display:block; margin: auto; font-weight:bold; font-size:14px;text-align:center">
+						<span t-esc="rep_data['merit_list']"/> &#160; <span t-esc="rep_data['register']"/>
+					</div>
+					<div style="display:block; margin: auto; font-weight:bold; font-size:14px; text-align:center">
+						<span>Academic Session</span>&#160;<span t-esc="rep_data['session']"/>
+					</div>
+				 	<table id ="merit-list"  width="100%">
+				 		<tr style="font-size:14px;page-break-inside: avoid;">
+				 			<th style="width:5%;">Sr.</th>
+				 			<th style="width:25%;">Entry ID</th>
+				 			<th style="width:25%;">Name</th>
+				 			<th style="width:25%;">Father</th>
+				 			<th style="width:20%;">Aggregates</th>
+<!--				 			<th style="width:20%;">Selected IN</th>-->
+<!--							<th style="width:10%;">Fee Amount</th>-->
+<!--				 			<th style="width:12%;">Interview Date</th>-->
+<!--				 			<th style="width:19%;">Remarks</th>-->
+				 		</tr>
+					 	<tbody>
+					 		<t t-foreach="rep_data['lines']" t-as="ln">
+					 			<tr style="font-size:11px;">
+					 				<td><span t-esc="ln_index + 1" />  </td>
+					 				<td><span t-esc="ln['entryID']" /> </td>
+					 				<td><span t-esc="ln['name']" /> </td>
+					 				<td><span t-esc="ln['father_name']" /> </td>
+					 				<td class="text-right">
+										<span t-esc="'{0:.3f}'.format(ln['total_aggregates'])" />
+									</td>
+<!--					 				<td style="position:relative"><span t-esc="ln['program']" /> <span>&#45;&#45;</span><span t-esc="ln['campus']" />-->
+<!--										<span style="position:absolute; bottom:2px; right:2px; font-weight:bold" t-esc="ln['preference']"/>-->
+<!--										<span t-if='ln["locked"]' style="position:absolute; top:2px; right:2px; font-weight:bold"><i class="fa fa-lock"></i></span>-->
+<!--									</td>-->
+<!--					 				<td class="text-right"><span t-esc="ln['locked'] and '-' or '{0:,.0f}'.format(ln['amount'])"/> </td>-->
+<!--									<td><span t-esc="ln['date_interview'] and ln['date_interview'].strftime('%Y-%m-%d') or '-'" /> </td>-->
+<!--					 				<td><span t-esc="ln['locked'] and '-' or ln['remarks']" /> </td>-->
+					 			</tr>
+					 		</t>
+					 	</tbody>
+					 </table>
+					 	
+                </div>
+            </t>
+        </t>-
+    </template>
+
+</odoo>

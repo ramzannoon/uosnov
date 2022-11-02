@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_guardian_detail" name="Admission Guardian Detail">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <div class="block-info">
+                <!-- Father Info -->
+                <legend style="color: #0393DC"><h4>Guardian Details</h4></legend>
+                <div class="frm-row" name="father_info">
+                    <div class="section colm colm4">
+                        <label for="father_name">Father Name<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="father_name" id="father_name" class="gui-input" onkeypress="return (event.charCode &gt; 64 &amp;&amp; event.charCode &lt; 91) || (event.charCode &gt; 96 &amp;&amp; event.charCode &lt; 123) || (event.charCode==32)"
+                                   placeholder="Father Name" t-att-value="student.father_name" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-user"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <t t-set="father_education_list"
+                           t-value="dict(student.fields_get(allfields=['father_education'])['father_education']['selection'])"/>
+                        <label class="field select">
+                            <label for="father_education">Father Education<span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="father_education" id="father_education" required="True">
+                                    <!--                                                             <option value="" selected="Selected">Select</option>-->
+                                    <t t-foreach="father_education_list" t-as="edu">
+                                        <option t-att-value="edu"
+                                                t-att-selected="student.father_education == edu"
+                                                t-att-disabled="readonly and student.father_education != edu">
+                                            <t t-esc="edu_value"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </label>
+
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <label for="father_status">Father Status<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="father_status" id="father_status" required="True" onchange="onchange_father_status()">
+                                <option value="alive" t-att-selected="student.father_status == 'alive'"
+                                        t-att-disabled="readonly and student.father_status != 'alive'">Alive
+                                </option>
+                                <option value="deceased" t-att-selected="student.father_status == 'deceased'"
+                                        t-att-disabled="readonly and student.father_status != 'deceased'">Deceased
+                                </option>
+                                <!--                                <option value="Deceased" t-att-selected="student.father_status == 'Abroad'"-->
+                                <!--                                        t-att-disabled="readonly and student.father_status != 'Abroad'">Abroad-->
+                                <!--                                </option>-->
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row" id="guardian_div">  <!-- t-attf-style="display:'none' if student.father_status == 'alive' else 'block';" -->
+                    <div class="section colm colm6">
+                        <label for="guardian_name">Guardian Name (Other than Father)<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="guardian_name" id="guardian_name" class="gui-input" required="True"
+                                   placeholder="name" t-att-value="student.guardian_name" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-user"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm6">
+                        <label for="guardian_relation">Relation with Guardian<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="guardian_relation" id="guardian_relation" class="gui-input" required="True" onkeypress="return (event.charCode &gt; 64 &amp;&amp; event.charCode &lt; 91) || (event.charCode &gt; 96 &amp;&amp; event.charCode &lt; 123) || (event.charCode==32)"
+                                   placeholder="son" t-att-value="student.guardian_relation" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-user"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="guardian_occupation">Occupation<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="guardian_occupation" id="guardian_occupation" class="gui-input"
+                                   placeholder="" t-att-value="student.guardian_occupation" required="True"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm6">
+                        <label for="guardian_income">Monthly Income (PKR) <span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="number" name="guardian_income" min="0" id="guardian_income" class="gui-input"
+                                   t-att-value="student.guardian_income" required="True" t-att-readonly="readonly"/>
+                            <!--													<span class="field-icon"><i class="fa fa-phone-square"></i></span>-->
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="phone">CNIC/Passport<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" pattern=".{1,13}" name="guardian_cnic" id="guardian_cnic"
+                                   class="gui-input" placeholder="82301865954649" t-att-value="student.guardian_cnic"
+                                   required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="phone">Cell Number<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="guardian_mobile" id="guardian_mobile" class="gui-input"
+                                   placeholder="03400758644" t-att-value="student.guardian_mobile" required="=True"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="phone">Landline No</label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="guardian_landline" id="guardian_landline" class="gui-input"
+                                   placeholder="057856444" t-att-value="student.guardian_landline"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="phone">Address<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text"  name="guardian_address" id="guardian_address"
+                                   class="gui-input" t-att-value="student.guardian_address" t-att-readonly="readonly"
+                                   required="true"/>
+                            <span class="field-icon">
+                                <i class="fa fa-map-marker"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function onchange_father_status() {
+                if (document.getElementById('father_status').value == 'alive') {
+                $("#guardian_div").css("display", "none");
+                } else {
+                $("#guardian_div").css("display", "block");
+                }
+                }
+                onchange_father_status();
+            </script>
+
+        </fieldset>
+    </template>
+</odoo>

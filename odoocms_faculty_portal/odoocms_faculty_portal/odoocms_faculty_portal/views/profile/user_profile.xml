@@ -1,0 +1,1196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_portal_profile_page" name="Faculty Profile">
+
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/css/custom.css" media="all"/>
+                <style>
+                    .user_content {
+                    padding: 1px 32px 32px 32px;
+                    }
+                </style>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner" style="background:none;">
+                        <div class="uk-grid" id="user_profile">
+                            <div class="uk-width-large-7-10">
+                                <form id="profile_home_update" method="post">
+
+                                    <div class="md-card">
+                                        <div class="user_heading">
+                                            <t t-call="odoocms_faculty_portal.faculty_profile_head_home"/>
+                                            <button type="button" onclick="profileHomeEdit()" class="profile_default_fields md-fab md-fab-small  md-fab-accent hidden-print" style="display:block;">
+                                                <i class="material-icons">&#xE150;</i>
+                                            </button>
+                                            <button id="profile_home_save" type="submit" class="profile_edit_fields md-fab md-fab-small md-fab-accent hidden-print" style="display:none">
+                                                <i class="material-icons">save</i>
+                                            </button>
+                                        </div>
+                                        <div class="md-color-grey-600 uk-text-small" style="padding:1%;">
+                                            <span class="uk-row-first">
+                                                <span >
+                                                    <t t-if="faculty_staff.confirmation">
+                                                        <input class="profile_edit_fields" type="checkbox" name="consent" style="display:none" checked="" required="True"/>
+                                                    </t>
+                                                    <t t-if="not faculty_staff.confirmation">
+                                                        <input class="profile_edit_fields" type="checkbox" name="consent" style="display:none" required="True"/>
+                                                    </t>
+                                                </span>
+
+                                                <span>I solemnly affirm that the forgoing information given is true, complete and correct to the best of my knowledge and belief.</span>
+                                            </span>
+                                        </div>
+
+
+                                        <div class="user_content">
+                                            <ul id="user_profile_tabs" class="uk-tab" data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}" data-uk-sticky="{ top: 48, media: 960 }">
+                                                <li class="uk-active">
+                                                    <a href="">About</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">Bio Data</a>
+                                                </li>
+                                            </ul>
+                                            <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
+                                                <li>
+                                                    <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom">
+                                                        <div class="uk-width-large-1-2">
+                                                            <h4 class="heading_c uk-margin-small-bottom">Contact Information</h4>
+                                                            <ul class="md-list md-list-addon">
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            &#xE0CD;
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.mobile_phone"></span>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="mobile_phone" type="text" t-att-value="faculty_staff.mobile_phone" id="mobile_phone" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Phone
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            &#xE158;
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.work_email"/>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="work_email" type="text" t-att-value="faculty_staff.work_email" id="work_email" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Email
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon uk-icon-linkedin"/>
+
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.linkedin_fms"/>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="linkedin_fms" type="text" t-att-value="faculty_staff.linkedin_fms" id="linkedin_fms" style="display:none"/>
+                                                                        </span>
+
+
+                                                                        <span class="uk-text-small uk-text-muted">LinkedIn
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            &#xE0CD;
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.skype_fms"/>
+
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="skype_fms" type="text" t-att-value="faculty_staff.skype_fms" id="f_skype_fms" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Skype
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon uk-icon-twitter">
+
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.twitter_fms"/>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="twitter_fms" type="text" t-att-value="faculty_staff.twitter_fms" id="twitter_fms" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Twitter
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon uk-icon-facebook">
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.facebook_fms"/>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="facebook_fms" type="text" t-att-value="faculty_staff.facebook_fms" id="facebook_fms" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Facebook
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            &#xE158;
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="profile_default_fields md-list-heading" t-esc="faculty_staff.google_fms"/>
+                                                                        <span>
+                                                                            <input class="profile_edit_fields md-input uk-form-width-medium" name="google_fms" type="text" t-att-value="faculty_staff.google_fms" id="google_fms" style="display:none"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Google Scholar
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <!--<li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            &#xE88A;
+                                                                        </i>
+
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.street"/>
+                                                                        &lt;!&ndash;<span>
+                                                                           <input type="text" placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_street" id="f_street"  t-att-value="faculty_staff.user_partner_id.street"  style="display:none" />
+                                                                       </span>&ndash;&gt;
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.street2"/>
+                                                                        &lt;!&ndash; <span>
+                                                                            <input type="text" placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_street2" id="f_street2"  t-att-value="faculty_staff.user_partner_id.street2"  style="display:none" />
+                                                                        </span>&ndash;&gt;
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.city"/>
+                                                                        &lt;!&ndash; <span>
+                                                                            <input type="text" placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_city" id="f_city"  t-att-value="faculty_staff.user_partner_id.city"  style="display:none" />
+                                                                        </span>&ndash;&gt;
+                                                                        <span class="uk-text-small uk-text-muted">Present Address
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.street"/>
+                                                                        &lt;!&ndash;<span>
+                                                                           <input type="text" placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_street" id="f_street"  t-att-value="faculty_staff.user_partner_id.street"  style="display:none" />
+                                                                       </span>&ndash;&gt;
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.street2"/>
+                                                                        &lt;!&ndash;<span>
+                                                                           <input placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_street2" type="text"  t-att-value="faculty_staff.user_partner_id.street2" id="f_street2"  style="display:none" />
+                                                                       </span>&ndash;&gt;
+                                                                        <span class=" md-list-heading" t-esc="faculty_staff.user_partner_id.city"/>
+                                                                        &lt;!&ndash; <span>
+                                                                            <input placeholder="Type in this filed" class="profile_edit_fields md-input uk-form-width-large" name="f_city" type="text"  t-att-value="faculty_staff.user_partner_id.city" id="f_city"  style="display:none" />
+                                                                        </span>&ndash;&gt;
+                                                                        <span class="uk-text-small uk-text-muted">Permanent Address
+                                                                        </span>
+                                                                    </div>
+                                                                </li>-->
+
+                                                            </ul>
+                                                        </div>
+                                                        <div class="uk-width-large-1-2">
+                                                            <h4 class="heading_c uk-margin-small-bottom">Campus Information</h4>
+                                                            <ul class="md-list">
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            Campus Resident
+                                                                            <!--                                                                        <a href="">Campus Resident</a>-->
+                                                                        </span>
+                                                                        <span class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['nust_campus_fms'])['nust_campus_fms']['selection'])[faculty_staff.nust_campus_fms]"/>
+
+                                                                        <t t-set="nust_campus_fms" t-value="dict(faculty_staff.fields_get(allfields=['nust_campus_fms'])['nust_campus_fms']['selection'])"/>
+                                                                        <span>
+                                                                            <select id="" class="profile_edit_fields md-input uk-form-width-small" name="nust_campus_fms" title="Campus status" style="display:none">
+
+                                                                                <optgroup label="Choose">
+                                                                                    <t t-foreach="nust_campus_fms" t-as="nust_campus">
+                                                                                        <t t-if="nust_campus == faculty_staff.nust_campus_fms">
+                                                                                            <option selected="true" t-att-value="nust_campus">
+                                                                                                <t t-esc="nust_campus_value"/>
+                                                                                            </option>
+                                                                                        </t>
+                                                                                        <t t-if="not nust_campus == faculty_staff.nust_campus_fms">
+                                                                                            <option t-att-value="nust_campus">
+                                                                                                <t t-esc="nust_campus_value"/>
+                                                                                            </option>
+                                                                                        </t>
+
+                                                                                    </t>
+                                                                                </optgroup>
+
+                                                                            </select>
+                                                                        </span>
+
+                                                                    </div>
+                                                                </li>
+                                                                <!--  <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            <a href="#">Sports Club</a>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Joined
+                                                                            Date:2/3/2019
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            <a href="#">Swimming Club</a>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">Joined
+                                                                            Date:2/3/2019
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+    -->
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <li>
+                                                    <div id="user_profile_gallery">
+                                                        <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom">
+                                                            <div class="uk-width-large-1-2">
+                                                                <h4 class="heading_c uk-margin-small-bottom">Personal Detail</h4>
+                                                                <ul class="md-list">
+                                                                    <li>
+                                                                        <!--  <div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE158;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="faculty_staff.date_of_birth" t-if="faculty_staff.date_of_birth"/>
+                                                                            <span class="md-list-heading profile_default_fields" t-if="not faculty_staff.date_of_birth">-</span>
+                                                                            <span>
+                                                                                <input class="profile_edit_fields md-input uk-form-width-medium" name="date_of_birth" type="text" t-att-value="faculty_staff.date_of_birth" id="date_of_birth" data-uk-datepicker="{format:'YYYY-MM-DD'}" style="display:none"/>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Date of Birth
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+
+                                                                            <span class="md-list-heading profile_default_fields">
+                                                                                <t t-esc="dict(faculty_staff.fields_get(allfields=['gender'])['gender']['selection'])[faculty_staff.gender]"/>
+                                                                            </span>
+
+                                                                            <t t-set="genders" t-value="dict(faculty_staff.fields_get(allfields=['gender'])['gender']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="gender" title="Select your gender" style="display:none">
+
+                                                                                    <optgroup label="Gender">
+                                                                                        <t t-foreach="genders" t-as="gender">
+                                                                                            <t t-if="gender == faculty_staff.gender">
+                                                                                                <option selected="true" t-att-value="gender">
+                                                                                                    <t t-esc="gender_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not gender == faculty_staff.gender">
+                                                                                                <option t-att-value="gender">
+                                                                                                    <t t-esc="gender_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+                                                                                </select>
+                                                                            </span>
+
+                                                                            <!--   <t t-foreach="genders" t-as="gender" >
+                                                                                   <t t-esc="ab_value"></t>
+                                                                               </t>-->
+
+
+                                                                            <span class="uk-text-small uk-text-muted">Gender
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!--  <div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE0CD;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+                                                                            <!--                                                                        <span class="md-list-heading"> - </span>-->
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="faculty_staff.cnic_no_fms" t-if="faculty_staff.cnic_no_fms"/>
+                                                                            <span class="md-list-heading profile_default_fields" t-if="not faculty_staff.cnic_no_fms">-</span>
+                                                                            <span>
+                                                                                <input class="profile_edit_fields md-input uk-form-width-medium" name="cnic_no_fms" type="text" t-att-value="faculty_staff.cnic_no_fms" id="cnic_no_fms" style="display:none"/>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">CNIC
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!--  <div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE88A;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+
+                                                                            <span t-if="faculty_staff.domocile_fms" class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['domocile_fms'])['domocile_fms']['selection'])[faculty_staff.domocile_fms]"/>
+
+                                                                            <t t-set="domocile_fms" t-value="dict(faculty_staff.fields_get(allfields=['domocile_fms'])['domocile_fms']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="domocile_fms" title="Select your domicile" style="display:none">
+
+                                                                                    <optgroup label="Domiciles">
+                                                                                        <t t-foreach="domocile_fms" t-as="domicile">
+                                                                                            <t t-if="domicile == faculty_staff.domocile_fms">
+                                                                                                <option selected="true" t-att-value="domicile">
+                                                                                                    <t t-esc="domicile_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not domicile == faculty_staff.domocile_fms">
+                                                                                                <option t-att-value="domicile">
+                                                                                                    <t t-esc="domicile_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+
+                                                                            <span class="uk-text-small uk-text-muted">Domicile
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!--<div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE88A;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+
+
+                                                                            <span t-if="faculty_staff.blood_group" class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['blood_group'])['blood_group']['selection'])[faculty_staff.blood_group]"/>
+
+                                                                            <t t-set="blood_group" t-value="dict(faculty_staff.fields_get(allfields=['blood_group'])['blood_group']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="blood_group" title="Select your blood group" style="display:none">
+
+                                                                                    <optgroup label="Bloodgroups">
+                                                                                        <t t-foreach="blood_group" t-as="bgroup">
+                                                                                            <t t-if="bgroup == faculty_staff.blood_group">
+                                                                                                <option selected="true" t-att-value="bgroup">
+                                                                                                    <t t-esc="bgroup_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not bgroup == faculty_staff.blood_group">
+                                                                                                <option t-att-value="bgroup">
+                                                                                                    <t t-esc="bgroup_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Blood Group
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!--  <div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE88A;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+                                                                            <span t-if="faculty_staff.religion" class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['religion'])['religion']['selection'])[faculty_staff.religion]"/>
+
+                                                                            <t t-set="religion" t-value="dict(faculty_staff.fields_get(allfields=['religion'])['religion']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="religion" title="Select your religion" style="display:none">
+
+                                                                                    <optgroup label="Religions">
+                                                                                        <t t-foreach="religion" t-as="religion">
+                                                                                            <t t-if="religion == faculty_staff.religion">
+                                                                                                <option selected="true" t-att-value="religion">
+                                                                                                    <t t-esc="religion_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not religion == faculty_staff.religion">
+                                                                                                <option t-att-value="religion">
+                                                                                                    <t t-esc="religion_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Religion
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <!-- <div class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons">
+                                                                                &#xE88A;
+                                                                            </i>
+                                                                        </div>-->
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['sect_fms'])['sect_fms']['selection'])[faculty_staff.sect_fms]"/>
+
+                                                                            <t t-set="sect_fms" t-value="dict(faculty_staff.fields_get(allfields=['sect_fms'])['sect_fms']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="sect_fms" title="Select your sect" style="display:none">
+
+                                                                                    <optgroup label="Sects">
+                                                                                        <t t-foreach="sect_fms" t-as="sect">
+                                                                                            <t t-if="sect == faculty_staff.sect_fms">
+                                                                                                <option selected="true" t-att-value="sect">
+                                                                                                    <t t-esc="sect_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not sect == faculty_staff.sect_fms">
+                                                                                                <option t-att-value="sect">
+                                                                                                    <t t-esc="sect_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Sect
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="uk-width-large-1-2">
+                                                                <h4 class="heading_c uk-margin-small-bottom">Father Information</h4>
+                                                                <ul class="md-list">
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="faculty_staff.father_name" t-if="faculty_staff.father_name"/>
+                                                                            <span class="md-list-heading profile_default_fields" t-if="not faculty_staff.father_name">-</span>
+                                                                            <span>
+                                                                                <input class="profile_edit_fields md-input uk-form-width-medium" name="father_name" type="text" t-att-value="faculty_staff.father_name" id="father_name" style="display:none"/>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Father Name
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="faculty_staff.father_cnic" t-if="faculty_staff.father_cnic"/>
+                                                                            <span class="md-list-heading profile_default_fields" t-if="not faculty_staff.father_cnic">-</span>
+                                                                            <span>
+                                                                                <input class="profile_edit_fields md-input uk-form-width-medium" name="father_cnic" type="text" t-att-value="faculty_staff.father_cnic" id="father_cnic" style="display:none"/>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Father CNIC
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="faculty_staff.father_address" t-if="faculty_staff.father_address"/>
+                                                                            <span class="md-list-heading profile_default_fields" t-if="not faculty_staff.father_address">-</span>
+                                                                            <span>
+                                                                                <input class="profile_edit_fields md-input uk-form-width-large" name="father_address" type="text" t-att-value="faculty_staff.father_address" id="father_address" style="display:none"/>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Father Address(RES)
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['father_profession'])['father_profession']['selection'])[faculty_staff.father_profession]"/>
+
+                                                                            <t t-set="father_professions" t-value="dict(faculty_staff.fields_get(allfields=['father_profession'])['father_profession']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="father_profession" title="Select your father profession" style="display:none">
+
+                                                                                    <optgroup label="Professions">
+                                                                                        <t t-foreach="father_professions" t-as="father_profession">
+                                                                                            <t t-if="father_profession == faculty_staff.father_profession">
+                                                                                                <option selected="true" t-att-value="father_profession">
+                                                                                                    <t t-esc="father_profession_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not father_profession == faculty_staff.father_profession">
+                                                                                                <option t-att-value="father_profession">
+                                                                                                    <t t-esc="father_profession_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Father Profession
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading profile_default_fields" t-esc="dict(faculty_staff.fields_get(allfields=['father_status'])['father_status']['selection'])[faculty_staff.father_status]"/>
+
+                                                                            <t t-set="father_statuses" t-value="dict(faculty_staff.fields_get(allfields=['father_status'])['father_status']['selection'])"/>
+                                                                            <span>
+                                                                                <select id="" class="profile_edit_fields md-input uk-form-width-small" name="father_status" title="Select your father status" style="display:none">
+
+                                                                                    <optgroup label="Statuses">
+                                                                                        <t t-foreach="father_statuses" t-as="father_status">
+                                                                                            <t t-if="father_status == faculty_staff.father_status">
+                                                                                                <option selected="true" t-att-value="father_status">
+                                                                                                    <t t-esc="father_status_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            <t t-if="not father_status == faculty_staff.father_status">
+                                                                                                <option t-att-value="father_status">
+                                                                                                    <t t-esc="father_status_value"/>
+                                                                                                </option>
+                                                                                            </t>
+                                                                                            >
+                                                                                        </t>
+                                                                                    </optgroup>
+
+                                                                                </select>
+                                                                            </span>
+                                                                            <span class="uk-text-small uk-text-muted">Father Profession Status
+                                                                            </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <!--                                                                <li>-->
+                                                                    <!--                                                                    <div class="md-list-content">-->
+                                                                    <!--                                                                        <span class="md-list-heading">-</span>-->
+                                                                    <!--&lt;!&ndash;                                                                        <span class="md-list-heading" t-esc="faculty_staff.marital_status" t-if="faculty_staff.marital_status"/>&ndash;&gt;-->
+                                                                    <!--&lt;!&ndash;                                                                        <span class="md-list-heading"  t-if="not faculty_staff.marital_status">-</span>&ndash;&gt;-->
+                                                                    <!--                                                                        <span class="uk-text-small uk-text-muted">Marital Status-->
+                                                                    <!--                                                                        </span>-->
+                                                                    <!--                                                                    </div>-->
+                                                                    <!--                                                                </li>-->
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+                                                <!-- <li>
+                                                    <ul class="md-list">
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Doloribus iste et dolorem autem facere.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">13 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">6</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">248</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Consequatur quod delectus ea qui dolorem
+                                                                        eveniet.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">20 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">14</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">434</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Deserunt possimus et vero voluptates vel
+                                                                        voluptatem.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">23 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">25</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">776</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Eum magni reprehenderit eos error facilis
+                                                                        illo
+                                                                        voluptatem.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">18 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">17</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">273</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Qui dicta quia explicabo tenetur porro enim
+                                                                        corporis.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">05 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">10</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">340</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Quasi repellendus at et dolor omnis natus
+                                                                        commodi.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">24 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">2</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">327</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Quae quisquam est id adipisci expedita.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">15 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">18</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">200</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Illum reiciendis perspiciatis sit hic
+                                                                        totam.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">07 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">6</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">569</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Numquam eligendi est et esse.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">09 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">13</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">801</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Nam odit rerum tempore accusantium animi
+                                                                        repellat non aut.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">18 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">10</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">218</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Dolores culpa et vel iusto est omnis.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">24 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">5</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">333</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">A ducimus magni harum occaecati.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">18 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">1</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">714</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Est non quam qui incidunt blanditiis.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">19 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">26</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">982</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Est repudiandae ad ducimus nemo.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">21 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">23</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">173</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Iure magnam est aspernatur fuga expedita
+                                                                        omnis
+                                                                        hic a.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">08 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">25</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">417</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Rerum consectetur qui qui.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">13 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">15</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">923</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Sit fugiat aut qui et.</a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">26 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">18</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">347</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Animi aut voluptatem praesentium iste
+                                                                        doloremque
+                                                                        ratione.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">22 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">9</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">905</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Animi possimus ab facere architecto
+                                                                        placeat.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">15 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">22</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">487</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a href="#">Ratione libero cupiditate quia et aut quo
+                                                                        quam.
+                                                                    </a>
+                                                                </span>
+                                                                <div class="uk-margin-small-top">
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE192;</i>
+                                                                        <span class="uk-text-muted uk-text-small">27 Mar
+                                                                            2020
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE0B9;</i>
+                                                                        <span class="uk-text-muted uk-text-small">14</span>
+                                                                    </span>
+                                                                    <span class="uk-margin-right">
+                                                                        <i class="material-icons">&#xE417;</i>
+                                                                        <span class="uk-text-muted uk-text-small">160</span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="uk-width-large-3-10 hidden-print">
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-margin-medium-bottom">
+                                            <h3 class="heading_c uk-margin-bottom">Notifications</h3>
+                                            <ul class="md-list md-list-addon uk-overflow-container" style="max-height:500px;">
+                                                <t t-foreach="notifications" t-as="notification">
+                                                    <li>
+                                                        <!-- <div class="md-list-addon-element">
+                                                         <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                         <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" class="md-card-head-img" t-if="not notification.image"/>
+&lt;!&ndash;                                                        <i class="md-list-addon-icon material-icons uk-text-warning">&ndash;&gt;
+&lt;!&ndash;                                                            &#xE8B2;&ndash;&gt;
+&lt;!&ndash;                                                        </i>&ndash;&gt;
+                                                    </div>-->
+                                                        <div class="md-list-content">
+                                                            <a href="/faculty/notifications">
+                                                                <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                            </a>
+                                                            <!-- <span class="md-list-heading"><a href="/student/notifications"><t t-esc="notification.name" /></a></span>
+                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">
+                                                            <t t-esc="notification.description" t-options='{"widget": "html"}'/>
+                                                        </span>-->
+                                                        </div>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  <div class="uk-width-large-3-10 hidden-print">
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-margin-medium-bottom">
+                                            <h3 class="heading_c uk-margin-bottom">Notifications</h3>
+                                            <ul class="md-list md-list-addon uk-overflow-container" style="max-height:500px;">
+                                                 <t t-if="not notifications">
+                                                   <p>Notifications are not available.</p>
+                                                  </t>
+                                                  <t t-if="notifications">
+                                                <t t-foreach="notifications" t-as="notification" >
+                                                    <li>
+                                                        <div class="md-list-addon-element">
+                                                             <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                             <img t-if="not notification.image" src="/odoocms_web/static/assets/img/nust.png" alt="Image"/>
+    &lt;!&ndash;                                                        <i class="md-list-addon-icon material-icons uk-text-warning">&ndash;&gt;
+    &lt;!&ndash;                                                            &#xE8B2;&ndash;&gt;
+    &lt;!&ndash;                                                        </i>&ndash;&gt;
+                                                        </div>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading"><t t-esc="notification.name" /></span>
+                                                            <span class="uk-text-small uk-text-muted uk-text-truncate">
+                                                                <t t-esc="notification.description" t-options='{"widget": "html"}'/>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                </t>
+                                                  </t>
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_faculty_portal/static/js/fms.js"></script>
+            </body>
+        </t>
+    </template>
+</odoo>

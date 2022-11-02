@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+		<record id="view_odoocms_confirm_classes_wiz" model="ir.ui.view">
+			<field name="name">odoocms.confirm.classes.wiz</field>
+			<field name="model">odoocms.confirm.classes.wiz</field>
+			<field name="arch" type="xml">
+				<form string="Change Student State">
+					<group>
+						<field name="class_ids" widget="many2many_tags"/>
+					</group>
+					<footer>
+						<button name="confirm_classes" string="Confirm Classes" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_confirm_classes_state"
+				name="Confirm Classes"
+				binding_model="odoocms.class"
+				res_model="odoocms.confirm.classes.wiz"
+				binding_views="list,form"  view_mode="form"
+				target="new"
+				groups="odoocms.group_cms_manager"/>
+
+
+    </data>
+</odoo>

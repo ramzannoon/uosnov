@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="odoocms_faculty_hostel_shift_wiz_view" model="ir.ui.view">
+            <field name="name">odoocms.faculty.hostel.shift.wiz.view</field>
+            <field name="model">odoocms.faculty.hostel.shift.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Faculty Hostel Shift">
+                    <group>
+                        <group>
+                            <field name="faculty_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_faculty_form'}"
+                                   required="1" domain="[('id', '=', active_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                        </group>
+                        <group>
+                            <field name="faculty_code"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="From">
+                            <field name="from_hostel_id" string="Hostel" required="1" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="from_room_id" string="Room" readonly="1" domain="[('hostel_id','=',from_hostel_id)]" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="from_room_type" string="Room Type" required="1" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                        </group>
+                        <group string="To">
+                            <field name="to_hostel_id" string="Hostel" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="to_room_type" string="Room Type" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                            <field name="to_room_id" domain="[('hostel_id','=',to_hostel_id),('room_type','=',to_room_type),('vacancy', '!=', 0)]" string="Room" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                        </group>
+                    </group>
+
+                    <group string="Vacant Room Detail">
+                        <field name="vacant_rooms" widget="html" readonly="1" nolabel="1"/>
+                    </group>
+
+                    <footer>
+                        <button name="action_shift_faculty" string="Shift faculty" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-primary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_faculty_hostel_shift" model="ir.actions.act_window">
+            <field name="name">Faculty Hostel Shift</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.faculty.hostel.shift.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_faculty_staff"/>
+            <field name="binding_view_types">form,list</field>
+            <field name="groups_id" eval="[(4,ref('odoocms_hostel.group_hostel_manager'))]"/>
+        </record>
+    </data>
+</odoo>

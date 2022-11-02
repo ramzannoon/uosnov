@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_course_component_tree_reg_inherit" model="ir.ui.view">
+            <field name="name">odoocms.student.course.component.tree.reg.inherit</field>
+            <field name="model">odoocms.student.course.component</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_course_component_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='class_id']" position="after">
+                     <field name="attendance_percentage" string="Att.(%)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_course_tree_reg_inherit" model="ir.ui.view">
+            <field name="name">odoocms.student.course.tree.reg.inherit</field>
+            <field name="model">odoocms.student.course</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_course_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='primary_class_id']" position="after">
+                     <field name="attendance_percentage" string="Att.(%)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_class_form_reg_inherit" model="ir.ui.view">
+            <field name="name">odoocms.class.form.reg.inherit</field>
+            <field name="model">odoocms.class</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='students']/field[@name='term_id']" position="after">
+                     <field name="attendance_percentage" string="Att.(%)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_class_primary_form_reg_inherit" model="ir.ui.view">
+            <field name="name">odoocms.class.primary.form.reg.inherit</field>
+            <field name="model">odoocms.class.primary</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_primary_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@name='students']/field[@name='term_id']" position="after">
+                     <field name="attendance_percentage" string="Att.(%)"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="primary_class_assign_xf_action" model="ir.actions.server">
+            <field name="name">Assign XF</field>
+            <field name="model_id" ref="odoocms_registration.model_odoocms_class_primary"/>
+            <field name="binding_model_id" ref="odoocms_registration.model_odoocms_class_primary"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.assign_xf()
+            </field>
+        </record>
+
+        <record id="primary_class_assign_unxf_action" model="ir.actions.server">
+            <field name="name">unAssign XF</field>
+            <field name="model_id" ref="odoocms_registration.model_odoocms_class_primary"/>
+            <field name="binding_model_id" ref="odoocms_registration.model_odoocms_class_primary"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = records.unassign_xf()
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_employee_details" model="report.paperformat">
+        <field name="name">Employee Details A4</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <report id="report_medical_data"
+            string="Medical Data Form"
+            model="hr.employee"
+            report_type="qweb-pdf"
+            name="custom_payroll.report_medical_data_pdf"
+            file="custom_payroll.report_medical_data_pdf"/>
+
+    <report id="hr_employee_print_employee_details"
+            string="Employee Details"
+            model="hr.employee"
+            report_type="qweb-pdf"
+            name="custom_payroll.print_employee_details"
+            file="custom_payroll.print_employee_details"
+            print_report_name="'Print Details - %s' % (object.name).replace('/', '')"
+            paperformat="custom_payroll.paperformat_employee_details"/>
+
+</odoo>

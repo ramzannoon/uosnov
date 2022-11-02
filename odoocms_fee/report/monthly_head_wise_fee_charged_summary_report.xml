@@ -1,0 +1,113 @@
+<odoo>
+    <template id="odoocms_fee.monthly_head_wise_fee_charged_summary_report">
+        <t t-call="web.basic_layout">
+            <style>
+                #invoice-report {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                }
+
+                #invoice-report td, #invoice-report th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                }
+
+                #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+
+                #invoice-report tr:hover {background-color: #ddd;}
+
+                #invoice-report th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #17134e;
+                color: white;
+                }
+            </style>
+
+            <div class="page" style="font-size: 16px; padding:10px ">
+                <div class="row" style="padding:5px; margin-left:10px;">
+                    <img alt="..." width="100px" height="100px" class="rounded mb-2 img-thumbnail" t-att-src="image_data_uri(company.logo)" t-if="company.logo"/>
+                </div>
+                <div class="row" style="padding-left:5px; margin-left:10px;">
+                    <span t-esc="company.name" t-if="company"/>
+                </div>
+
+                <div class="row" style="font-size:25px; font-weight:bold">
+                    <div class="col col-12" style="text-align:center">
+                        <span>Fee Charged Summary Report (Head Wise)</span>
+                    </div>
+                </div>
+                <p style="text-align:left;text-decoration: underline;">
+                    From
+                    <span t-esc="data['date_from']"/> &#160; To
+                    <span t-esc="data['date_to']"/>
+                </p>
+
+                <p style="text-align:left;text-decoration: underline;">
+                    Fee Heads :&#160;<span t-esc="fee_heads"/>
+                </p>
+
+                <table id="invoice-report">
+                    <tr>
+                        <th style="width:10%">Sr#</th>
+                        <th style="width:30%">School Name</th>
+                        <th style="width:25%">School Code</th>
+                        <th style="width:15%">School Count</th>
+                        <th style="text-align:center; width:10%">Amount</th>
+                        <th style="text-align:center; width:10%">Waiver</th>
+                    </tr>
+                    <t t-foreach="res" t-as="r">
+                        <tr style="font-size:12px;">
+                            <td>
+                                <span t-esc="r_index + 1"/>
+                            </td>
+                            <td>
+                                <span t-esc="r['institute']"/>
+                            </td>
+                            <td>
+                                <span t-esc="r['institute_code']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="r['student_count']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="r['amount']"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="r['waiver_amount']"/>
+                            </td>
+                        </tr>
+                    </t>
+
+                    <tr>
+                        <td style="text-weight:bold" colspan="4">Grand Total</td>
+                        <td class="text-right">
+                            <span t-esc="total_amount"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-esc="total_waiver_amount"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="row" style="margin-top:20px">
+                    <div class="col col-6" style="text-align:left; margin-top:15px; margin-bottom:15px">
+                        <span style="width=50%">
+                            <span style="font-size:15px; font-weight:bold">Account Officer:</span>
+                            <span>__________________________</span>
+                        </span>
+                    </div>
+                    <div class="col col-6" style="text-align:right; margin-top:15px; margin-bottom:15px">
+                        <span style="width=30%">
+                            <span style="font-size:15px; font-weight:bold">Counter Sign:</span>
+                            <span>__________________________</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

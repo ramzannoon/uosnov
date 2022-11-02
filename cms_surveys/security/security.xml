@@ -1,0 +1,9 @@
+<odoo>
+
+            <!-- CMS Coordinator -->
+<!--        <record model="res.groups" id="group_cms_surveys_coordinator">-->
+<!--            <field name="name">Cordinator</field>-->
+<!--            <field name="category_id" ref="base.module_category_marketing_survey"/>-->
+<!--        </record>-->
+
+</odoo>

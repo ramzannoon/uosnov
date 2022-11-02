@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_odoocms_dbs" model="ir.sequence">
+            <field name="name">DBS</field>
+            <field name="code">odoocms.academic.dbs</field>
+            <field name="prefix">DBS</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_fbs" model="ir.sequence">
+            <field name="name">FBS</field>
+            <field name="code">odoocms.academic.fbs</field>
+            <field name="prefix">FBS</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_class_generator" model="ir.sequence">
+            <field name="name">Class Generator</field>
+            <field name="code">odoocms.class.generator</field>
+            <field name="prefix">CG</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

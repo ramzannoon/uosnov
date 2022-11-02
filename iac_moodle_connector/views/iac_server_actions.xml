@@ -1,0 +1,62 @@
+<odoo>
+    <data>
+        <!--&&&&&&&&&&&&&&&&&&&&&& CAMPUS SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_campus_server_action" model="ir.actions.server">
+            <field name="name">Sync To Moodle</field>
+            <field name="model_id" ref="odoocms.model_odoocms_campus"/>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_campus"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_campus_to_moodle()</field>
+        </record>
+        <!--&&&&&&&&&&&&&&&&&&&&&& INSTITUTE SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_institute_server_action" model="ir.actions.server">
+            <field name="name">Sync To Moodle</field>
+            <field name="model_id" ref="odoocms.model_odoocms_institute"/>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_institute"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_institute_to_moodle()</field>
+        </record>
+        <!--&&&&&&&&&&&&&&&&&&&&&& DEPARTMENT SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_department_server_action" model="ir.actions.server">
+            <field name="name">Sync To Moodle</field>
+            <field name="model_id" ref="odoocms.model_odoocms_department"/>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_department"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_department_to_moodle()</field>
+        </record>
+        <!--&&&&&&&&&&&&&&&&&&&&&& ACADEMIC PROGRAM SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_program_server_action" model="ir.actions.server">
+            <field name="name">Sync To Moodle</field>
+            <field name="model_id" ref="odoocms.model_odoocms_program"/>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_program"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_program_to_moodle()</field>
+        </record>
+         <!--&&&&&&&&&&&&&&&&&&&&&& BATCHES SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_batch_server_action" model="ir.actions.server">
+            <field name="name">Sync To Moodle</field>
+            <field name="model_id" ref="odoocms.model_odoocms_batch"/>
+            <field name="binding_model_id" ref="odoocms.model_odoocms_batch"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_batch_to_moodle()</field>
+        </record>
+
+           <!--&&&&&&&&&&&&&&&&&&&&&& CLASS COMPONENT SECTION SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_section_server_action" model="ir.actions.server">
+            <field name="name">Sync Sections To Moodle</field>
+            <field name="model_id" ref="odoocms_registration.model_odoocms_class"/>
+            <field name="binding_model_id" ref="odoocms_registration.model_odoocms_class"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_sections_in_moodle()</field>
+        </record>
+            <!--&&&&&&&&&&&&&&&&&&&&&& CLASS COMPONENT COURSE SERVER ACTION &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="iac_course_server_action" model="ir.actions.server">
+            <field name="name">Sync Courses To Moodle</field>
+            <field name="model_id" ref="odoocms_registration.model_odoocms_class"/>
+            <field name="binding_model_id" ref="odoocms_registration.model_odoocms_class"/>
+            <field name="state">code</field>
+            <field name="code">action = records.sync_courses_in_moodle()</field>
+        </record>
+
+    </data>
+</odoo>

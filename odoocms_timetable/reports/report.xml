@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- Program Wise Finanacial Report Summary -->
+		<report
+			id="odoocms_timetable.action_report_student_time_table"
+			string="Time Table Report"
+			model="student.time.table.wiz"
+			report_type="qweb-html"
+			name="odoocms_timetable.student_time_table_report"
+			file="odoocms_timetable.student_time_table_report"
+			menu="True"
+		/>
+
+	</data>
+</odoo>

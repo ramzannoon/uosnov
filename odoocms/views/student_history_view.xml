@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_student_history_form" model="ir.ui.view">
+        <field name="name">odoocms.student.history.form</field>
+        <field name="model">odoocms.student.history</field>
+        <field name="arch" type="xml">
+            <form string="Student Profile history" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <!--<field name="field_name_id" domain="[('model','=','odoocms.student'),('ttype','in',('char', 'integer','float', 'date')),('related','=',False)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>-->
+                            <field name="student_id"/>
+                            <field name="field_name_id" domain="[('model','=','odoocms.student'),('related','=',False)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}" attrs="{'invisible': [('field_name_id','=',False)]}"/>
+                            <field name="field_name" attrs="{'invisible': [('field_name_id','!=',False)]}"/>
+                            <field name="changed_by"/>
+                        </group>
+                        <group>
+                            <field name="method"/>
+                            <field name="changed_from"/>
+                            <field name="changed_to"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="date_effective"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_history_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.history.tree</field>
+        <field name="model">odoocms.student.history</field>
+        <field name="arch" type="xml">
+            <tree string="Student Profile History" create="false" edit="false" delete="false">
+                <field name="student_id"/>
+                <field name="field_name"/>
+                <field name="changed_from"/>
+                <field name="changed_to"/>
+                <field name="changed_by"/>
+                <field name="method"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_history" model="ir.actions.act_window">
+        <field name="name">Students Profile history</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to register new Attributes.</p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_student_history"
+            parent="menu_odoocms_students_root"
+            name="Student Profile History"
+            groups="odoocms.group_cms_manager"
+            action="action_odoocms_student_history"
+            sequence="50"/>
+
+
+</odoo>

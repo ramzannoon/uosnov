@@ -1,0 +1,1033 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_portal_timetable" name="Class Schedules">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <script>document.getElementsByTagName("html")[0].className += " js";</script>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/css/timetable.css"/>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                  <link rel="stylesheet" href="/odoocms_web/static/assets/css/custom.css" media="all"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/class/schedule">Class Schedule</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Class Schedule</h3>
+                        <div class="md-card">
+                            <div class="md-card-content" style="height: 1600px;">
+                                <div class="uk-grid">
+                                    <div class="uk-width-large-1-3">
+                                        <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                        <div class="md-card-list-wrapper">
+                                            <div class="md-card-list">
+                                                <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                    <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                        <b>Term :</b>
+                                                        <!--                                                        <span t-esc="attendance_sheet.class_id.name"></span>-->
+                                                        <span>
+                                                            <!--<t t-esc="student.term_id.name"/>-->
+                                                            <t t-esc="term.name"/>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="uk-width-large-1-3">
+                                        <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                        <div class="md-card-list-wrapper">
+                                            <div class="md-card-list">
+                                                <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                        <b>Month :</b>
+                                                        <span>
+                                                            <t t-esc="month"/>
+                                                        </span>
+                                                        <!--                                                        <span t-esc="attendance_sheet.class_id.code"/>-->
+                                                    </li>
+                                                    <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                    <!--                                                        <b>Academic Term :</b>-->
+                                                    <!--                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>-->
+                                                    <!--                                                    </li>-->
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="uk-width-large-1-3">
+                                        <!--                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>-->
+                                        <div class="md-card-list-wrapper">
+                                            <div class="md-card-list">
+                                                <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                        <!--                                                        <b>Week :</b>-->
+                                                        <!--                                                         <span>1</span>-->
+                                                        <!--                                                        <span t-esc="attendance_sheet.class_id.code"/>-->
+                                                    </li>
+                                                    <!--                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">-->
+                                                    <!--                                                        <b>Class Date :</b>-->
+                                                    <!--                                                        <span t-esc="attendance_sheet.date_class"/>-->
+                                                    <!--                                                    </li>-->
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+                                    <div class="cd-schedule__timeline">
+                                        <ul>
+                                            <li>
+                                                <span>08:00</span>
+                                            </li>
+                                            <li>
+                                                <span>08:30</span>
+                                            </li>
+                                            <li>
+                                                <span>09:00</span>
+                                            </li>
+                                            <li>
+                                                <span>09:30</span>
+                                            </li>
+                                            <li>
+                                                <span>10:00</span>
+                                            </li>
+                                            <li>
+                                                <span>10:30</span>
+                                            </li>
+                                            <li>
+                                                <span>11:00</span>
+                                            </li>
+                                            <li>
+                                                <span>11:30</span>
+                                            </li>
+                                            <li>
+                                                <span>12:00</span>
+                                            </li>
+                                            <li>
+                                                <span>12:30</span>
+                                            </li>
+                                            <li>
+                                                <span>13:00</span>
+                                            </li>
+                                            <li>
+                                                <span>13:30</span>
+                                            </li>
+                                            <li>
+                                                <span>14:00</span>
+                                            </li>
+                                            <li>
+                                                <span>14:30</span>
+                                            </li>
+                                            <li>
+                                                <span>15:00</span>
+                                            </li>
+                                            <li>
+                                                <span>15:30</span>
+                                            </li>
+                                            <li>
+                                                <span>16:00</span>
+                                            </li>
+                                            <li>
+                                                <span>16:30</span>
+                                            </li>
+                                            <li>
+                                                <span>17:00</span>
+                                            </li>
+                                            <li>
+                                                <span>17:30</span>
+                                            </li>
+                                            <li>
+                                                <span>18:00</span>
+                                            </li>
+                                            <li>
+                                                <span>18:30</span>
+                                            </li>
+                                            <li>
+                                                <span>19:00</span>
+                                            </li>
+                                            <li>
+                                                <span>19:30</span>
+                                            </li>
+                                            <li>
+                                                <span>20:00</span>
+                                            </li>
+                                            <li>
+                                                <span>20:30</span>
+                                            </li>
+                                            <li>
+                                                <span>21:00</span>
+                                            </li>
+                                             <li>
+                                                <span>21:30</span>
+                                            </li>
+                                             <li>
+                                                <span>22:00</span>
+                                            </li>
+                                        </ul>
+                                    </div> <!-- .cd-schedule__timeline -->
+
+                                    <div class="cd-schedule__events">
+                                        <ul>
+                                            <!--                                    <t t-foreach="class_schedule" t-as="days">-->
+
+                                            <li class="cd-schedule__group">
+
+
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Monday</span>
+                                                </div>
+                                                <!--                                        timetabledata[0]['day']-->
+                                                <ul>
+                                                    <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 0">
+                                                                 <li class="cd-schedule__event">
+                                                                <a  id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-1">
+                                                                      <em class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+                                                        <t t-if="week['day_code'] == 'Mon'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-1">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                      <span class="cd-schedule__name uk-text-small">
+                                                                          <t t-esc="week['subject']"/>
+                                                                      </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+                                                                     <span class="cd-schedule__name uk-text-small">
+                                                                         <t t-esc="week['room']"/>
+                                                                     </span>
+                                                                </a>
+                                                            </li>
+
+                                                        </t>
+                                                    </t>
+
+
+                                                </ul>
+                                            </li>
+
+                                            <li class="cd-schedule__group">
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Tuesday</span>
+                                                </div>
+
+                                                <ul>
+                                                     <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 1">
+                                                                 <li class="cd-schedule__event">
+                                                                <a  id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-2">
+                                                                      <em class="cd-schedule__name uk-text-small" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+
+                                                        <t t-if="week['day_code'] == 'Tue'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-2">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                     <span class="cd-schedule__name uk-text-small">
+                                                                         <t t-esc="week['subject']"/>
+                                                                     </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+
+
+                                                        </t>
+                                                    </t>
+                                                </ul>
+                                            </li>
+                                            <li class="cd-schedule__group">
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Wednesday</span>
+                                                </div>
+
+                                                <ul>
+                                                     <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 2">
+                                                                 <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-3">
+                                                                      <em class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+
+                                                        <t t-if="week['day_code'] == 'Wed'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-3">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                     <span class="cd-schedule__name uk-text-small">
+                                                                         <t t-esc="week['subject']"/>
+                                                                     </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+
+
+                                                        </t>
+                                                    </t>
+                                                </ul>
+                                            </li>
+                                            <li class="cd-schedule__group">
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Thursday</span>
+                                                </div>
+
+                                                <ul>
+                                                     <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 3">
+                                                                 <li class="cd-schedule__event">
+                                                                <a  id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-4">
+                                                                      <em class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+
+                                                        <t t-if="week['day_code'] == 'Thu'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-4">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                     <span class="cd-schedule__name uk-text-small">
+                                                                         <t t-esc="week['subject']"/>
+                                                                     </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+                                                                       <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+
+
+                                                        </t>
+                                                    </t>
+                                                </ul>
+                                            </li>
+                                            <li class="cd-schedule__group">
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Friday</span>
+                                                </div>
+
+                                                <ul>
+                                                     <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 4">
+                                                                 <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-1">
+                                                                      <em class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+
+                                                        <t t-if="week['day_code'] == 'Fri'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-1">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                      <span class="cd-schedule__name uk-text-small">
+                                                                          <t t-esc="week['subject']"/>
+                                                                      </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+
+
+                                                        </t>
+                                                    </t>
+                                                </ul>
+                                            </li>
+
+                                            <li class="cd-schedule__group">
+                                                <div class="cd-schedule__top-info">
+                                                    <span>Saturday</span>
+                                                </div>
+
+                                                <ul>
+                                                     <t t-foreach="makeup_classes" t-as="mclass">
+                                                            <t t-if="mclass.date_class.weekday() == 5">
+                                                                 <li class="cd-schedule__event">
+                                                                <a  id="" t-attf-data-start="{{ '%02d:%02d' % (divmod(mclass.time_from * 60, 60)) }}" t-attf-data-end="{{ '%02d:%02d' % (divmod(mclass.time_to * 60, 60)) }}" t-attf-data-content="mclass.class_id.name" data-event="event-3">
+                                                                      <em class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}">
+                                                                        <t t-esc="mclass.class_id.name"/>
+                                                                    </em>
+                                                                     <!--<span class="cd-schedule__name" data-uk-tooltip="{pos:'top'}" t-attf-title="{{mclass.class_id.code}}" >
+                                                                            Code:
+                                                                      &lt;!&ndash;  <t t-esc="mclass.class_id.code"/>&ndash;&gt;
+                                                                        </span>-->
+                                                                  <!--  <span class="cd-schedule__name">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>-->
+                                                                    <span class="cd-schedule__name">
+                                                                        <span  class="uk-badge uk-badge-danger">Makeup Class (<t t-esc="mclass.class_id.component.capitalize()"/>)</span>
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+                                                            </t>
+
+                                                        </t>
+
+                                                    <t t-foreach="class_schedule" t-as="week">
+
+                                                        <t t-if="week['day_code'] == 'Sat'">
+                                                            <li class="cd-schedule__event">
+                                                                <a id="" t-attf-data-start="{{ week['time_from'] }}" t-attf-data-end="{{ week['time_to'] }}" t-attf-data-content="week['subject']" data-event="event-1">
+                                                                    <em class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject_name']"/>
+                                                                    </em>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['subject']"/>
+                                                                    </span>
+                                                                    <span class="cd-schedule__name uk-text-small">
+                                                                        <t t-esc="week['room']"/>
+                                                                        (
+                                                                        <t t-esc="week['component'].capitalize()"/>
+                                                                        )
+                                                                    </span>
+
+                                                                </a>
+                                                            </li>
+
+
+                                                        </t>
+                                                    </t>
+                                                </ul>
+                                            </li>
+
+
+                                        </ul>
+                                    </div>
+
+                                    <div class="cd-schedule-modal">
+                                        <header class="cd-schedule-modal__header">
+                                            <div class="cd-schedule-modal__content">
+                                                <span class="cd-schedule-modal__date"></span>
+                                                <h3 class="cd-schedule-modal__name"></h3>
+                                            </div>
+
+                                            <div class="cd-schedule-modal__header-bg"></div>
+                                        </header>
+
+                                        <div class="cd-schedule-modal__body">
+                                            <div class="cd-schedule-modal__event-info"></div>
+                                            <div class="cd-schedule-modal__body-bg"></div>
+                                        </div>
+
+                                        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+                                    </div>
+
+                                    <div class="cd-schedule__cover-layer"></div>
+                                </div><!-- .cd-schedule -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="/odoocms_web/static/assets/js/timetableutil.js"></script> <!-- util functions included in the CodyHouse framework -->
+                <script src="/odoocms_web/static/assets/js/timetablemain.js"></script>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+                <!--                <script>-->
+                <!--                    $(document).ready(function(){-->
+                <!--    $('#abc').click(function () {-->
+                <!--        return false;-->
+                <!--    });-->
+                <!--});-->
+                <!--                </script>-->
+            </body>
+
+        </t>
+    </template>
+    <!--  <template id="faculty_portal_custom_class_schedule" name="Class Schedules">
+
+          <t t-call="web.layout">
+              <head>
+                             <script>document.getElementsByTagName("html")[0].className += " js";</script>
+                    <link rel="stylesheet" href="/odoocms_web/static/assets/css/timetable.css"/>
+                  <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/weather-icons/css/weather-icons.min.css"
+                        media="all"/>
+                  &lt;!&ndash; metrics graphics (charts) &ndash;&gt;
+                  <link rel="stylesheet"
+                        href="/odoocms_web/static/bowerComponents/metrics-graphics/dist/metricsgraphics.css"/>
+                  &lt;!&ndash; chartist &ndash;&gt;
+                  <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/chartist/dist/chartist.min.css"/>
+
+                  &lt;!&ndash; uikit &ndash;&gt;
+                  <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/uikit/css/uikit.almost-flat.min.css"
+                        media="all"/>
+
+                  &lt;!&ndash; flag icons &ndash;&gt;
+                  <link rel="stylesheet" href="/odoocms_web/static/assets/icons/flags/flags.min.css" media="all"/>
+
+                  &lt;!&ndash; style switcher &ndash;&gt;
+                  &lt;!&ndash;                <link rel="stylesheet" href="/odoocms_web/static/assets/css/style_switcher.min.css" media="all"/>&ndash;&gt;
+
+                  &lt;!&ndash; altair admin &ndash;&gt;
+                  <link rel="stylesheet" href="/odoocms_web/static/assets/css/main.min.css" media="all"/>
+                  <link rel="stylesheet" href="/odoocms_web/static/assets/css/custom.css" media="all"/>
+
+              </head>
+              <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                  <t t-call="faculty_portal.faculty_portal_main_layout"/>
+              <div id="page_content">
+                      <div id="page_content_inner">
+                          <h3 class="heading_b uk-margin-bottom">Create Makeup Class</h3>
+                          <div class="md-card">
+                              <div class="md-card-content">
+                                  <div class="uk-grid">
+                                      <div class="uk-width-large-1-3">
+                                          &lt;!&ndash;                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>&ndash;&gt;
+                                          <div class="md-card-list-wrapper">
+                                              <div class="md-card-list">
+                                                  <ul class="hierarchical_slide" id="hierarchical-slide">
+                                                      <li class=" md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">
+                                                          <b>Term :</b>
+  &lt;!&ndash;                                                        <span t-esc="attendance_sheet.class_id.name"></span>&ndash;&gt;
+                                                          <span>Fall 2020</span>
+
+
+                                                          &lt;!&ndash;                                                        <input type="hidden" id="student_class" t-att-value="attendance_sheet.id"/>&ndash;&gt;
+                                                      </li>
+
+
+                                                  </ul>
+                                              </div>
+                                          </div>
+
+
+                                      </div>
+
+  &lt;!&ndash;                                    <div class="uk-width-large-1-3">&ndash;&gt;
+  &lt;!&ndash;                                        &lt;!&ndash;                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;                                        <div class="md-card-list-wrapper">&ndash;&gt;
+  &lt;!&ndash;                                            <div class="md-card-list">&ndash;&gt;
+  &lt;!&ndash;                                                <ul class="hierarchical_slide" id="hierarchical-slide">&ndash;&gt;
+  &lt;!&ndash;                                                     <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">&ndash;&gt;
+  &lt;!&ndash;                                                        <b>Month :</b>&ndash;&gt;
+  &lt;!&ndash;                                                         <span>January</span>&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <span t-esc="attendance_sheet.class_id.code"/>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;                                                    </li>&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <b>Academic Term :</b>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <span t-esc="attendance_sheet.class_id.term_id.name"/>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                    </li>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;                                                </ul>&ndash;&gt;
+  &lt;!&ndash;                                            </div>&ndash;&gt;
+  &lt;!&ndash;                                        </div>&ndash;&gt;
+
+
+  &lt;!&ndash;                                    </div>&ndash;&gt;
+  &lt;!&ndash;                                    <div class="uk-width-large-1-3">&ndash;&gt;
+  &lt;!&ndash;                                        &lt;!&ndash;                            <h3 class="heading_a uk-margin-bottom">Hierarchical Slide</h3>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;                                        <div class="md-card-list-wrapper">&ndash;&gt;
+  &lt;!&ndash;                                            <div class="md-card-list">&ndash;&gt;
+  &lt;!&ndash;                                                <ul class="hierarchical_slide" id="hierarchical-slide">&ndash;&gt;
+  &lt;!&ndash;                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">&ndash;&gt;
+  &lt;!&ndash;                                                        <b>Week :</b>&ndash;&gt;
+  &lt;!&ndash;                                                         <span>1</span>&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <span t-esc="attendance_sheet.class_id.code"/>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;                                                    </li>&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                    <li class="md-color-blue-grey-900" style="background:none;box-shadow:none;font-size: 15px;">&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <b>Class Date :</b>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                        <span t-esc="attendance_sheet.date_class"/>&ndash;&gt;&ndash;&gt;
+  &lt;!&ndash;&lt;!&ndash;                                                    </li>&ndash;&gt;&ndash;&gt;
+
+  &lt;!&ndash;                                                </ul>&ndash;&gt;
+  &lt;!&ndash;                                            </div>&ndash;&gt;
+  &lt;!&ndash;                                        </div>&ndash;&gt;
+
+
+  &lt;!&ndash;                                    </div>&ndash;&gt;
+                                  </div>
+                                  <div class="uk-grid">
+                                       <div class="uk-width-large-3-6 uk-width-1-1 uk-margin-small-top">
+
+                                                <select id="select_demo_2" class="md-input" data-uk-tooltip="{pos:'top'}" title="Select with tooltip">
+                                  <option value="" disabled="" selected="" hidden="">Select Class...</option>
+                                  <option value="a">Programming Fundamental</option>
+                                  <option value="b">Databases</option>
+
+                              </select>
+                                          </div>
+                                  <div class="uk-width-large-3-6 uk-width-1-1 uk-margin-small-top">
+                                      <div class="uk-input-group">
+                                          <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                          <label for="uk_dp_1">Select date</label>
+                                          <input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'DD.MM.YYYY'}"/>
+                                      </div>
+                                  </div>
+
+                                      <div class="uk-width-large-3-6 uk-width-1-1 uk-margin-small-top">
+
+                                        <div class="uk-input-group">
+                                          <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-clock-o"></i></span>
+                                          <label for="uk_tp_1">From time</label>
+                                          <input class="md-input" type="text" id="uk_tp_1" data-uk-timepicker=""/>
+                                      </div>
+                                      </div>
+                                      <div class="uk-width-large-3-6 uk-width-1-1 uk-margin-small-top">
+                                        <div class="uk-input-group">
+                                          <span class="uk-input-group-addon"><i class="uk-input-group-icon uk-icon-clock-o"></i></span>
+                                          <label for="uk_tp_1">To time</label>
+                                          <input class="md-input" type="text" id="uk_tp_1" data-uk-timepicker=""/>
+                                      </div>
+                                      </div>
+                                  </div>
+                                   <div class="uk-width-medium-1-5 uk-margin-medium-top">
+                                              <button type="button" class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Create Class</button>
+                                          </div>
+
+                          <div class="cd-schedule cd-schedule&#45;&#45;loading margin-top-lg margin-bottom-lg js-cd-schedule">
+                              <div class="cd-schedule__timeline">
+                                  <ul>
+                                      <li>
+                                          <span>09:00</span>
+                                      </li>
+                                      <li>
+                                          <span>09:30</span>
+                                      </li>
+                                      <li>
+                                          <span>10:00</span>
+                                      </li>
+                                      <li>
+                                          <span>10:30</span>
+                                      </li>
+                                      <li>
+                                          <span>11:00</span>
+                                      </li>
+                                      <li>
+                                          <span>11:30</span>
+                                      </li>
+                                      <li>
+                                          <span>12:00</span>
+                                      </li>
+                                      <li>
+                                          <span>12:30</span>
+                                      </li>
+                                      <li>
+                                          <span>13:00</span>
+                                      </li>
+                                      <li>
+                                          <span>13:30</span>
+                                      </li>
+                                      <li>
+                                          <span>14:00</span>
+                                      </li>
+                                      <li>
+                                          <span>14:30</span>
+                                      </li>
+                                      <li>
+                                          <span>15:00</span>
+                                      </li>
+                                      <li>
+                                          <span>15:30</span>
+                                      </li>
+                                      <li>
+                                          <span>16:00</span>
+                                      </li>
+                                      <li>
+                                          <span>16:30</span>
+                                      </li>
+                                      <li>
+                                          <span>17:00</span>
+                                      </li>
+                                      <li>
+                                          <span>17:30</span>
+                                      </li>
+                                      <li>
+                                          <span>18:00</span>
+                                      </li>
+                                  </ul>
+                              </div> &lt;!&ndash; .cd-schedule__timeline &ndash;&gt;
+
+                              <div class="cd-schedule__events">
+                                  <ul>
+                                      <li class="cd-schedule__group">
+                                          <div class="cd-schedule__top-info">
+                                              <span>11 Mar 2020(Monday)</span>
+                                          </div>
+
+                                          <ul>
+                                              <li class="cd-schedule__event">
+                                                  <a id="abc" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">
+                                                      <em class="cd-schedule__name">Programming Fundamentals (CS-102)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a id="abc" data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                      <em class="cd-schedule__name">Database (104)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a  id="abc" data-start="14:00" data-end="15:15" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                      <em class="cd-schedule__name">Visual Programming (cs-234)</em>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </li>
+
+                                      <li class="cd-schedule__group">
+                                          <div class="cd-schedule__top-info">
+                                              <span>12 Mar 2020(Tuesday)</span>
+                                          </div>
+
+                                          <ul>
+                                              <li class="cd-schedule__event">
+                                                  <a id="abc" data-start="10:00" data-end="11:00" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                      <em class="cd-schedule__name">Database (104)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="11:30" data-end="13:00" data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                      <em class="cd-schedule__name">Restorative Yoga</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="13:30" data-end="15:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                      <em class="cd-schedule__name">Programming Fundamentals (CS-102)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="15:45" data-end="16:45" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                      <em class="cd-schedule__name">Visual Programming (cs-234)</em>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </li>
+
+                                      <li class="cd-schedule__group">
+                                          <div class="cd-schedule__top-info">
+                                              <span>13 Mar 2020(Wednesday)</span>
+                                          </div>
+
+                                          <ul>
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="09:00" data-end="10:15" data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                      <em class="cd-schedule__name">Restorative Yoga</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="10:45" data-end="11:45" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                      <em class="cd-schedule__name">Visual Programming (cs-234)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="12:00" data-end="13:45" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                      <em class="cd-schedule__name">Database (104)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="13:45" data-end="15:00" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                      <em class="cd-schedule__name">Visual Programming (cs-234)</em>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </li>
+
+                                      <li class="cd-schedule__group">
+                                          <div class="cd-schedule__top-info">
+                                              <span>14 Mar 2020(Thursday)</span>
+                                          </div>
+
+                                          <ul>
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                      <em class="cd-schedule__name">Programming Fundamentals (CS-102)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="12:00" data-end="13:45" data-content="event-restorative-yoga" data-event="event-4" href="#0">
+                                                      <em class="cd-schedule__name">Restorative Yoga</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="15:30" data-end="16:30" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                      <em class="cd-schedule__name">Programming Fundamentals (CS-102)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="17:00" data-end="18:30" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                      <em class="cd-schedule__name">Database (104)</em>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </li>
+
+                                      <li class="cd-schedule__group">
+                                          <div class="cd-schedule__top-info">
+                                              <span>15 Mar 2020(Friday)</span>
+                                          </div>
+
+                                          <ul>
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="10:00" data-end="11:00" data-content="event-rowing-workout" data-event="event-2" href="#0">
+                                                      <em class="cd-schedule__name">Database (104)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="12:30" data-end="14:00" data-content="event-abs-circuit" data-event="event-1" href="#0">
+                                                      <em class="cd-schedule__name">Programming Fundamentals (CS-102)</em>
+                                                  </a>
+                                              </li>
+
+                                              <li class="cd-schedule__event">
+                                                  <a data-start="15:45" data-end="16:45" data-content="event-yoga-1" data-event="event-3" href="#0">
+                                                      <em class="cd-schedule__name">Visual Programming (cs-234)</em>
+                                                  </a>
+                                              </li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </div>
+
+                              <div class="cd-schedule-modal">
+                                  <header class="cd-schedule-modal__header">
+                                      <div class="cd-schedule-modal__content">
+                                          <span class="cd-schedule-modal__date"></span>
+                                          <h3 class="cd-schedule-modal__name"></h3>
+                                      </div>
+
+                                      <div class="cd-schedule-modal__header-bg"></div>
+                                  </header>
+
+                                  <div class="cd-schedule-modal__body">
+                                      <div class="cd-schedule-modal__event-info"></div>
+                                      <div class="cd-schedule-modal__body-bg"></div>
+                                  </div>
+
+                                  <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+                              </div>
+
+                              <div class="cd-schedule__cover-layer"></div>
+                          </div> &lt;!&ndash; .cd-schedule &ndash;&gt;
+                      </div>
+                          </div>
+                  </div>
+                  </div>
+                      <script>
+                      WebFontConfig = {
+                      google: {
+                      families: [
+                      'Source+Code+Pro:400,700:latin',
+                      'Roboto:400,300,500,700,400italic:latin'
+                      ]
+                      }
+                      };
+                      (function() {
+                      var wf = document.createElement('script');
+                      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                      wf.type = 'text/javascript';
+                      wf.async = 'true';
+                      var s = document.getElementsByTagName('script')[0];
+                      s.parentNode.insertBefore(wf, s);
+                      })();
+                  </script>
+                    <script src="/odoocms_web/static/assets/js/timetableutil.js"></script> &lt;!&ndash; util functions included in the CodyHouse framework &ndash;&gt;
+                   <script src="/odoocms_web/static/assets/js/timetablemain.js"></script>
+                   <script src="/odoocms_web/static/assets/js/common.min.js"></script>
+              &lt;!&ndash; uikit functions &ndash;&gt;
+                  <script src="/odoocms_web/static/assets/js/uikit_custom.min.js"></script>
+              &lt;!&ndash; altair common functions/helpers &ndash;&gt;
+                  <script src="/odoocms_web/static/assets/js/altair_admin_common.min.js"></script>
+
+   <script>
+                      $(function() {
+                      if(isHighDensity()) {
+                      $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                      // enable hires images
+                      altair_helpers.retina_images();
+                      });
+                      }
+                      });
+                      $window.on('load', function() {
+                      // ie fixes
+                      altair_helpers.ie_fix();
+                      });
+                  </script>
+  &lt;!&ndash;                <script>&ndash;&gt;
+  &lt;!&ndash;                    $(document).ready(function(){&ndash;&gt;
+  &lt;!&ndash;    $('#abc').click(function () {&ndash;&gt;
+  &lt;!&ndash;        return false;&ndash;&gt;
+  &lt;!&ndash;    });&ndash;&gt;
+  &lt;!&ndash;});&ndash;&gt;
+  &lt;!&ndash;                </script>&ndash;&gt;
+              </body>
+
+          </t>
+      </template>-->
+
+</odoo>

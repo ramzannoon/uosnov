@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="module_category_library" model="ir.module.category">
+            <field name="name">Library</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <record id="group_library_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="library_management_system.module_category_library"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_library_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="library_management_system.module_category_library"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

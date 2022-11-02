@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_scheme_line_tag_tree" model="ir.ui.view">
+        <field name="name">odoocms.scheme.line.tag.tree</field>
+        <field name="model">odoocms.scheme.line.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tags">
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_scheme_line_tag_form" model="ir.ui.view">
+        <field name="name">odoocms.scheme.line.tag.form</field>
+        <field name="model">odoocms.scheme.line.tag</field>
+        <field name="arch" type="xml">
+            <form string="Course Tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!--Study Scheme -->
+    <record id="view_odoocms_study_scheme_tree" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.tree</field>
+        <field name="model">odoocms.study.scheme</field>
+        <field name="arch" type="xml">
+            <tree string="Syllabus Study Scheme">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="career_id"/>
+                <field name="scheme_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_form" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.form</field>
+        <field name="model">odoocms.study.scheme</field>
+        <field name="arch" type="xml">
+            <form string="CMS Study Scheme">
+                <sheet>
+                    <group string="Study Scheme">
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="code" required="1"/>
+                            <field name="scheme_type" required="1"/>
+                        </group>
+                        <group>
+                            <field name="credits"/>
+                            <field name="session_id"
+                                   attrs="{'invisible': [('scheme_type', 'in', ('special','minor'))]}"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="career_id" required="1"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group>
+                            <field name="scheme_date" required="1"/>
+                        </group>
+                        <group>
+                            <field name="import_identifier" readonly="1"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+
+                    <notebook colspan="4">
+                        <page string="Scheme Lines">
+                            <field name="line_ids" context="{'default_study_scheme_id':id}">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="semester_id"/>
+                                    <field name="course_id"/>
+                                    <field name="course_type"/>
+                                    <field name="self_enrollment"/>
+                                    <field name="credits"/>
+                                    <field name="term_id" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- domain="[('faculty_id','=',parent.faculty_id),('career_id','=',parent.career_id)]" -->
+                        <page string="Programs" name="programs">
+                            <field name="program_ids"
+                                   options="{'no_create': True}"
+                                   domain="[('career_id','=', career_id)]">
+                                <tree>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="department_id"/>
+                                    <!--                                    <field name="faculty_id"/>-->
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="batches" string="Batches"
+                              attrs="{'invisible':[('scheme_type','in',('special','minor'))]}">
+                            <group colspan="4">
+                                <field name="batch_ids" nolabel="1">
+                                    <tree string="Batches" create="false" delete="false" edit="false">
+                                        <field name="code"/>
+                                        <field name="name"/>
+                                        <field name="career_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_search" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.search</field>
+        <field name="model">odoocms.study.scheme</field>
+        <field eval="14" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="Study Scheme">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+                <filter name='minor' string="Minor" domain="[('scheme_type','=','minor')]"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter context="{'group_by':'career_id'}" domain="[]" name="career_id" string="Career"/>
+                    <filter context="{'group_by':'scheme_type'}" domain="[]" name="scheme_type" string="Scheme Type"/>
+                </group>
+                <searchpanel>
+                    <field name="career_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_study_scheme" model="ir.actions.act_window">
+        <field name="name">Study Scheme</field>
+        <field name="res_model">odoocms.study.scheme</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_study_scheme_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Study Scheme here.
+            </p>
+        </field>
+    </record>
+
+    <!-- Study Scheme Detail -->
+    <record id="view_odoocms_study_scheme_line_tree" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.tree</field>
+        <field name="model">odoocms.study.scheme.line</field>
+        <field name="arch" type="xml">
+            <tree string="CMS Study Scheme Line" edit="false" create="false" delete="false">
+                <field name="study_scheme_id"/>
+                <field name="course_id"/>
+                <field name="course_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_form" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.form</field>
+        <field name="model">odoocms.study.scheme.line</field>
+        <field name="arch" type="xml">
+            <form string="CMS Study Scheme Line">
+                <sheet>
+                    <group>
+                        <group name="one">
+                            <field name="course_type" widget="radio"/>
+                            <field name="major_course"/>
+                            <field name="self_enrollment"/>
+                            <field name="scheme_type" invisible="1"/>
+                            <field name="semester_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                   attrs="{'invisible': ['|',('course_type', '=', 'elective'),('scheme_type','=','minor')],
+                                    'required': [('course_type', '!=', 'elective'),('scheme_type','!=', 'minor')] }"/>
+
+                            <field name="course_id" required="1"
+                                   domain="[('career_id','=', career_id)]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                            />
+
+                            <!--                            attrs="{'invisible': [('course_type', '=', 'placeholder')],-->
+                            <!--                                    'required': [('course_type', '!=', 'placeholder')] }"-->
+
+                            <field name="term_id"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group name="two">
+                            <field name="study_scheme_id" readonly="1"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="credits" readonly="1"/>
+                            <field name="career_id" invisible="1"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                   options="{'no_create': True, 'color_field': 'color', 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+
+                        <group name='three'> <!-- attrs="{'invisible': [('course_type', '=', 'placeholder')]}" -->
+                            <field name="course_code"/>
+                            <field name="course_name"/>
+                            <field name="import_identifier" readonly="1"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="Course Components" string="Course Components">
+                            <field name="component_lines"/>
+                        </page>
+                        <page name="requisite" string="Requisites">
+                            <group string="Pre Requisit">
+                                <field name="prereq_operator"/>
+                            </group>
+                            <group>
+                                <field name="prereq_ids" widget="many2many_tags" nolabel="1"
+                                       domain="[('prereq_course','=',True)]"/>
+                            </group>
+                            <group string="Co Requisit">
+                                <field name="coreq_course" nolabel="1"/>
+                            </group>
+
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_search" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.search</field>
+        <field name="model">odoocms.study.scheme.line</field>
+        <field eval="14" name="priority"/>
+        <field name="arch" type="xml">
+            <search string="Study Scheme Details">
+                <field name="course_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter context="{'group_by':'course_id'}" domain="[]" name="course_id" string="Course"/>
+                    <!--                    <filter context="{'group_by':'faculty_id'}" domain="[]" name="faculty_id" string="Faculty"/>-->
+                    <filter context="{'group_by':'study_scheme_id'}" domain="[]" name="scheme_id"
+                            string="Study Scheme"/>
+                </group>
+                <searchpanel>
+                    <!--                    <field name="faculty_id" icon="fa-users"/>-->
+                    <field name="course_id" icon="fa-users"/>
+                    <field name="study_scheme_id" icon="fa-users"/>
+
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_component_tree" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.component.tree</field>
+        <field name="model">odoocms.study.scheme.line.component</field>
+        <field name="arch" type="xml">
+            <tree string="Scheme Line Component">
+                <field name="component_id"/>
+                <field name="weightage"/>
+                <field name="contact_hours"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_study_scheme_line_component_form" model="ir.ui.view">
+        <field name="name">odoocms.study.scheme.line.component.form</field>
+        <field name="model">odoocms.study.scheme.line.component</field>
+        <field name="arch" type="xml">
+            <form string="Scheme Line Component">
+                <sheet>
+                    <group name="one">
+                        <group name="component">
+                            <field name="component_id"/>
+                        </group>
+                        <group name="weightage">
+                            <field name="weightage"/>
+                            <field name="contact_hours"/>
+                        </group>
+                    </group>
+                    <notebook></notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_scheme_line_tag" model="ir.actions.act_window">
+        <field name="name">Scheme Line Tags</field>
+        <field name="res_model">odoocms.scheme.line.tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Scheme Line Tag here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_odoocms_study_scheme_line" model="ir.actions.act_window">
+        <field name="name">Study Scheme Line</field>
+        <field name="res_model">odoocms.study.scheme.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create Study Scheme before this View.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_study_scheme_main"
+            name="Study Scheme"
+            parent="menu_odoocms_academic_setup"
+            sequence="40"/>
+    <!-- groups="odoocms.group_cms_manager" -->
+
+    <menuitem
+            id="menu_odoocms_study_scheme"
+            parent="menu_odoocms_study_scheme_main"
+            name="Study Scheme"
+            action="action_odoocms_study_scheme"
+            sequence="10"/>
+
+    <menuitem
+            id="menu_odoocms_scheme_line_tag"
+            parent="menu_odoocms_study_scheme_main"
+            name="Scheme Line Tag"
+            action="action_odoocms_scheme_line_tag"
+            sequence="20"/>
+
+    <!--    <menuitem-->
+    <!--            id="menu_odoocms_study_scheme_line"-->
+    <!--            parent="menu_odoocms_config_general"-->
+    <!--            name="Study Scheme Line"-->
+    <!--            action="action_odoocms_study_scheme_line"-->
+    <!--            sequence="25"/>-->
+
+
+</odoo>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_survey" name="Result">
+        <t t-call="web.layout">
+           <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+
+
+            <body class="sidebar_main_swipe header_full">
+
+                <t t-call="odoocms_faculty_portal.faculty_portal_main_layout"/>
+
+
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                              <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/survey">Survey</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Feedback</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <div class="uk-width-large-1-12">
+                                    <div class="" data-uk-grid-margin="">
+                                        <div class="md-card-content">
+                                            <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                                <li class="uk-active">
+                                                    <a href="#" style="color:#008744;">Survey</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#" style="color:#d62d20;">Course Survey</a>
+                                                </li>
+
+                                            </ul>
+                                            <ul id="tabs_anim1" class="uk-switcher" style="padding: 0px 0px 0px 22px;">
+                                                <li>
+                                                    <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="280">
+                                                       <t t-if="not len(faculty_surveys) > 0">
+                                                           <div style="padding-left:15px;">No record to show.</div>
+                                                                   </t>
+                                                        <t t-if="len(faculty_surveys) > 0">
+                                                        <t t-foreach="faculty_surveys" t-as="survey">
+                                                            <div style="padding-left:15px;">
+                                                                <ul t-attf-class="{{color[survey_index]}} md-color-grey-50 md-list md-list-addon md-list-right classCards">
+                                                                    <li>
+<!--                                                                        <a t-attf-href="/survey/start/{{survey['survey'].access_token}}?answer_token={{survey['token']}}" class="md-list-addon-element">-->
+<!--                                                                           <a t-attf-href="/survey/retry/{{survey['survey'].access_token}}/{{survey['token']}}" class="md-list-addon-element">-->
+                                                                           <a t-attf-href="/survey/fill/{{survey['survey'].access_token}}/{{survey['token']}}" class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open Class">&#xE163;</i>
+                                                                        </a>
+                                                                        <div class="md-list-content">
+                                                                            <t t-if="len(str(survey['survey'].title)) >= 34">
+                                                                        <span class="md-list-heading" t-esc="str(survey['survey'].title)[:34]+'..'"></span>
+                                                                        </t>
+                                                                        <t t-if="not len(str(survey['survey'].title)) > 34">
+                                                                                <span class="md-list-heading" t-esc="survey['survey'].title"></span>
+                                                                        </t>
+                                                                            <span class="uk-text-small ">Course</span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading" t-esc="survey['survey'].end_date"></span>
+                                                                            <span class="uk-text-small">Deadline</span>
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading"  t-if="survey['status'] == 'done'">
+                                                                                Completed
+                                                                            </span>
+                                                                            <span class="md-list-heading"  t-if="survey['status'] == 'skip'">
+                                                                                Not Submitted
+                                                                            </span>
+                                                                             <span class="md-list-heading"  t-if="survey['status'] == 'new'">
+                                                                                Not Submitted
+                                                                            </span>
+                                                                            <span class="uk-text-small">status</span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <!--                                                                    <li>-->
+                                                                    <!--                                                                        <div class="md-list-content">-->
+                                                                    <!--                                                                            <span class="md-list-heading">90%</span>-->
+                                                                    <!--                                                                            <span class="uk-text-small">Attendance</span>-->
+                                                                    <!--                                                                        </div>-->
+                                                                    <!--                                                                    </li>-->
+                                                                </ul>
+                                                            </div>
+                                                        </t>
+                                                        </t>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                     <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="280">
+                                                         <t t-if="not len(course_surveys) > 0">
+                                                           <div style="padding-left:15px;">No record to show.</div>
+                                                                   </t>
+                                                          <t t-if="len(course_surveys) > 0">
+                                                         <t t-foreach="course_surveys" t-as="survey">
+
+                                                            <div style="padding-left:15px;">
+                                                                <ul t-attf-class="{{color[survey_index]}} md-color-grey-50 md-list md-list-addon md-list-right classCards">
+                                                                    <li>
+<!--                                                                        <a t-attf-href="/survey/retry/{{survey['survey'].access_token}}/{{survey['token']}}" class="md-list-addon-element">-->
+<!--                                                                         <a t-attf-href="/survey/start/{{survey['survey'].access_token}}?answer_token={{survey['token']}}" class="md-list-addon-element">-->
+                                                                            <a t-attf-href="/survey/fill/{{survey['survey'].access_token}}/{{survey['token']}}" class="md-list-addon-element">
+                                                                            <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open Class">&#xE163;</i>
+                                                                        </a>
+                                                                        <div class="md-list-content">
+                                                                             <t t-if="len(str(survey['survey'].title)) >= 34">
+                                                                        <span class="md-list-heading" t-esc="str(survey['survey'].title)[:34]+'..'"></span>
+                                                                        </t>
+                                                                        <t t-if="not len(str(survey['survey'].title)) > 34">
+                                                                                <span class="md-list-heading" t-esc="survey['survey'].title"></span>
+                                                                        </t>
+
+                                                                            <span class="uk-text-small ">Course</span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li>
+
+                                                                        <div class="md-list-content">
+                                                                            <span class="md-list-heading" t-esc="survey['survey'].end_date"></span>
+                                                                            <span class="uk-text-small">Deadline</span>
+
+                                                                        </div>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <div class="md-list-content">
+
+                                                                            <span class="md-list-heading"  t-if="survey['status'] == 'done'">
+                                                                                Completed
+                                                                            </span>
+                                                                            <span class="md-list-heading"  t-if="survey['status'] == 'skip'">
+                                                                                Not Submitted
+                                                                            </span>
+
+
+                                                                            <span class="uk-text-small">status</span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <!--                                                                    <li>-->
+                                                                    <!--                                                                        <div class="md-list-content">-->
+                                                                    <!--                                                                            <span class="md-list-heading">90%</span>-->
+                                                                    <!--                                                                            <span class="uk-text-small">Attendance</span>-->
+                                                                    <!--                                                                        </div>-->
+                                                                    <!--                                                                    </li>-->
+                                                                </ul>
+                                                            </div>
+                                                        </t>
+                                                          </t>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+
+
+                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
+                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"></script>
+                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"></script>
+                <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"></script>
+                <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>
+                <!--            <script src="/odoocms_web/static/assets/js/pages/components_animations.min.js"></script>-->
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+
+
+            </body>
+        </t>
+    </template>
+</odoo>

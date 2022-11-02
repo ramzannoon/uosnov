@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="odoocms_admission_portal.report_admission_invoice">
+        <t t-call="web.html_container">
+            <t t-set="today" t-value="today"/>
+            <t t-foreach="application_ids" t-as="o">
+                <t t-call="odoocms_admission_portal.report_admission_invoice_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="odoocms_admission_portal.report_admission_invoice_document">
+        <t t-call="web.basic_layout">
+
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <style>
+                #invoice-report {
+                font-family: 'Times New Roman', Times, serif;
+                border-collapse: collapse;
+                width: 100%;
+                margin-top:10px;
+                }
+
+                #invoice-report td, #invoice-report th {
+                border: 1px solid black;
+                padding: 1px;
+                }
+
+                #invoice-report th {
+                text-align: left;
+                width:70%;
+                font-weight:bold;
+                }
+
+                #invoice-report td {
+                text-align: center;
+                width:30%;
+                font-weight:normal;
+                }
+
+            </style>
+
+            <div class="page" style="font-size: 12px; padding:5px;font-family: 'Times New Roman', Times, serif;">
+                <t t-call="odoocms_admission_portal.student_admission_invoice_template"/>
+            </div>
+
+        </t>
+    </template>
+
+    <template id="odoocms_admission_portal.student_admission_invoice_template">
+        <div class="row">
+            <div style="width:33%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.student_admission_invoice_copy">
+                    <t t-set="copy_name">Bank Copy</t>
+                </t>
+            </div>
+            <div style="width:33%; border:1px solid; margin-right:5px; padding:0.4%">
+                <t t-call="odoocms_admission_portal.student_admission_invoice_copy">
+                    <t t-set="copy_name">University Copy</t>
+                </t>
+            </div>
+            <div style="width:33.33%; border:1px solid;padding:0.4%">
+                <t t-call="odoocms_admission_portal.student_admission_invoice_copy">
+                    <t t-set="copy_name">Student Copy</t>
+                </t>
+            </div>
+        </div>
+        <!--            </div>-->
+    </template>
+
+    <template id="odoocms_admission_portal.student_admission_invoice_copy">
+        <div style="display: table; font-weight:bold">
+            <div style="display: table-cell; vertical-align:middle">
+                <img alt="..." style="max-width:100px" t-att-src="image_data_uri(company.logo)" t-if="company.logo"/>
+                <img alt="..." style="max-width:100px" src="/web/static/src/img/user_menu_avatar.png" t-if=" not company.logo"/>
+            </div>
+<!--            <div style="display: table-cell;font-size:11px">-->
+<!--                <div style="font-size:23px">-->
+<!--                    <t t-esc="company.short_name"/> FEE Voucher-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    Payable at-->
+<!--                    <span t-esc="company.account_payable" t-if="company.account_payable"/> &amp;-->
+<!--                    <t t-esc="company.account_payable2" t-if="company.account_payable2"/>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    Account Title:-->
+<!--                    <span t-esc="company.account_title" t-if="company.account_title"/> &amp;-->
+<!--                    <t t-esc="company.account_title2" t-if="company.account_title2"/>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    Acc No:-->
+<!--                    <span t-esc="company.account_no" t-if="company.account_no"/> &amp;-->
+<!--                    <t t-esc="company.account_no2" t-if="company.account_no2"/>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+
+        <div class="row" style="margin-top:5px">
+            <div class="col col-3" style="padding-right:0px">
+                <span>Voucher No</span>
+            </div>
+            <div class="col col-9" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.application_no" t-if="o.application_no"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                <span>Issue Date</span>
+            </div>
+            <div class="col col-3" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;" t-if="o.register_id.merit_register_id">
+                    <span t-esc="o.register_id.merit_register_id.date_list"/>
+                </div>
+            </div>
+            <div class="col col-2" style="font-weight:bold; padding:0px">
+                <span>Due Date</span>
+            </div>
+            <div class="col col-4" style="padding-left:0px">
+                <div style="border-bottom:1px solid black;" t-if="o.register_id.merit_register_id">
+                    <span t-esc="o.register_id.merit_register_id.date_end"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                <span>Student Name</span>
+            </div>
+            <div class="col col-9" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.name"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                <span>Father Name</span>
+            </div>
+            <div class="col col-9" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.father_name"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                <span>CNIC</span>
+            </div>
+            <div class="col col-9" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.cnic"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                <span>Student ID</span>
+            </div>
+            <div class="col col-3" style="padding-left:2px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.application_no"/>
+                </div>
+            </div>
+            <div class="col col-2" style="font-weight:bold;padding:0px">
+                <span>Program</span>
+            </div>
+            <div class="col col-4" style="padding-left:0px">
+                <div style="border-bottom:1px solid black;">
+                    <span t-esc="o.register_id.career_id.name"/>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:12px;">
+            <div class="col col-12">
+                <table id="invoice-report">
+                    <tr style="font-weight:bold;">
+                        <th colspan="2" style="text-align:center">One Time</th>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <th>Description</th>
+                        <th style="text-align:center">Amount</th>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Admission Fee</th>
+                        <td>12000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Security(Refundable)</th>
+                        <td>5000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Development</th>
+                        <td>10000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Total</th>
+                        <td>27000/-</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="margin-top:12px;">
+            <div class="col col-12">
+                <table id="invoice-report">
+                    <tr style="font-weight:bold;">
+                        <th colspan="2" style="text-align:center">SEMESTER FEE</th>
+                    </tr>
+                    <tr style="font-weight:bold">
+                        <th>Description</th>
+                        <th style="text-align:center">Amount</th>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Tuition Fee</th>
+                        <td>50000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Labs</th>
+                        <td>6000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">R &amp; D</th>
+                        <td>6000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Library</th>
+                        <td>5000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Misc</th>
+                        <td>3000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Total</th>
+                        <td>70000/-</td>
+                    </tr>
+                    <tr>
+                        <th style="font-weight:bold">Amount to be paid</th>
+                        <td>97000/-</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <p style="margin:1px;font-weight:bold">
+            Amount in words:
+            <span t-esc="o.amount_to_text(97000)[:len(o.amount_to_text(97000))-1]"/>
+            Rupees only.
+        </p>
+        <div class="row">
+            <div class="col col-12">
+                <span style="margin-top: 10px">Payment Terms.</span>
+                <ul style="list-style-type: circle;">
+                    <li>All students are required to deposit their dues by <span t-esc="o.register_id.merit_register_id.date_end" t-if="o.register_id.merit_register_id"/>.</li>
+                    <li>After the due date, Admission Offer will be considered withdrawn.</li>
+                    <li>In case of any fee related issue/query please contact admission office 051-5476806</li>
+                </ul>
+                <p style="font-weight:bold; margin-bottom-5px">
+                    Note: This is a computer Generated document and need no signature.
+                </p>
+            </div>
+        </div>
+        <div class="row" style="padding:2px;">
+            <div class="col col-12" style="font-weight:bold;font-size:18px;text-align:center">
+                <span t-esc="copy_name"/>
+            </div>
+        </div>
+<!--        <div class="row">-->
+<!--            <div class="col col-12">-->
+<!--                <span>Payable: </span>&#160;<t t-esc="company.account_payable" t-if="company.account_payable"/> &amp;-->
+<!--                <t t-esc="company.account_payable2" t-if="company.account_payable2"/>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                Deposited by:
+            </div>
+            <div class="col col-9">
+                <div style="border-bottom:1px solid black;">
+                    &#160;
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-3" style="padding-right:0px">
+                Teller's signature:
+            </div>
+            <div class="col col-9">
+                <div style="border-bottom:1px solid black;">
+                    &#160;
+                </div>
+            </div>
+        </div>
+
+    </template>
+</odoo>

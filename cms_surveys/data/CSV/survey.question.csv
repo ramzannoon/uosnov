@@ -1,0 +1,68 @@
+id,title,survey_id,question_type,labels_ids_2/id,labels_ids/id,labels_ids/value
+survey_question_Faculty Survey_Matrix,Faculty Survey,Faculty Survey,Matrix,survey.labels_Faculty_survey__6,,
+,,,,survey.labels_Faculty_survey__7,,
+,,,,survey.labels_Faculty_survey__8,,
+,,,,survey.labels_Faculty_survey__9,,
+,,,,survey.labels_Faculty_survey__10,,
+,,,,survey.labels_Faculty_survey__11,,
+,,,,survey.labels_Faculty_survey__12,,
+,,,,survey.labels_Faculty_survey__13,,
+,,,,survey.labels_Faculty_survey__14,,
+,,,,survey.labels_Faculty_survey__15,,
+,,,,survey.labels_Faculty_survey__16,,
+,,,,survey.labels_Faculty_survey__17,,
+,,,,survey.labels_Faculty_survey__18,,
+,,,,survey.labels_Faculty_survey__19,,
+,,,,,survey.labels_Faculty_survey__1,Excellent
+,,,,,survey.labels_Faculty_survey__2,V Good
+,,,,,survey.labels_Faculty_survey__3,Good
+,,,,,survey.labels_Faculty_survey__4,Avg
+,,,,,survey.labels_Faculty_survey__5,Poor
+survey_question_15. What are the best programs / factors currently available in your department that enhance your motivation and job satisfaction?_Multiple Lines Text Box,15. What are the best programs / factors currently available in your department that enhance your motivation and job satisfaction?,Faculty Survey,Multiple Lines Text Box,,,
+survey_question_16. Suggest programs / factors that could improve your motivation and job satisfaction?_Multiple Lines Text Box,16. Suggest programs / factors that could improve your motivation and job satisfaction?,Faculty Survey,Multiple Lines Text Box,,,
+survey_question_Student Course Evaluation_Matrix,Student Course Evaluation,Student Course Evaluation,Matrix,survey.labels_Student Course Evaluation__6,,
+,,,,survey.labels_Student Course Evaluation__7,,
+,,,,survey.labels_Student Course Evaluation__8,,
+,,,,survey.labels_Student Course Evaluation__9,,
+,,,,survey.labels_Student Course Evaluation__10,,
+,,,,survey.labels_Student Course Evaluation__11,,
+,,,,survey.labels_Student Course Evaluation__12,,
+,,,,survey.labels_Student Course Evaluation__13,,
+,,,,survey.labels_Student Course Evaluation__14,,
+,,,,survey.labels_Student Course Evaluation__15,,
+,,,,survey.labels_Student Course Evaluation__16,,
+,,,,survey.labels_Student Course Evaluation__17,,
+,,,,survey.labels_Student Course Evaluation__18,,
+,,,,survey.labels_Student Course Evaluation__19,,
+,,,,survey.labels_Student Course Evaluation__20,,
+,,,,,survey.labels_Student Course Evaluation__1,Excellent
+,,,,,survey.labels_Student Course Evaluation__2,V Good
+,,,,,survey.labels_Student Course Evaluation__3,Good
+,,,,,survey.labels_Student Course Evaluation__4,Avg
+,,,,,survey.labels_Student Course Evaluation__5,Poor
+survey_question_Your comments (if any):_Multiple Lines Text Box,Your comments (if any):,Student Course Evaluation,Multiple Lines Text Box,,,
+survey_question_Teacher Evaluation_Matrix,Teacher Evaluation,Teacher Evaluation,Matrix,survey.labels_Teacher Evaluation__6,,
+,,,,survey.labels_Teacher Evaluation__7,,
+,,,,survey.labels_Teacher Evaluation__8,,
+,,,,survey.labels_Teacher Evaluation__9,,
+,,,,survey.labels_Teacher Evaluation__10,,
+,,,,survey.labels_Teacher Evaluation__11,,
+,,,,survey.labels_Teacher Evaluation__12,,
+,,,,survey.labels_Teacher Evaluation__13,,
+,,,,survey.labels_Teacher Evaluation__14,,
+,,,,survey.labels_Teacher Evaluation__15,,
+,,,,survey.labels_Teacher Evaluation__16,,
+,,,,survey.labels_Teacher Evaluation__17,,
+,,,,survey.labels_Teacher Evaluation__18,,
+,,,,survey.labels_Teacher Evaluation__19,,
+,,,,survey.labels_Teacher Evaluation__20,,
+,,,,survey.labels_Teacher Evaluation__21,,
+,,,,survey.labels_Teacher Evaluation__22,,
+,,,,survey.labels_Teacher Evaluation__23,,
+,,,,survey.labels_Teacher Evaluation__24,,
+,,,,survey.labels_Teacher Evaluation__25,,
+,,,,,survey.labels_Teacher Evaluation__1,Excellent
+,,,,,survey.labels_Teacher Evaluation__2,V Good
+,,,,,survey.labels_Teacher Evaluation__3,Good
+,,,,,survey.labels_Teacher Evaluation__4,Avg
+,,,,,survey.labels_Teacher Evaluation__5,Poor

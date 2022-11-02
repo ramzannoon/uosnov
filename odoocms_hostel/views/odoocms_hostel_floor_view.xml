@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- *****  Floors Management***** -->
+        <record id="view_odoocms_floors_tree" model="ir.ui.view">
+            <field name="name">odoocms.floors.tree</field>
+            <field name="model">odoocms.floors</field>
+            <field name="arch" type="xml">
+                <tree string="Floors" decoration-primary="state == 'draft'" decoration-success="state == 'lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="floor_no"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_floors_form" model="ir.ui.view">
+            <field name="name">odoocms.floors.form</field>
+            <field name="model">odoocms.floors</field>
+            <field name="arch" type="xml">
+                <form string="Floors">
+                    <header>
+                        <button name="lock_floor" type="object"  class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="unlock_floor" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group col="4">
+                            <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            <field name="floor_no" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                        </group>
+                        <notebook>
+                            <page name="hostel_floors" string="Hostel Floors">
+                                <field name="hostel_floor_ids" attrs="{'readonly':[('state', '=', 'lock')]}">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="hostel_id"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_floors">
+            <field name="name">Floors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.floors</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Floors.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_floors_menu"
+                name="Floors"
+                parent="menu_odoocms_hostel_floor_config"
+                action="action_odoocms_floors"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="10"/>
+
+
+        <!-- ***** Hostel Floors -->
+        <record id="view_odoocms_hostel_floor_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.floor.tree</field>
+            <field name="model">odoocms.hostel.floor</field>
+            <field name="arch" type="xml">
+                <tree string="Hostel Floors" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="floor_no"/>
+                    <field name="floor_id"/>
+                    <field name="hostel_id"/>
+                    <field name="responsible"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_floor_form" model="ir.ui.view">
+            <field name="name">odooscm.hostel.floor.form</field>
+            <field name="model">odoocms.hostel.floor</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Floors">
+                    <header>
+                        <button name="lock_floor" type="object" states="draft" class="oe_highlight" string="Lock" groups="odoocms.group_cms_manager"/>
+                        <button name="unlock_floor" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms.group_cms_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="hostel_id" attrs="{'readonly':[('state', '=', 'lock')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="floor_id" attrs="{'readonly':[('state', '=', 'lock')]}" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="responsible" attrs="{'readonly':[('state', '=', 'lock')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}" placeholder="Floor Name"/>
+                                <field name="floor_no" attrs="{'readonly':[('state', '=', 'lock')]}" placeholder="Floor No."/>
+                                <field name="code" attrs="{'readonly':[('state', '=', 'lock')]}" placeholder="Floor Code"/>
+                                <field name="company_id" attrs="{'readonly':[('state', '=', 'lock')]}" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_floor_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.floor.search</field>
+            <field name="model">odoocms.hostel.floor</field>
+            <field name="arch" type="xml">
+                <search string="Hostel Floors">
+                    <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <field name="code"/>
+                    <field name="floor_no"/>
+                    <newline/>
+                    <filter string="Active" name="filter_by_active" domain="[('active', '=', True)]"/>
+                    <filter string="In-Active" name="filter_by_inactive" domain="[('active', '=', False)]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_hostel" string="Hostel" domain="[]" context="{'group_by':'hostel_id'}"/>
+                        <filter name="group_by_floor" string="Floor" domain="[]" context="{'group_by':'floor_id'}"/>
+
+                    </group>
+                    <searchpanel>
+                        <field name="hostel_id" icon="fa-building"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_floor_pivot" model="ir.ui.view">
+            <field name="name">odoocms.hostel.floor.pivot</field>
+            <field name="model">odoocms.hostel.floor</field>
+            <field name="arch" type="xml">
+                <pivot string="Hostel Floors" display_quantity="true">
+                    <field name="id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_floor_graph" model="ir.ui.view">
+            <field name="name">odoocms.hostel.floor.graph</field>
+            <field name="model">odoocms.hostel.floor</field>
+            <field name="arch" type="xml">
+                <graph string="Hostel Floors">
+                    <field name="id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel_floor">
+            <field name="name">Hostel Floors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel.floor</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Floors.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_floor_menu"
+                name="Hostel Floors"
+                parent="menu_odoocms_hostel_general"
+                action="action_odoocms_hostel_floor"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="20"/>
+
+    </data>
+</odoo>

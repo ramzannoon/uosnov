@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="student_tax_certificate_report_wiz_view_form" model="ir.ui.view">
+        <field name="name">student.tax.certificate.report.wiz.form</field>
+        <field name="model">student.tax.certificate.report.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Student Tax Certificate Report">
+                <group>
+                    <group>
+                        <field name="student_id" required="1"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="term_id" required="1"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student_tax_certificate_report_wiz" model="ir.actions.act_window">
+        <field name="name">Student Tax Certificate Report</field>
+        <field name="res_model">student.tax.certificate.report.wiz</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="odoocms_fee.student_tax_certificate_report_wiz_view_form"/>
+        <field name="target">new</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="odoocms.model_odoocms_student"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+
+</odoo>

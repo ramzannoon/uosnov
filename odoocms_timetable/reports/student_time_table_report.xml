@@ -1,0 +1,74 @@
+<odoo>
+
+	<template id ="odoocms_timetable.student_time_table_report">
+			<t t-call="web.basic_layout">
+                <style>
+                    #time-table {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+
+                    #time-table td, #time-table th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #time-table tr{background-color: #f2f2f2;}
+
+                    #time-table tr:hover {background-color: #ddd;}
+
+                    #time-table th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #17134e;
+                      color: white;
+                    }
+                </style>
+
+                <div class="page" style="font-size: 16px; padding:10px ">
+
+                    <div class="row" style="padding-left:5px; margin-left:10px;">
+                        <span t-esc="header1" t-if="header1"/>
+                    </div>
+
+                    <div class="row" style="padding-left:5px; margin-left:10px; font-weight:bold">
+                        <span t-esc="header2" t-if="header2"/>
+                    </div>
+
+                    <table id="time-table">
+                         <tr >
+                                 <th>&#160;</th>
+                                 <t t-foreach="time_slots" t-as="time_slot">
+                                    <th><span t-esc="time_slot" t-if="time_slot"/></th>
+                                 </t>
+                             </tr>
+
+<!--                            <tr>-->
+<!--                                <th><span t-esc="days[0]" t-if="days[0]"/></th>-->
+<!--                                <t t-foreach="timetable['monday']" t-as="mon_time">-->
+<!--                                   <td t-att-colspan="mon_time['col_span']" style="font-size:10px; text-align:center">-->
+<!--                                       <span t-esc="mon_time['course']" t-if="mon_time['course']"/><br/>-->
+<!--                                       <span t-esc="mon_time['faculty']" t-if="mon_time['faculty']"/>-->
+<!--                                       <br/><span></span>-->
+<!--                                   </td>-->
+<!--                                </t>-->
+<!--                            </tr>-->
+
+                     </table>
+
+                    <div class="row" style="margin-top:20px">
+                        <div class="col col-6" style="text-align:left; margin-top:15px; margin-bottom:15px">
+                            <span style="width=50%"> <span style="font-size:15px; font-weight:bold">Date:</span><span>__________________________</span></span>
+                        </div>
+                        <div class="col col-6" style="text-align:right; margin-top:15px; margin-bottom:15px">
+                            <span style="width=30%"> <span style="font-size:15px; font-weight:bold">Verified By:</span><span>__________________________</span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+    </template>
+
+</odoo>

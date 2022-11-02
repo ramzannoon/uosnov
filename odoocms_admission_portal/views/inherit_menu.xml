@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <menuitem
+                id="odoocms_admission.menu_odoocms_admission_confirm_fee"
+                name="Admission Confirm Fee"
+                groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+                parent="odoocms_admission.menu_admission_configuration"
+                sequence="205"/>
+
+        <menuitem
+                id="odoocms_admission.menu_candidate_verification"
+                name="Candidate Verification"
+                groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+                parent="odoocms_admission.menu_admission_configuration"
+                sequence="210"/>
+
+        <menuitem
+                id="odoocms_admission.menu_education_reject_reason"
+                name="Reject Reason"
+                groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+                parent="odoocms_admission.menu_admission_configuration"
+                sequence="215"/>
+
+        <menuitem
+                id="odoocms_admission.menu_application_hafiz_quran_result"
+                name="Result Hafiz Quran"
+                groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+                parent="odoocms_admission.menu_admission_configuration"
+                sequence="220"/>
+
+    </data>
+</odoo>

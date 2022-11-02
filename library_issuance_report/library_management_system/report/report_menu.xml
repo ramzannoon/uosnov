@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <report id="action_report_media_barcode"
+                string="Reference Barcode"
+                model="op.media"
+                report_type="qweb-pdf"
+                file="library_management_system.report_media_barcode"
+                name="library_management_system.report_media_barcode"/>
+
+        <report id="action_report_student_library_card_barcode"
+                string="Library Card Barcode"
+                model="op.library.card"
+                report_type="qweb-pdf"
+                file="library_management_system.report_library_card_barcode"
+                name="library_management_system.report_library_card_barcode"/>
+
+        <report id="action_report_student_library_card"
+                string="Library ID Card"
+                model="odoocms.student"
+                report_type="qweb-pdf"
+                file="library_management_system.report_student_library_card"
+                name="library_management_system.report_student_library_card"/>
+
+        <report id="action_report_student_library_card"
+                string="Library ID Card"
+                model="op.library.card"
+                report_type="qweb-pdf"
+                file="library_management_system.report_library_card"
+                name="library_management_system.report_library_card"/>
+
+        <report id="action_issuance_report"
+                string="Issuance Report"
+                model="issuance.report"
+                report_type="qweb-pdf"
+                file="library_management_system.issuance_report_template"
+                name="library_management_system.issuance_report_template"/>
+
+        <report id="action_defaulter_report"
+                string="Defaulter Report"
+                model="defaulter.report"
+                report_type="qweb-pdf"
+                file="library_management_system.defaulter_report_template"
+                name="library_management_system.defaulter_report_template"/>
+
+        <report id="action_stock_report"
+                string="Stock Report"
+                model="stock.report"
+                report_type="qweb-pdf"
+                file="library_management_system.stock_report_template"
+                name="library_management_system.stock_report_template"/>
+
+    </data>
+</odoo>

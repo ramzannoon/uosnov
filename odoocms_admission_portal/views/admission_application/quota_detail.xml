@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_quota_detail" name="Admission Quota Detail">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset id="generic_quota">
+            <div class="block-info" id="forces_quota">
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="forces_quota"/>
+                        <label class="field select">
+                            <input class="checkbox" name="is_forces_quota" type="checkbox" id="is_forces_quota"
+                                   onclick="on_change_is_forces_quota()" t-att-checked="student.is_forces_quota"
+                                   t-att-disabled="readonly"/>
+                            Do you want to apply for admission against seats reserved for wards of Armed Forces
+                            Personnel (Serving / Retired / Shuhada)?
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <t t-if="student.is_forces_quota">
+                        <div id="forces_quota_div" class="section colm colm6">
+                            <label for="middle_name">Force<span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="forces_quota" id="forces_quota" required="True">
+                                    <option value="" t-att-disabled="readonly and student.forces_quota != ''">Select
+                                        Force
+                                    </option>
+                                    <option value="army" t-att-selected="student.forces_quota == 'army'"
+                                            t-att-disabled="readonly and student.forces_quota != 'army'">Army
+                                    </option>
+                                    <option value="air force" t-att-selected="student.forces_quota == 'air force'"
+                                            t-att-disabled="readonly and student.forces_quota != 'air force'">Air Force
+                                    </option>
+                                    <option value="navy" t-att-selected="student.forces_quota == 'navy'"
+                                            t-att-disabled="readonly and student.forces_quota != 'navy'">Navy
+                                    </option>
+                                </select>
+                            </label>
+                            <label for="middle_name" style="margin-top:15px; font-weight:bold">Kindly apply separately
+                                for the same to GHQ, NHQ or AHQ accordingly.
+                            </label>
+                        </div>
+                    </t>
+                    <t t-if="not student.is_forces_quota">
+                        <div id="forces_quota_div" style="display:none" class="section colm colm6">
+                            <label for="middle_name">Force<span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="forces_quota" id="forces_quota" required="True">
+                                    <option value="">Select Force</option>
+                                    <option value="army" t-att-disabled="readonly">Army</option>
+                                    <option value="air force" t-att-disabled="readonly">Air Force</option>
+                                    <option value="navy" t-att-disabled="readonly">Navy</option>
+                                </select>
+                            </label>
+                            <label for="middle_name" style="margin-top:15px; font-weight:bold">Kindly apply separately
+                                for the same to GHQ, NHQ or AHQ accordingly.
+                            </label>
+                        </div>
+                    </t>
+                </div>
+            </div>
+            <div class="block-info" id="qouta_generic">
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="rural_quota"/>
+                        <label class="field select">
+                            <input class="checkbox" name="is_rural_quota" type="checkbox" id="is_rural_quota"
+                                   onclick="on_change_is_is_rural_quota()" t-att-checked="student.is_rural_quota"
+                                   t-att-disabled="readonly"/>
+                            Do you want to apply for admission against seats reserved for backward / less developed
+                            areas of Pakistan?
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <t t-if="student.is_rural_quota">
+                        <div id="rural_quota_div" class="section colm colm6">
+                            <label for="middle_name">Backward/Less developed Areas<span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="rural_quota" id="rural_quota" required="True">
+                                    <option value="" t-att-disabled="readonly and student.rural_quota != ''">Select
+                                        Area
+                                    </option>
+                                    <option value="balochistan" t-att-selected="student.rural_quota == 'balochistan'"
+                                            t-att-disabled="readonly and student.rural_quota != 'balochistan'">
+                                        Balochistan Rural
+                                    </option>
+                                    <option value="sindh" t-att-selected="student.rural_quota == 'sindh'"
+                                            t-att-disabled="readonly and student.rural_quota != 'sindh'">Sindh Rural
+                                    </option>
+                                    <option value="GB" t-att-selected="student.rural_quota == 'GB'"
+                                            t-att-disabled="readonly and student.rural_quota != 'GB'">GB
+                                    </option>
+                                    <option value="aj&amp;k" t-att-selected="student.rural_quota == 'ajk'"
+                                            t-att-disabled="readonly and student.rural_quota != 'ajk'">AJ&amp;K
+                                    </option>
+                                    <option value="kptd" t-att-selected="student.rural_quota == 'fata'"
+                                            t-att-disabled="readonly and student.rural_quota != 'fata'"> KPTD
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </t>
+                    <t t-if="not student.is_rural_quota">
+                        <div id="rural_quota_div" style="display:none" class="section colm colm6">
+                            <label for="middle_name">Backward/Less developed Areas<span style="color: red">*</span></label>
+                            <label class="field select">
+                                <select name="rural_quota" id="rural_quota" required="True">
+                                    <option value="">Select Area</option>
+                                    <option value="balochistan" t-att-disabled="readonly">Balochistan Rural</option>
+                                    <option value="sindh" t-att-disabled="readonly">Sindh Rural</option>
+                                    <option value="GB" t-att-disabled="readonly">GB</option>
+                                    <option value="aj&amp;k" t-att-disabled="readonly">AJ&amp;K</option>
+                                    <option value="kptd" t-att-disabled="readonly">KPTD</option>
+                                </select>
+                            </label>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </fieldset>
+    </template>
+</odoo>

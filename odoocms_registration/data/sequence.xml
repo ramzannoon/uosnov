@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_odoocms_student_reg_tag" model="ir.sequence">
+            <field name="name">Student Registration Tag</field>
+            <field name="code">odoocms.student.course.tag</field>
+            <field name="prefix">TAG-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_course_drop" model="ir.sequence">
+            <field name="name">Student Course Drop</field>
+            <field name="code">odoocms.student.course.drop</field>
+            <field name="prefix">DROP-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="seq_odoocms_student_course_delete" model="ir.sequence">
+            <field name="name">Student Course Delete</field>
+            <field name="code">odoocms.student.course.delete</field>
+            <field name="prefix">DEL-</field>
+            <field name="padding">4</field>
+        </record>
+
+        <record id="sequence_odoocms_course_registration" model="ir.sequence">
+            <field name="name">Course Registration</field>
+            <field name="code">odoocms.course.registration</field>
+            <field name="prefix">REG-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="sequence_odoocms_course_registration_bulk" model="ir.sequence">
+            <field name="name">Course Bulk Registration</field>
+            <field name="code">odoocms.course.registration.bulk</field>
+            <field name="prefix">REGB-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="sequence_odoocms_course_registration_bulk2" model="ir.sequence">
+            <field name="name">Course Bulk Registration (New)</field>
+            <field name="code">odoocms.course.registration.bulk2</field>
+            <field name="prefix">REGB2-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="sequence_odoocms_course_registration_cross" model="ir.sequence">
+            <field name="name">Course Cross Registration</field>
+            <field name="code">odoocms.course.registration.cross</field>
+            <field name="prefix">CREG-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="sequence_odoocms_course_registration_cross_office" model="ir.sequence">
+            <field name="name">Course Cross Registration - Office</field>
+            <field name="code">odoocms.course.registration.cross.office</field>
+            <field name="prefix">CREGO-</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
+

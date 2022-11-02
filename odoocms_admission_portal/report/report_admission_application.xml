@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="odoocms_admission_portal.report_admission">
+        <t t-call="web.html_container">
+            <t t-foreach="application_ids" t-as="o">
+                <t t-call="odoocms_admission_portal.report_admission_final_document"/>
+            </t>
+        </t>
+    </template>
+    <!--  <template id="odoocms_admission_portal.report_admission_final_document">
+          <t t-call="web.basic_layout">
+              <t t-if="not company">
+                  <t t-if="company_id">
+                      <t t-set="company" t-value="company_id"/>
+                  </t>
+                  <t t-elif="o and 'company_id' in o">
+                      <t t-set="company" t-value="o.company_id.sudo()"/>
+                  </t>
+                  <t t-else="else">
+                      <t t-set="company" t-value="res_company"/>
+                  </t>
+              </t>
+              <style>
+                  #invoice-report {
+                  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                  border-collapse: collapse;
+                  width: 98%;
+                  margin: 1.5%;
+                  }
+                  #invoice-report td, #invoice-report th {
+                  border: 1px solid #ddd;
+                  padding: 2px;
+                  }
+                  #invoice-report th {
+                  text-align: left;
+                  width:60%;
+                  font-weight:normal;
+                  }
+                  #invoice-report td {
+                  text-align: right;
+                  width:40%;
+                  }
+              </style>
+
+              <div class="row"> &lt;!&ndash;   style="margin:0px;padding:10px;"  background-color: #f5f5f5; &ndash;&gt;
+                  <div class="col-md-6">
+  &lt;!&ndash;                    <img alt="Contact" t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo" style="width:100px; height:100px;"/>&ndash;&gt;
+                  </div>
+                  <div class="col-md-6">
+                      <center>
+                          <h4>Directorate of Admissions</h4>
+                          <b>
+                              <span t-esc="company.name"/>
+                          </b>
+                          <br/>
+                          <b>Online Registration for Admission</b>
+                          <br/>for admission into
+                          <span t-esc="o.register_id.name"/>
+                      </center>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-10">
+                      <div style="margin: auto;padding-top:30px">
+                          <strong>Name:</strong>
+                          <span t-esc="o.name"/>
+                          <br/>
+                          <strong>Application Number:</strong>
+                          <span t-esc="o.application_no"/>
+                          <br/>
+                          <strong>Application Date:</strong>
+                          <span t-esc="o.application_date"/>
+                          <br/>
+                          <strong>Application Status:</strong>
+                          <span t-esc="o.state"/>
+                      </div>
+                  </div>
+                  <div class="col-2">
+                      <div class="form-row">
+                          <img t-att-src="'data:image/png;base64,%s' % to_text(application_ids.image)"
+                               style="width:100%"/>
+
+                          &lt;!&ndash; <t t-if="o.image">&ndash;&gt;
+                          &lt;!&ndash;  <img id="profile_image" style="width:100px;height:80px;float:right;"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(o.image)"
+                                 width="200px" height="200px"/>&ndash;&gt;
+                          &lt;!&ndash;   </t>&ndash;&gt;
+                          &lt;!&ndash;<img alt="Contact" class="rounded-circle mt-1 o_portal_contact_img"
+                               style="width:100px;height:80px;float:right;" t-att-src="image_data_uri(o.image)" t-if="o.image"/>
+                          <img alt="Contact" class="rounded-circle mt-1 o_portal_contact_img" src="/web/static/src/img/user_menu_avatar.png" t-else=""/>&ndash;&gt;
+                      </div>
+                  </div>
+              </div>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Personal Information</h3>
+                  </strong>
+              </div>
+
+              <table class="table table-condensed" width="100%">
+                  <tbody>
+                      <tr>
+                          <th class="text-left">Name:</th>
+                          <td class="text-left">
+                              <span t-field="o.name"/>
+                          </td>
+                          <th class="text-left">Father Name:</th>
+                          <td class="text-left">
+                              <span t-field="o.father_name"/>
+                          </td>
+                          <th class="text-left">Email:</th>
+                          <td class="text-left">
+                              <span t-field="o.email"/>
+                          </td>
+                      </tr>
+                      <tr style="font-size:14px;">
+                          <th class="text-left">CNIC:</th>
+                          <td class="text-left">
+                              <span t-field="o.cnic"/>
+                          </td>
+                          <th class="text-left">Date of Birth:</th>
+                          <td class="text-left">
+                              <span t-field="o.date_of_birth"/>
+                          </td>
+                          <th class="text-left">Mobile:</th>
+                          <td class="text-left">
+                              <span t-field="o.mobile"/>
+                          </td>
+                      </tr>
+                      <tr style="font-size:14px;">
+                          <th class="text-left">Gender:</th>
+                          <td class="text-left">
+                              <span t-field="o.gender"/>
+                          </td>
+                          <th class="text-left">Nationality:</th>
+                          <td class="text-left">
+                              <span t-field="o.nationality"/>
+                          </td>
+                          <th class="text-left">Domicile:</th>
+                          <td class="text-left">
+                              <span t-field="o.domicile"/>
+                          </td>
+                      </tr>
+                      <tr style="font-size:14px;">
+                          <th class="text-left">Blood Group:</th>
+                          <td class="text-left">
+                              <span t-field="o.blood_group"/>
+                          </td>
+                          <th class="text-left">Religion:</th>
+                          <td class="text-left">
+                              <span t-field="o.religion_id.name"/>
+                          </td>
+                          <th class="text-left">Hafiz Quran:</th>
+                          <td class="text-left">
+                              <t t-if="o.is_hafiz">
+                                  <span>Yes</span>
+                              </t>
+                              <t t-if="not o.is_hafiz">
+                                  <span>No</span>
+                              </t>
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Address Details</h3>
+                  </strong>
+              </div>
+              <div class=" row mt-4">
+                  <table class="table table-condensed" width="100%">
+                      <tbody>
+                          <tr style="font-size:20px;">
+                              <th class="text-left" colspan="4">Permanent Address</th>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">Street1:</th>
+                              <td class="text-left" colspan="3">
+                                  <span t-field="o.per_street"/>
+                              </td>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">Street2:</th>
+                              <td class="text-left" colspan="3">
+                                  <span t-field="o.per_street2"/>
+                              </td>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">City:</th>
+                              <td class="text-left">
+                                  <span t-field="o.per_city"/>
+                              </td>
+                              <th class="text-left">Country:</th>
+                              <td class="text-left">
+                                  <span t-field="o.per_country_id.name"/>
+                              </td>
+                          </tr>
+
+                          <tr style="font-size:20px;">
+                              <th class="text-left" colspan="4">Present Address</th>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">Street1:</th>
+                              <td class="text-left" colspan="3">
+                                  <span t-field="o.street"/>
+                              </td>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">Street2:</th>
+                              <td class="text-left" colspan="3">
+                                  <span t-field="o.street2"/>
+                              </td>
+                          </tr>
+                          <tr style="font-size:14px;">
+                              <th class="text-left">City:</th>
+                              <td class="text-left">
+                                  <span t-field="o.city"/>
+                              </td>
+                              <th class="text-left">Country:</th>
+                              <td class="text-left">
+                                  <span t-field="o.present_country_id.name"/>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Educational Information</h3>
+                  </strong>
+              </div>
+
+              <div class=" row mt-4">
+                  <table class="table table-condensed" width="100%">
+                      <tbody>
+                          <t t-foreach="matric_education" t-as="matric">
+                              <tr style="font-size:14px;">
+                                  <th class="text-left">Degree Title</th>
+                                  <th class="text-left">Passing Year</th>
+                                  <th class="text-left">Board/University</th>
+                                  <th class="text-left">Subjects</th>
+                                  <th class="text-left">Total Marks</th>
+                                  <th class="text-left">Obtained Marks</th>
+                              </tr>
+                              <tr style="font-size:13px;">
+                                  <td class="text-left">
+                                      <span t-field="matric.degree"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="matric.year"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="matric.board"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="matric.subjects"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="matric.total_marks"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="matric.obtained_marks"/>
+                                  </td>
+                              </tr>
+                          </t>
+                          <t t-foreach="inter_education" t-as="inter">
+                              <tr style="font-size:14px;">
+                                  <td class="text-left">
+                                      <span t-field="inter.degree"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="inter.year"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="inter.board"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <t t-if="inter.degree=='A-Level'">
+                                          <span t-field="inter.degree"/>
+                                      </t>
+                                      <t t-if="not inter.degree =='A-Level'">
+                                          <span t-field="inter.subjects"/>
+                                      </t>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="inter.total_marks"/>
+                                  </td>
+                                  <td class="text-left">
+                                      <span t-field="inter.obtained_marks"/>
+                                  </td>
+                              </tr>
+                          </t>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Program Information</h3>
+                  </strong>
+              </div>
+              <div class=" row mt-4">
+                  <table class="table table-condensed" width="100%">
+                      <tbody>
+                          <tr style="font-size:20px;">
+                              <th class="text-left" colspan="3">Program Apply For:</th>
+                              <td class="text-left" colspan="9">
+                                  <span t-field="o.register_id.name"/>
+                              </td>
+                          </tr>
+                          <t t-foreach="program_preferences_ordered" t-as="program">
+                              &lt;!&ndash; <th class="text-left">Preference </th> &ndash;&gt;
+                              <td class="text-left">
+                                  <span t-field="program.program_id.code"/>
+                              </td>
+                          </t>
+                      </tbody>
+                  </table>
+              </div>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Matric Scanned Copy</h3>
+                  </strong>
+              </div>
+              <div class="form-row" t-if="application_documents.matric_scaned_copy">
+                  <img t-att-src="'data:image/png;base64,%s' % to_text(application_documents.matric_scaned_copy)"
+                       style="width:100%"/>
+              </div>
+
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Intermediate Scanned Copy</h3>
+                  </strong>
+              </div>
+
+              <div class="form-row" t-if="application_documents.inter_scaned_copy">
+                  <img t-att-src="'data:image/png;base64,%s' % to_text(application_documents.inter_scaned_copy)"
+                       style="width:100%"/>
+              </div>
+
+              <div class="small mb-1">
+                  <strong class="text-muted">
+                      <h3>Domicile Scanned Copy</h3>
+                  </strong>
+              </div>
+              <div class="form-row" t-if="application_documents.domicile_scaned_copy">
+                  <img t-att-src="'data:image/png;base64,%s' % to_text(application_documents.domicile_scaned_copy)"
+                       style="width:100%"/>
+              </div>
+
+
+              &lt;!&ndash;				<t class="list-group-item fle-xgrow-1">&ndash;&gt;
+              &lt;!&ndash;					<div style="box-shadow: 0px 3px 10px 0px rgb(0,0,0,0.3); padding:0px 25px 25px">&ndash;&gt;
+
+
+              &lt;!&ndash;					  <div class=" row mt-4">&ndash;&gt;
+              &lt;!&ndash;						<style>table th { background-color:#d4e3e5;}&ndash;&gt;
+              &lt;!&ndash;											 tr:nth-child(even) {background-color: #d4e3e5;}&ndash;&gt;
+              &lt;!&ndash;											 tr:nth-child(odd) {background-color: #d4e3e5;}&ndash;&gt;
+              &lt;!&ndash;									</style>&ndash;&gt;
+              &lt;!&ndash;					  </div>&ndash;&gt;
+
+
+              &lt;!&ndash;					</div>&ndash;&gt;
+              &lt;!&ndash;				  </t>&ndash;&gt;
+          </t>
+      </template>-->
+    <template id="odoocms_admission_portal.report_admission_final_document">
+        <t t-call="web.html_container">
+            <t t-if="not company">
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+            <t t-call="web.basic_layout">
+                <style>
+                    .borders{
+                    border: 1px solid black;
+                    }
+                    .margins{
+                    margin-top: 3%;
+                    }
+                    .signature {
+                    border: 0;
+                    border-bottom: 1px solid #000;
+                    }
+
+                </style>
+                <div class="page">
+                    <div class="row" style="padding:2%;">
+                        <div class="col col-12">
+                            <t t-if="not o ">
+                                <span>Sorry no record found</span>
+                            </t>
+                            <t t-foreach="o" t-as="o">
+                                <div class="row">
+                                    <div class="col col-2" style="text-align:left;">
+                                        <img style="width:120px;height:120px;"
+                                             t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+                                        <img src="/web/static/src/img/user_menu_avatar.png"
+                                             t-if="not company_id.logo"/>
+                                    </div>
+                                    <div class="col col-10" style="text-align:center;" id="admission_form_report_head">
+                                        <h1 style="color:red;" t-esc="company.name" t-if="company.name"/>
+                                        <h6 style="text-align: center;">Main I.J.P Road, Sector I-12, Islamabad</h6>
+                                        <h5 style="text-align: center; color:red;border-bottom: 1px solid black double;">
+                                            CANDIDATE REGEISTERATION FOR UG ADMISSION <span t-esc="register.term_id.name" />
+                                        </h5>
+                                        <!--<h1 t-if="not company_id.name">Admit Card</h1>-->
+                                    </div>
+                                </div>
+                                <div class="row margins">
+                                    <div class="col col-10" style="text-align:left;">
+                                        <div class="row" style="margin-bottom:2%;">
+                                            <div class="col col-2 " style="text-align:left;">
+                                                Name:
+                                            </div>
+                                            <div class="col col-4 "
+                                                 style="text-align:left; border-bottom:1px solid black;">
+                                                <t t-esc="o.name"/>
+                                            </div>
+                                            <div class="col col-2 " style="text-align:left;">
+                                                CNIC:
+                                            </div>
+                                            <div class="col col-4 "
+                                                 style="text-align:left; border-bottom:1px solid black;">
+                                                <t t-esc="o.cnic"/>
+                                            </div>
+
+                                        </div>
+                                        <div class="row" style="margin-bottom:2%;">
+                                            <div class="col col-2 " style="text-align:left;">
+                                                Email:
+                                            </div>
+                                            <div class="col col-4"
+                                                 style="text-align:left; border-bottom:1px solid black;">
+                                                <t t-esc="o.email"/>
+                                            </div>
+                                            <div class="col col-2 " style="text-align:left;">
+                                                Contact:
+                                            </div>
+                                            <div class="col col-4"
+                                                 style="text-align:left;border-bottom:1px solid black;">
+                                                <t t-esc="o.mobile"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom:2%;">
+                                            <div class="col col-2" style="text-align:left;">
+                                                DOB:
+                                            </div>
+                                            <div class="col col-2"
+                                                 style="text-align:left; border-bottom:1px solid black;">
+
+                                                <t t-esc="o.date_of_birth.strftime('%d-%m-%Y')"/>
+                                            </div>
+                                            <div class="col col-2" style="text-align:left;">
+                                                Gender:
+                                            </div>
+                                            <div class="col col-2 "
+                                                 style="text-align:left;border-bottom:1px solid black;">
+                                                <t t-if="o.gender == 'm'">
+                                                    Male
+                                                </t>
+                                                <t t-elif="o.gender == 'f'">
+                                                    Female
+                                                </t>
+                                                <t t-elif="o.gender == 'o'">
+                                                    Other
+                                                </t>
+                                            </div>
+                                            <div class="col col-2 " style="text-align:left;">
+                                                Nationality
+                                            </div>
+                                            <div class="col col-2"
+                                                 style="text-align:left;border-bottom:1px solid black;">
+                                                <t t-esc="o.nationality.name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="margin-bottom:2%;">
+                                            <div class="col col-3" style="text-align:left;">
+                                                Religion &amp; Sect:
+                                            </div>
+                                            <div class="col col-9"
+                                                 style="text-align:left; border-bottom:1px solid black;">
+                                                <t t-esc="o.religion_id.name"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--<div class="col col-1"/>-->
+                                    <div class="col col-2" style="text-align:center;">
+                                        <t t-if="application_ids.image">
+                                            <img id="profile_image borders"
+                                                 t-att-src="'data:image/png;base64,%s' % to_text(application_ids.image)"
+                                                 width="200px" height="200px"/>
+                                        </t>
+                                        <t t-if="not application_ids.image ">Passport Size Photograph</t>
+                                    </div>
+                                </div>
+                            </t>
+
+                            <div class="row">
+                                <div class="col col-12 margins">
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-2" style="text-align:left;">
+                                            Province:
+                                        </div>
+                                        <div class="col col-2"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-esc="o.province_id.name"/>
+                                        </div>
+                                        <div class="col col-2" style="text-align:left;">
+                                            Domicile:
+                                        </div>
+                                        <div class="col col-2 "
+                                             style="text-align:left;border-bottom:1px solid black;">
+                                            <t t-esc="o.domicile_id.name"/>
+                                        </div>
+                                        <div class="col col-2 " style="text-align:left;">
+                                            City:
+                                        </div>
+                                        <div class="col col-2"
+                                             style="text-align:left;border-bottom:1px solid black;">
+                                            <t t-esc="o.per_city"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row" style="margin-bottom:2%;">
+
+                                        <div class="col col-3" style="text-align:left;">
+                                            Program Choices:
+                                        </div>
+                                        <div class="col col-9"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-set="priority" t-value="0"/>
+                                            <t t-foreach="program_preferences_ordered" t-as="program">
+                                                <t t-set="priority" t-value="priority + 1"/>
+                                                [<b t-esc="priority"/>]
+                                                <!-- <th class="text-left">Preference </th> -->
+                                                <!--<td class="text-left">-->
+                                                <span t-field="program.program_id.code"/> &#x9;
+                                                <!--</td>-->
+                                            </t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-2" style="text-align:left;">
+                                            Present Address:
+                                        </div>
+                                        <div class="col col-10"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-esc="o.street"/>, <t t-esc="o.street2"/>, <t t-esc="o.city"/>, <t t-esc="o.present_country_id.name"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-3" style="text-align:left;">
+                                            Permanent Address:
+                                        </div>
+                                        <div class="col col-9"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-esc="o.per_street"/>, <t t-esc="o.per_street2"/>, <t t-esc="o.per_city"/>, <t t-esc="o.per_country_id.name"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-3" style="text-align:left;">
+                                            Disability?:
+                                        </div>
+                                        <div class="col col-9">
+                                            <t t-if="o.is_any_disability== True " >
+                                            Yes &#x9; Details: <span style="text-align:left; border-bottom:1px solid black;"><t t-esc="o.disability"/></span>
+                                        </t>
+                                             <t t-if="not o.is_any_disability==True" >
+                                            No
+                                        </t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-5" style="text-align:left;">
+                                            <h4 style="">
+                                                <span style="border-bottom:1px solid black;">Father / Guardian</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-2" style="text-align:left;">
+                                            Name:
+                                        </div>
+                                        <div class="col col-4"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-esc="o.father_name"/>
+                                           <t t-if="o.guardian_name"><t t-esc="o.guardian_name"/></t>
+                                        </div>
+                                        <div class="col col-2" style="text-align:left;">
+                                            Relation:
+                                        </div>
+                                        <div class="col col-4"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                          <t t-if="o.guardian_relation"> <t t-esc="o.guardian_relation"/></t>
+                                            <t t-if="not o.guardian_relation"> Father</t>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-2" style="text-align:left;">
+                                            Contact No:
+                                        </div>
+                                        <div class="col col-10"
+                                             style="text-align:left; border-bottom:1px solid black;">
+                                            <t t-esc="o.guardian_mobile"/>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-5" style="text-align:left;">
+                                            <h4 style="">
+                                                <span style="border-bottom:1px solid black;">Academic Details</span>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-bottom:2%;">
+                                        <div class="col col-12" style="text-align:left;">
+                                            <table class="table" width="100%">
+                                                <tbody>
+                                                    <t t-foreach="matric_education" t-as="matric">
+                                                        <tr style="font-size:14px;">
+                                                            <th class="text-left">Degree</th>
+                                                            <th class="text-left">Passing Year</th>
+                                                            <th class="text-left">Board</th>
+                                                            <th class="text-left">Group</th>
+                                                            <th class="text-left">Total Marks</th>
+                                                            <th class="text-left">Obtained Marks</th>
+                                                        </tr>
+                                                        <tr style="font-size:13px;">
+                                                            <td class="text-left">
+                                                                <span t-field="matric.degree"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="matric.year"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="matric.board"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="matric.subjects"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="matric.total_marks"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="matric.obtained_marks"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                    <t t-foreach="inter_education" t-as="inter">
+                                                        <tr style="font-size:14px;">
+                                                            <td class="text-left">
+                                                                <span t-field="inter.degree"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="inter.year"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="inter.board"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <t t-if="inter.degree=='A-Level'">
+                                                                    <span t-field="inter.degree"/>
+                                                                </t>
+                                                                <t t-if="not inter.degree =='A-Level' and inter.subjects=='1'">
+                                                                    <span > ICS</span>
+                                                                </t>
+                                                                 <t t-if="not inter.degree =='A-Level' and inter.subjects=='2'">
+                                                                    <span >Pre-Engineering</span>
+                                                                </t>
+                                                                  <t t-if="not inter.degree =='A-Level' and inter.subjects=='3'">
+                                                                    <span >Pre-Medical</span>
+                                                                </t>
+                                                                  <t t-if="not inter.degree =='A-Level' and inter.subjects=='4'">
+                                                                    <span >FA</span>
+                                                                </t>
+                                                                  <t t-if="not inter.degree =='A-Level' and inter.subjects=='5'">
+                                                                    <span >ADE</span>
+                                                                </t>
+                                                                 <t t-if="not inter.degree =='A-Level' and inter.subjects=='6'">
+                                                                    <span >DAE</span>
+                                                                </t>
+                                                                <t t-if="not inter.degree =='A-Level' and inter.subjects=='7'">
+                                                                    <span >16 Year</span>
+                                                                </t>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="inter.total_marks"/>
+                                                            </td>
+                                                            <td class="text-left">
+                                                                <span t-field="inter.obtained_marks"/>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+<!--                                    <div class="row" style="margin-bottom:2%;">-->
+<!--                                        <div class="col col-4" style="text-align:left;">-->
+<!--                                            Entry Test Center/Time:-->
+<!--                                        </div>-->
+<!--                                        <div class="col col-8"-->
+<!--                                             style="text-align:left; border-bottom:1px solid black;">-->
+<!--                                            <t t-if="o.center_id" t-esc="o.center_id.name"/>-->
+<!--                                            (<t t-if="o.slot_id"-->
+<!--                                                t-esc="'%02d:%02d' % (divmod(o.slot_id.time * 60, 60))"/>)-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                    <h3 style="margin-top: 3%; text-align:center;">-->
+<!--                                        <span style="border-bottom:1px solid black;">UNDERTAKING</span>-->
+<!--                                    </h3>-->
+
+<!--                                    <p>-->
+<!--                                        It is Stated that the information given in this application form is true to the-->
+<!--                                        best of my knowledge and I understand that any incorrect information will result-->
+<!--                                        in the cancellation of this application. Univerity reserves the right to use-->
+<!--                                        information given in this form for verification and other purposes.-->
+<!--                                    </p>-->
+                                </div>
+                            </div>
+<!--                            <div class="row"></div>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col col-1 margins">-->
+<!--                                    <b>Date:</b>-->
+<!--                                </div>-->
+<!--                                <div class="col col-3 margins">-->
+<!--                                    <input type="text" class="signature"/>-->
+<!--                                </div>-->
+
+<!--                                <div class="col col-2 margins">-->
+
+<!--                                </div>-->
+<!--                                <div class="col col-6 margins" style="text-align:right;">-->
+<!--                                    <span>-->
+<!--                                        <span>-->
+<!--                                            <b>Applicant Signature:</b>-->
+<!--                                        </span>-->
+<!--                                        <span>-->
+<!--                                            <input type="text" class="signature"/>-->
+<!--                                        </span>-->
+<!--                                    </span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

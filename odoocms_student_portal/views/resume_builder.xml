@@ -1,0 +1,1107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_resume_builder" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                <style>
+                    .curve {
+                    border-radius: 5px 5px 5px 5px;
+                    overflow: hidden;
+                    }
+                    .md-card .md-card-toolbar-heading-text-resume {
+                    font: 500 18px/50px Roboto,sans-serif;
+                    color: #212121;
+                    margin: 0;
+                    float: left;
+                    overflow: hidden;
+                    height: 48px;
+                    }
+                    .md-card .md-card-toolbar {
+                    height: 48px;
+                    padding: 0 16px;
+                    border-bottom: 0px solid rgba(0,0,0,.12);
+                    background: #fff;
+                    }
+                    .floatright{
+                    float: right;
+                    }
+                    .md-card .md-border{
+                    border-bottom: 1px solid rgba(0,0,0,.12);
+                    background: #fff;
+                    }
+                    .t-16 {
+                    font-size: 1.2rem;
+                    line-height:1.6;
+                    margin-bottom: 0px;
+                    }
+                    .t-bold {
+                    font-weight: 600;
+                    }
+                    .t-14 {
+                    font-size: 1rem;
+                    line-height: 1.2;
+                    margin-bottom: 0px;
+                    }
+                    .t-normal {
+                    font-weight: 400;
+                    }
+                    .t-black--light {
+                    color: grey;
+                    }
+                    .uk-form-row+.uk-form-row-exp {
+                    margin-top: 12px;
+                    }
+                    .uk-form-row-exp-details {
+                    margin-top: 15px;
+                    }
+                </style>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/resume/builder">Resume Builder</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <div class="uk-grid" data-uk-grid-margin="">
+                            <div class="uk-width-large-10-10">
+
+
+                                <div class="md-card">
+                                    <div class="user_heading">
+                                        <div class="user_heading_avatar fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="width: 114px !important;height: 114px !important;">
+                                                <img src="assets/img/avatars/user.png" alt="user avatar"/>
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="width: 114px !important;height: 114px !important;"></div>
+                                            <div class="user_avatar_controls">
+                                                <span class="btn-file">
+                                                    <span class="fileinput-new" id="new_picture">
+                                                        <i class="material-icons">&#xE2C6;</i>
+                                                    </span>
+                                                    <span class="fileinput-exists">
+                                                        <i class="material-icons">&#xE86A;</i>
+                                                    </span>
+                                                    <input type="file" name="user_edit_avatar_control" id="user_edit_avatar_control"/>
+                                                </span>
+                                                <a href="#" class="btn-file fileinput-exists" data-dismiss="fileinput">
+                                                    <i class="material-icons">&#xE5CD;</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="user_heading_content">
+                                        </div>
+                                        <div class="user_heading_content">
+                                        </div>
+                                        <div class="user_heading_content">
+                                        </div>
+                                        <div class="user_heading_content">
+                                        </div>
+                                        <div class="user_heading_content">
+                                            <h2 class="heading_b" id="personal_information">
+                                                <span class="uk-text-truncate" id="user_edit_uname">
+                                                    <t t-esc="student.name"/>
+                                                </span>
+                                                <span class="sub-heading" id="user_edit_position_">
+                                                    <i class="material-icons md-color-white">&#xe80c;</i>
+                                                    <t t-esc="student.program_id.name"/>
+                                                </span>
+                                                <span class="sub-heading" id="user_edit_position_1">
+                                                    <i class="material-icons md-color-white">&#xe7e9;</i>
+                                                    <t t-esc="student.date_of_birth"/>
+                                                </span>
+                                                <span class="sub-heading" id="user_edit_position_2">
+                                                    <i class="material-icons md-color-white">&#xe0be;</i>
+                                                    <t t-esc="student.email"/>
+                                                </span>
+                                                <span class="sub-heading" id="user_edit_position_4">
+                                                    <i class="material-icons md-color-white">&#xe0d6;</i>
+                                                    <t t-esc="student.mobile"/>
+                                                </span>
+                                                <span class="sub-heading" id="user_edit_position">
+                                                    <i class="material-icons md-color-white">&#xe88a;</i>
+                                                    <t t-esc="student.per_street.capitalize() " t-if="student.per_street"/>
+                                                    ,
+                                                    <t t-esc="student.per_street2.capitalize()" t-if="student.per_street2"/>
+                                                    <!--                                                                    <t t-esc="student.per_country_id.capitalize()" t-if="student.per_country_id"/> ,-->
+                                                    <t t-esc="student.per_city.capitalize()" t-if="student.per_city"/>
+                                                    ,
+                                                    <t t-esc="student.per_country_id.name" t-if="student.per_country_id"/>
+                                                </span>
+                                            </h2>
+                                        </div>
+                                        <!--                         <form id="resume_profile" name="resume_profile">-->
+                                        <div class="md-fab-wrapper">
+                                            <div class="md-fab md-fab-toolbar md-fab-small md-fab-accent">
+                                                <i class="material-icons">&#xE8BE;</i>
+                                                <div class="md-fab-toolbar-actions">
+                                                    <button type="submit" id="personal_edit_save" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Edit">
+                                                        <i class="material-icons md-color-white" data-uk-modal="{target:'#modal_personal_info'}">&#xE150;</i>
+                                                    </button>
+                                                    <button type="submit" id="user_edit_print" data-uk-tooltip="{cls:'uk-tooltip-small',pos:'bottom'}" title="Take a Tour">
+                                                        <i class="material-icons md-color-white" id="restartTour">&#xe913;</i>
+                                                    </button>
+                                                    <form id="resume_profile" name="resume_profile">
+                                                        <div class="uk-modal" id="modal_personal_info">
+                                                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                                                <div class="uk-modal-header">
+                                                                    <h3 class="uk-modal-title">Edit Personal Information
+                                                                        <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Personal Info">&#xE8FD;</i>
+                                                                    </h3>
+                                                                </div>
+                                                                <div class="md-card-content">
+                                                                    <div class="uk-grid" data-uk-grid-margin="">
+                                                                        <div class="uk-width-medium-2-2 uk-row-first">
+                                                                            <!--<div class="uk-form-row">
+                                                                               <div class="uk-grid" data-uk-grid-margin="">
+                                                                                  <div class="uk-width-medium-1-3 uk-row-first">
+                                                                                     <div class="md-input-wrapper"><label>First Name</label><input type="text" class="md-input"/><span class="md-input-bar "></span></div>
+                                                                                  </div>
+                                                                                  <div class="uk-width-medium-1-3">
+                                                                                     <div class="md-input-wrapper"><label>Middle Name</label><input type="text" class="md-input"/><span class="md-input-bar "></span></div>
+                                                                                  </div>
+                                                                                  <div class="uk-width-medium-1-3">
+                                                                                     <div class="md-input-wrapper"><label>Last Name</label><input type="text" class="md-input"/><span class="md-input-bar "></span></div>
+                                                                                  </div>
+                                                                               </div>
+                                                                            </div>-->
+                                                                            <div class="uk-form-row">
+                                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                                    <div class="uk-width-medium-1-3 uk-row-first">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label for="uk_dp_1">Date of Birth</label>
+                                                                                            <input class="md-input" name="dob" type="text" t-att-value="student.date_of_birth" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="uk-width-medium-1-3">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label>Email</label>
+                                                                                            <input type="email" name="email" t-att-value="student.email" class="md-input"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="uk-width-medium-1-3">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label>Phone</label>
+                                                                                            <input type="number" name="mobile"  t-att-value="student.mobile"  class="md-input"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="uk-form-row">
+                                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                                    <div class="uk-width-medium-1-3 uk-row-first">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label>House</label>
+                                                                                            <input type="text" name="house" t-att-value="student.per_street" class="md-input"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="uk-width-medium-1-3">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label>Street</label>
+                                                                                            <input type="text" name="street" t-att-value="student.per_street2" class="md-input"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="uk-width-medium-1-3">
+                                                                                        <div class="md-input-wrapper">
+                                                                                            <label>City</label>
+                                                                                            <input type="text" name="city" t-att-value="student.per_city" class="md-input"/>
+                                                                                            <span class="md-input-bar "></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="uk-form-row">
+                                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                                    <div class="uk-width-medium-1-3 uk-row-first">
+                                                                                        <select id="select_adv_single" name="select_country">
+                                                                                            <option value="">Select country...</option>
+                                                                                            <t t-foreach="countries" t-as="country">
+                                                                                                <option t-att-value="country.id"><t t-esc="country.name" /></option>
+                                                                                            </t>
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <!--  <div class="uk-width-medium-1-2">
+                                                                                         <select id="select_adv_single_" name="select_city">
+                                                                                            <option value="">Select city...</option>
+                                                                                            <option value="RW">Rawalpindi</option>
+                                                                                         </select>
+                                                                                      </div>-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="uk-modal-footer uk-text-right">
+                                                                    <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                                                    <button type="submit" class="md-btn md-btn-flat">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+                        <!-- Objective Section Start-->
+                        <div class="md-card curve" style="margin-top:3%" id="objectives_display">
+                            <div class="md-card-toolbar">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Objective
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_objective'}" id="objectives_edit">&#xE150;</i>
+                                    <form id="resume_objective"><div class="uk-modal" id="modal_personal_objective">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Objective
+                                                    <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Objective">&#xE8FD;</i>
+                                                </h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" t-att-value="resume.objective" cols="30" rows="20" name="objective">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                                <button type="submit" class="md-btn md-btn-flat">Save</button>
+                                            </div>
+                                        </div>
+                                    </div></form>
+                                </div>
+                            </div>
+                            <div class="md-card-content">
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                        <div class="uk-form-row">
+
+                                            <t t-esc="resume.objective" t-options='{"widget": "html"}' t-if="resume.objective" />
+                                            <t t-if="not resume.objective">
+                                                <p>I want to bring my knowledge into practice. I want to develop some practical skills and also to get some experience that would help me after graduation. I want to work in MARI PETROLEUM COMPANY LIMITED. </p>
+                                            </t>
+                                            <!--   <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                               </textarea> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Objective Section End-->
+
+
+                        <!-- Professional Experience Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar" id="professional_exp_display">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Professional Experience (Internships)
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_exp_add'}" id="professional_exp_add">&#xe145;</i>
+                                    <form id="resume_exp_add" name="resume_profile_add">
+                                        <div class="uk-modal" id="modal_exp_add">
+                                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                                <div class="uk-modal-header">
+                                                    <h3 class="uk-modal-title">Add Professional Internships
+                                                        <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Personal Info">&#xE8FD;</i>
+                                                    </h3>
+                                                </div>
+                                                <div class="md-card-content">
+                                                    <div class="uk-grid" data-uk-grid-margin="">
+                                                        <div class="uk-width-medium-2-2 uk-row-first">
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-1 uk-row-first">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">Name of Organization</label>
+                                                                            <input class="md-input" name="name_org" type="text"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-1">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label>Internship Highlight/Tasks</label>
+                                                                            <textarea cols="5" rows="3"  name="highlight" class="md-input"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-2 uk-row-first">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">From Date</label>
+                                                                            <input class="md-input" name="exp_from" type="text" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="uk-width-medium-1-2">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">To Date</label>
+                                                                            <input class="md-input" name="exp_to" type="text"  id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                                    <button type="submit" class="md-btn md-btn-flat">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    <form id="resume_exp_edit" name="resume_profile_edit">
+                                        <div class="uk-modal" id="modal_personal_prof_exp_edit">
+                                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                                <div class="uk-modal-header">
+                                                    <h3 class="uk-modal-title">Edit Professional Internships
+                                                        <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Personal Info">&#xE8FD;</i>
+                                                    </h3>
+                                                </div>
+                                                <div class="md-card-content">
+                                                    <div class="uk-grid" data-uk-grid-margin="">
+                                                        <div class="uk-width-medium-2-2 uk-row-first">
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-1 uk-row-first">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">Name of Organization</label>
+                                                                            <input class="md-input" name="name_org" type="text"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-1">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label>Internship Highlight/Tasks</label>
+                                                                            <textarea cols="5" rows="3"  name="highlight" class="md-input"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="uk-form-row">
+                                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                                    <div class="uk-width-medium-1-2 uk-row-first">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">From Date</label>
+                                                                            <input class="md-input" name="exp_from" type="text" t-att-value="student.date_of_birth" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="uk-width-medium-1-2">
+                                                                        <div class="md-input-wrapper">
+                                                                            <label for="uk_dp_1">To Date</label>
+                                                                            <input class="md-input" name="exp_to" type="text" t-att-value="student.date_of_birth" id="uk_dp_1" data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                            <span class="md-input-bar "></span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="uk-modal-footer uk-text-right">
+                                                    <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                                    <button type="submit" class="md-btn md-btn-flat">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <t t-foreach="resume.experience_ids" t-as="experience">
+                                <div class="md-card-content md-border">
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-medium-2-2 uk-row-first">
+                                            <div class="uk-form-row-exp">
+                                                <p class="t-16 t-black t-bold"><t t-esc="experience.name"/></p>
+                                            </div>
+                                            <div class="uk-form-row-exp">
+                                                <div class="display-flex">
+                                                    <h4 class="t-14 t-black--light t-normal">
+                                                        <span><t t-esc="str(experience.from_date)[:-9]"/> - <t t-esc="str(experience.to_date)[:-9]"/></span>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <div class="uk-form-row-exp-details">
+                                                <p class="t-14 "><t t-esc="experience.description"/></p>
+                                            </div>
+                                            <input type="hidden" t-att-value="experience.id" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                            <!-- <div class="md-card-content md-border">
+                                 <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                     <div class="uk-width-medium-5-6">
+                                         <div class="uk-form-row-exp">
+                                             <p class="t-16 t-black t-bold">Synthetic Products Enterprises Limited</p>
+                                         </div>
+                                         <div class="uk-form-row-exp">
+                                             <div class="display-flex">
+                                                 <h4 class="t-14 t-black&#45;&#45;light t-normal">
+                                                     <span>Apr 2015 – Mar 2016 . 1 yr</span>
+                                                 </h4>
+                                             </div>
+                                         </div>
+                                         <div class="uk-form-row-exp-details">
+                                             <p class="t-14 ">Investigated the process of making and repairing dyes, injection molding, blow molding, extrusion, welding, metal operations, and thermoforming. • Checked the implementation of 5S and quality assurance of products (Unilever ice cream packages and shamp</p>
+                                         </div>
+                                     </div>
+                                     <div class="uk-width-medium-1-6">
+                                         <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div class="md-card-content md-border">
+                                 <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                     <div class="uk-width-medium-5-6">
+                                         <div class="uk-form-row-exp">
+                                             <p class="t-16 t-black t-bold">LU Continental Biscuits</p>
+                                         </div>
+                                         <div class="uk-form-row-exp">
+                                             <div class="display-flex">
+                                                 <h4 class="t-14 t-black&#45;&#45;light t-normal">
+                                                     <span>Apr 2015 – Mar 2016 . 1 yr</span>
+                                                 </h4>
+                                             </div>
+                                         </div>
+                                         <div class="uk-form-row-exp-details">
+                                             <p class="t-14 ">Executed update and redesign of the Electrical Distribution from the Power House to the entire production plant. Gained experience with Industrial Instrumentation, automation and design standards.</p>
+                                         </div>
+                                     </div>
+                                     <div class="uk-width-medium-1-6">
+                                         <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                     </div>
+                                 </div>
+                             </div>-->
+                        </div>
+                        <!-- Professional Experience Section End-->
+
+                        <!-- Education Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar" id="education_display">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Education
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_prof_exp_add'}">&#xe145;</i>
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_edu_edit'}">&#xE150;</i>
+                                    <div class="uk-modal" id="modal_personal_edu_edit">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Education <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i></h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Bahria University</p>
+                                        </div>
+                                        <div class="uk-form-row-exp">
+                                            <div class="display-flex">
+                                                <h4 class="t-14 t-normal">
+                                                    <span>Bachelor's, Electronics, A</span>
+                                                </h4>
+                                                <h4 class="t-14 t-black--light t-normal">
+                                                    <span>Apr 2015 – Mar 2016</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Sir Syed College</p>
+                                        </div>
+                                        <div class="uk-form-row-exp">
+                                            <div class="display-flex">
+                                                <h4 class="t-14 t-normal">
+                                                    <span>High School,Pre-Engineering , 93%</span>
+                                                </h4>
+                                                <h4 class="t-14 t-black--light t-normal">
+                                                    <span>Apr 2015 – Mar 2016</span>
+                                                </h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- <div class="md-card curve" style="margin-top:3%">
+                             <div class="md-card-toolbar" id="education_display">
+                                 <h1 class="md-card-toolbar-heading-text-resume">
+                                     Education
+                                 </h1>
+                                 <div class="md-card-toolbar-actions">
+                                     <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_prof_exp_add'}">&#xe145;</i>
+                                     <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal_personal_edu_edit'}">&#xE150;</i>
+                                     <div class="uk-modal" id="modal_personal_edu_edit">
+                                         <div class="uk-modal-dialog uk-modal-dialog-large">
+                                             <div class="uk-modal-header">
+                                                 <h3 class="uk-modal-title">Edit Education
+                                                     <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i>
+                                                 </h3>
+                                             </div>
+                                             <div class="md-card-content">
+                                                 <div class="uk-grid" data-uk-grid-margin="">
+                                                     <div class="uk-width-medium-2-2 uk-row-first">
+                                                         <div class="uk-form-row">
+                                                             <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                             </textarea>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="uk-modal-footer uk-text-right">
+                                                 <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                            &lt;!&ndash; <t t-foreach="student.academic_ids" t-as="academic_id">
+                             <div class="md-card-content md-border">
+                                 <div class="uk-grid" data-uk-grid-margin="">
+                                     <div class="uk-width-medium-2-2 uk-row-first">
+                                         <div class="uk-form-row-exp">
+                                             <p class="t-16 t-black t-bold"><t t-esc="academic_id.degree"/> </p>
+                                         </div>
+                                         <div class="uk-form-row-exp">
+                                             <div class="display-flex">
+                                                 <h4 class="t-14 t-normal">
+                                                     <span><t t-esc="academic_id.degree_level" /></span>
+                                                 </h4>
+                                                 <h4 class="t-14 t-black&#45;&#45;light t-normal">
+                                                     <span t-esc="academic_id.year" />
+                                                 </h4>
+                                             </div>
+                                         </div>
+
+                                     </div>
+                                 </div>
+                             </div>
+                             </t>&ndash;&gt;
+                             <div class="md-card-content md-border">
+                                 <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                     <div class="uk-width-medium-5-6">
+                                         <div class="uk-form-row-exp">
+                                             <p class="t-16 t-black t-bold">Sir Syed College</p>
+                                         </div>
+                                         <div class="uk-form-row-exp">
+                                             <div class="display-flex">
+                                                 <h4 class="t-14 t-normal">
+                                                     <span>High School,Pre-Engineering , 93%</span>
+                                                 </h4>
+                                                 <h4 class="t-14 t-black&#45;&#45;light t-normal">
+                                                     <span>Apr 2015 – Mar 2016</span>
+                                                 </h4>
+                                             </div>
+                                         </div>
+
+                                     </div>
+                                     <div class="uk-width-medium-1-6">
+                                         <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                     </div>
+                                 </div>
+                             </div>
+
+
+                         </div>-->
+                        <!-- Education Section End-->
+
+
+                        <!-- Professional Accomplishment Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar" id="professional_display">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Professional Accomplishments
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_accom_add'}">&#xe145;</i>
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_accom_edit'}">&#xE150;</i>
+                                    <div class="uk-modal" id="modal__prof_accom_edit">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Professional Accomplishment
+                                                    <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i>
+                                                </h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">PMO NUST</p>
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">Root cause analysis of the repetitive mechanical seal failure of an acid regeneration pump; Development of a replacement procedure for a sodium hypochlorite unloading pump: Investigating problems in dosing pumps at assigned area and recommend solutions.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Synthetic Products Enterprises Limited</p>
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">Investigated the process of making and repairing dyes, injection molding, blow molding, extrusion, welding, metal operations, and thermoforming. • Checked the implementation of 5S and quality assurance of products (Unilever ice cream packages and shamp</p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">LU Continental Biscuits</p>
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">Executed update and redesign of the Electrical Distribution from the Power House to the entire production plant. Gained experience with Industrial Instrumentation, automation and design standards.</p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Professional Accomplishment Section End-->
+
+
+                        <!-- Skill Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar" id="professional_soft_display">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Professional/Soft Skills
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_add'}">&#xe145;</i>
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_edit'}">&#xE150;</i>
+                                    <div class="uk-modal" id="modal__prof_accom_edit">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Technical/Soft Skills
+                                                    <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i>
+                                                </h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                        <div class="uk-form-row-exp">
+
+                                            <p class="t-16 t-black t-bold" >
+                                                <div class="uk-badge uk-badge-danger " style="font-size: 0.9em;">
+                                                    Wireless Hacking
+
+                                                </div>
+                                                <span class="uk-text-small">Technical </span>
+                                            </p>
+
+
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">
+                                                <span class="uk-text-small">Skill level: 5 </span>
+                                                <div class="'uk-progress uk-progress-mini uk-progress-success uk-margin-remove'">
+                                                    <div class="uk-progress-bar" style="width: 50%;"></div>
+                                                </div>
+                                                <span class="uk-text-small">Technical </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">
+                                                <div class="uk-badge uk-badge-danger " style="font-size: 0.9em;">
+                                                    wireshark, CISCO
+                                                </div>
+                                                <span class="uk-text-small">Technical </span>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">
+                                                <span class="uk-text-small">Skill level: 3</span>
+                                                <div class="'uk-progress uk-progress-mini uk-progress-success uk-margin-remove'">
+                                                    <div class="uk-progress-bar" style="width: 30%;"></div>
+                                                </div>
+                                            </p></div>
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">
+                                                <div class="uk-badge uk-badge-danger " style="font-size: 0.9em;">
+                                                    Wordpress, HTML/CSS, EMU8086
+                                                </div>
+                                                <span class="uk-text-small">Technical </span>
+                                            </p>
+                                        </div>
+
+                                        <div class="uk-form-row-exp-details">
+                                            <p class="t-14 ">
+                                                <span class="uk-text-small">Skill level: 2</span>
+                                                <div class="'uk-progress uk-progress-mini uk-progress-success uk-margin-remove'">
+                                                    <div class="uk-progress-bar" style="width: 20%;"></div>
+                                                </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Skill Section End-->
+
+
+                        <!-- Extra Curricular Activities Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    Extracurricular Activites
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_add'}">&#xe145;</i>
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_edit'}">&#xE150;</i>
+                                    <div class="uk-modal" id="modal__prof_accom_edit">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Extracurricular Activites
+                                                    <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i>
+                                                </h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Programming</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Reading</p>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Sports</p>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Extracurricular Activites End-->
+
+
+                        <!-- References Section Start-->
+                        <div class="md-card curve" style="margin-top:3%">
+                            <div class="md-card-toolbar">
+                                <h1 class="md-card-toolbar-heading-text-resume">
+                                    References (Optional)
+                                </h1>
+                                <div class="md-card-toolbar-actions">
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_add'}">&#xe145;</i>
+                                    <i class="md-icon material-icons md-color-light-blue-500" data-uk-modal="{target:'#modal__prof_skill_edit'}">&#xE150;</i>
+                                    <div class="uk-modal" id="modal__prof_accom_edit">
+                                        <div class="uk-modal-dialog uk-modal-dialog-large">
+                                            <div class="uk-modal-header">
+                                                <h3 class="uk-modal-title">Edit Extracurricular Activites
+                                                    <i class="material-icons" data-uk-tooltip="{pos:'top'}" title="Edit your Professional Exp">&#xE8FD;</i>
+                                                </h3>
+                                            </div>
+                                            <div class="md-card-content">
+                                                <div class="uk-grid" data-uk-grid-margin="">
+                                                    <div class="uk-width-medium-2-2 uk-row-first">
+                                                        <div class="uk-form-row">
+                                                            <textarea id="wysiwyg_tinymce" cols="30" rows="20">
+                                                            </textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="uk-modal-footer uk-text-right">
+                                                <button type="button" class="md-btn md-btn-flat uk-modal-close">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-6-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Muhammad Kamran Khalid</p>
+                                        </div>
+                                        <div class="uk-form-row-exp">
+                                            <div class="display-flex">
+                                                <h4 class="t-14 t-normal">
+                                                    <span>ASCE - NUST</span>
+                                                </h4>
+                                                <h4 class="t-14 t-normal">
+                                                    <span>Vice President</span>
+                                                </h4>
+                                                <h4 class="t-14 t-black--light t-normal">
+                                                    <span><i class="material-icons md-color-light-blue-500">&#xe0d6;</i>0336-497746
+                                                    </span>
+                                                    <span>
+                                                        <i class="material-icons md-color-light-blue-500">&#xe0be;</i>
+                                                        kkhalid@nust.edu.pk
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--<div class="md-card-content md-border">
+                                <div class="uk-grid uk-grid" data-uk-grid-margin="">
+                                    <div class="uk-width-medium-5-6">
+                                        <div class="uk-form-row-exp">
+                                            <p class="t-16 t-black t-bold">Sulman Shaukat</p>
+                                        </div>
+                                        <div class="uk-form-row-exp">
+                                            <div class="display-flex">
+                                                <h4 class="t-14 t-normal">
+                                                    <span>NUST</span>
+                                                </h4>
+                                                <h4 class="t-14 t-normal">
+                                                    <span>Software Dev</span>
+                                                </h4>
+                                                <h4 class="t-14 t-black&#45;&#45;light t-normal">
+                                                    <span><i class="material-icons md-color-light-blue-500">&#xe0d6;</i>0300-8501355
+                                                    </span>
+                                                    <span>
+                                                        <i class="material-icons md-color-light-blue-500">&#xe0be;</i>
+                                                        asad.cms@nust.edu.pk
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="uk-width-medium-1-6">
+                                        <i class="md-icon material-icons md-color-light-blue-500 floatright" data-uk-modal="{target:'#modal_personal_prof_exp_edit'}">&#xE150;</i>
+                                    </div>
+                                </div>
+                            </div>-->
+
+
+                        </div>
+                    </div>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/assets/js/custom/uikit_fileinput.min.js"></script>
+                <!--  user edit functions -->
+                <script src="/odoocms_web/static/assets/js/pages/page_user_edit.min.js"></script>
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- elFinder -->
+                <script src="/odoocms_web/static/file_manager/js/elfinder.min.js"></script>
+                <script src="/odoocms_web/static/file_manager/js/extras/tinymceElfinder.js"></script>
+                <!-- tinymce -->
+                <script src="/odoocms_web/static/bowerComponents/tinymce/tinymce.min.js"></script>
+                <!--  wysiwyg editors functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_wysiwyg.min.js"></script>
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+                <script src="/odoocms_web/static/assets/js/custom/enjoyhint.min.js"></script>
+
+                <script src="/odoocms_web/static/assets/js/pages/plugins_tour_resume.js"></script>
+                <script src="/odoocms_student_portal/static/js/resume_builder.js"></script>
+            </body>
+        </t>
+    </template>
+</odoo>

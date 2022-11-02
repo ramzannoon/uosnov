@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_students_room_swap_report_form" model="ir.ui.view">
+            <field name="name">odoocms.students.room.swap.report.form</field>
+            <field name="model">odoocms.students.room.swap.report</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Students Room Swap Report">
+                    <p>
+                        This Wizard will generate Hostel Student Room Swap Report.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="from_date" required="1"/>
+                            <field name="to_date" required="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="make_excel" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_student_room_swap_report" model="ir.actions.act_window">
+            <field name="name">Students Room Swap Report</field>
+            <field name="res_model">odoocms.students.room.swap.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_students_room_swap_report"
+                name="Students Room Swap Report"
+                action="action_odoocms_student_room_swap_report"
+                parent="menu_odoocms_hostel_report"
+                sequence="35"/>
+    </data>
+</odoo>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_exam_center_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.tree</field>
+        <field name="model">odoocms.exam.center</field>
+        <field name="arch" type="xml">
+            <tree string="Exam Center">
+                <field name="name"/>
+                <field name="short_name"/>
+                <field name="code"/>
+                <field name="district_id"/>
+                <field name="gender"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_exam_center_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.form</field>
+        <field name="model">odoocms.exam.center</field>
+        <field name="arch" type="xml">
+            <form string="Exam Center Assignment">
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="short_name"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>
+                            <field name="type"/>
+                            <field name="capacity"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Center Details">
+                            <group>
+                                <field name="center_line" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="type"/>
+                                        <field name="row"/>
+                                        <field name="col"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_exam_center_structure_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.structure.tree</field>
+        <field name="model">odoocms.exam.center.structure</field>
+        <field name="arch" type="xml">
+            <tree string="Exam Center">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_exam_center_structure_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.structure.form</field>
+        <field name="model">odoocms.exam.center.structure</field>
+        <field name="arch" type="xml">
+            <form string="Exam Center Structure">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_exam_center_exam_tree" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.assignment.tree</field>
+        <field name="model">odoocms.exam.center.assignment</field>
+        <field name="arch" type="xml">
+            <tree string="Exam Center Assignment">
+                <field name="center_id"/>
+                <field name="center_short_name"/>
+                <field name="center_code"/>
+                <field name="term_id"/>
+                <field name="center_capacity"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_exam_center_exam_form" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.assignment.form</field>
+        <field name="model">odoocms.exam.center.assignment</field>
+        <field name="arch" type="xml">
+            <form string="Exam Center">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="center_id"/>
+                            <field name="center_short_name"/>
+                            <field name="term_id"/>
+                            <field name="student_count"/>
+                            <newline></newline>
+                        </group>
+                        <group>
+                            <field name="center_code"/>
+                            <field name="center_capacity"/>
+                            <field name="center_gender_type"/>
+                            <field name="campus_id"/>
+                        </group>
+                        <group>
+                            <button name="%(sitting_type_action)d" string="Generate Sitting Plan" type="action"
+                                    class="oe_highlight btn-success"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="Student Group" string="Student Group">
+                            <field name="student_ids"
+                                   widget="many2many" options="{'no_create': True}"
+                                   domain="[('state2','=','enroll'),('campus_id','=',campus_id)]">
+                            </field>
+                        </page>
+                        <page string="Staff">
+                            <group>
+                                <field name="staff_ids" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="staff_id"/>
+                                        <field name="tag_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+<!--                        <page string="Structural Preferances">-->
+<!--                            <group>-->
+<!--                                <field name="preferance_ids" nolabel="1">-->
+<!--                                    <tree editable="bottom">-->
+<!--                                        <field name="type"/>-->
+<!--                                        <field name="row"/>-->
+<!--                                        <field name="col"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </group>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_exam_center" model="ir.actions.act_window">
+        <field name="name">Exam Center</field>
+        <field name="res_model">odoocms.exam.center</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Centers Here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_exam_structure" model="ir.actions.act_window">
+        <field name="name">Exam Center Structure</field>
+        <field name="res_model">odoocms.exam.center.structure</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Centers Structure Here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_exam_center_exam" model="ir.actions.act_window">
+        <field name="name">Exam Center Assignment</field>
+        <field name="res_model">odoocms.exam.center.assignment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Exam Centers Assigning Procedure Here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_odoocms_exam_center_search" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.search</field>
+        <field name="model">odoocms.exam.center</field>
+        <field name="arch" type="xml">
+            <search string="Exam Center">
+                <field name="type"/>
+                <field name="gender"/>
+                <field name="district_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="type" string="Type" domain="[]" context="{'group_by':'type'}"/>
+                    <filter name="gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                    <filter name="district_id" string="District" domain="[]" context="{'group_by':'district_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="gender" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+     <record id="view_odoocms_exam_center_assignment_search" model="ir.ui.view">
+        <field name="name">odoocms.exam.center.assignment.search</field>
+        <field name="model">odoocms.exam.center.assignment</field>
+        <field name="arch" type="xml">
+            <search string="Exam Center Assignment">
+                <field name="term_id"/>
+                <field name="center_gender_type"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="center_gender_type" string="Gender" domain="[]" context="{'group_by':'center_gender_type'}"/>
+                </group>
+                <searchpanel>
+                    <field name="term_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+
+    <menuitem id="menu_exam_center_setup"
+              name="Exam Center"
+              parent="odoocms_exam_setup.menu_exam_setup_configuration"
+              action="action_exam_center"
+              sequence="1"/>
+
+    <menuitem id="menu_exam_center_assignment"
+              name="Exam Center Assign"
+              parent="odoocms_exam_setup.menu_exam_setup_main"
+              action="action_exam_center_exam"
+              sequence="1"/>
+
+    <menuitem id="menu_exam_center_structure"
+              name="Exam Center Structure"
+              parent="odoocms_exam_setup.menu_exam_setup_configuration"
+              action="action_exam_structure"
+              sequence="4"/>
+
+</odoo>
+

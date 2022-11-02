@@ -1,0 +1,125 @@
+<odoo>
+
+	<template id ="odoocms_exam.batch_term_result_notification_report">
+        <t t-call="web.basic_layout">
+
+                <t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+
+                <style>
+                    #class-result {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+
+                    }
+
+                    #class-result td, #class-result th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    #class-result tr:nth-child(even){background-color: #f2f2f2;}
+
+                    #class-result tr:hover {background-color: #ddd;}
+
+                    #class-result th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    #personal-info {
+                          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                          border-collapse: collapse;
+                          width: 95%;
+                          margin-top:15px;
+                            display: inline;
+                        }
+
+                        #personal-info td, #personal-info th {
+                          padding: 3px;
+                        }
+
+                        #personal-info th {
+                          padding-top: 6px;
+                          text-align: left;
+                        }
+
+                </style>
+
+                <div class="header">
+                    <div class="o_boxed_header">
+                    <div class="row">
+                        <div class="col-2">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                        </div>
+                        <div class="col-10">
+                            <span style="display:block; text-align:center; font-weight:bold; font-size" t-esc="company.name"/>
+                            <span style="display:block; text-align:center; font-size" t-esc="company.street"/>
+                            <span style="display:block; text-align:center; font-size" t-esc="notification"/>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+				<div class="page" style="font-size: 16px; padding:10px ">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>It is hereby notified that result position of the students who appeared in <span t-esc="term_name"/> of
+                                <span style="font-weight:bold" t-esc="batch.name"/> batch durning
+                                held at <span t-esc="company.name"/> is as under:
+                            </p>
+                        </div>
+                        <!-- <span t-esc="batch.term_id.date_start"/> -->
+                    </div>
+                    <table id="class-result">
+                         <tr>
+                             <th style="width:10%">Sr.No</th>
+                             <th style="width:20%">Code</th>
+                             <th style="tet-align:center; width:25%">Name</th>
+                             <th style="tet-align:center; width:10%">SGPA</th>
+                             <th style="tet-align:center; width:10%">CGPA</th>
+                             <th style="tet-align:center; width:25%">Status</th>
+                         </tr>
+                         <t t-foreach="student_terms" t-as="rec">
+                             <tr style="font-size:12px;">
+                                 <td><span t-esc="rec_index+1" /></td>
+                                 <td><span t-esc="rec.student_id.code" /></td>
+                                 <td><span t-esc="rec.student_id.name" /></td>
+                                 <td><span t-esc="rec.sgpa" t-options='{"widget": "float", "precision": 2}'/></td>
+                                 <td><span t-esc="rec.cgpa" t-options='{"widget": "float", "precision": 2}'/></td>
+                                 <td><span/></td>
+                             </tr>
+                         </t>
+                     </table>
+                </div>
+                <div class="footer o_boxed_footer">
+                    <div class="row">
+                        <div class="col-6">
+                            <span style="display:block; width:50%; float: left; text-align:left">Dy Controller Exam</span>
+                        </div>
+                        <div class="col-6">
+                            <span style="display:block; width:50%; float: left; text-align:left">Controller of Exam</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <span>Date:</span><span t-esc="today"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+    </template>
+
+</odoo>

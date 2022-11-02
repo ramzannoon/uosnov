@@ -1,0 +1,22 @@
+<odoo>
+    <data>z
+        <record id="hr_action_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">hr_dashboard</field>
+        </record>
+
+        <menuitem id="menu_hrms_dashboard"
+                  name="Application Dashboard"
+                  action="hr_action_dashboard"
+                  parent="odoocms_admission.menu_odoocms_admission_main"
+                  sequence="100" groups="base.group_user"
+        />
+    </data>
+
+    <template id="assets_backend" name="Hr Dashboard assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoocms_admission_portal/static/src/js/hrms_dashboard.js"/>
+            <link rel="stylesheet" href="/odoocms_admission_portal/static/src/css/hrms_dashboard.css"/>
+        </xpath>
+    </template>
+</odoo>

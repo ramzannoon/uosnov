@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="datesheet_wiz_view_form" model="ir.ui.view">
+        <field name="name">datesheet.wiz.form</field>
+        <field name="model">datesheet.wiz</field>
+        <field name="arch" type="xml">
+            <form string="datesheet.wizard">
+                <group>
+                	<group>
+						<field name="department_id"  options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="exam_type_id"  options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="term_id"  options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+		            </group>
+		            <group>
+		            </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+       <record id="action_datesheet_wize" model="ir.actions.act_window">
+            <field name="name">Datesheet Report</field>
+            <field name="res_model">datesheet.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+         <menuitem
+                id="menu_odoocms_exam_report"
+                name="Report"
+                parent="menu_odoocms_exam_root"
+                sequence="140"/>
+         <menuitem
+                id="menu_odoocms_exam_report_datesheet"
+                name="Datesheet Report"
+                action="action_datesheet_wize"
+                parent="menu_odoocms_exam_report"
+                sequence="140"/>
+
+
+</odoo>

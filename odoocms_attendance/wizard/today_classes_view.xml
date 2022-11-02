@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_timetable_schedule_class_form" model="ir.ui.view">
+			<field name="name">odoocms.timetable.schedule.class.form</field>
+			<field name="model">odoocms.timetable.schedule.class</field>
+			<field name="arch" type="xml">
+				<form string="Schedule  Classes">
+					<group>
+						<group>
+							<field name="batch_id"
+								options='{"no_open": True, "no_create": True}'/>
+							<field name="section_id"  domain="[('batch_id', '=', batch_id)]"
+								options='{"no_open": True, "no_create": True}'/>
+						</group>
+						<group>
+							<field name="date_class"/>
+							<field name="date_class_to"/>
+						</group>
+					</group>
+					<footer>
+						<button name="generate_timetable" string="Generate Classes" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_odoocms_timetable_schedule_class" model="ir.actions.act_window">
+            <field name="name">Schedule Classes</field>
+            <field name="res_model">odoocms.timetable.schedule.class</field>
+            <field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+
+		<menuitem
+                id="menu_odoocms_timetable_schedule_class"
+                name="Schedule Classes"
+                parent="menu_odoocms_class_attendance_root"
+                action="action_odoocms_timetable_schedule_class"
+				sequence="30"/>
+
+		
+    </data>
+</odoo>

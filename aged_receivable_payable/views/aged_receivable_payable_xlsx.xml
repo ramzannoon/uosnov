@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+            id="action_aged_receivable_payable_xlsx_report"
+            model="aged.receivable.payable"
+            string="Aged Receivable and Payable"
+            report_type="xlsx"
+            name="aged_receivable_payable.aged_rece_pay_xls_temp_id"
+            file="Aged Receivable and Payable"
+    />
+</odoo>

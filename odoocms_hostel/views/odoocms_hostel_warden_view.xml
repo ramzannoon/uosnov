@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_hostel_warden_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.warden.tree</field>
+            <field name="model">odoocms.hostel.warden</field>
+            <field name="arch" type="xml">
+                <tree string="Hostel Managers" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="name"/>
+                    <field name="father_name"/>
+                    <field name="gender"/>
+                    <field name="cnic"/>
+                    <field name="phone"/>
+                    <field name="phone_ext"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="hostel_id"/>
+                    <field name="designation"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_warden_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.warden.form</field>
+            <field name="model">odoocms.hostel.warden</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Managers">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="father_name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="mobile" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="email" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="designation" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="cnic" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="gender" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="phone" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="phone_ext" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="hostel_id" required="0" attrs="{'readonly':[('state', '=', 'lock')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="appointment_date" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="terminate_date" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_warden_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.warden.search</field>
+            <field name="model">odoocms.hostel.warden</field>
+            <field name="arch" type="xml">
+                <search string="Hostel Managers">
+                    <field name="name" string="Manager Name"/>
+                    <field name="father_name"/>
+                    <field name="cnic"/>
+                    <field name="mobile"/>
+                    <newline/>
+
+<!--                     <filter string="Male" name="filter_by_male" domain="[('type', '=', 'Male')]"/>
+                    <filter string="Female" name="filter_by_female" domain="[('type', '=', 'Female')]"/>
+ -->
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_hostel" string="Type" domain="[]" context="{'group_by':'hostel_id'}"/>
+                        <filter name="group_by_gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="gender" icon="fa-building"/>
+                        <field name="hostel_id" icon="fa-building"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_warden_pivot" model="ir.ui.view">
+            <field name="name">odoocms.hostel.warden.pivot</field>
+            <field name="model">odoocms.hostel.warden</field>
+            <field name="arch" type="xml">
+                <pivot string="Hostel Managers" display_quantity="true">
+                    <field name="id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_warden_graph" model="ir.ui.view">
+            <field name="name">odoocms.hostel.warden.graph</field>
+            <field name="model">odoocms.hostel.warden</field>
+            <field name="arch" type="xml">
+                <graph string="Hostel Managers">
+                    <field name="id"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel_warden">
+            <field name="name">Hostel Managers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel.warden</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Managers.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_warden_menu"
+                name="Hostel Managers"
+                parent="menu_odoocms_hostel_general"
+                action="action_odoocms_hostel_warden"
+                groups="group_hostel_manager"
+                sequence="30"/>
+
+    </data>
+</odoo>

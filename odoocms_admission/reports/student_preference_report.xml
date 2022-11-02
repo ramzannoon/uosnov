@@ -1,0 +1,40 @@
+<odoo>
+
+	<template id ="odoocms_admission.student_preference_report">
+		<t t-call="web.basic_layout">
+			<div class="page" style="font-size: 12px;">
+				<table class="table table-bordered" width="100%">
+					<tr style="font-size:10px;page-break-inside: avoid;">
+						<th style="width:8%;">Sr.</th>
+						<th style="width:8%;">EntryID</th>
+						<th style="width:15%;">Name</th>
+						<th style="width:15%;">Father</th>
+						<th style="width:15%;">Domicile</th>
+						<th style="width:6%;">SSC</th>
+						<th style="width:6%;">Inter</th>
+						<th style="width:6%;">Test</th>
+						<th style="width:21%">Preferences</th>
+					</tr>
+					<tbody>
+						<t t-foreach="rep_data['lines']" t-as="ln">
+							<tr style="font-size:11px;">
+								<td><span t-esc="ln_index + 1" />  </td>
+								<td><span t-esc="ln['entryID']" /> </td>
+								<td><span t-esc="ln['name']" /> </td>
+								<td><span t-esc="ln['father_name']" /> </td>
+								<td><span t-esc="ln['domicile_id']" /> </td>
+								<td><span t-esc="ln['ssc']" /> </td>
+								<td><span t-esc="ln['inter']" /> </td>
+								<td><span t-esc="ln['test']" /> </td>
+								<td style="overflow-wrap: break-word;"><span t-esc="ln['pref']" /> </td>
+							</tr>
+						</t>
+					</tbody>
+				 </table>
+
+			</div>
+		</t>
+
+    </template>
+
+</odoo>

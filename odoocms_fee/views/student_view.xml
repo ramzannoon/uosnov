@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_form_inherit2" model="ir.ui.view">
+            <field name="name">odoocms.student.form.inherit2</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='academic_information']" position="after">
+                    <page string="Fee Receipts" name="fee_receipts" groups="odoocms.group_cms_manager,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_readonly_user">
+                        <group string="Receipts">
+                            <field name="receipt_ids" nolabel="1" default_order="id"
+                                   context="{
+                                    'form_view_ref' : 'odoocms_fee.odoocms_receipt_form',
+                                }">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="partner_id" groups="base.group_user" invisible="1"/>
+                                    <field name="student_id"/>
+                                    <field name="invoice_date" string="Invoice Date"/>
+                                    <field name="name"/>
+                                    <field name="journal_id"/>
+                                    <field name="invoice_date_due"/>
+                                    <field name="payment_date"/>
+
+                                    <field name="amount_total_signed" string="Total" sum="Total"/>
+                                    <field name="amount_residual_signed" invisible="1" string="Amount Due" sum="Amount Due"/>
+                                    <field name="receipt_type_ids" widget="many2many_tags"/>
+
+                                    <field name="tag" optional="1"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Ledger">
+                            <field name="ledger_lines" nolabel="1">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="sequence" widget="handle" invisible="1"/>
+                                    <field name="date"/>
+                                    <field name="invoice_id" context="{'form_view_ref': 'odoocms_fee.odoocms_receipt_form'}"/>
+                                    <field name="slip_barcode"/>
+                                    <field name="payment_id"/>
+                                    <field name="description"/>
+                                    <field name="is_defer_entry"/>
+                                    <field name="debit"/>
+                                    <field name="credit"/>
+                                    <field name="balance_str" string="Balance"/>
+                                </tree>
+                            </field>
+                        </group>
+
+                        <group string="Waiver Details">
+                            <field name="waiver_line_ids" nolabel="1">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="term_id"/>
+                                    <field name="semester_id"/>
+                                    <field name="waiver_line_id"/>
+                                    <field name="waiver_type"/>
+                                    <field name="invoice_id"/>
+                                    <field name="amount_percentage" string="Value"/>
+                                    <field name="amount" sum="sum_amount"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page string="Refund Requests" name="fee_refund" groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager">
+                        <group>
+                            <field name="refund_request_ids" nolabel="1" groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager">
+                                <tree edit="false" create="false" delete="false">
+                                    <field name="student_id"/>
+                                    <field name="description"/>
+                                    <field name="refund_type"/>
+                                    <field name="state" readonly="1"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook/page[@name='othersettings']/group/group//field[@name='allow_re_reg_wo_fee']" position="after">
+                    <field name="exclude_library_fee"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_tree_inherit2" model="ir.ui.view">
+            <field name="name">odoocms.student.tree.inherit2</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_tree"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="fee_generated" optional="hide"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_search_inherit2" model="ir.ui.view">
+            <field name="name">odoocms.student.search.inherit2</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_search"/>
+            <field name="arch" type="xml">
+                <field name="religion_id" position="after">
+                    <filter name="filter_by_fee_generated" string="Not Fee Generated" domain="[('fee_enable','=',True),('fee_generated','=',False)]"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- for fee bank details in department -->
+        <record id="view_odoocms_department_form_inherit" model="ir.ui.view">
+            <field name="name">odoocms.department.form.inherit</field>
+            <field name="model">odoocms.department</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_department_form"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="account_payable"/>
+                    <field name="account_title"/>
+                    <field name="account_no"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_students"
+                parent="menu_odoocms_student_fee_main"
+                name="Students"
+                action="odoocms.action_odoocms_student"
+                sequence="8"/>
+
+    </data>
+</odoo>

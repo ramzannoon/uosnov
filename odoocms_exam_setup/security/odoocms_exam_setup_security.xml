@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+     <record id="module_category_odoocms_exam_setup" model="ir.module.category">
+        <field name="name">CMS Exam Setup</field>
+        <field name="description">Helps you handle your CMS Exam Setup needs.</field>
+        <field name="sequence">10</field>
+     </record>
+
+	 <record id="group_cms_exam_setup_user" model="res.groups">
+        <field name="name">Odoo CMS Exam Setup User</field>
+        <field name="category_id" ref="module_category_odoocms_exam_setup"/>
+         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+</data>
+</odoo>
+

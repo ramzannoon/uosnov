@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_project_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Project</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Project Details</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Effective Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Project Name</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Supervisor</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Co-Supervisor</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="projects" t-as="project">
+                                                <tr class="table-parent-row show_child_row">
+                                                    <td>
+                                                        <a href="#" class="js-toggle-children-row toggle-childrens">
+                                                            <t t-esc="project.project_title"/>
+                                                        </a>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.effective_date"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.supervisor.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.co_supervisor.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.short_description"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <span t-attf-class="uk-badge {{'uk--badge-danger' if project.state == 'rejected' else ''}}"
+                                                              t-esc="project.state"/>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to delete?', function(){ dfdf({{ project.id }})});">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-child-row md-bg-blue-grey-800 md-color-grey-50">
+                                                    <th>Group Members</th>
+                                                    <th>GEC Committee</th>
+                                                </tr>
+                                                <t t-foreach="project.student_ids" t-as="student">
+                                                    <tr class="table-child-row">
+                                                        <td class="uk-width-1-10 md-color-grey-800">Compulsory</td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="student.name"/>
+                                                        </td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="student.code"/>
+                                                        </td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="course.credits"/>
+                                                        </td>
+
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form mothod="post" action="/student/retest/req/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                            <select id="select_adv_single" name="retest_course" required="true">
+                                                <option value="">Select Course...</option>
+                                                <optgroup label="Courses">
+                                                    <t t-foreach="student.result_course_ids" t-as="course">
+                                                        <option t-att-value="course.id">
+                                                            <span>
+                                                                <t t-esc="course.course_id.code"/>
+                                                            </span>
+                                                            <span>-
+                                                                <span t-esc="course.course_id.name"/>
+                                                            </span>
+                                                            <span>
+                                                                <b>Credits:</b>
+                                                                <t t-esc="course.course_id.credits"/>
+                                                            </span>
+                                                        </option>
+                                                    </t>
+
+                                                </optgroup>
+                                            </select>
+
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Description/Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+            </body>
+        </t>
+    </template>
+    <template id="student_projects" name="Student Projects">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <head>
+                <script>document.getElementsByTagName("html")[0].className += " js";</script>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/skins/dropify/css/dropify.css"/>
+            </head>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/project">
+                                    Projects
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">
+                            <t t-if="projects.project_title">
+                                <t t-esc="projects.project_title"/></t>
+                        </h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <div class="uk-grid">
+                                    <!-- students list-->
+                                    <div class="uk-width-medium-1-2">
+                                        <div class="md-card">
+                                            <div class="md-card-content">
+                                                <div class="uk-accordion" data-uk-accordion="">
+                                                    <!--                                            data-uk-accordion-->
+                                                    <h3 class="uk-accordion-title uk-accordion-title-primary">Group
+                                                        Members</h3>
+
+                                                    <t t-foreach="projects.student_ids" t-as="student">
+                                                        <ul class="md-list md-list-addon">
+                                                            <li>
+                                                                <!--                                                                <div class="md-list-addon-element">-->
+                                                                <!--                                                                    <img class="md-user-image md-list-addon-avatar"-->
+                                                                <!--                                                                         t-att-src="image_data_uri(student.image_1920)"-->
+                                                                <!--                                                                         alt="user"-->
+                                                                <!--                                                                         t-if="student and student.image_1920"/>-->
+                                                                <!--                                                                </div>-->
+                                                                <a href="mailto:student.email"
+                                                                   class="md-list-addon-element"><i
+                                                                        class="md-list-addon-icon material-icons uk-text-primary">
+                                                                    &#xE163;</i></a>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading"><t
+                                                                            t-esc="student.name"/></span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        ID:
+                                                                        <t t-esc="student.id_number"/>
+                                                                    </span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="student.email"/>
+
+                                                                        <t t-esc="student.phone"/>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+
+
+                                                    </t>
+
+                                                </div>
+                                                <!--                                                </t>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- faculty list-->
+
+                                    <div class="uk-width-medium-1-2">
+                                        <div class="md-card">
+                                            <div class="md-card-content">
+
+
+                                                <div class="uk-accordion">
+                                                    <!--                                            data-uk-accordion-->
+
+                                                    <h3 class="uk-accordion-title uk-accordion-title-primary">Faculty
+                                                        Members</h3>
+
+                                                    <t t-foreach="projects.supervisor" t-as="supervisor">
+                                                        <ul class="md-list md-list-addon">
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <img class="md-user-image md-list-addon-avatar"
+                                                                         t-att-src="image_data_uri(supervisor.image_1920)"
+                                                                         alt="user"
+                                                                         t-if="supervisor and supervisor.image_1920"/>
+                                                                </div>
+                                                                <a href="mailto:supervisor.email"
+                                                                   class="md-list-addon-element"><i
+                                                                        class="md-list-addon-icon material-icons uk-text-primary">
+                                                                    &#xE163;</i></a>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">
+                                                                        <t
+                                                                                t-esc="supervisor.name"/>
+                                                                        (Supervisor)</span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="supervisor.work_email"/>
+                                                                        <t t-esc="supervisor.mobile_phone"/>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </t>
+
+                                                    <t t-foreach="projects.co_supervisor" t-as="cosupervisor">
+                                                        <ul class="md-list md-list-addon">
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <img class="md-user-image md-list-addon-avatar"
+                                                                         t-att-src="image_data_uri(cosupervisor.image_1920)"
+                                                                         alt="user"
+                                                                         t-if="cosupervisor and cosupervisor.image_1920"/>
+                                                                </div>
+                                                                <a href="mailto:supervisor.email"
+                                                                   class="md-list-addon-element"><i
+                                                                        class="md-list-addon-icon material-icons uk-text-primary">
+                                                                    &#xE163;</i></a>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading"><t
+                                                                            t-esc="cosupervisor.name"/>
+                                                                        (Co_Supervisor)</span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="cosupervisor.work_email"/>
+                                                                        <t t-esc="cosupervisor.mobile_phone"/>
+
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </t>
+
+                                                </div>
+                                                <!--                                                </t>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--description-->
+                                    <div class="uk-width-medium-2-2">
+                                        <div class="md-card">
+                                            <div class="md-card-content">
+
+
+                                                <div class="uk-accordion">
+                                                    <!--                                            data-uk-accordion-->
+                                                    <h3 class="uk-accordion-title uk-accordion-title-primary">Project
+                                                        Descriptions</h3>
+                                                    <t t-foreach="projects" t-as="project">
+                                                        <ul class="md-list md-list-addon">
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">Description</span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="project.description"/>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">Short
+                                                                        Description</span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="project.short_description"/>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">Formal
+                                                                        Description</span>
+                                                                    <span class="uk-text-small uk-text-muted">
+                                                                        <t t-esc="project.formal_description"/>
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </t>
+
+                                                </div>
+                                                <!--                                                </t>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--  milestone feedback-->
+                                    <t t-if="feedback_lines">
+                                        <div class="uk-width-medium-2-2">
+                                            <div class="md-card">
+                                                <div class="md-card-content">
+                                                    <div class="uk-accordion" data-uk-accordion="0">
+                                                        <!--                                            -->
+                                                        <h3 class="uk-accordion-title uk-accordion-title-primary">
+                                                            Milestones
+                                                            Feedback</h3>
+                                                        <t t-foreach="feedback_lines" t-as="feedback">
+                                                            <ul class="md-list md-list-addon">
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            <t t-esc="feedback.milestone_id.name"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">
+                                                                            <t t-raw="feedback.feedback"/>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </t>
+
+                                                    </div>
+                                                    <!--                                                </t>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <!--                                    supervisor feedback-->
+                                    <t t-if="projects.supervisor_feedback">
+                                        <div class="uk-width-medium-2-2">
+                                            <div class="md-card">
+                                                <div class="md-card-content">
+                                                    <div class="uk-accordion" data-uk-accordion="0">
+                                                        <!--                                            -->
+                                                        <h3 class="uk-accordion-title uk-accordion-title-primary">
+                                                            Supervisor Project
+                                                            Feedback</h3>
+                                                        <t t-foreach="projects" t-as="project">
+                                                            <ul class="md-list md-list-addon">
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            <t t-esc="project.supervisor.name"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">
+                                                                            <t t-raw="project.supervisor_feedback"/>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </t>
+
+                                                    </div>
+                                                    <!--                                                </t>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-if="projects.co_supervisor_feedback">
+                                        <div class="uk-width-medium-2-2">
+                                            <div class="md-card">
+                                                <div class="md-card-content">
+                                                    <div class="uk-accordion" data-uk-accordion="0">
+                                                        <!--                                            -->
+                                                        <h3 class="uk-accordion-title uk-accordion-title-primary">
+                                                            Co-Supervisor Project
+                                                            Feedback</h3>
+                                                        <t t-foreach="projects" t-as="project">
+                                                            <ul class="md-list md-list-addon">
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading">
+                                                                            <t t-esc="project.co_supervisor_feedback.name"/>
+                                                                        </span>
+                                                                        <span class="uk-text-small uk-text-muted">
+                                                                            <t t-raw="project.co_supervisor_feedback"/>
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </t>
+
+                                                    </div>
+                                                    <!--                                                </t>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-grid">
+                            <div class="uk-width-large-1-3">
+                                <h3 class="heading_a uk-margin-bottom">Project Timeline</h3>
+                                <div class="timeline timeline_small uk-margin-bottom">
+                                    <t t-foreach="projects" t-as="project">
+
+
+                                        <!--                                        start-->
+                                        <!--                                        <form method="post" enctype="multipart/form-data" action="/student/project/documents">-->
+                                        <form enctype="multipart/form-data">
+                                            <div class="timeline_item">
+                                                <div class="timeline_icon timeline_icon_success"><i
+                                                        class="material-icons">
+                                                    &#xE85D;</i></div>
+                                                <div class="timeline_date">
+                                                    <t t-esc="project.create_date"></t>
+                                                </div>
+                                                <div class="timeline_content">Created project <strong>
+                                                    <t t-esc="project.project_title"></t></strong></div>
+                                            </div>
+                                            <div class="timeline_item">
+
+                                                <t t-if="project.selected_milestone_ids">
+                                                    <t t-foreach="project.selected_milestone_ids" t-as="milestone">
+
+                                                        <div class="timeline_icon timeline_icon_success"><i
+                                                                class="material-icons">
+                                                            &#xE85D;</i></div>
+                                                        <div class="timeline_content">Milestone Attached <strong>
+                                                            <t t-esc="milestone.name"></t></strong></div>
+                                                        <div class="timeline_date">
+                                                            <strong>
+                                                                <span>Start Date</span>
+                                                                <t t-esc="milestone.start_date"></t></strong>
+                                                        </div>
+                                                        <div class="timeline_date">
+                                                            <strong>
+                                                                <span>End Date</span>
+                                                                <t t-esc="milestone.end_date"></t></strong>
+                                                        </div>
+                                                        <t t-if="milestone.complition_date">
+                                                            <div class="timeline_date">
+                                                                <strong>
+                                                                    <span>Completion Date</span>
+                                                                    <t t-esc="milestone.complition_date"></t></strong>
+                                                            </div>
+                                                        </t>
+                                                        <div class="timeline_content">
+                                                            Insert Document
+                                                            <div class="timeline_content_addon">
+                                                                <input type="file"
+                                                                       t-att-id="'attached_document_' +  str(milestone.id)"
+                                                                       name="attached_document"
+                                                                       class="dropify"/>
+                                                                <!--                                                                <input type="file" id="attached_document"-->
+                                                                <!--                                                                       name="attached_document"-->
+                                                                <!--                                                                       class="dropify"/>-->
+
+                                                                <!--                                                                <input name="attached_document" id="attached_document"-->
+                                                                <!--                                                                       type="file" class="file"-->
+                                                                <!--                                                                       multiple="true" data-show-upload="true"-->
+                                                                <!--                                                                       data-show-caption="true" lass="file"-->
+                                                                <!--                                                                       data-show-preview="true"/>-->
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <input type="hidden" name="document_name"
+                                                                   t-att-id="'document_name_' +  str(milestone.id)"
+
+                                                                   t-att-value="milestone.name"/>
+                                                            <input type="hidden" name="document_code"
+                                                                   t-att-id="'document_code_' +  str(milestone.id)"
+                                                                   t-att-value="milestone.code"/>
+                                                        </div>
+                                                        <button t-attf-onclick="submit_document({{milestone.id}})"
+                                                                class="md-btn md-btn-primary md-btn-block md-btn-wave-light">
+                                                            Send Document</button>
+                                                    </t>
+                                                </t>
+                                            </div>
+
+                                        </form>
+
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="uk-width-large-1-3 ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <script>
+                    function submit_document(id){
+                    debugger;
+                    var attachment = document.getElementById('attached_document_'+id);
+                    var file_data = $('#attached_document_'+id).prop('files')[0];
+                    var name = document.getElementById('document_name_'+id)
+                    var code = document.getElementById('document_code_'+id)
+                    var formData = new FormData();
+                    formData.append('id',id);
+                    formData.append('name',name.value);
+                    formData.append('code',code.value);
+                    formData.append('file', file_data);
+
+                    $.ajax({
+                    url: "/student/project/documents",
+                    type: "POST",
+                    enctype:"multipart/formData",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    debugger;
+                    if (data.status_is != 'Error'){
+                    showNotify('Farwarded Successfully','success','top-right');
+                    setTimeout(function(){location.reload()}, 2000);
+                    }
+                    else{
+                    showNotify(data.error_message,'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Something wrong!','danger','top-right');
+                    }
+                    });
+
+
+                    }
+                </script>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+            </body>
+        </t>
+    </template>
+
+</odoo>

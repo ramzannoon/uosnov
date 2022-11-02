@@ -1,0 +1,114 @@
+<odoo>
+    <template id="items_inventory_template">
+        <t t-call="web.html_container">
+            <!--             <t t-call="odoocms_exam.header_progress_report_bn"> -->
+            <style>
+                table.border {
+                width: 100%%;
+                border-collapse: collapse;
+                }
+                table.border th {
+                border: 1px solid black;
+                text-align: center;
+                padding: 5px;
+                }
+                table.border td {
+                border: 1px solid black;
+                text-align: center;
+                padding: 5px;
+                }
+            </style>
+            <div class="page" style="font-size:14px; margin-left: 8px; margin-right: 8px;padding-top:2px;">
+                <div class="row">
+                    <div class="col-4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                             style="height:2cm; width:4cm;"/>
+                    </div>
+                    <div class="col-4">
+                        <h3 style="text-align:center;">
+                            <b>Items Inventory Report</b>
+                        </h3>
+                        <h3 style="text-align:center;">
+                            <b>Main Store</b>
+                        </h3>
+                    </div>
+                    <div class="col-4"></div>
+                </div>
+                <div style="padding-top:20px">
+                    <table name="progress_repo_id" style="padding-top:1px;width:100%">
+                        <tr>
+                            <td style="width: 5%;">
+                                <b>Date</b>
+                            </td>
+                            <td style="width: 25%; border-bottom: 1px solid black">
+                                <span t-esc="date_from"/> To
+                                <span t-esc="date_to"/>
+                            </td>
+                            <td style="width: 40%; text-align:center;"/>
+                            <td style="width: 10%; text-align:center;">
+                                <b>Items Head</b>
+                            </td>
+                            <td style="width: 20%; border-bottom: 1px solid black"/>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="margin-top:16px">
+                    <table class="border">
+                        <tr>
+                            <th style="width: 5%">SR</th>
+                            <th style="width: 10%">Item Code</th>
+                            <th style="width: 15%">Name</th>
+                            <th style="width: 5%">UOM</th>
+                            <th style="width: 10%">Value</th>
+                            <th style="width: 15%">Min Value</th>
+                            <th style="width: 15%">Max Value</th>
+                            <th style="width: 15%">On Hand</th>
+                            <th style="width: 10%">Amount</th>
+                        </tr>
+                        <t t-foreach="data" t-as="line">
+                            <tr>
+                                <td name="sr">
+                                    <span t-esc="line['sr']"/>
+                                </td>
+                                <t t-if="line['item_code']">
+                                    <td name="code">
+                                        <span t-esc="line['item_code']"/>
+                                    </td>
+                                </t>
+                                <t t-else="">
+                                    <td name="code">
+                                        <span style="width: 5%;"></span>
+                                    </td>
+                                </t>
+                                <td name="name">
+                                    <span t-esc="line['name']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="line['uom']"/>
+                                </td>
+                                <td name="value">
+                                    <span t-esc="line['value']"/>
+                                </td>
+                                <td name="min_value">
+                                    <span t-esc="line['min_value']"/>
+                                </td>
+                                <td name="max_value">
+                                    <span t-esc="line['max_value']"/>
+                                </td>
+                                <td name="on_hand">
+                                    <span t-esc="line['on_hand']"/>
+                                </td>
+                                <td name="amount">
+                                    <span t-esc="line['amount']"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+
+            </div>
+        </t>
+        <!--         </t> -->
+    </template>
+</odoo>

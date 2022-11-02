@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_late_fee_knockoff_request_form" model="ir.ui.view">
+            <field name="name">odoocms.late.fee.knockoff.request.form</field>
+            <field name="model">odoocms.late.fee.knockoff.request</field>
+            <field name="arch" type="xml">
+                <form string="Late Fee Waive Off Requests">
+                    <header>
+                        <button name="action_hod" states="draft" string="Send HOD" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_dd_fin" states="hod" string="DD Fin" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_approved" states="ddf" string="Approved" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_rejected" states="ddf" string="Rejected" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_fee_manager" states="approve" string="Fee Manager Approval" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1" attrs="{'readonly':[('state','!=','draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="session_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="career_id" required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="term_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="institute_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="campus_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="discipline_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="semester_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+
+                            <group>
+                                <field name="invoice_id" attrs="{'readonly':[('state','in',('fee_manager','approve','reject'))]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"
+                                       domain="[('student_id', '=', student_id),('invoice_payment_state', '=', 'open')]"/>
+                                <field name="invoice_date"/>
+                                <field name="request_date" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="approve_date" readonly="1"/>
+                                <field name="reject_date" attrs="{'invisible':[('state', '!=', 'reject')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="invoice_date_due"/>
+                                <field name="invoice_first_due_date"/>
+                                <field name="invoice_second_due_date"/>
+                                <field name="is_first_due_date_passed"/>
+                                <field name="is_second_due_date_passed"/>
+                            </group>
+
+                            <group>
+                                <field name="invoice_amount"/>
+                                <field name="late_fine_amount" required="1"/>
+                            </group>
+                            <group>
+                                <field name="new_due_date"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_late_fee_knockoff_request_tree" model="ir.ui.view">
+            <field name="name">odoocms.late.fee.knockoff.request.tree</field>
+            <field name="model">odoocms.late.fee.knockoff.request</field>
+            <field name="arch" type="xml">
+                <tree string="Late Fee Knockoff Requests" decoration-success="state != 'reject'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id" optional="1"/>
+                    <field name="institute_id" optional="1"/>
+                    <field name="discipline_id" optional="1"/>
+                    <field name="campus_id" optional="1"/>
+                    <field name="invoice_id"/>
+                    <field name="invoice_amount"/>
+                    <field name="invoice_date"/>
+                    <field name="invoice_first_due_date"/>
+                    <field name="invoice_second_due_date"/>
+                    <field name="new_due_date"/>
+                    <field name="request_date"/>
+                    <field name="approve_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_late_fee_knockoff_request_search" model="ir.ui.view">
+            <field name="name">odoocms.late.fee.knockoff.request.search</field>
+            <field name="model">odoocms.late.fee.knockoff.request</field>
+            <field name="arch" type="xml">
+                <search string="Late Fee Waive Off Requests">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="campus_id"/>
+                    <field name="request_date"/>
+                    <field name="approve_date"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <separator/>
+                        <filter name="group_by_session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <filter name="group_term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_semester" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                        <filter name="group_institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+
+                        <separator/>
+                        <filter name="group_by_request_date" string="Request Date" domain="[]" context="{'group_by':'request_date'}"/>
+                        <filter name="group_by_approved_type" string="Approved Date" domain="[]" context="{'group_by':'approve_date'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="state" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_late_fee_knockoff_request_pivot" model="ir.ui.view">
+            <field name="name">odoocms.late.fee.knockoff.request.pivot</field>
+            <field name="model">odoocms.late.fee.knockoff.request</field>
+            <field name="priority">64</field>
+            <field name="arch" type="xml">
+                <pivot string="Late Fee Waive Off Analysis" display_quantity="true">
+                    <field name="request_date" type="row"/>
+                    <field name="invoice_amount" type="measure"/>
+                    <field name="late_fine_amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_late_fee_knockoff_request_graph" model="ir.ui.view">
+            <field name="name">odoocms.late.fee.knockoff.request.graph</field>
+            <field name="model">odoocms.late.fee.knockoff.request</field>
+            <field name="arch" type="xml">
+                <graph string="Late Fee Waive Off Analysis">
+                    <field name="student_id"/>
+                    <field name="request_date" type="measure"/>
+                    <field name="invoice_amount" type="measure"/>
+                    <field name="late_fine_amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_odoocms_late_fee_knockoff_request_view" model="ir.actions.act_window">
+            <field name="name">Late Fee Waive Off Requests</field>
+            <field name="res_model">odoocms.late.fee.knockoff.request</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_late_fee_knockoff_request"
+                name="Late Fee Waive Off Requests"
+                parent="menu_student_fee_request_root"
+                sequence='15'
+                action="action_odoocms_late_fee_knockoff_request_view"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+        />
+    </data>
+</odoo>

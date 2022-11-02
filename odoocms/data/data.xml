@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+
+        <record id="tag_category_disposal" model="odoocms.student.tag.category">
+            <field name="name">Disposal</field>
+            <field name="code">disposal</field>
+            <field name="multiple">True</field>
+        </record>
+
+<!--        <record id="student_tag_warning" model="odoocms.student.tag">-->
+<!--            <field name="name">Warning</field>-->
+<!--            <field name="code">warning</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+<!--        <record id="student_tag_probation" model="odoocms.student.tag">-->
+<!--            <field name="name">Probation</field>-->
+<!--            <field name="code">probation</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+<!--        <record id="student_tag_suspension" model="odoocms.student.tag">-->
+<!--            <field name="name">Suspension</field>-->
+<!--            <field name="code">suspension</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+<!--        <record id="student_tag_withdrawal" model="odoocms.student.tag">-->
+<!--            <field name="name">Withdrawal</field>-->
+<!--            <field name="code">withdrawal</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+<!--        <record id="student_tag_suspension_reg" model="odoocms.student.tag">-->
+<!--            <field name="name">Suspension of Registration</field>-->
+<!--            <field name="code">suspension of registration</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+<!--        <record id="student_tag_promoted" model="odoocms.student.tag">-->
+<!--            <field name="name">Promoted</field>-->
+<!--            <field name="code">promoted</field>-->
+<!--            <field name="category_id" ref="tag_category_disposal"/>-->
+<!--        </record>-->
+
+
+        <record id="session_18" model="odoocms.academic.session">
+            <field name="name">2018</field>
+            <field name="code">18</field>
+        </record>
+
+        <record id="session_19" model="odoocms.academic.session">
+            <field name="name">2019</field>
+            <field name="code">19</field>
+        </record>
+
+        <record id="session_20" model="odoocms.academic.session">
+            <field name="name">2020</field>
+            <field name="code">20</field>
+        </record>
+
+        <!--term-->
+<!--        <record id="term_f18" model="odoocms.academic.term">-->
+<!--            <field name="name">Fall 2018</field>-->
+<!--            <field name="code">Fall-18</field>-->
+<!--            <field name="short_code">F18</field>-->
+<!--            <field name="number">2184</field>-->
+<!--            <field name="type">regular</field>-->
+<!--            <field name="description">Fall 2018 Term</field>-->
+<!--        </record>-->
+
+<!--        <record id="term_s19" model="odoocms.academic.term">-->
+<!--            <field name="name">Spring 2019</field>-->
+<!--            <field name="code">Spring-19</field>-->
+<!--            <field name="short_code">S19</field>-->
+<!--            <field name="number">2191</field>-->
+<!--            <field name="type">regular</field>-->
+<!--            <field name="description">Spring 2019 Term</field>-->
+<!--        </record>-->
+
+<!--        <record id="term_f19" model="odoocms.academic.term">-->
+<!--            <field name="name">Fall 2019</field>-->
+<!--            <field name="code">Fall-19</field>-->
+<!--            <field name="short_code">F19</field>-->
+<!--            <field name="number">2194</field>-->
+<!--            <field name="type">regular</field>-->
+<!--            <field name="description">Fall 2019 Term</field>-->
+<!--        </record>-->
+
+<!--        <record id="term_s20" model="odoocms.academic.term">-->
+<!--            <field name="name">Spring 2020</field>-->
+<!--            <field name="code">Spring-20</field>-->
+<!--            <field name="short_code">S20</field>-->
+<!--            <field name="number">2201</field>-->
+<!--            <field name="type">regular</field>-->
+<!--            <field name="description">Spring 2020 Term</field>-->
+<!--        </record>-->
+
+<!--        <record id="term_f20" model="odoocms.academic.term">-->
+<!--            <field name="name">Fall 2020</field>-->
+<!--            <field name="code">Fall-20</field>-->
+<!--            <field name="short_code">F20</field>-->
+<!--            <field name="number">2204</field>-->
+<!--            <field name="type">regular</field>-->
+<!--            <field name="description">Fall 2020 Term</field>-->
+<!--        </record>-->
+
+<!--        term detail-->
+<!--        <record id="term_detail_f19A" model="odoocms.academic.term.line">-->
+<!--            <field name="term_id" ref="term_f19"/>-->
+<!--            <field name="name">F19A</field>-->
+<!--            <field name="date_start">2019-10-01</field>-->
+<!--            <field name="date_end">2020-02-25</field>-->
+<!--        </record>-->
+<!--        <record id="term_detail_f19B" model="odoocms.academic.term.line">-->
+<!--            <field name="term_id" ref="term_f19"/>-->
+<!--            <field name="name">F19B</field>-->
+<!--            <field name="date_start">2019-10-01</field>-->
+<!--            <field name="date_end">2020-02-25</field>-->
+<!--        </record>-->
+<!--        <record id="term_detail_f20" model="odoocms.academic.term.line">-->
+<!--            <field name="term_id" ref="term_f20"/>-->
+<!--            <field name="name">D19C</field>-->
+<!--            <field name="date_start">2019-10-01</field>-->
+<!--            <field name="date_end">2020-02-25</field>-->
+<!--        </record>-->
+
+        <record id="course_placeholder" model="odoocms.course.tag">
+            <field name="name">Placeholder</field>
+            <field name="code">placeholder</field>
+            <field name="sequence">1</field>
+            <field name="color">1</field>
+        </record>
+
+        <record id="religion_islam" model="odoocms.religion">
+            <field name="name">Islam</field>
+            <field name="code">Islam</field>
+        </record>
+
+        <record id="marital_single" model="odoocms.marital.status">
+            <field name="name">Single</field>
+            <field name="code">Single</field>
+        </record>
+
+        <record id="day_mon" model="odoocms.week.day">
+            <field name="name">Monday</field>
+            <field name="code">Mon</field>
+            <field name="sequence">1</field>
+            <field name="number">1</field>
+            <field name="color">10</field>
+        </record>
+
+
+        <record id="day_tue" model="odoocms.week.day">
+            <field name="name">Tuesday</field>
+            <field name="code">Tue</field>
+            <field name="sequence">2</field>
+            <field name="number">2</field>
+            <field name="color">4</field>
+        </record>
+
+        <record id="day_wed" model="odoocms.week.day">
+            <field name="name">Wednesday</field>
+            <field name="code">Wed</field>
+            <field name="sequence">3</field>
+            <field name="number">3</field>
+            <field name="color">3</field>
+        </record>
+
+        <record id="day_thu" model="odoocms.week.day">
+            <field name="name">Thursday</field>
+            <field name="code">Thu</field>
+            <field name="sequence">4</field>
+            <field name="number">4</field>
+            <field name="color">4</field>
+        </record>
+
+        <record id="day_fri" model="odoocms.week.day">
+            <field name="name">Friday</field>
+            <field name="code">Fri</field>
+            <field name="sequence">5</field>
+            <field name="number">5</field>
+            <field name="color">7</field>
+        </record>
+
+        <record id="day_sat" model="odoocms.week.day">
+            <field name="name">Saturday</field>
+            <field name="code">Sat</field>
+            <field name="sequence">6</field>
+            <field name="number">6</field>
+            <field name="color">5</field>
+        </record>
+
+        <record id="day_sun" model="odoocms.week.day">
+            <field name="name">Sunday</field>
+            <field name="code">Sun</field>
+            <field name="sequence">7</field>
+            <field name="number">7</field>
+            <field name="color">1</field>
+        </record>
+
+
+        <!--        <record id="odoocms_roomtype_1" model="odoocms.room.type">-->
+        <!--            <field name="name">Computing Laboratories</field>-->
+        <!--            <field name="code">computingLab</field>-->
+        <!--            <field name="type">Room</field>-->
+        <!--        </record>-->
+
+        <!--        <record id="odoocms_roomtype_1" model="odoocms.room.type">-->
+        <!--            <field name="name">Additional Instructional Rooms</field>-->
+        <!--            <field name="code">departmental</field>-->
+        <!--            <field name="type">Room</field>-->
+        <!--        </record>-->
+
+        <!--        <record id="odoocms_roomtype_1" model="odoocms.room.type">-->
+        <!--            <field name="name">Special Use Rooms</field>-->
+        <!--            <field name="code">specialUse</field>-->
+        <!--            <field name="type">Room</field>-->
+        <!--        </record>-->
+
+        <!--        <record id="odoocms_roomtype_1" model="odoocms.room.type">-->
+        <!--            <field name="name">Outside Locations</field>-->
+        <!--            <field name="code">nonUniversity</field>-->
+        <!--            <field name="type">Other</field>-->
+        <!--        </record>-->
+
+    </data>
+</odoo>

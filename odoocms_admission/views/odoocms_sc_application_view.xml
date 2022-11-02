@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_sc_application_tree" model="ir.ui.view">
+        <field name="name">odoocms.sc.application.tree</field>
+        <field name="model">odoocms.sc.application</field>
+        <field name="arch" type="xml">
+            <tree string="Student Application">
+                <field name="register_id" invisible="1"/>
+                <field name="entryID"/>
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="date_of_birth"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="cnic"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_sc_application_form" model="ir.ui.view">
+        <field name="name">odoocms.sc.application.form</field>
+        <field name="model">odoocms.sc.application</field>
+        <field name="arch" type="xml">
+            <form string="Student Application">
+                <header>
+<!--                    <button type="object" name="create_application_user" string="Create User"-->
+<!--                            groups="odoocms.group_cms_manager" class="oe_highlight"-->
+<!--                            attrs="{'invisible': [('state', '!=', 'done')]}"/>-->
+                    <button name="application_verify" type="object" class="oe_highlight"
+                            string="Verify Application" groups="base.group_user"
+                            help="Click to verify the Application and Documents"
+                            states="draft"/>
+                    <button name="create_student" string="Create Student"
+                            type="object" class="oe_highlight"
+                            help="Click to create Student"
+                            states="approve"/>
+<!--                     <button name="reject_application" string="Reject"
+                            type="object"
+                            states="draft,approve"/> -->
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approve,done"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image" widget='image' class="oe_avatar"/>
+
+                    <div class="oe_title">
+                        <h3>
+                            <field name="application_no"/>
+                        </h3>
+                        <label for="first_name" class="oe_edit_only" string="Candidate Name"/>
+                        <h2>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="first_name" required="1"
+                                               placeholder="First Name"/>
+                                    </td>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="last_name" placeholder="Last Name"/>
+                                    </td>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="middle_name" placeholder="Middle Name"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h2>
+                    </div>
+                    <separator/>
+
+                    <group string="Admission Details">
+                        <group>
+                            <field name="register_id" domain="[('state', 'in', ['application','admission'])]"
+                                   widget="selection"/>
+                            <field name="academic_session_id"/>
+                            <field name="student_id" readonly="1"/>
+                            <field name="is_hafiz"/>
+                        </group>
+                        <group>
+                            <field name="entryID"/>
+                            <field name="application_no"/>
+                            <field name="application_date"/>
+                            <field name="course_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name='personal' string="Personal Details">
+                            <group>
+                                <group>
+                                    <field name="date_of_birth"/>
+                                    <field name="nationality"/>
+                                    <field name="domicile"/>
+                                    <field name="domicile_id"/>
+                                </group>
+                                <group>
+                                    <field name="cnic" required="1"/>
+                                    <field name="gender"/>
+                                    <field name="religion_id"/>
+                                    <field name="blood_group"/>
+                                </group>
+                            </group>
+
+                            <separator string="Contact Details"/>
+                            <group name="contact_info">
+                                <group>
+                                    <field name="email"/>
+                                </group>
+                                <group>
+                                    <field name="mobile" required="1"/>
+                                    <field name="phone"/>
+                                </group>
+                            </group>
+
+                            <group name="present_permanent_address">
+                                <group>
+                                    <label for="street" string="Present Address"/>
+                                    <div name="div_address">
+                                        <field name="street" required="1" placeholder="Street..."/>
+                                        <field name="street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="country_id" placeholder="Country" class="oe_no_button"
+                                               options='{"no_open": True}'/>
+                                    </div>
+                                    <field name="is_same_address" string="Is Same Address"/>
+                                </group>
+
+                                <group name="permanent_address" attrs="{'invisible': [('is_same_address','=', True)]}">
+                                    <label for="per_street" string="Permanent Address"/>
+                                    <div name="div_address">
+                                        <field name="per_street" placeholder="Street..."/>
+                                        <field name="per_street2" placeholder="Street2..."/>
+                                        <div class="address_format">
+                                            <field name="per_city" placeholder="City" style="width: 40%%"/>
+                                            <field name="per_state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="per_zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="per_country_id" placeholder="Country" string="Country"
+                                               class="oe_no_button" options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page name="guardian_info" string="Guardian Info">
+                            <separator string="Father’s/Guardian’s"/>
+                            <group col="3">
+                                <group>
+                                    <field name="father_name"/>
+                                    <field name="father_income"/>
+                                </group>
+                                <group>
+                                    <field name="father_cnic"/>
+                                    <field name="father_email"/>
+                                </group>
+                                <group>
+                                    <field name="father_occupation"/>
+                                    <field name="father_mobile"/>
+                                </group>
+                            </group>
+                            <group col="3">
+                                <group>
+                                    <field name="guardian_name"/>
+                                    <field name="guardian_occupation"/>
+                                    <field name="guardian_cnic"/>
+                                </group>
+                                <group>
+                                    <field name="guardian_relation"/>
+                                    <field name="guardian_mobile"/>
+                                </group>
+                                <group>
+                                    <field name="guardian_landline"/>
+                                    <field name="guardian_address"/>
+                                </group>
+                            </group>
+                            <separator string="Emergency"/>
+                            <group col="3">
+                                <group>
+                                    <field name="emergency_name"/>
+                                </group>
+                                <group>
+                                    <field name="emergency_mobile"/>
+                                </group>
+                                <group>
+                                    <field name="emergency_relation"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Academic Info" name="academic_info_page">
+                            <field name="academic_ids">
+                                <!-- Tree View -->
+                                <tree string="Academic Info" decoration-danger="document_status == 'Rejected'"
+                                      decoration-success="document_status == 'Yes'"
+                                      decoration-it="document_status == 'No'">
+                                    <field name="degree_level"/>
+                                    <field name="degree"/>
+                                    <field name="roll_number"/>
+                                    <field name="year"/>
+                                    <field name="board"/>
+                                    <field name="subjects"/>
+                                    <field name="total_marks"/>
+                                    <field name="obtained_marks"/>
+                                    <field name="percentage"/>
+                                    <field name="document_status"/>
+                                    <field name="result_awaiting"/>
+                                </tree>
+                                <!-- Form View -->
+                                <form string="Academic Info">
+                                    <sheet>
+                                        <group style="text-align:center;font-size:22px;font-weight:bold;">
+                                            <field name="application_id" invisible="0" nolabel="1"/>
+                                        </group>
+
+                                        <group name="academic_info">
+                                            <group>
+                                                <field name="degree_level"/>
+                                                <field name="degree"/>
+                                                <field name="roll_number"/>
+                                            </group>
+                                            <group>
+                                                <field name="subjects"
+                                                       attrs="{'invisible':[('degree_level','==','DAE')]}"/>
+                                                <field name="dae_specialization"
+                                                       attrs="{'invisible':[('degree_level','!=','DAE')]}"/>
+                                                <field name="year"/>
+                                                <field name="result_awaiting"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="board"
+                                                   attrs="{'invisible':[('degree_level','not in',('DAE','Matric','Intermediate'))]}"/>
+                                        </group>
+                                        <group attrs="{'invisible':[('degree_level','!=','UG')]}">
+                                            <field name="ug_university_name"/>
+                                        </group>
+
+
+                                        <!-- make visible if matric -->
+                                        <group name="matric_group" string="Matric"
+                                               attrs="{'invisible':[('degree_level','!=','Matric')]}">
+                                            <table class="table table-bordered">
+                                                <tr bgcolor="#a8aba3">
+                                                    <th>Total Marks</th>
+                                                    <th>Obtained Marks</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <field name="total_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="obtained_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="percentage"/>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </group>
+                                        <group string="Total" name="intermediate_group2"
+                                               attrs="{'invisible':[('degree_level','!=','Intermediate')]}">
+                                            <table class="table table-bordered">
+                                                <tr bgcolor="#a8aba3">
+                                                    <th>Total Marks</th>
+                                                    <th>Obtained Marks</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <field name="total_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="obtained_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="percentage"/>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </group>
+
+                                        <!-- make visible if UG -->
+                                        <group name="ug_group" string="Under Graduate"
+                                               attrs="{'invisible':[('degree_level','!=','UG')]}">
+                                            <table class="table table-bordered">
+                                                <tr bgcolor="#a8aba3">
+                                                    <th>Total Marks</th>
+                                                    <th>Obtained Marks</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>
+                                                        <field name="total_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="obtained_marks"/>
+                                                    </th>
+                                                    <th>
+                                                        <field name="percentage"/>
+                                                    </th>
+                                                </tr>
+                                            </table>
+                                        </group>
+
+
+                                        <!-- make visible if DAE -->
+                                        <group string="DAE" name="dae_group"
+                                               attrs="{'invisible':[('degree_level','!=','DAE')]}">
+                                            <table class="table table-bordered">
+                                                <tr bgcolor="#a8aba3">
+                                                    <th>Year</th>
+                                                    <th>Total Marks</th>
+                                                    <th>Obtained Marks</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>First Year</th>
+                                                    <td>
+                                                        <field name="dae_first_year_total" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_first_year_obtained" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_first_year_percentage" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Second Year</th>
+                                                    <td>
+                                                        <field name="dae_sec_year_total" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_sec_year_obtained" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_sec_year_percentage" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Third Year</th>
+                                                    <td>
+                                                        <field name="dae_third_year_total" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_third_year_obtained" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_third_year_percentage" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+
+                                                <tr bgcolor="#a8aba3">
+                                                    <th style="font-size:20;font-weight:bold;text-decoration: underline;"
+                                                        colspan="4">Subject
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Physics</th>
+                                                    <td>
+                                                        <field name="physics_total_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="physics_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="physics_marks_per" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Chemistry</th>
+                                                    <td>
+                                                        <field name="chemistry_total_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="chemistry_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="chemistry_marks_per" string=""/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Math</th>
+                                                    <td>
+                                                        <field name="math_total_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="math_marks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="math_marks_per" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </group>
+
+                                        <group string="DAE Total" name="dae_group"
+                                               attrs="{'invisible':[('degree_level','!=','DAE')]}">
+                                            <table class="table table-bordered">
+                                                <tr bgcolor="#a8aba3">
+                                                    <th>Total Marks</th>
+                                                    <th>Obtained Marks</th>
+                                                    <th>Percentage</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <field name="dae_totalmarks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_obtainedmarks" nolabel="1"/>
+                                                    </td>
+                                                    <td>
+                                                        <field name="dae_percentage" nolabel="1"/>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </group>
+
+                                        <group>
+                                            <group>
+                                                <field name="document_status" string="Verification Status"
+                                                       readonly="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="application_state" invisible="1"/>
+                                                <button type="object" name="action_document_verified" string="Verify"
+                                                        groups="odoocms_admission.group_admission_manager"
+                                                        class="oe_highlight"/>
+                                                <!--                                                        attrs="{'invisible': ['|',('application_state', '!=','confirm'),('document_status', 'in',('Yes','Rejected'))]}"/>-->
+                                                <button type="object" name="action_document_rejected" string="Rejected"
+                                                        groups="odoocms_admission.group_admission_manager"
+                                                        class="oe_highlight"
+                                                />
+                                            </group>
+                                            <group>
+                                                <button type="object" name="action_document_unverified"
+                                                        string="UnVerify"
+                                                        groups="odoocms_admission.group_admission_special"
+                                                        class="oe_highlight"
+                                                        attrs="{'invisible': ['|',('application_state', 'not in',('confirm','reject')),('document_status', '==','No')]}"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="voucher_details" string="Voucher Details">
+                        <group>
+                            <group>
+                                <field name="voucher_status" readonly="1"/>
+                            </group>
+                            <group></group>
+                            <group>
+                                <field name="voucher_number"/>
+                                <field name="date_voucher"/>
+                                <field name="date_submission" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="voucher_image" readonly="1"/>
+                            </group>
+                        </group>
+                    </page>
+                    </notebook>
+
+                    <group string="Reject Reason" attrs="{'invisible': [('reject_reason', '=',False)]}">
+                        <group>
+                            <field name="reject_reason" attrs="{'invisible': [('reject_reason', '=',False)]}"/>
+                        </group>
+                    </group>
+
+                    <separator string="Description"/>
+                    <field name="description"/>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_sc_application_graph" model="ir.ui.view">
+        <field name="name">odoocms.sc.application.graph</field>
+        <field name="model">odoocms.sc.application</field>
+        <field name="arch" type="xml">
+            <graph string="Application">
+                <field name="application_date"/>
+                <field name="register_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_odoocms_sc_application_pivot" model="ir.ui.view">
+        <field name="name">odoocms.sc.application.pivot</field>
+        <field name="model">odoocms.sc.application</field>
+        <field name="arch" type="xml">
+            <pivot string="Application">
+                <field name="application_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_odoocms_sc_application_search" model="ir.ui.view">
+        <field name="name">Student Application</field>
+        <field name="model">odoocms.sc.application</field>
+        <field name="arch" type="xml">
+            <search string="Search Application">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="email"/>
+                <field name="entryID"/>
+                <field name="gender"/>
+                <field name="religion_id"/>
+                <filter string="New Application" name="new_application"
+                        domain="[('register_id.state','=','application')]"/>
+                <filter string="Done" name="done" domain="[('state','=','done')]"/>
+                <filter string="In Merit" name="merit" domain="[('state','in',('approve','open'))]"/>
+                <filter string="Rejected" name="rejected" domain="[('state','=','reject')]"/>
+                <group expand='0' string='Group by...'>
+                    <filter name="academic_session_id" string='Academic Session' icon="fa-user" domain="[]"
+                            context="{'group_by' : 'academic_session_id'}"/>
+                    <filter name="gender" string='Gender' icon="fa-genderless" domain="[]"
+                            context="{'group_by' : 'gender'}"/>
+                    <filter name="religion_id" string='Religion' icon="fa-pencil-square-o" domain="[]"
+                            context="{'group_by' : 'religion_id'}"/>
+                    <filter name="state" string='Status' icon="fa-pencil-square-o" domain="[]"
+                            context="{'group_by' : 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_sc_application" model="ir.actions.act_window">
+        <field name="name">SC Student Application</field>
+        <field name="res_model">odoocms.sc.application</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="search_view_id" ref="view_odoocms_sc_application_search"/>
+        <field name="context">{'search_default_new_application':1}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Student Application here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_sc_application"
+            name="SC Application"
+            parent="menu_odoocms_admission_main"
+            action="action_odoocms_sc_application"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_user"
+            sequence="10"/>
+
+
+</odoo>

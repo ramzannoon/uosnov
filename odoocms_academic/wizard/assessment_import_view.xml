@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_assessment_import_wizard_form" model="ir.ui.view">
+			<field name="name">odoocms.assessment.import.form.view</field>
+			<field name="model">odoocms.assessment.import.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Assessment Import">
+                    <group>
+                        <group>
+<!--                            <field name="import_option" widget="radio" />-->
+                            <field name="file" filename="name"/>
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="academic_session_id"  options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="batch_id" domain="[('academic_session_id','=',academic_session_id)]" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="semseter_id" options='{"no_open": True, "no_create": True}'/>-->
+<!--                            <field name="class_id" domain="[('academic_session_id','=',academic_session_id),('batch_id','=',batch_id)]" options='{"no_open": True, "no_create": True}'/>-->
+<!--                        </group>-->
+                    </group>
+
+				    <footer>
+				        <button name="import_assessment_data" string="Import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+				    </footer>
+				</form>
+			</field>
+		</record>
+
+         <record id="action_odoocms_assessment_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import Assessment Sheet</field>
+            <field name="res_model">odoocms.assessment.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+
+
+        <menuitem
+                id="menu_odoocms_assessment_import_wizard"
+                name="Import Assessment Sheet"
+                action="action_odoocms_assessment_import_wizard"
+                parent="odoocms_academic.menu_odoocms_academic_main"
+                sequence="400"/>
+
+    </data>
+</odoo>

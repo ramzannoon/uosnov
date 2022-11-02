@@ -1,0 +1,424 @@
+<odoo>
+    <template id="odoocms_admission_portal.applicant_admit_card_report_prev">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+
+                    <!-- #exam-slip {
+                     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                     border-collapse: collapse;
+                     width: 100%;
+                     margin:10px;
+                     border-bottom:1px dotted;
+                     }
+
+                     #exam-slip td, #exam-slip th {
+                     border: 1px solid #ddd;
+                     padding: 2px;
+                     }
+
+                     #exam-slip tr:nth-child(even){background-color: #f2f2f2;}
+
+                     #exam-slip tr:hover {background-color: #ddd;}
+
+                     #exam-slip th {
+                     padding-top: 12px;
+                     padding-bottom: 12px;
+                     text-align: center;
+
+
+                     }-->
+                    #heading{
+                    width: 100%;
+                    height:80px;
+
+                    }
+                    #content tr td{
+                    border:1px solid black;
+                    }
+                    table, td {
+                    border:1px solid black;
+                    }
+
+
+                </style>
+                <div class="page">
+
+                    <div class="row">
+                        <div class="col col-12">
+                            <t t-if="not applicant ">
+                                <span>Sorry no record found</span>
+                            </t>
+                            <t t-foreach="applicant" t-as="app">
+                                <table id="exam-slip">
+                                    <tr id="heading">
+                                        <!--  <th style="text-align:center">
+                                              <img style="width:180px;height:180px;"
+                                                   t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+                                              <img src="/web/static/src/img/user_menu_avatar.png"
+                                                   t-if="not company_id.logo"/>
+                                          </th>-->
+
+                                        <!-- <span t-esc="company_id.name" t-if="company_id.name"/><br/>-->
+                                        <th colspan="4" style="text-align:center; padding-top:10px;">
+                                            <img style="width:120px;height:120px;"
+                                                 t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+                                            <img src="/web/static/src/img/user_menu_avatar.png"
+                                                 t-if="not company_id.logo"/>
+                                        </th>
+                                        <th colspan="8" style="">
+                                            <h1 t-esc="company_id.name" t-if="company_id.name"/>
+                                            <h4 style="text-align: center;">(Entrance Test Admit Card)</h4>
+                                            <h5 style="text-align: center;">Session - Fall 2021</h5>
+                                            <h1 t-if="not company_id.name">Admit Card</h1>
+                                        </th>
+                                    </tr>
+                                    <tr style="margin-top:25px;">
+                                        <td id="" colspan="8">
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Application No.
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-esc="app.application_no"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Name
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-esc="app.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Father's Name
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-esc="app.father_name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Date of Birth/ B-Form No.
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-esc="app.date_of_birth"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Program
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    Engineering
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Entry Test Date/Time
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-foreach="app.center_id.time_ids" t-as="time">
+                                                        <t t-esc="time.date"/>
+                                                        /
+                                                        <t t-esc="time.time"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" style="border: 1px solid black;">
+                                                    Test Center
+                                                </td>
+                                                <td colspan="6" style="border: 1px solid black;">
+                                                    <t t-esc="app.center_id.name"/>
+                                                </td>
+                                            </tr>
+                                        </td>
+                                        <td style="margin-left:4%;" colspan="4">
+                                            <td style="border: 1px solid black;">
+                                                <img style="width:120px;height:160px;"
+                                                     src="/web/static/src/img/user_menu_avatar.png"/>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                         <td>Name</td>
+                                         <td colspan="4"><span t-esc="student['personal_info']['name']"/></td>
+                                     </tr>
+                                     <tr>
+                                         <td>F. Name</td>
+                                         <td colspan="4"><span t-esc="student['personal_info']['father']"/></td>
+                                     </tr>
+                                      <tr>
+                                         <td>CNIC</td>
+                                         <td colspan="4"><span t-esc="student['personal_info']['cnic']"/></td>
+                                     </tr>
+                                     <tr>
+                                         <th>S.No</th>
+                                         <th>Catalog</th>
+                                         <th>Subject</th>
+                                         <th>Date</th>
+                                         <th>Time</th>
+                                     </tr>
+                                     <t t-if="student['course_info']">
+                                         <t t-foreach="student['course_info']" t-as="course">
+                                             &lt;!&ndash;                                         course['course']['code']&ndash;&gt;
+                                             <tr>
+                                                 <td><span t-esc="course_index+1"/></td>
+                                                 <td><span t-esc="course['code']"/></td>
+                                                 <td><span t-esc="course['name']"/></td>
+                                                 <td><span t-esc="course['date']"/></td>
+                                                 <td><span t-esc="course['time_start']"/></td>
+                                             </tr>
+                                         </t>
+                                     </t>-->
+                                    <!--                                    <tr>-->
+                                    <!--                                        <td colspan="3" style="font-weight:bold; font-size:20px">Outstanding DUES-->
+                                    <!--                                            = <span t-esc="student['personal_info']['balance']"/></td>-->
+                                    <!--                                    </tr>-->
+                                </table>
+                            </t>
+                            <div class="row">
+                                <div class="col col-12" style="text-align:right">
+                                    <span style="font-weight:bold">Candidate Signature</span>
+                                </div>
+                            </div>
+                            <!-- <div class="row" style="border-bottom:1px dotted;">
+                             </div>-->
+
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="odoocms_admission_portal.applicant_admit_card_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>
+                    .borders{
+                    border: 1px solid black;
+                    }
+                    .margins{
+                    margin-top: 3%;
+                    }
+                    .signature {
+                    border: 0;
+                    border-bottom: 1px solid #000;
+                    }
+                </style>
+                <div class="page">
+                    <div class="row" style="padding:2%;">
+                        <div class="col col-12">
+                            <t t-if="not applicant ">
+                                <span>Sorry no record found</span>
+                            </t>
+                            <t t-foreach="applicant" t-as="app">
+                                <div class="row">
+                                    <div class="col col-2" style="text-align:left;">
+                                        <img style="width:120px;height:120px;"
+                                             t-att-src="image_data_uri(company_id.logo)" t-if="company_id.logo"/>
+                                        <img src="/web/static/src/img/user_menu_avatar.png"
+                                             t-if="not company_id.logo"/>
+                                    </div>
+                                    <div class="col col-10" style="text-align:center;">
+                                        <h1 t-esc="company_id.name" t-if="company_id.name"/>
+                                        <h4 style="text-align: center;">(Entrance Test Admit Card)</h4>
+                                        <h5 style="text-align: center;">Session - <span t-esc="register.term_id.name" /></h5>
+                                        <h1 t-if="not company_id.name">Admit Card</h1>
+                                    </div>
+                                </div>
+                                <div class="row margins">
+                                    <div class="col col-8" style="text-align:left;">
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Application No.
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.application_no"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Name
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Father Name
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.father_name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Date of Birth
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.date_of_birth"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                CNIC/B-Form No.
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.cnic"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Program
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                Engineering/Technology/CS
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Entry Test Date/Time
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <!--<t t-foreach="app.center_id.time_ids" t-as="time">-->
+                                                   <!-- <t t-esc="time.date"/>-->
+                                                    <!--(-->
+                                                <t t-esc="app.slot_id.date"/>
+                                                   ( <t t-esc="'%02d:%02d' % (divmod(app.slot_id.time * 60, 60))"/>)
+                                                    <!--)-->
+                                                <!--</t>-->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Test Center
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.center_id.name"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                User Name
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.cnic"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col col-4 borders" style="text-align:left;">
+                                                Password
+                                            </div>
+                                            <div class="col col-8 borders" style="text-align:left;">
+                                                <t t-esc="app.cbt_password"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col col-1"/>
+                                    <div class="col col-3 " style="text-align:center;">
+                                        <t t-if="app.image">
+                                            <img id="profile_image"
+                                                 t-att-src="'data:image/png;base64,%s' % to_text(app.image)"
+                                                 width="200px" height="200px"/>
+                                        </t>
+                                        <t t-if="not app.image ">Passport Size Photograph</t>
+                                    </div>
+                                </div>
+                            </t>
+                            <div class="row">
+                                <div class="col col-12 margins">
+                                    <h3 style="text-align:center;">Instructions</h3>
+                                    <div>
+                                        1. Candidates are requested to report at test center hours prior to the start of
+                                        test session.
+                                    </div>
+                                    <div>
+                                        2. Entry to the exam centerwill be closed 45 minutesbefore the start of test.
+                                    </div>
+                                    <div>
+                                        3. Candidates are required to print their admit cards and bring the same to the
+                                        test center along with original CNIC/ Form-B/ NICOPor a document with Photo ID
+                                        such as Passport, original Matric/FSc certificate bearing photograph, etc.
+                                    </div>
+                                    <div>
+                                        4. Use of unfair means is strictly prohibited in exam hall.
+                                    </div>
+                                    <div>
+                                        5. Mobile phones/calculators and any other electronic gadgetry are not allowed
+                                        in exam center.
+                                        <div>
+                                            <img src="/odoocms_admission_portal/static/images/smart_watch.jpg"
+                                                 height="100" width="200"/>
+                                            <img src="/odoocms_admission_portal/static/images/usb.png" height="100"
+                                                 width="100"/>
+                                            <img src="/odoocms_admission_portal/static/images/calculator.jpg"
+                                                 height="100" width="100"/>
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        6. If any candidate is found in possession of any restricted gadgets or items,
+                                        his/her test paper will be cancelled immediately.
+                                    </div>
+                                    <div>
+                                        7. No candidate will beallowed to leave the hall before completion of exam.
+                                    </div>
+                                    <div>
+                                        8. <b> <u> For Computer Based Test Only </u>.</b>  Candidates are required to remember the
+                                        admission's portal password, same will also be used for Computer Based Testing.
+                                        If necessary, stationery for the test will be provided by the NUTECH.
+                                    </div>
+                                    <div>
+                                        9. <b> <u> For Paper Based Test Only </u>.</b>  Please ensure to bring your own blue/black pen
+                                        (ball point) for marking the answer sheets.
+                                    </div>
+                                    <div>
+                                        10. Admit card is to be retained by candidates until the admission process is
+                                        over.
+                                    </div>
+                                    <div>
+                                        11. Result will be available at NUTECH website within 72 hours.
+                                    </div>
+                                    <div>
+                                        12. For location guide map is available on NUTECH
+                                        website.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            </div>
+                            <div class="row">
+                                <div class="col col-8 margins">
+                                </div>
+                                <div class="col col-4 margins" style="text-align:right;">
+                                    <span>
+                                        <input type="text" class="signature"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-8 margins">
+                                </div>
+                                <div class="col col-4 margins" style="text-align:right;">
+                                    <span style="font-weight:bold">Candidate Signature</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col col-12 margins" style="text-align:center;">
+                                    This is computer generated document downloaded on <t t-esc="pak_time"/>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

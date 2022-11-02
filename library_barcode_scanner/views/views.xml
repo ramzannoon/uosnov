@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="library_barcode_scanner_wizard_form" model="ir.ui.view">
+            <field name="name">Scan Library Book</field>
+            <field name="model">library.barcode.scanner.wizard</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <div style="margin-bottom:20px">
+                            <h2 style="color: #687cb3;">
+                                <b>Please scan the barcode on book</b>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="barcode_scan"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="search_book_in_library" type="object" string="Search Book" class="btn-primary"/>
+                        </footer>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <record id="library_barcode_scanner_wizard_action" model="ir.actions.act_window">
+            <field name="name">Scan Library Book</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">library.barcode.scanner.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="library_barcode_scanner_wizard_form"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="library_barcode_scanner_wizard_menu" name="Scan Book"
+                  parent="library_management_system.menu_op_library_root" action="library_barcode_scanner_wizard_action"
+                  sequence="20"/>
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+id,title,survey_form_type/id,type,access_mode,users_login_required
+__export__.survey_survey_3_005e3e45,Student Course Evaluation,__export__.survey_types_1_student_course_evaluation,Template,token,True
+__export__.survey_survey_52_32bdc1a5,Teacher Evaluation,__export__.survey_types_2_teacher_evaluation,Template,token,True
+__export__.survey_survey_397_971f619d,Survey of Graduating Students,__export__.survey_types_9_graduating_student,Template,token,True
+__export__.survey_survey_445_9a3705c6,Alumni Survey (Non Engineering),__export__.survey_types_alumni_survey,Template,token,True
+__export__.survey_survey_446_f120d848,Employer survey (Non Engineering),__export__.survey_types_employer_survey,Template,token,True
+__export__.survey_survey_447_8b96c9a6,Research Student Progress Review,__export__.survey_types_1_student_course_evaluation,Template,token,True
+__export__.survey_survey_1_6fd59588,Faculty Survey,__export__.survey_types_3_faculty_survey,Template,token,True
+__export__.survey_survey_400_642a2b9a,Industrial Visit,__export__.survey_types_4_industry_visit,Template,token,True
+__export__.survey_survey_442_532f2711,Faculty Course Review(Non Engineering),__export__.survey_types_3_faculty_survey,Template,token,True

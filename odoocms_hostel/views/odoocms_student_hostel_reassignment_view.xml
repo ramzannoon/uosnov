@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_student_hostel_reassignment_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.reassignment.tree</field>
+            <field name="model">odoocms.student.hostel.reassignment</field>
+            <field name="arch" type="xml">
+                <tree string="Students Hostel Reassignment" decoration-primary="state=='Draft'" decoration-success="state=='Assigned'" decoration-danger="state=='Cancel'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="senior_session_id"/>
+                    <field name="session_id"/>
+                    <field name="type"/>
+                    <field name="total_students"/>
+                    <field name="newly_assigned_students"/>
+                    <field name="old_assigned_students"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_reassignment_form" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.reassignment.form</field>
+            <field name="model">odoocms.student.hostel.reassignment</field>
+            <field name="arch" type="xml">
+                <form string="Students Hostel Reassignment">
+                    <header>
+                        <button name="%(action_button_reassignment_students_import_wiz)d" string="Import File " type="action"  states="Draft" class="oe_highlight"/>
+                        <button name="action_done" states="Draft" type="object" string="Done" class="btn-primary"/>
+                        <button name="action_cancel" states="Draft" type="object" string="Cancel" class="btn-primary"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" required="1" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                <field name="senior_session_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                <field name="session_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                <field name="type" required="1" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="total_students"/>
+                                <field name="newly_assigned_students"/>
+                                <field name="old_assigned_students"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+
+                        <notebook>
+                            <page nane="reassignment_lines" string="Reassignment Detail">
+                                <field name="line_ids" readonly="1">
+                                    <tree decoration-primary="state=='Draft'" decoration-success="state=='Assigned'" decoration-danger="state=='Cancel'">
+                                        <field name="student_reg_no" string='Reg No.' attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                        <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="session_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="program_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" optional="1"/>
+                                        <field name="gender" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                        <field name="cgpa" attrs="{'column_invisible':[('parent.type','=','Freshmen')]}"/>
+                                        <field name="merit_no" attrs="{'column_invisible':[('parent.type','=','Old Student')]}"/>
+                                        <field name="assigned_hostel_id" string="Hostel" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="assigned_room_id" string= "Room" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="assigned_room_type" string = "Room Type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="assignment_status" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                        <field name="type" />
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <header>
+                                            <field name="state" widget="statusbar"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="student_reg_no" readonly="1"/>
+                                                    <field name="student_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="session_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="program_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="gender" readonly="1"/>
+                                                </group>
+
+                                                <group>
+                                                    <field name="cgpa" readonly="1"/>
+                                                    <field name="merit_no" readonly="1"/>
+                                                    <field name="assignment_status" readonly="1"/>
+                                                    <field name="assigned_hostel_id" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="assigned_room_id" readonly="1"  options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="assigned_room_type" readonly="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <field name="remarks" attrs="{'readonly':[('state', '!=', 'Draft')]}"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page name="issue_line_ids" string="Reassignment Issues Detail">
+                                <field name="issue_line_ids" readonly="1">
+                                    <tree decoration-danger="student_reg_no != False">
+                                        <field  name="sequence" widget="handle"/>
+                                        <field name="student_reg_no"/>
+                                        <field name="remarks"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                     <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_reassignment_search" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.reassignment.search</field>
+            <field name="model">odoocms.student.hostel.reassignment</field>
+            <field name="arch" type="xml">
+                <search string="Students Hostel Reassignment">
+                    <field name="name" string="Name"/>
+                    <field name="date" />
+                    <newline />
+
+                    <filter string="Draft" name="filter_by_draft" domain="[('type', '=', 'Draft')]"/>
+                    <filter string="Assigned" name="filter_by_assigned" domain="[('type', '=', 'Assigned')]"/>
+                    <filter string="Cancel" name="filter_by_cancel" domain="[('type', '=', 'Cancel')]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'date'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_student_hostel_reassignment">
+            <field name="name">Student Hostel Reassignment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.hostel.reassignment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+             <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create New Record.
+                </p>
+             </field>
+        </record>
+
+         <menuitem
+            id="odoocms_student_hostel_reassignment_menu"
+            name="Student Hostel Reassignment"
+            parent="menu_odoocms_student_hostel_reassignment_main"
+            action="action_odoocms_student_hostel_reassignment"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="10"/>
+
+    </data>
+</odoo>

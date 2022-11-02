@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_journal_inherit" model="ir.ui.view">
+            <field name="name">account.journal.fee.element</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="is_fee"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <template id="portal.portal_record_sidebar" name="My Portal Record Sidebar">
+            <div t-attf-class="#{classes}">
+                <div style="height: 300px;margin-top: 0px;width: 400px;background-color: rgba(22, 169, 228, 0.5) !important;" class="card bg-white mb-4" id="sidebar_content">
+                    <div t-if="title" class="card-body text-center pb-2 pt-3">
+                        <t t-raw="title"/>
+                    </div>
+                    <t t-if="entries" t-raw="entries"/>
+                    <div class="card-footer small text-center text-muted border-top-0 pt-1 pb-1 d-none d-lg-block">
+                        Powered by
+                        <a target="_blank" href="http://www.aarsol.com" title="AARSOL">
+                            <img src="/web/static/src/img/logo.png" alt="Odoo Partner" height="15"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

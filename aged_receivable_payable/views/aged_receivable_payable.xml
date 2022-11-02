@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_aged_rece_pay_pot" model="report.paperformat">
+            <field name="name">European A4 low margin</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">32</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">29</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+
+            id="report_for_aged_rece_pay_id" 
+            model="account.move"
+            name="aged_receivable_payable.aged_rece_pay_temp_id"
+            file="aged_receivable_payable.aged_rece_pay_temp_id"
+            report_type="qweb-html"
+            string="Aged Receivable and Payable"
+            paperformat="paperformat_aged_rece_pay_pot"
+            menu="False"/>
+
+        <record id="aged_rece_pay_records_wizard" model="ir.ui.view">
+            <field name="name">aged_rece_pay_records_wizard</field>
+            <field name="model">aged.receivable.payable</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Report">
+                    
+                    <group name="group_top">
+
+                        <group name="group_left">
+
+                            <field name="report_type"/>
+                            <field name="date" />
+                            <!-- <field name="file" invisible="1"/> -->
+                            <!-- <field name="comparison_date" attrs="{'invisible':[('report_type','not in',['balance','income'])]}"/> -->
+                            <!-- <field name="from_date" attrs="{'invisible':['|',('report_type','!=','balance'),
+                                ('is_month_wise','!=',True)],'required':[('is_month_wise','=',True)]}"/> -->
+                        </group>
+
+                        <group name="group_right">
+
+                            <field name="partner_ids" widget="many2many_tags" options="{'no_create':True,'no_edit':True,'no_open':True}"/>
+                            <field name="with_detail"/>
+                            <!-- attrs="{'invisible':[('report_type','in',['balance','income'])]}" -->
+                            <field name="include_draft" />
+                            <!-- <field name="is_month_wise" attrs="{'invisible':[('report_type','!=','balance')]}"/>
+                            <field name="to_date" attrs="{'invisible':['|',('report_type','!=','balance'),
+                                ('is_month_wise','!=',True)],'required':[('is_month_wise','=',True)]}"/> -->
+                        </group>
+
+
+                    </group>
+
+                    <footer style="height: 30px !important; border: none !important;">
+                        <button name="generate_report" type="object" string="Print PDF" class = "oe_highlight" />
+                        <button name="print_xlsx_report" type="object" string="Print XLSX" class = "oe_highlight" />
+                        <button special="cancel" type="object" string="Cancel" class = "oe_highlight" />
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="aged_rece_pay_menu_action" model="ir.actions.act_window">
+            <field name="name">Aged Receivable and Payable</field>
+            <field name="res_model">aged.receivable.payable</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="aged_rece_pay_records_wizard"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="reports_aged_rece_pay_menu" name="Aged Receivable and Payable"
+                  parent="account_reports.account_reports_partners_reports_menu" action="aged_rece_pay_menu_action"/>
+
+                  
+        
+        
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<act_window
+				id="act_odoocms_change_invoice_state"
+				name="Change Invoice State"
+				binding_model="account.move"
+				res_model="odoocms.invoice.state.change"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+		<record id="view_odoocms_odoocms_invoice_state_change" model="ir.ui.view">
+			<field name="name">odoocms.invoice.state.change</field>
+			<field name="model">odoocms.invoice.state.change</field>
+			<field name="arch" type="xml">
+				<form string="Change Invoice State">
+					<group>
+						<field name="state"/>
+					</group>
+
+					<notebook>
+						<page string="Invoices">
+							<group>
+								<field name="invoice_ids" colspan="4" nolabel="1"/>
+							</group>
+						</page>
+					</notebook>
+
+
+					<footer>
+						<button name="change_invoice_state" string="Change Status" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+
+    </data>
+</odoo>

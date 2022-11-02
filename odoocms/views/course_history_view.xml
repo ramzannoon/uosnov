@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_course_history_form" model="ir.ui.view">
+        <field name="name">odoocms.course.history.form</field>
+        <field name="model">odoocms.course.history</field>
+        <field name="arch" type="xml">
+            <form string="Course History" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="course_id"/>
+                            <field name="field_name_id" domain="[('model','=','odoocms.course'),('related','=',False)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}" attrs="{'invisible': [('field_name_id','=',False)]}"/>
+                            <field name="field_name" attrs="{'invisible': [('field_name_id','!=',False)]}"/>
+                            <field name="changed_by"/>
+                        </group>
+                        <group>
+                            <field name="method"/>
+                            <field name="changed_from"/>
+                            <field name="changed_to"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_course_history_tree" model="ir.ui.view">
+        <field name="name">odoocms.course.history.tree</field>
+        <field name="model">odoocms.course.history</field>
+        <field name="arch" type="xml">
+            <tree string="Course History" create="false" edit="false" delete="false">
+                <field name="course_id"/>
+                <field name="field_name"/>
+                <field name="changed_from"/>
+                <field name="changed_to"/>
+                <field name="changed_by"/>
+                <field name="method"/>
+                <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_course_history" model="ir.actions.act_window">
+        <field name="name">Course History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.course.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to register new Attributes.</p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_course_history"
+            parent="menu_odoocms_course_catalogue"
+            name="Course History"
+            groups="odoocms.group_cms_manager"
+            action="action_odoocms_course_history"
+            sequence="50"/>
+
+
+</odoo>

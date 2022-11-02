@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Ad-hoc Charges Type -->
+        <record id="view_odoocms_fee_additional_charges_type_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.type.form</field>
+            <field name="model">odoocms.fee.additional.charges.type</field>
+            <field name="arch" type="xml">
+                <form string="Ad-hoc Charges Type">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="1"/>
+                                <field name="code" required="0"/>
+                            </group>
+                            <group>
+                                <field name="fee_head_id" required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.type.tree</field>
+            <field name="model">odoocms.fee.additional.charges.type</field>
+            <field name="arch" type="xml">
+                <tree string="Ad-hoc Charges Types">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="fee_head_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.search</field>
+            <field name="model">odoocms.fee.additional.charges.type</field>
+            <field name="arch" type="xml">
+                <search string="Ad-hoc Charges Types">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <group expand="0" string="Group By...">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odooscms_fee_additional_charges_type_view" model="ir.actions.act_window">
+            <field name="name">Additional Charges Type</field>
+            <field name="res_model">odoocms.fee.additional.charges.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                name="Ad-hoc Charges Types"
+                id="odoocms_fee_additional_charges_type_menu"
+                parent="menu_fee_configuration_others"
+                action="action_odooscms_fee_additional_charges_type_view"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence='30'
+        />
+
+
+        <!-- Additional Charges Form View -->
+        <record id="view_odoocms_fee_additional_charges_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.form</field>
+            <field name="model">odoocms.fee.additional.charges</field>
+            <field name="arch" type="xml">
+                <form string="Ad-hoc Charges">
+                    <header>
+                        <button name="action_cancel" states="draft" string="Cancel" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_reset_to_draft" states="cancel" string="Reset To Draft" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="student_code" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="charges_type" attrs="{'readonly':[('state','!=', 'draft')]}" required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="amount" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="date" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="receipt_id" readonly="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="session_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="career_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="term_id" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="semester_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="institute_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="campus_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="discipline_id" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.tree</field>
+            <field name="model">odoocms.fee.additional.charges</field>
+            <field name="arch" type="xml">
+                <tree string="Ad-hoc Charges" decoration-success="state != 'cancel'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="student_code"/>
+                    <field name="charges_type"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id" optional="1"/>
+                    <field name="institute_id" optional="1"/>
+                    <field name="discipline_id" optional="1"/>
+                    <field name="campus_id" optional="1"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="receipt_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.search</field>
+            <field name="model">odoocms.fee.additional.charges</field>
+            <field name="arch" type="xml">
+                <search string="Ad-hoc Charges">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="student_code"/>
+                    <field name="charges_type"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="campus_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="receipt_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_additional_type" string="Type" domain="[]" context="{'group_by':'charges_type'}"/>
+                        <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <separator/>
+                        <filter name="group_by_session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <filter name="group_term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_semester" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                        <filter name="group_institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+
+                        <separator/>
+                        <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <filter name="group_by_charges_type" string="Charges Type" domain="[]" context="{'group_by':'charges_type'}"/>
+
+                    </group>
+                    <searchpanel>
+                        <field name="charges_type" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_pivot" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.pivot</field>
+            <field name="model">odoocms.fee.additional.charges</field>
+            <field name="arch" type="xml">
+                <pivot string="Ad-hoc Charges Analysis">
+                    <field name="session_id" type="row"/>
+                    <field name="charges_type" type="col"/>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="amount" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_additional_charges_graph" model="ir.ui.view">
+            <field name="name">odoocms.fee.additional.charges.graph</field>
+            <field name="model">odoocms.fee.additional.charges</field>
+            <field name="arch" type="xml">
+                <graph string="Ad-hoc Charges Analysis">
+                    <field name="session_id" type="row"/>
+                    <field name="charges_type" type="col"/>
+                    <field name="date" interval="month" type="col"/>
+                    <field name="amount" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_additional_charges_view" model="ir.actions.act_window">
+            <field name="name">Students Ad-hoc Charges</field>
+            <field name="res_model">odoocms.fee.additional.charges</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_additional_charges"
+                name="Ad-hoc Charges"
+                sequence='10'
+                parent="menu_fee_ad_hoc_charges_main"
+                action="action_odoocms_fee_additional_charges_view"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+        />
+    </data>
+</odoo>

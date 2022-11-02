@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_pending_reasons_form" model="ir.ui.view">
+            <field name="name">pending_reasons_from</field>
+            <field name="model">pending.reasons</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="pending_reasons_tree" model="ir.ui.view">
+            <field name="name">pending_reasons_tree</field>
+            <field name="model">pending.reasons</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="pending_reasons_action">
+            <field name="name">Pending Reasons</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pending.reasons</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="pending_reason_menu"
+                  name="Pending Reasons"
+                  parent="crm.menu_crm_config_lead"
+                  action="pending_reasons_action"
+                  sequence="2"/>
+    </data>
+</odoo>

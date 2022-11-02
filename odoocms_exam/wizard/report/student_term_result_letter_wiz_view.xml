@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="student_term_result_letter_wiz_view_form" model="ir.ui.view">
+        <field name="name">student.term.result.letter.wiz.form</field>
+        <field name="model">student.term.result.letter.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Student Term Result Letter">
+                <group>
+                	<group>
+                        <field name="batch_id" invisible="0" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+						<field name="student_id" domain="[('batch_id','=', batch_id)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        <field name="student_term_id" invisible="0" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                               domain="[('student_id','=', student_id),('state','=', 'done')]"/>
+		            </group>
+		            <group>
+		            </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_student_term_result_letter_wiz" model="ir.actions.act_window">
+        <field name="name">Student Term Result Letter</field>
+        <field name="res_model">student.term.result.letter.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_student_term_result_letter_wiz"
+            name="Student Term Result Letter"
+            action="action_student_term_result_letter_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="250"/>
+
+
+        <act_window
+            id="action_student_term_result_letter_wiz"
+            name="Student Term Result Letter"
+            res_model="student.term.result.letter.wiz"
+            binding_model="odoocms.student"
+            view_mode="form"
+            binding_views="list,form"
+            target="new"
+        />
+
+
+</odoo>

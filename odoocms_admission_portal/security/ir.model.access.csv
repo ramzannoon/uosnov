@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_odoocms_aggregate_config_user,odoocms.aggregate.config,model_odoocms_aggregate_config,odoocms.group_cms_user,1,1,1,0
+access_odoocms_aggregate_config_manager,odoocms.aggregate.config,model_odoocms_aggregate_config,odoocms.group_cms_manager,1,1,1,0
+
+access_odoocms_application_steps_user,odoocms.application.steps,model_odoocms_application_steps,odoocms.group_cms_user,1,1,1,1
+access_odoocms_application_steps_manager,odoocms.application.steps,model_odoocms_application_steps,odoocms.group_cms_manager,1,1,1,1

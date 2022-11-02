@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+
+        <record model="ir.actions.act_window" id="admission_lead_action_outgoing">
+            <field name="name">Outgoing Calls</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,pivot,form,calendar,activity</field>
+            <field name="domain">[('calls_opportunity','=','outgoing'), ('stage_id','=', 6)]</field>
+            <field name="context">{
+                'default_calls_opportunity': 'outgoing',
+                'search_default_assigned_to_me': 1
+                }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="admission_lead_action_incoming">
+            <field name="name">Incoming Calls</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">kanban,tree,graph,pivot,form,calendar,activity</field>
+            <field name="domain">[('calls_opportunity','=','incoming'), ('stage_id','=', 6)]</field>
+            <field name="context">{
+                'default_calls_opportunity': 'incoming',
+                'search_default_assigned_to_me': 1
+                }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        </record>
+
+        <menuitem id="menu_outgoing_calls"
+                  name="Outgoing Calls"
+                  sequence="130"
+                  parent="odoocms_admission.menu_odoocms_admission_main"
+                  action="odoocms_admission.admission_lead_action_outgoing"/>
+
+        <menuitem id="menu_incoming_calls"
+                  name="Incoming Calls"
+                  sequence="131"
+                  parent="odoocms_admission.menu_odoocms_admission_main"
+                  action="odoocms_admission.admission_lead_action_incoming"/>
+
+    </data>
+</odoo>

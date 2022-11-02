@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="paperformat_student_merit_list_report" model="report.paperformat">
+			<field name="name">Student Merit List Report A4</field>
+			<field name="default" eval="True"/>
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">1</field>
+			<field name="margin_bottom">1</field>
+			<field name="margin_left">1</field>
+			<field name="margin_right">1</field>
+			<field name="header_line" eval="False" />
+			<field name="header_spacing">1</field>
+			<field name="dpi">90</field>
+		</record>
+
+		<record id="paperformat_admission_summary" model="report.paperformat">
+			<field name="name">Format Check</field>
+			<field name="default" eval="True"/>
+			<field name="format">custom</field>
+			<field name="page_height">0</field>
+			<field name="page_width">0</field>
+			<field name="orientation">Landscape</field>
+			<field name="margin_top">25</field>
+			<field name="margin_bottom">10</field>
+			<field name="margin_left">15</field>
+			<field name="margin_right">15</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">25</field>
+			<field name="dpi">90</field>
+		</record>
+
+		<!-- Student Application Report -->
+		<report
+				id="action_report_student_preference"
+				string="Student Preference Report"
+				model="student.preference.wizard"
+				report_type="qweb-pdf"
+				name="odoocms_admission.student_preference_report"
+				file="odoocms_admission.student_preference_report"
+				menu="False"
+		/>
+
+		<!-- Student Merit List Report -->
+		<report
+				id="action_report_student_merit_list"
+				string="Merit List"
+				model="odoocms.merit.register"
+				report_type="qweb-html"
+				name="odoocms_admission.student_merit_list_report"
+				file="odoocms_admission.student_merit_list_report"
+				paperformat="odoocms_admission.paperformat_student_merit_list_report"
+				menu="True"
+		/>
+
+		<!-- Student Report for interview Call-->
+		<report
+				id="action_report_student_merit_interview"
+				string="Merit Interview List"
+				model="odoocms.merit.register"
+				report_type="qweb-html"
+				name="odoocms_admission.student_merit_interview_report"
+				file="odoocms_admission.student_merit_interview_report"
+				menu="True"
+		/>
+
+		<!-- Student Final Merit List Report -->
+		<report
+				id="action_report_student_final_merit_list"
+				string="Student Final Merit List"
+				model="student.final.merit.list.wizard"
+				report_type="qweb-html"
+				name="odoocms_admission.student_final_merit_list_report"
+				file="odoocms_admission.student_final_merit_list_report"
+				menu="False"
+		/>
+
+		<!-- Non SubSidized Form Report -->
+		<report
+				id="action_report_non_subsidized_form"
+				string="Non SubSidized Form"
+				model="non.subsidized.form.wizard"
+				report_type="qweb-html"
+				name="odoocms_admission.non_subsidized_form_report"
+				file="odoocms_admission.non_subsidized_form_report"
+				menu="False"
+		/>
+
+		<!-- Admission Summary Form Report -->
+		<report id="action_admission_summary_form"
+				string="Admission Summary Form"
+				model="odoocms.admission.register"
+				report_type="qweb-html"
+				name="odoocms_admission.admission_register_template"
+				file="odoocms_admission.admission_register_template"
+				paperformat="odoocms_admission.paperformat_admission_summary"
+				menu="True"/>
+
+
+
+	</data>
+</odoo>

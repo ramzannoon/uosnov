@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_hostel_students_detail_report_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.students.detail.report.form</field>
+            <field name="model">odoocms.hostel.students.detail.report</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Hostel Students Detail Report">
+                    <p>
+                        This Wizard will generate Hostel Student Detail Report.
+                    </p>
+                    <group>
+                        <group>
+                            <field name="hostel_id" attrs="{'required':[('all_hostel','=',False)]}" options="{'no_create':True}"/>
+                            <field name="all_hostel"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="make_excel" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_hostel_students_detail_report" model="ir.actions.act_window">
+            <field name="name">Hostel Students Detail Report</field>
+            <field name="res_model">odoocms.hostel.students.detail.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_hostel_students_detail_report"
+                name="Students Detail Report"
+                action="action_odoocms_hostel_students_detail_report"
+                parent="menu_odoocms_hostel_report"
+                sequence="60"/>
+    </data>
+</odoo>

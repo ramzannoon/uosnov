@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+
+        <record id="product_product_form_brand_ext" model="ir.ui.view">
+            <field name="name">product_product_form_brand_ext</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='barcode']" position="after">
+                    <field name="brand_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

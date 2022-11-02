@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	 <data>
+	<record id="view_fee_payment_wize_form" model="ir.ui.view">
+		<field name="name">odoocms.fee.payment.wiz.form</field>
+		<field name="model">odoocms.fee.payment.wiz</field>
+		<field name="arch" type="xml">
+			<form string="scrutiny Report">
+				<group>
+					<group>
+						<field name="student_id"/>
+						<field name="invoice_id" />
+						<field name="date"/>
+						<field name="description"/>
+					</group>
+					<group>
+
+						<field name="amount"/>
+						<field name="doc_no"/>
+						<field name="journal_id"/>
+						<field name="transaction_date"/>
+						<field name="state" readonly="1"/>
+						<field name="fee_payment" invisbile="1"/>
+					</group>
+
+				</group>
+				<footer>
+					<button class="btn-primary" name="create_payment" string="Process Payment" type="object"/>
+					<button class="btn-default" special="cancel" string="Cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+    <act_window
+				id="act_odoocms_process_fee_payment_wizard"
+				name="Process Fee Payment Wizard"
+				res_model="odoocms.fee.payment.wiz"
+				binding_model="odoocms.fee.payment"
+				view_mode="form"
+				binding_views="list,form"
+            	target="new"
+            	/>
+ </data>
+</odoo>

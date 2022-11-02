@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--    <record id="menu_employee_form" model="website.menu">-->
+    <!--        <field name="name">Employee</field>-->
+    <!--        <field name="url">/employee/dashboard</field>-->
+    <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    <!--        <field name="sequence">97</field>-->
+    <!--    </record>-->
+
+    <!--    <template id="portal_my_home_registration" name="Portal My Home : registration entry"-->
+    <!--              inherit_id="portal.portal_my_home" priority="30">-->
+    <!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                <t t-set="title">Online Employees Registration</t>-->
+    <!--                <t t-set="url" t-value="'/employee/dashboard'"/>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+    <!--<template id="my_account_link" name="Link to frontend portal" inherit_id="portal.frontend_layout">-->
+    <!--        <xpath expr="//a[@id='o_logout']" position="before">-->
+    <!--            <a href="/my/home" role="menuitem" class="dropdown-item">My Account</a>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    ####################below
+    <!--    <template id="portal_link" name="Linked Employee portal" inherit_id="portal.frontend_layout">-->
+    <!--        <xpath expr="//a[@id='o_logout']" position="before">-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                <t t-set="url" t-value="'/employee/dashboard'"/>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+
+    <!--    <template id="portal_my_home_registration" name="Portal My Home : registration entry"-->
+    <!--              inherit_id="portal.portal_my_home" priority="48">-->
+    <!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                <t t-set="title">Online Employee Registration</t>-->
+    <!--                <t t-set="url" t-value="'/employee/dashboard'"/>-->
+    <!--            </t>-->
+
+    <!--            &lt;!&ndash;                    <t  t-call="portal.portal_docs_entry">&ndash;&gt;-->
+    <!--            &lt;!&ndash;                       <t t-set="title">Financial Assistance Application</t>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                        <t t-set="url" t-value="'/financial/assistance/form'"/>&ndash;&gt;-->
+    <!--            &lt;!&ndash;                    </t>&ndash;&gt;-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+    <template id="submission_message" name="Message">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <h1>
+                            <span t-esc="header"/>
+                        </h1>
+                        <p t-esc="message"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <!--              <t t-foreach="payslip_id" t-as="pay">-->
+    <template id="employee_reportsss" name="">
+        <t t-call="website.layout">
+            <t t-set="var" t-value="1"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <div id="top_bar">
+                    </div>
+                    <br/>
+                    <center>
+                        <h1>Employees Information</h1>
+                    </center>
+
+
+                    <div>
+
+                        <table class="table table-sm table-striped table-bordered"
+                               style="table-layout:200px;font-size:15px;">
+                            <thead>
+                                <tr>
+                                    <th style="color:black;">Main Menu
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/employee/details">Payslips
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/leaves/details">Leaves Request
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/travel/Leave/recss">Travel Request
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/loan/Leave/recss">Loans Request
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/generic/Leave/recss">General Request
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/helpdesk/tickets/recs">Tickets
+                                        </a>
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:black;">
+                                        <a t-attf-href="/purchase/request/recs">Purchase Request
+                                        </a>
+                                    </th>
+                                </tr>
+
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+
+    <template id="employee_payslips_template" name="Employee Payslips">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <center>
+                        <h3>Your Payslips</h3>
+                    </center>
+                    <br/>
+                    <!--                    style="table-layout:200px;font-size:15px-->
+                    <table class="table-striped table" style="table-layout:100px;font-size:15px">
+                        <thead style="font-size: 15px; width:100%">
+                            <tr>
+                                <h6>
+                                    <th style="width:40%">Name</th>
+                                    <th style="width:40%">Period</th>
+                                    <th class="text-right" style="width:20%;">Print</th>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="payslip_id" t-as="pay">
+                                <!--                                 <t t-if="pay.state==done">-->
+                                <tr>
+                                    <td style="vertical-align: middle;">
+                                        <span t-esc="pay.name"/>
+                                    </td>
+
+                                    <td style="vertical-align: middle;">
+                                        <span t-esc="pay.date_from"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <a t-att-href="'/report/pdf/catalogue_download?employee_id=%s' % pay.id">
+                                            <button type="button"
+                                                    class="btn btn-primary btn-lg mt8 js_check_product a-submit">
+                                                Print Report
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <!--                                        <div>-->
+                                    <!--    <a t-att-href="'/report/pdf/catalogue_download?product_id=%s' % product.id">-->
+
+                                    <!--                                        </div>-->
+
+                                </tr>
+                                <!--                                 </t>-->
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="employee_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o"/>
+                <!--                <t t-set="values" t-value="o.employee_report()"/>-->
+                <div class="page" style="font-size:12px">
+                    <div class="oe_structure"/>
+                    <h5 style='text-align:center;'>
+                        Monthly Salary Payslip ‑ March 2022
+                    </h5>
+
+                    <table class="table table-sm table-striped table-bordered"
+                           style="table-layout:fixed;font-size:10px;">
+                        <thead>
+
+                            <div class="row" style="border:1px solid black">
+                                <tr>
+                                    <th style="color:blue;">Basic Salary</th>
+                                    <t t-foreach="docs" t-as="doc">
+                                        <th style="color:blue;">
+                                            <span t-esc="doc.name"/>
+                                        </th>
+
+                                    </t>
+                                </tr>
+
+                                <tr>
+                                    <th style="color:blue;">Branch</th>
+                                    <t t-foreach="docs" t-as="doc">
+                                        <th style="color:blue;">
+                                            <span t-esc="doc.employee_id"/>
+                                        </th>
+
+                                    </t>
+                                </tr>
+                            </div>
+
+
+                            <tr>
+                                <th style="color:blue;">Job Title</th>
+                                <t t-foreach="docs" t-as="doc">
+                                    <th style="color:blue;">
+                                        <span t-esc="doc.job_id"/>
+                                    </th>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <th style="color:blue;">Employee Bank</th>
+                                <t t-foreach="docs" t-as="doc">
+                                    <th style="color:blue;">
+                                        <span t-esc="doc.name"/>
+                                    </th>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <th style="color:blue;">Bank Account No</th>
+                                <t t-foreach="docs" t-as="doc">
+                                    <th style="color:blue;">
+                                        <span t-esc="doc.name"/>
+                                    </th>
+                                </t>
+                            </tr>
+
+                            <tr>
+                                <th style="color:blue;">Joining Date</th>
+                                <t t-foreach="docs" t-as="doc">
+                                    <th style="color:blue;">
+                                        <span t-esc="doc.name"/>
+                                    </th>
+                                </t>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+                    <div class="uk-overflow-container uk-margin-top">
+                        <table class="uk-table uk-table-nowrap uk-table-align-vertical table_tree">
+                            <thead>
+                                <tr>
+                                    <th class="uk-width-1-10 md-color-grey-800">Basic Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="docs" t-as="doc">
+                                    <tr class="table-parent-row show_child_row">
+                                        <td>Basic Salary</td>
+                                        <td>
+                                            <span t-esc="doc.name"/>
+                                            <t t-esc="doc.name"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="pays_id" t-as="pays">
+                                        <tr class="table-child-row ">
+                                            <td class="uk-margin-left-small">
+                                                <span t-esc="pays.name"/>
+                                                <t t-esc="pays.name"/>
+                                                <!--                                                <a href="#" class="js-toggle-children-row toggle-childrens ">-->
+                                                <!--                                                    <t t-esc="classes['class_name']"/>-->
+                                                <!--                                                </a>-->
+                                            </td>
+                                            <tr class="table-child-row  md-color-grey-800">
+                                                <th>Date</th>
+                                                <th>Status</th>
+                                            </tr>
+                                            <!--                                            <t t-foreach="classes['data']" t-as="roaster">-->
+                                            <!--                                                <tr class="table-child-row">-->
+                                            <!--                                                    <td class="uk-width-1-10 md-color-grey-800">-->
+                                            <!--                                                        <t t-esc="roaster['date']"/>-->
+                                            <!--                                                    </td>-->
+                                            <!--                                                    <td class="uk-width-1-10 md-color-grey-800">-->
+                                            <!--                                                        <span t-if="not roaster['status'] == 'done'"-->
+                                            <!--                                                              t-esc="roaster['status'].capitalize()"/>-->
+                                            <!--                                                        <span t-if="roaster['status'] == 'done'">Marked</span>-->
+                                            <!--                                                    </td>-->
+                                            <!--                                                    <td class="uk-width-1-10 md-color-grey-800">-->
+                                            <!--                                                        <span>-->
+                                            <!--                                                            <a t-attf-href="/faculty/previousclass/attendance/sheet/id/{{roaster['roaster_id']}}">-->
+                                            <!--                                                                Open Roster-->
+                                            <!--                                                            </a>-->
+                                            <!--                                                        </span>-->
+                                            <!--                                                    </td>-->
+                                            <!--                                                </tr>-->
+                                            <!--                                            </t>-->
+
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <table class='table table-sm'>
+                        <thead style="font-size: 23px;">
+                            <tr>
+                                <h6>
+                                    <th>PAYMENT</th>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="rule_id" t-as="rule">
+                                <tr>
+                                    <td>
+                                        Basic Salary
+
+                                    </td>
+                                    <td>
+                                        <u>
+                                            <span t-esc="rule.amount_fix"/>
+                                        </u>
+                                    </td>
+                                    <td>
+                                        Housing Allowance
+
+                                    </td>
+                                    <td>
+                                        <span t-esc="rule.amount_fix"/>
+
+                                    </td>
+                                    <td>
+                                        Telephone Allowance
+                                    </td>
+                                    <td>
+                                        <span t-esc="rule.amount_fix"/>
+
+                                    </td>
+                                    <td>
+                                        Transportation Allowance
+
+                                    </td>
+                                    <td>
+                                        <u>
+                                            <span t-esc="rule.amount_fix"/>
+
+                                            <!--                                    <span t-esc="user.name"/>-->
+                                        </u>
+                                    </td>
+
+                                    <td>
+                                        Total Salary
+
+                                    </td>
+                                    <td>
+                                        <u>
+                                            <span t-esc="rule.amount_fix"/>
+
+                                            <!--                                    <span t-esc="docs.company_id.vat"/>-->
+                                        </u>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <table class='table table-sm'>
+
+                        <thead style="font-size: 23px;">
+                            <tr>
+                                <h6>
+                                    <th>DEDUCTIONS
+                                    </th>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <t t-foreach="rule_id" t-as="rule">
+                            <tr>
+                                <td>
+                                    Social Insurance 1%
+
+                                </td>
+                                <td>
+                                    <u>
+                                        <span t-esc="rule.amount_fix"/>
+                                    </u>
+                                </td>
+
+                            </tr>
+                        </t>
+
+                    </table>
+
+                    <table class='table table-sm table-striped table-bordered'>
+                        <!--                        <t t-foreach="rule_id" t-as="rule">-->
+                        <tr>
+                            <td>
+                                NET SALARY:
+                            </td>
+                            <td>
+                                <u>
+                                    <!--                                        <span t-esc="rule.amount_fix"/>-->
+                                </u>
+                            </td>
+
+                        </tr>
+                        <!--                        </t>-->
+                    </table>
+
+                    <p>company / office etc. collecting/deducting the tax.</p>
+                    <br/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+    <template id="employee_report_template_old">
+        <t t-call="web.html_container">
+            <!--            <t t-foreach="docs" t-as="o">-->
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <!--                        <h2 t-field="o.name"/>-->
+                    <table class="table table-sm table-bordered">
+                        <tr>
+                            <td>
+                                <strong>Company Information</strong>
+                            </td>
+                            <td>
+                                <div>
+                                    <!--                                        <span t-field="o.company_id.name"/>-->
+                                </div>
+                                <div>
+                                    <!--                                        <span t-field="o.company_id.street"/>-->
+                                </div>
+                                <div>
+                                    <!--                                        <span t-field="o.company_id.street2" t-if="o.company_id.street2"/>-->
+                                </div>
+                                <!--                                    <div>-->
+                                <!--                                        <span t-field="o.company_id.city"/>-->
+                                <!--                                        <span t-field="o.company_id.state_id"/>-->
+                                <!--                                        <span t-field="o.company_id.zip"/>-->
+                                <!--                                    </div>-->
+                                <div>
+                                    <!--                                        <span t-field="o.company_id.country_id"/>-->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table name="employee-infos" class="table table-sm table-bordered">
+                        <tr>
+                            <td>
+                                <strong>Name</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.sudo().employee_id"/>-->
+                            </td>
+                            <td>
+                                <strong>Designation</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.employee_id.job_id"/>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Address</strong>
+                            </td>
+                            <!--                                <td colspan="3">-->
+                            <!--                                    <div t-field="o.sudo().employee_id.address_home_id" t-options="{" widget": "-->
+                            <!--                                    contact", "fields": ["address", "name", "phone"], "no_marker": True, "-->
+                            <!--                                    phone_icons": True}"/>-->
+                            <!--                                </td>-->
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Email</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.sudo().employee_id.work_email"/>-->
+                            </td>
+                            <td>
+                                <strong>Identification No</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.sudo().employee_id.identification_id"/>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Reference</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.number"/>-->
+                            </td>
+                            <td>
+                                <strong>Bank Account</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.sudo().employee_id.bank_account_id"/>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Date From</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.date_from"/>-->
+                            </td>
+                            <td>
+                                <strong>Date To</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.date_to"/>-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Computed On</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.compute_date"/>-->
+                            </td>
+                            <td>
+                                <strong>Registration Number</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-field="o.sudo().employee_id.registration_number"/>-->
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm">
+                        <tr>
+                            <td>
+                                <strong>Basic Salary</strong>
+                            </td>
+                            <td>
+                                <!--                                    <span t-esc="o.line_ids.filtered(lambda line: line.code == 'BASIC').total"-->
+                                <!--                                          t-options="{" widget": "monetary", "display_currency"-->
+                                <!--                                        : o.company_id.currency_id}"/>-->
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Number of Hours</th>
+                                <th>Number of Days</th>
+                                <th>Quantity/rate</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--                                <tr t-foreach="o.sudo().worked_days_line_ids" t-as="worked_days">-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="worked_days.code"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="worked_days.name"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="worked_days.number_of_hours"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="worked_days.number_of_days"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td/>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-esc="worked_days.amount" digits="[42, 2]" t-options="{" widget": "-->
+                            <!--                                        monetary", "display_currency": o.company_id.currency_id}"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <!--                                <tr t-foreach="o.sudo().line_ids.filtered(lambda line: line.appears_on_payslip)"-->
+                            <!--                                    t-as="line">-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="line.code"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="line.name"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td/>-->
+                            <!--                                    <td/>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-field="line.quantity"/>-->
+                            <!--                                    </td>-->
+                            <!--                                    <td>-->
+                            <!--                                        <span t-esc="line.total" t-options="{" widget": "monetary", "-->
+                            <!--                                        display_currency": o.company_id.currency_id}"/>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                        </tbody>
+                    </table>
+                    <p class="text-right">
+                        <strong>Authorized signature</strong>
+                    </p>
+                </div>
+            </t>
+            <!--            </t>-->
+        </t>
+    </template>
+
+
+</odoo>
+
+

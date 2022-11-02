@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+   <!-- <record id="view_request_subject_drop" model="ir.ui.view">
+        <field name="name">request.subject.drop.tree</field>
+        <field name="model">odoocms.request.subject.drop</field>
+        <field name="arch" type="xml">
+            <tree string="Request subject Drop">
+                <field name="student_id"/>
+                <field name="subject_reg_id"/>
+                <field name="program_id"/>
+                <field name="academic_semester_id"/>
+                <field name="drop_with"/>
+                <field name="date_request"/>
+                <field name="approve_date"/>
+                <field name="invoice_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>-->
+    <!--<record id="view_request_subject_drop_form" model="ir.ui.view">
+        <field name="name">request.subject.drop</field>
+        <field name="model">odoocms.request.subject.drop</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Request subject drop">
+                <header>
+                    <field name="state" statusbar_visible="draft,approv,done" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="academic_semester_id"/>
+                        </group>
+                        <group>
+                            <field name="student_id" domain="[('program_id','=', program_id),('academic_semester_id','=', academic_semester_id)]"/>
+                            <field name="subject_reg_id"/>
+                        </group>
+                        <group>
+                            <field name="invoice_id"/>
+                            <field name="reason_id"/>
+                            <field name="drop_with"/>
+                        </group>
+                        <group>
+                            <field name="date_request"/>
+                            <field name="approve_date"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_request_subject_drop_view" model="ir.actions.act_window">
+        <field name="name">Student.request.subject.drop.Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.request.subject.drop</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>-->
+
+    <record id="act_odoocms_subject_drop_submit" model="ir.actions.server">
+        <field name="name">Submit Request</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_request_subject_drop"/>
+        <field name="binding_model_id" ref="model_odoocms_request_subject_drop"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_submit()
+        </field>
+    </record>
+<!--    Subject Change Request-->
+
+     <record id="view_request_subject_change" model="ir.ui.view">
+        <field name="name">request.subject.change.tree</field>
+        <field name="model">odoocms.request.subject.change</field>
+        <field name="arch" type="xml">
+            <tree string="Request subject change">
+                <field name="student_id"/>
+                <field name="subject_reg_id"/>
+                <field name="program_id"/>
+                <field name="academic_semester_id"/>
+                <field name="drop_with"/>
+                <field name="date_request"/>
+                <field name="approve_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_request_subject_change_form" model="ir.ui.view">
+        <field name="name">request.subject.change</field>
+        <field name="model">odoocms.request.subject.change</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Request subject change">
+                <header>
+                    <field name="state" statusbar_visible="draft,approv,done" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="academic_semester_id"/>
+                        </group>
+                        <group>
+                            <field name="student_id" domain="[('program_id','=', program_id),('academic_semester_id','=', academic_semester_id)]"/>
+                            <field name="subject_reg_id" domain="[('student_id','=', student_id),('state','in', ('draft','current'))]"/>
+                            <field name="batch_id"/>
+                            <field name="subject_id" />
+                        </group>
+                        <group>
+
+                            <field name="reason_id"/>
+                            <field name="drop_with"/>
+                        </group>
+                        <group>
+                            <field name="date_request"/>
+                            <field name="approve_date"/>
+                        </group>
+                    </group>
+                    <field name="description"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_request_subject_change_view" model="ir.actions.act_window">
+        <field name="name">Student.request.subject.change.Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.request.subject.change</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+
+    <record id="act_odoocms_subject_change_submit" model="ir.actions.server">
+        <field name="name">Submit Request</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_request_subject_change"/>
+        <field name="binding_model_id" ref="model_odoocms_request_subject_change"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_submit()
+        </field>
+    </record>
+
+    <record id="view_request_admission_cancel" model="ir.ui.view">
+        <field name="name">odoocms.request.admission.cancel.tree</field>
+        <field name="model">odoocms.request.admission.cancel</field>
+        <field name="arch" type="xml">
+            <tree string="Request Admission Cancellation">
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="batch_id"/>
+                <field name="date_request"/>
+                <field name="approve_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_request_admission_cancel_form" model="ir.ui.view">
+        <field name="name">odoocms.request.admission.cancel</field>
+        <field name="model">odoocms.request.admission.cancel</field>
+        <field eval="8" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Request subject drop">
+                <header>
+                    <field name="state" statusbar_visible="draft,approv,done" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="batch_id" domain="[('program_id','=', program_id)]"/>
+                        </group>
+                        <group>
+                            <field name="student_id" domain="[('program_id','=', program_id),('batch_id','=', batch_id)]"/>
+                        </group>
+                        <group>
+                            <field name="invoice_ids" widget="many2many_tags" domain="[('student_id','=', student_id)]"/>
+                            <field name="reason_id"/>
+                            <field name="source"/>
+                        </group>
+                        <group>
+                            <field name="date_request"/>
+                            <field name="approve_date"/>
+                        </group>
+                    </group>
+                    <label for="name" class="oe_edit_only" string="Description"/>
+                    <field name="description"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="act_request_admission_cancel_view" model="ir.actions.act_window">
+        <field name="name">Admisson Cancellation Form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.request.admission.cancel</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="act_odoocms_request_admission_cancel_submit" model="ir.actions.server">
+        <field name="name">Submit Request</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_request_admission_cancel"/>
+        <field name="binding_model_id" ref="model_odoocms_request_admission_cancel"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_submit()
+        </field>
+    </record>
+
+    <!--<menuitem
+            action="act_request_subject_drop_view"
+            id="menu_odoocms_request_subject_drop"
+            name="Subject Drop Request"
+            parent="odoocms_registration.menu_student_request_root"/>-->
+
+    <menuitem
+            action="act_request_admission_cancel_view"
+            id="menu_odoocms_request_admission_cancel"
+            name="Admission Cancellation Request"
+            parent="odoocms_registration.menu_student_request_root"
+    />
+     <menuitem
+            action="act_request_subject_change_view"
+            id="menu_odoocms_request_change"
+            name="Subject Change Request"
+            parent="odoocms_registration.menu_student_request_root"
+    />
+
+
+
+</odoo>

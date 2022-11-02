@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+        <record id="gpa_a" model="odoocms.grade.gpa">
+            <field name="name">A</field>
+            <field name="gpa">4</field>
+        </record>
+
+        <record id="gpa_b+" model="odoocms.grade.gpa">
+            <field name="name">B+</field>
+            <field name="gpa">3.5</field>
+        </record>
+
+        <record id="gpa_b" model="odoocms.grade.gpa">
+            <field name="name">B</field>
+            <field name="gpa">3</field>
+        </record>
+
+        <record id="gpa_c+" model="odoocms.grade.gpa">
+            <field name="name">C+</field>
+            <field name="gpa">2.5</field>
+        </record>
+
+        <record id="gpa_c" model="odoocms.grade.gpa">
+            <field name="name">C</field>
+            <field name="gpa">2</field>
+        </record>
+
+        <record id="gpa_d+" model="odoocms.grade.gpa">
+            <field name="name">D+</field>
+            <field name="gpa">1.5</field>
+        </record>
+
+        <record id="gpa_d" model="odoocms.grade.gpa">
+            <field name="name">D</field>
+            <field name="gpa">1</field>
+        </record>
+
+        <record id="gpa_f" model="odoocms.grade.gpa">
+            <field name="name">F</field>
+            <field name="gpa">0</field>
+        </record>
+
+        <record id="gpa_w" model="odoocms.grade.gpa">
+            <field name="name">W</field>
+            <field name="gpa">0</field>
+        </record>
+
+        <record id="gpa_i" model="odoocms.grade.gpa">
+            <field name="name">I</field>
+            <field name="gpa">0</field>
+        </record>
+
+<!--		<record id="mail_act_grade_change" model="mail.activity.type">-->
+<!--            <field name="name">Grade Change Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_exam_grade_change"/>-->
+<!--            <field name="category">approval</field>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+        <record id="mail_activity_grade_withdraw" model="mail.activity.type">
+            <field name="name">W Grade Request</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="res_model_id" ref="model_odoocms_student_course_withdraw"/>
+            <field name="category">approval</field>
+            <field name="post_function">record.action_approve()</field>
+            <field name="cancel_function">record.action_cancel()</field>
+            <field name="module_category_id" ref="module_category_odoocms_exam"/>
+            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+        </record>
+
+        <record id="mail_activity_grade_incomplete" model="mail.activity.type">
+           <field name="name">I Grade Request</field>
+           <field name="icon">fa-sun-o</field>
+           <field name="res_model_id" ref="model_odoocms_student_course_incomplete"/>
+           <field name="category">approval</field>
+           <field name="post_function">record.action_approve()</field>
+           <field name="cancel_function">record.action_cancel()</field>
+           <field name="module_category_id" ref="module_category_odoocms_exam"/>
+           <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+        </record>
+
+<!--        <record id="mail_act_subject_equivalence" model="mail.activity.type">-->
+<!--            <field name="name">Course Equivalence Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="category">approval</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_subject_equivalence"/>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+<!--        <record id="mail_act_subject_alternate" model="mail.activity.type">-->
+<!--            <field name="name">Course Alternate Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="category">approval</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_subject_alternate"/>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+<!--        <record id="mail_act_degree_request" model="mail.activity.type">-->
+<!--            <field name="name">Student Degree Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_request_degree"/>-->
+<!--             <field name="category">approval</field>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+<!--        <record id="mail_act_transcript_request" model="mail.activity.type">-->
+<!--            <field name="name">Student Transcript Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="category">approval</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_request_transcript"/>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+<!--        <record id="mail_act_retest_request" model="mail.activity.type">-->
+<!--            <field name="name">Student Re-Test Request</field>-->
+<!--            <field name="icon">fa-sun-o</field>-->
+<!--            <field name="category">approval</field>-->
+<!--            <field name="res_model_id" ref="model_odoocms_exam_retest"/>-->
+<!--            <field name="post_function">record.action_approve()</field>-->
+<!--            <field name="cancel_function">record.action_cancel()</field>-->
+<!--            <field name="module_category_id" ref="module_category_odoocms_exam"/>-->
+<!--            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>-->
+<!--        </record>-->
+
+</data>
+</odoo>

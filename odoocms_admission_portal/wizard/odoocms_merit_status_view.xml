@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_odoocms_merit_status_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.merit.status.form.inherit</field>
+        <field name="model">odoocms.merit.status</field>
+        <field name="inherit_id" ref="odoocms_admission.odoocms_merit_status_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name = 'locked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_student_fee_tax_report_form" model="ir.ui.view">
+            <field name="name">student.fee.tax.report.form</field>
+            <field name="model">student.fee.tax.report</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Student Fee Tax Report">
+                    <p>
+                        This Wizard will generate Student Fee Tax Report.
+                    </p>
+                    <group>
+                        <group>
+                            <!-- <field name="term_id" required="1" options="{'no_create':True}"/>-->
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="make_excel" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_tax_report" model="ir.actions.act_window">
+            <field name="name">Fee Tax Report</field>
+            <field name="res_model">student.fee.tax.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_student_fee_tax_report"
+                name="Fee Tax Report"
+                action="action_odoocms_fee_tax_report"
+                parent="odoocms_fee.menu_fee_reports"
+                sequence="320"/>
+    </data>
+</odoo>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="studentInvoices" name="Student Invoices">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                 <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/select2/dist/css/select2.min.css"/>
+            <style>
+                .uk-modal {
+                z-index: 10;
+                }
+                .curve {
+                border-radius: 5px 5px 5px 5px;
+                overflow: hidden;
+                }
+                .md-card .md-card-toolbar-heading-text-resume {
+                font: 500 18px/50px Roboto,sans-serif;
+                color: #212121;
+                margin: 0;
+                float: left;
+                overflow: hidden;
+                height: 48px;
+                }
+                .md-card .md-card-toolbar {
+                height: 48px;
+                padding: 0 16px;
+                border-bottom: 0px solid rgba(0,0,0,.12);
+                background: #fff;
+                }
+                .floatright{
+                float: right;
+                }
+                .md-card .md-border{
+                border-bottom: 1px solid rgba(0,0,0,.12);
+                background: #fff;
+                }
+                .t-16 {
+                font-size: 1.2rem;
+                line-height:1.6;
+                margin-bottom: 0px;
+                }
+                .t-bold {
+                font-weight: 600;
+                }
+                .t-14 {
+                font-size: 1rem;
+                line-height: 1.2;
+                margin-bottom: 0px;
+                }
+                .t-normal {
+                font-weight: 400;
+                }
+                .t-black--light {
+                color: grey;
+                }
+                .uk-form-row+.uk-form-row-exp {
+                margin-top: 12px;
+                }
+                .uk-form-row-exp-details {
+                margin-top: 15px;
+                }
+            </style>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/invoices">
+                                    Invoices
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+
+                        <h3 class="heading_b uk-margin-bottom">Invoices <!--|
+                            <a class="md-btn md-btn-warning md-btn-wave-light" data-uk-modal="{target:'#modal_tax_certificate_report'}">Download Tax Certificate  </a>
+                              <div class="uk-modal" id="modal_tax_certificate_report">
+                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                <form id="student_form_tax" name="student_form_tax" method="post" action="/student/tax/certificate/download">
+                                    <div class="uk-modal-header">
+                                        <h3 class="uk-modal-title">Tax
+                                            Certificate
+                                            <i class="material-icons" data-uk-tooltip="{pos:'top'}"
+                                               title="Download Tax
+                                            Certificate">&#xE8FD;
+                                            </i>
+                                        </h3>
+                                    </div>
+                                    <div class="md-card-content">
+                                        <div class="uk-grid" data-uk-grid-margin="">
+                                            <div class="uk-width-medium-2-2 uk-row-first">
+                                                <div class="uk-form-row">
+                                                    <input type="hidden" t-att-value="student.id" name="student_id"/>
+                                                    <select id="select_adv_single" name="student_term_id">
+                                                        <option value="">Select term...</option>
+                                                        <t t-foreach="term_ids" t-as="term">
+                                                            <option t-attf-value="{{term.id}}+{{term.term_id.id}}">
+                                                                <t t-esc="term.term_id.name"/>
+                                                            </option>
+                                                        </t>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button type="button" class="md-btn md-btn-flat uk-modal-close">Close</button>
+                                        <button type="submit" class="md-btn md-btn-flat">Download</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>-->
+                        </h3>
+
+
+                        <div class="md-card uk-margin-medium-bottom">
+
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Invoices List</h3>
+                                <div class="uk-overflow-container">
+                                    <table id="" class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Invoice No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Invoice Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Due Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Semester</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Receipt For</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Barcode</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Total Amount</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Print/Save</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="invoices" t-as="invoice">
+
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="invoice.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(invoice.invoice_date)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(invoice.invoice_date_due)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="invoice.term_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="invoice.semester_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-foreach="invoice.receipt_type_ids"
+                                                           t-as="receipt_type_id">
+                                                            <t t-esc="receipt_type_id.name"/>
+                                                        </t>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="invoice.barcode"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="invoice.amount_residual"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk-badge-success">
+                                                            <t t-esc="invoice.invoice_payment_state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-if="invoice.invoice_payment_state in ('not_paid','unpaid')"
+                                                           t-attf-href="/student/invoices/download/{{invoice.id}}">
+                                                            <i class="md-icon material-icons">print</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+              <!--  <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>-->
+
+                  <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"/>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"/>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"/>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"/>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"/>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"/>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"/>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+
+
+                <!--<script src="/odoocms_student_portal/static/js/custom_requests.js"/>-->
+            </body>
+        </t>
+    </template>
+</odoo>

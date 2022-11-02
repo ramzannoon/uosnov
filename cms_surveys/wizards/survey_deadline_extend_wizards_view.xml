@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="view_survey_wizard_deadline_extend_form" model="ir.ui.view">
+            <field name="name">survey.wizard_deadline.extend.form</field>
+            <field name="model">survey.wizard_deadline.extend</field>
+            <field name="arch" type="xml">
+                <form string="Survey Deadline Extension">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="template" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}" />
+                                <field name="template_seq_no" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="survey_form_type" readonly="1" />
+                                <field name="survey_form_type_name" invisible="1"/>
+                                <!--                                <field name="class_id" required="1"/>-->
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="institute_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}" required="1"/>
+                                <field name="end_date" required="1"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                    <footer>
+                        <button name="extend_survey_deadline" string="Extend Deadline" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_wizard_deadline_extend">
+            <field name="name">Survey Deadline Extension Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.wizard_deadline.extend</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_survey_wizard_deadline_extend_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_survey_wizard_deadline_extend_submenu" name="Deadline Extension Wizard" sequence="40"
+                  parent="menu_survey_template"/>
+
+        <menuitem id="menu_survey_wizard_deadline_extend_action" name="Deadline Extension Wizard" sequence="50"
+                  parent="menu_survey_wizard_deadline_extend_submenu" action="action_survey_wizard_deadline_extend"/>
+    </data>
+</odoo>

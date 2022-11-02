@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_application_steps_tree" model="ir.ui.view">
+        <field name="name">odoocms.application.steps.tree</field>
+        <field name="model">odoocms.application.steps</field>
+        <field name="arch" type="xml">
+            <tree string="Application Steps" editable="bottom">
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="template"
+                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                <field name="test_field"
+                       options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.form.inherit</field>
+        <field name="model">odoocms.application</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//button[@name='send_to_verify']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='total_marks']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='obtained_marks']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='percentage']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page/field/tree/field[@name='board']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//header" position="inside">
+                    <button name="verify_voucher" type="object" class="oe_highlight"
+                            string="Verify Fee Voucher" groups="base.group_user"
+                            help="Click to verify the Voucher if it is valid"
+                            attrs="{'invisible': [('fee_voucher_state', '!=','upload')]}"
+                    />
+                    <button name="univerify_voucher" type="object" class="oe_highlight"
+                            string="Unverify Fee Voucher" groups="base.group_user"
+                            help="Click to Unverify the Voucher if it is not valid"
+                            attrs="{'invisible': [('fee_voucher_state', '!=','upload')]}"
+                    />
+                </xpath>
+                <xpath expr="//field[@name='cnic']" position="after">
+                    <field name="passport"/>
+                </xpath>
+
+                <xpath expr="//field[@name='domicile']" position="replace">
+                    <field name="domicile_id"
+                           attrs="{'invisible':[('nationality','!=',177)]}"/> <!-- 177 === PAKISTAN -->
+                </xpath>
+                <xpath expr="//field[@name='domicile_id']" position="after">
+                    <field name="get_info_from"/>
+                </xpath>
+
+                <xpath expr="//field[@name='nationality']" position="after">
+                    <field name="province_id"/>
+                    <field name="province2" attrs="{'invisible':[('province_id','!=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='country_id']" position="replace">
+                    <field name="present_country_id" placeholder="Country" class="oe_no_button"
+                           options='{"no_open": True}'/>
+                </xpath>
+
+                <xpath expr="//group/field[@name='board']" position="after">
+                    <group>
+                        <field name="inter_result_status" attrs="{'invisible':[('degree_level','!=','Intermediate')]}"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//group[@name='dae_group']" position="after">
+                    <!-- make visible if O Level -->
+                    <group string="O-Level" name="o_level_group"
+                           attrs="{'invisible':[('degree_level','!=','O-Level')]}">
+                        <table class="table table-bordered">
+                            <tr bgcolor="#a8aba3">
+                                <th>Grade</th>
+                                <th>Score</th>
+                            </tr>
+                            <tr>
+                                <th>A*</th>
+                                <td>
+                                    <field name="grade_aa" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>A</th>
+                                <td>
+                                    <field name="grade_a" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>B</th>
+                                <td>
+                                    <field name="grade_b" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>C</th>
+                                <td>
+                                    <field name="grade_c" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>D</th>
+                                <td>
+                                    <field name="grade_d" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>E</th>
+                                <td>
+                                    <field name="grade_e" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>F</th>
+                                <td>
+                                    <field name="grade_f" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>G</th>
+                                <td>
+                                    <field name="grade_g" nolabel="1"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+                    <group name="o_level_group2" attrs="{'invisible':[('degree_level','!=','O-Level')]}">
+                        <table class="table table-bordered">
+                            <tr bgcolor="#a8aba3">
+                                <th>Total Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Percentage</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <field name="total_marks"/>
+                                </td>
+                                <td>
+                                    <field name="obtained_marks"/>
+                                </td>
+                                <td>
+                                    <field name="percentage"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+
+                    <!-- make visible if A Level -->
+                    <group string="A-Level" name="a_level_group"
+                           attrs="{'invisible':[('degree_level','!=','A-Level')]}">
+                        <table class="table table-bordered">
+                            <tr bgcolor="#a8aba3">
+                                <th>Grade</th>
+                                <th colspan="2">Score</th>
+                            </tr>
+                            <tr>
+                                <th>A*</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_aa" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>A</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_a" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>B</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_b" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>C</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_c" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>D</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_d" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>E</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_e" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>F</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_f" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>G</th>
+                                <td colspan="2">
+                                    <field name="a_level_grade_g" nolabel="1"/>
+                                </td>
+                            </tr>
+
+                            <tr bgcolor="#a8aba3">
+                                <th>Subject</th>
+                                <th>Marks</th>
+                                <th>Percentage</th>
+                            </tr>
+                            <tr>
+                                <th>Physics</th>
+                                <td>
+                                    <field name="a_level_physics" nolabel="1"/>
+                                </td>
+                                <td>
+                                    <field name="a_level_physics_percentage" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Chemistry</th>
+                                <td>
+                                    <field name="a_level_che" nolabel="1"/>
+                                </td>
+                                <td>
+                                    <field name="a_level_che_percentage" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Computer</th>
+                                <td>
+                                    <field name="a_level_com" nolabel="1"/>
+                                </td>
+                                <td>
+                                    <field name="a_level_com_percentage" nolabel="1"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Math</th>
+                                <td>
+                                    <field name="a_level_math" nolabel="1"/>
+                                </td>
+                                <td>
+                                    <field name="a_level_math_percentage" nolabel="1"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+                    <group name="a_level_group2" attrs="{'invisible':[('degree_level','!=','A-Level')]}">
+                        <table class="table table-bordered">
+                            <tr bgcolor="#a8aba3">
+                                <th>Total Marks</th>
+                                <th>Obtained Marks</th>
+                                <th>Percentage</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <field name="total_marks"/>
+                                </td>
+                                <td>
+                                    <field name="obtained_marks"/>
+                                </td>
+                                <td>
+                                    <field name="percentage"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </group>
+                </xpath>
+
+
+                <xpath expr="//group[@name='present_permanent_address']" position="after">
+                    <group attrs="{'invisible':[('is_dual_nationality','!=',True)]}">
+                        <group>
+                            <field name="is_dual_nationality"/>
+                            <field name="passport"/>
+                            <field name="country_id"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='personal']" position="after">
+                    <page name="guardian_info" string="Guardian Info">
+                        <separator string="Father’s/Guardian’s"/>
+                        <group col="3">
+                            <group>
+                                <field name="father_name"/>
+                                <field name="father_income"/>
+                            </group>
+                            <group>
+                                <field name="father_cnic"/>
+                                <field name="father_email"/>
+                            </group>
+                            <group>
+                                <field name="father_occupation"/>
+                                <field name="father_mobile"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group>
+                                <field name="guardian_name"/>
+                                <field name="guardian_occupation"/>
+                                <field name="guardian_cnic"/>
+                            </group>
+                            <group>
+                                <field name="guardian_relation"/>
+                                <field name="guardian_mobile"/>
+                            </group>
+                            <group>
+                                <field name="guardian_landline"/>
+                                <field name="guardian_address"/>
+                            </group>
+                        </group>
+                        <separator string="Emergency"/>
+                        <group col="3">
+                            <group>
+                                <field name="emergency_name"/>
+                            </group>
+                            <group>
+                                <field name="emergency_mobile"/>
+                            </group>
+                            <group>
+                                <field name="emergency_relation"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='adjustment_page']" position="before">
+                    <page name="voucher_details" string="Voucher Details">
+                        <group>
+                            <group>
+                                <field name="voucher_number"/>
+                                <field name="voucher_amount"/>
+                                <field name="voucher_date"/>
+                                <field name="fee_voucher_state"/>
+                                <field name="step_number"/>
+                            </group>
+                            <group>
+                                <field name="voucher_image" widget='image' class="oe_avatar"
+                                       options='{"preview_image":"voucher_image"}'/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='academic_info_page']" position="after">
+                    <page name="entry_test_details" string="Entry Test &amp; Interview Details">
+                        <field name="test_type" invisible="1"/>
+                        <group>
+                            <group name="entry_test_marks_details" string="Entry Test Marks">
+                                <field name="entry_test_of_marks"/>
+                                <field name="entry_test_obtained_marks"/>
+                                <field name="ET_percentage"/>
+                                <field name="entry_test_status1"/>
+                            </group>
+                            <group name="interview_marks_details" string="Interview Test Marks">
+                                <field name="interview_total_marks"/>
+                                <field name="marks_obtained"/>
+                                <field name="IM_percentage"/>
+                                <field name="entry_test_status2"/>
+                            </group>
+                        </group>
+                        <!--                        <group name="entry_test_nat_group" attrs="{'invisible':[('test_type','!=','NAT')]}">-->
+                        <!--                            <separator string="NAT"/>-->
+                        <!--                            <table class="table table-bordered">-->
+                        <!--                                <tr bgcolor="#a8aba3">-->
+                        <!--                                    <th>Date</th>-->
+                        <!--                                    <th>Obtained Score</th>-->
+                        <!--                                </tr>-->
+                        <!--                                <tr>-->
+                        <!--                                    <td>-->
+                        <!--                                        <field name="test_date"/>-->
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        <field name="test_obtained_marks"/>-->
+                        <!--                                    </td>-->
+                        <!--                                </tr>-->
+                        <!--                            </table>-->
+                        <!--                        </group>-->
+
+                        <!--                        <group name="entry_test_sat_group" attrs="{'invisible':[('test_type','!=','SAT')]}">-->
+                        <!--                            <separator string="SAT"/>-->
+                        <!--                            <table class="table table-bordered">-->
+                        <!--                                <tr bgcolor="#a8aba3">-->
+                        <!--                                    <th>Total Score</th>-->
+                        <!--                                    <th>Obtained Score</th>-->
+                        <!--                                    <th>Percentage</th>-->
+                        <!--                                </tr>-->
+                        <!--                                <tr>-->
+                        <!--                                    <td>-->
+                        <!--                                        <field name="test_total_marks"/>-->
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        <field name="test_obtained_marks"/>-->
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        <field name="test_percentage"/>-->
+                        <!--                                    </td>-->
+                        <!--                                </tr>-->
+                        <!--                            </table>-->
+                        <!--                        </group>-->
+
+                        <!--                        <group>-->
+                        <!--                            <group></group>-->
+                        <!--                            <group>-->
+                        <!--                                <field name="entry_test_status" string="Verification Status" readonly="1"/>-->
+                        <!--                            </group>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <group>-->
+                        <!--                                <button type="object" name="action_entry_test_verified" string="Verify"-->
+                        <!--                                        groups="odoocms_admission.group_admission_manager" class="oe_highlight"-->
+                        <!--                                        attrs="{'invisible': [('entry_test_status', 'in',('Yes','Rejected'))]}"/>-->
+                        <!--                                <button type="object" name="action_entry_test_rejected" string="Rejected"-->
+                        <!--                                        groups="odoocms_admission.group_admission_manager" class="oe_highlight"-->
+                        <!--                                        attrs="{'invisible': [('entry_test_status', 'in',('Yes','Rejected'))]}"/>-->
+                        <!--                            </group>-->
+                        <!--                            <group>-->
+                        <!--                                <button type="object" name="action_entry_test_unverified" string="UnVerify"-->
+                        <!--                                        groups="odoocms_admission.group_admission_special" class="oe_highlight"-->
+                        <!--                                        attrs="{'invisible': [('entry_test_status', '=','No')]}"/>-->
+                        <!--                            </group>-->
+                        <!--                        </group>-->
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='adjustment_page']" position="replace">
+                    <page string="Adjustment" name="adjustment_page">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Major/Specialization</th>
+                                <td colspan="3">
+                                    <field name="inter_specialization"/>
+                                </td>
+                            </tr>
+                            <tr bgcolor="#a8aba3">
+                                <th>Degree</th>
+                                <th>Obtained Marks</th>
+                                <th>Percentage</th>
+                                <th>Aggregates</th>
+                            </tr>
+                            <tr>
+                                <th>Metric/O-Level</th>
+                                <td>
+                                    <field name="ssc_marks"/>
+                                </td>
+                                <td>
+                                    <field name="ssc_percentage"/>
+                                </td>
+                                <td>
+                                    <field name="ssc_aggregates"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>F.Sc/DAE/A-Level</th>
+                                <td>
+                                    <field name="inter_marks"/>
+                                </td>
+                                <td>
+                                    <field name="inter_percentage"/>
+                                </td>
+                                <td>
+                                    <field name="inter_aggregates"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Under Graduate</th>
+                                <td>
+                                    <field name="ug_cgpa"/>
+                                </td>
+                                <td>
+                                    <field name="ug_cgpa_percentage"/>
+                                </td>
+                                <td>
+                                    <field name="ug_aggregates"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Entry Test</th>
+                                <td>
+                                    <field name="test_obtained_marks"/>
+                                </td>
+                                <td>
+                                    <field name="test_percentage"/>
+                                </td>
+                                <td>
+                                    <field name="entry_aggregates"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Interview</th>
+                                <td>
+                                    <field name="marks_obtained"/>
+                                </td>
+                                <td>
+                                    <field name="interview_percentage"/>
+                                </td>
+                                <td>
+                                    <field name="interview_aggregates"/>
+                                </td>
+                            </tr>
+                            <!--                            <tr>-->
+                            <!--                                <th>Physics</th>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="physics_marks"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="physics_percentage"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="physics_aggregates"/>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <th>Chemistry/Computer Science</th>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="chemistry_marks"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="chemistry_percentage"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="chemistry_aggregates"/>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <!--                            <tr>-->
+                            <!--                                <th>Maths/Biology</th>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="math_marks"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="math_percentage"/>-->
+                            <!--                                </td>-->
+                            <!--                                <td>-->
+                            <!--                                    <field name="math_aggregates"/>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <tr>
+                                <th colspan="3">Final Score</th>
+                                <th>
+                                    <field name="total_aggregates"/>
+                                </th>
+                            </tr>
+                        </table>
+                    </page>
+<!--                    <page name="quota" string="Quota">-->
+
+<!--                        <div attrs="{'invisible':[('dae_quota_id','!=',False)]}">-->
+<!--                            <group attrs="{'invisible':[('is_forces_quota','!=',True)]}">-->
+<!--                                <group>-->
+<!--                                    <field name="is_forces_quota"/>-->
+<!--                                </group>-->
+<!--                                <group>-->
+<!--                                    <field name="forces_quota" attrs="{'invisible':[('quota_id2','!=',False)]}"/>-->
+<!--                                    <field name="quota_id2" attrs="{'invisible':[('quota_id2','=',False)]}"/>-->
+<!--                                </group>-->
+<!--                            </group>-->
+
+<!--                            <group attrs="{'invisible':[('is_rural_quota','!=',True)]}">-->
+<!--                                <group>-->
+<!--                                    <field name="is_rural_quota"/>-->
+<!--                                </group>-->
+<!--                                <group>-->
+<!--                                    <field name="rural_quota" attrs="{'invisible':[('quota_id','!=',False)]}"/>-->
+<!--                                    <field name="quota_id" attrs="{'invisible':[('quota_id','=',False)]}"/>-->
+<!--                                </group>-->
+<!--                            </group>-->
+<!--                        </div>-->
+<!--                        <group attrs="{'invisible':[('dae_quota_id','=',False)]}">-->
+<!--                            <group>-->
+<!--                                <field name="dae_quota_id"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+
+<!--                        <group attrs="{'invisible':['|',('is_forces_quota','=',True),('is_rural_quota','=',True)]}">-->
+<!--                            <separator string="Open Merit"/>-->
+<!--                        </group>-->
+<!--                    </page>-->
+                </xpath>
+
+                <xpath expr="//field[@name='is_same_address']" position="after">
+                    <field name="is_any_disability"/>
+                    <field name="disability" attrs="{'invisible': [('is_any_disability', '=',False)]}"/>
+                    <field name="is_any_disease"/>
+                    <field name="disease" attrs="{'invisible': [('is_any_disease', '=',False)]}"/>
+                </xpath>
+                <!--                <xpath expr="//field[@name='program_id']" position="after">-->
+                <!--                    <field name="admission_quota_id" readonly="1" attrs="{'invisible': [('program_id', '=',False)]}"/>-->
+                <!--                </xpath>-->
+
+                <!--                <xpath expr="//field[@name='preference_ids']" position="replace">-->
+                <!--                    <field name="preference_ids">-->
+                <!--                        <tree string="Preferences"-->
+                <!--                              editable="bottom"> &lt;!&ndash; create="false" delete="false" edit="false" &ndash;&gt;-->
+                <!--                            <field name="sequence" widget="handle"/>-->
+                <!--                            <field name="type" required="1"/>-->
+                <!--                            <field name="preference" required="1" attrs="{'readonly': [('type', '=','Regular')]}"/>-->
+                <!--                            <field name="program_id" required="1" attrs="{'readonly': [('type', '=','Regular')]}"/>-->
+                <!--                            <field name="discipline_id"/>-->
+
+                <!--                        </tree>-->
+                <!--                    </field>-->
+                <!--                </xpath>-->
+
+            </data>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_tree_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.tree.inherit</field>
+        <field name="model">odoocms.application</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="fee_voucher_state"/>
+                <field name="total_aggregates"/>
+                <field name="step_number" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_odoocms_application_search_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.search.inherit</field>
+        <field name="model">odoocms.application</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='religion_id']" position="after">
+                <separator/>
+                <filter name="group_admission_quota" string="Admission Quota" icon="fa-pencil-square-o" domain="[]"
+                        context="{'group_by' : 'admission_quota_id'}"/>
+            </xpath>
+            <xpath expr="//filter[@name='rejected']" position="after">
+                <filter string="Applied on Open Merit Only" name="applied_on_open_merit"
+                        domain="[('quota_id','=',False),('quota_id2','=',False)]"/>
+                <filter string="Applied on Forces Quota" name="applied_on_forces_quota"
+                        domain="[('quota_id','=',False),('quota_id2','!=',False)]"/>
+                <filter string="Applied on Rural Areas Quota" name="applied_on_rural_quota"
+                        domain="[('quota_id','!=',False),('quota_id2','=',False)]"/>
+                <filter string="Applied on Rural and Forces Quota" name="applied_on_rural_forces_quota"
+                        domain="[('quota_id','!=',False),('quota_id2','!=',False)]"/>
+                <filter string="Admission Offered" name="admission_offered" domain="[('program_id','!=',False)]"/>
+                <filter string="Admission not Offered" name="admission_offered" domain="[('program_id','=',False)]"/>
+                <filter string="Admission on Quota" name="admission_on_quota"
+                        domain="[('program_id','!=',False),('admission_quota_id','!=',False)]"/>
+                <filter string="Admission on Open Merit" name="admission_on_open_merit"
+                        domain="[('program_id','!=',False),('admission_quota_id','=',False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Total Registration Dashboard Tree -->
+    <record id="view_odoocms_application_tree1" model="ir.ui.view">
+        <field name="name">odoocms.application.tree1</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Total Registrations" decoration-success="state !='reject'">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="application_date" string="Registration Date"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fee Voucher Downloaded Dashboard Tree -->
+    <record id="view_odoocms_application_tree2" model="ir.ui.view">
+        <field name="name">odoocms.application.tree2</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Fee Voucher Downloaded">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="fee_voucher_download_date"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Application Processing Fee Submitted Tree -->
+    <record id="view_odoocms_application_tree3" model="ir.ui.view">
+        <field name="name">odoocms.application.tree3</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Fee Voucher Upload">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="fee_voucher_upload_date"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fee Verified Tree -->
+    <record id="view_odoocms_application_tree4" model="ir.ui.view">
+        <field name="name">odoocms.application.tree4</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Fee Verified">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="fee_voucher_upload_date" string="Fee Voucher Uploaded Date"/>
+                <field name="voucher_number" string="Fee Voucher No."/>
+                <field name="fee_voucher_verified_date"/>
+                <field name="fee_voucher_upload_date"/>
+                <field name="no_of_days_after_verification"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Fee UnVerified Tree -->
+    <record id="view_odoocms_application_tree5" model="ir.ui.view">
+        <field name="name">odoocms.application.tree5</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Fee UnVerified">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="fee_voucher_upload_date" string="Fee Voucher Uploaded Date"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Applicant Final Score Tree -->
+    <record id="view_odoocms_application_tree6" model="ir.ui.view">
+        <field name="name">odoocms.application.tree6</field>
+        <field name="model">odoocms.application</field>
+        <field name="arch" type="xml">
+            <tree string="Applicant Final Score">
+                <field name="application_no"/>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="ssc_aggregates" string="Matric/O-Level"/>
+                <field name="inter_aggregates" string="Intermediate"/>
+                <field name="entry_aggregates" string="Entry Test"/>
+                <field name="total_aggregates" string="Final Score"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Academic Documents -->
+    <record id="view_odoocms_application_documents_form_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.documents.form.inherit</field>
+        <field name="model">odoocms.application.documents</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_documents_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//table/tr[@name='third_row']" position="after">
+                    <tr name="fourth_row">
+                        <td name="dae_first_year_heading">DAE First Year</td>
+                        <td class="w-25" name="dae_first_year_image">
+                            <field name="dae_first_year" widget='image' nolabel="1" class="rounded float-left"/>
+                        </td>
+                        <td name="cnic_heading">CNIC Back</td>
+                        <td class="w-25" name="cnic_back_image">
+                            <field name="cnic_back_scanned_copy" widget='image' nolabel="1" class="rounded float-left"/>
+                        </td>
+                    </tr>
+
+                    <tr name="fifth_row">
+                        <td name="dae_second_year_heading">DAE Second Year</td>
+                        <td class="w-25" name="dae_second_year_image">
+                            <field name="dae_second_year" widget='image' nolabel="1" class="rounded float-left"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr name="sixth_row">
+                        <td name="dae_third_year_heading">DAE Third Year</td>
+                        <td class="w-25" name="dae_third_year_image">
+                            <field name="dae_third_year" widget='image' nolabel="1" class="rounded float-left"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr name="seven_row">
+                        <td name="test_heading">Test</td>
+                        <td class="w-25" name="test_image">
+                            <field name="test_certificate" widget='image' nolabel="1" class="rounded float-left"/>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+
+    <!-- Academic Documents Tree-->
+    <record id="view_odoocms_application_documents_tree_inherit" model="ir.ui.view">
+        <field name="name">odoocms.application.documents.tree.inherit</field>
+        <field name="model">odoocms.application.documents</field>
+        <field name="inherit_id" ref="odoocms_admission.view_odoocms_application_documents_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='inter_scaned_copy_name']" position="after">
+                <field name="dae_first_year" string="DAE Ist Yr"/>
+                <field name="dae_second_year" string="DAE 2nd Yr"/>
+                <field name="dae_third_year" string="DAE 3rd Yr"/>
+                <field name="hope_certificate_scanned_copy" string="Hope Certificate"/>
+            </xpath>
+            <xpath expr="//field[@name='cnic_scanned_copy']" position="after">
+                <field name="cnic_back_scanned_copy" string="CNIC Back"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Application Preferences Tree -->
+    <record id="view_odoocms_application_prefer_tree" model="ir.ui.view">
+        <field name="name">odoocms.application.prefer.tree</field>
+        <field name="model">odoocms.application.preference</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree string="Application Preference">
+                <field name="application_id"/>
+                <!--                <field name="application_status"/>-->
+                <field name="cnic" string="CNIC"/>
+                <field name="program_id"/>
+                <field name="preference"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Application Preferences Form -->
+    <record id="view_odoocms_application_prefer_form" model="ir.ui.view">
+        <field name="name">odoocms.application.prefer.form</field>
+        <field name="model">odoocms.application.preference</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Application Preference">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="application_id"/>
+                            <field name="cnic" string="CNIC"/>
+                        </group>
+                        <group>
+                            <field name="program_id"/>
+                            <field name="preference"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Application Preferences Search -->
+    <record id="view_odoocms_application_prefer_search" model="ir.ui.view">
+        <field name="name">odoocms.application.prefer.search</field>
+        <field name="model">odoocms.application.preference</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <search string="Application Preference">
+                <field name="application_id"/>
+                <field name="cnic" string="CNIC"/>
+                <field name="program_id"/>
+                <field name="preference"/>
+
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <!--                    <filter string="Application Status" domain="[]" name="groupby_application" context="{'group_by':'application_status'}"/>-->
+                    <filter string="Program" domain="[]" name="groupby_program" context="{'group_by':'program_id'}"/>
+                    <filter string="Preference" domain="[]" name="groupby_preference"
+                            context="{'group_by':'preference'}"/>
+                    <separator/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_application_prefer" model="ir.actions.act_window">
+        <field name="name">Application Preferences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.application.preference</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="action_odoocms_application_steps" model="ir.actions.act_window">
+        <field name="name">Application Steps</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.application.steps</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_application_steps"
+            name="Application Steps"
+            parent="odoocms_admission.menu_admission_configuration"
+            action="action_odoocms_application_steps"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="200"/>
+
+
+    <menuitem
+            id="menu_odoocms_application_preferences"
+            name="Application Preferences"
+            parent="odoocms_admission.menu_odoocms_admission_main"
+            action="action_odoocms_application_prefer"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="110"/>
+
+</odoo>

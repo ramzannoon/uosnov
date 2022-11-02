@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<act_window
+				id="sct_odoocms_activities_export_wizard"
+				name="Assessment Report"
+				binding_model="odoocms.class"
+				res_model="odoocms.activities.export.wizard"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+
+        <record id="view_odoocms_activities_export_wizard_form" model="ir.ui.view">
+            <field name="name">odoocms.activities.export.wizard.form</field>
+            <field name="model">odoocms.activities.export.wizard</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Assessment Report">
+                    <field name="class_id" readonly="1"/>
+                    <field name="group_class" invisible="1"/>
+                    <footer>
+                       <button name="make_excel" string="Generate Report" type="object" class="btn-primary" /> <!-- attrs="{'invisible': [('group_class', '=',False)]}" -->
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+
+            </field>
+        </record>
+
+        <!-- Product Ledger Report Save Wizard -->
+        <record id="view_assessment_report_save_form" model="ir.ui.view">
+            <field name="name">assessment.report.save.wizard.form</field>
+            <field name="model">assessment.report.save.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Assessment Report">
+                    <field name="name" invisible="1"/>
+                        <div>
+                            <h2>Report Generated</h2>
+                            <p>Here is the Excel Sheet: <field name="data" readonly="1" filename="name"/></p>
+                        </div>
+                        <footer><button string="Close" class="btn-default" special="cancel"/></footer>
+                    </form>
+                </field>
+        </record>
+
+</data>
+</odoo>

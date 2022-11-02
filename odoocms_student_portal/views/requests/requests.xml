@@ -1,0 +1,1815 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_clearance_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/clearance">Clearance Request</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Clearance Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Clearance Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table id="" class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Session</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Program</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Email</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="clearance_request" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.id"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.session_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.program_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <!--                                                        <t t-esc="str(req.completion_date)[:19]"/>-->
+                                                        <t t-esc="req.email"/>
+
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to cancel your clearance request?', function(){ clearance_cancel_req({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                        //here-->
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+
+
+                                <h3 class="heading_a uk-margin-bottom">Clearance Requests Approval Details</h3>
+
+
+                                <div class="uk-overflow-container">
+                                    <div class="container">
+                                        <div class="uk-grid">
+                                            <div class="uk-width-medium-1-2">
+                                                <table id="" class="uk-table uk-table-nowrap table_check">
+                                                    <thead class="md-bg-blue-grey-700 ">
+                                                        <tr>
+                                                            <th class="uk-width-1-10 md-color-grey-50 ">Appover
+                                                                Name
+                                                            </th>
+                                                            <th class="uk-width-1-20 md-color-grey-50 ">Designation
+                                                            </th>
+                                                            <th class="uk-width-1-20 md-color-grey-50 ">Request
+                                                                State
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-if="approval_requests">
+                                                            <t t-if="approval_requests.approver_ids">
+                                                                <t t-foreach="approval_requests.approver_ids"
+                                                                   t-as="appr">
+                                                                    <tr>
+                                                                        <td>
+                                                                            <t t-esc="appr.user_id.name"/>
+                                                                        </td>
+                                                                        <td>
+
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <t t-if="appr.status == 'approved'">
+                                                                                <span class="uk-badge uk--badge-success">
+                                                                                    <p>Approved</p>
+                                                                                </span>
+                                                                            </t>
+
+                                                                            <t t-if="appr.status == 'pending'">
+                                                                                <span class="uk-badge uk--badge-success">
+
+                                                                                    <p>Pending</p>
+                                                                                </span>
+                                                                            </t>
+
+
+                                                                            <t t-if="appr.status == 'rejected'">
+                                                                                <span class="uk-badge uk--badge-success">
+
+                                                                                    <p>Rejected</p>
+                                                                                </span>
+
+                                                                            </t>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </t>
+                                                            </t>
+                                                        </t>
+                                                        <t t-if="approval_dd_requests">
+                                                            <t t-if="approval_dd_requests.approver_ids">
+                                                                <tr>
+                                                                    <td>
+                                                                        <t t-esc="approval_dd_requests.approver_ids.user_id.name"/>
+                                                                    </td>
+                                                                    <td>
+                                                                        DD Admin
+                                                                    </td>
+                                                                    <td>
+
+
+                                                                        <t t-if="approval_dd_requests.approver_ids.status == 'approved'">
+                                                                            <span class="uk-badge uk--bg-primary">
+                                                                                <p>Approved</p>
+                                                                            </span>
+                                                                        </t>
+                                                                        <t t-if="approval_dd_requests.approver_ids.status == 'pending'">
+                                                                            <span class="uk-badge uk-badge-danger">
+                                                                                <p>Pending</p>
+                                                                            </span>
+                                                                        </t>
+                                                                        <t t-if="approval_dd_requests.approver_ids.status == 'rejected'">
+                                                                            <span class="uk-badge uk-badge-danger">
+                                                                                <p>Rejected</p>
+                                                                            </span>
+                                                                        </t>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="uk-width-medium-1-2">
+                                                <table id="" class="uk-table uk-table-nowrap table_check">
+                                                    <thead class="md-bg-blue-grey-700 ">
+                                                        <tr>
+                                                            <th class="uk-width-1-40 md-color-grey-50 ">Remarks</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <t t-if="approval_requests">
+                                                            <t t-if="approval_requests.user_remarks">
+                                                                <tr>
+                                                                    <td>
+                                                                        <span t-raw="approval_requests.user_remarks"
+                                                                              t-if="approval_requests.user_remarks"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </t>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--                        //here-->
+
+                        <div class="md-card">
+                            <form method="post" action="/student/clearance/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <!--// yahana tk-->
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_degree_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/degree">Final Degree Request</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Final Degree Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table id="" class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Request Date</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="degree_request" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.id"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(req.date_request)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to cancel your degree request?', function(){ degree_cancel_req({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form method="post" action="/student/degree/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <!--<div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Challan</h3>
+                                            <label>Enter challan number</label>
+                                            <input type="number" class="input-count md-input" id="input_counter" maxlength="50"/>
+                                        </div>-->
+                                        <!--  <div class="uk-width-large-3-6">
+
+                                              <h3 class="heading_a uk-margin-bottom">Challan Deposit Date</h3>
+                                              <div class="uk-input-group">
+                                                  <span class="uk-input-group-addon">
+                                                      <i class="uk-input-group-icon uk-icon-calendar"></i>
+                                                  </span>
+                                                  <label for="uk_dp_1">Select date</label>
+                                                  <input class="md-input" type="text" id="uk_dp_1" data-uk-datepicker="{format:'DD.MM.YYYY'}"/>
+                                              </div>
+                                          </div>-->
+                                        <!-- <div class="uk-width-large-1-12">
+                                             <h3 class="heading_a uk-margin-small-bottom">Upload Challan
+                                                 (Max size 40 KB)
+                                             </h3>
+                                             <input type="file" id="input-file-e" class="dropify" data-max-file-size="40K"/>
+                                         </div>-->
+
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_transcript_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/transcript">Transcript Request</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Transcript Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table id="course_drop_table" class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Request Date</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="transcript_request" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.id"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(req.date_request)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to cancel your transcript request?', function(){ transcrip_cancel_req({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+
+                            <div class="md-card-content">
+                                <div name="transcript">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request OR
+                                       <!-- <a class="md-btn md-btn-warning md-btn-wave-light"
+                                           href="/student/unofficial/transcript/download" target="_blank">Download Unofficial
+                                            Transcript
+                                        </a>-->
+                                    </h3>
+                                </div>
+
+
+                                <div class="uk-grid" data-uk-grid-margin="">
+
+                                    <form id="form_degree" name="form_degree" method="post" action="/student/transcript/req/save">
+                                        <div class="uk-width-medium-1-12">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"/>
+               
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"/>
+                
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"/>
+              
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"/>
+             
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"/>
+              
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"/>
+
+               
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"/>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+               
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_coursedrop_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/coursedrop">Course Drop Request</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Course Drop Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table id="course_drop_table" class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Reference</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Course</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Reason</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="droprequests" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(req.create_date)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.registration_id.primary_class_id.name"/>
+                                                        <t t-esc="req.registration_id.primary_class_id.code"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.reason_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+
+                                                        <a t-if="req.state == 'submit'"
+                                                           t-attf-onclick="UIkit.modal.confirm('Are you sure to delete your Course Drop request?', function(){ drop_req_del({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form action="/student/coursedrop/save" method="post">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                            <select id="select_adv_single" name="drop_course" required="true">
+                                                <option value="">Select Course...</option>
+                                                <optgroup label="Courses">
+
+                                                    <t t-foreach="registration_ids" t-as="reg">
+
+
+                                                        <option t-att-value="reg.id">
+                                                            <span>
+                                                                <t t-esc="reg.primary_class_id.code"/>
+                                                            </span>
+                                                            <span>-
+                                                                <span t-esc="reg.primary_class_id.name"/>
+                                                            </span>
+                                                            <span>
+                                                                <b>Credits:</b>
+                                                                <t t-esc="reg.credits"/>
+                                                            </span>
+                                                        </option>
+
+
+                                                    </t>
+
+
+                                                </optgroup>
+                                            </select>
+
+                                        </div>
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Reason</h3>
+                                            <select id="select_demo_5" data-md-selectize="" name="drop_reason"
+                                                    data-md-selectize-bottom="" data-uk-tooltip="{pos:'top'}"
+                                                    title="Choose reason of withdrawal" required="True">
+                                                <option value="">Select Reason...</option>
+                                                <t t-foreach="reasons" t-as="reason">
+                                                    <option t-att-value="reason.id">
+                                                        <t t-esc="reason.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+
+                                        </div>
+
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Description</label>
+                                                <textarea cols="30" rows="4" name="drop_description"
+                                                          class="md-input"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_termdefer_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/termdefer">Term Defer Request</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Term Defer Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10  md-color-grey-50">Request Number</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Current Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Defer Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Section</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Semester</th>
+                                                <th class="uk-width-1-10 md-color-grey-50">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="student_requests" t-as="student_request">
+                                                <tr>
+                                                    <td class="">
+                                                        <t t-esc="student_request.id"/>
+                                                    </td>
+                                                    <td class="">-</td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.current_term_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.term_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.section_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.semester_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="student_request.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="term_defer_del_req({{ student_request.id }});">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form method="post" action="/student/term/defer/request/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Current Term
+                                                <span class="uk-badge uk-badge-danger"
+                                                      style="font-size:12px;font-weight: bolder;">
+                                                    <t t-esc="student.term_id.name"/>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <h3 class="heading_a uk-margin-bottom">Terms</h3>
+                                            <select id="select_demo_5" data-md-selectize="" name="dropDown_term"
+                                                    data-md-selectize-bottom="" data-uk-tooltip="{pos:'left'}"
+                                                    title="Choose term to defer" required="True">
+                                                <option value="">Select Term...</option>
+                                                <t t-foreach="all_terms" t-as="single_term">
+                                                    <option t-att-value="single_term.id">
+                                                        <t t-esc="single_term.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+
+                <!-- <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                 &lt;!&ndash; ionrangeslider &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                 &lt;!&ndash; htmleditor (codeMirror) &ndash;&gt;
+
+                 <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                 &lt;!&ndash; inputmask &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                 &lt;!&ndash; select2 &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                 &lt;!&ndash; clear button &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                 &lt;!&ndash;  forms advanced functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                 <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                 &lt;!&ndash;  form file input functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>-->
+            </body>
+        </t>
+    </template>
+    <template id="student_term_resume_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/semester/resume">Term Resume Request</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Term Resume Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700">
+                                            <tr>
+                                                <th class="uk-width-2-10  md-color-grey-50">Request Number</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Section</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Semester</th>
+                                                <th class="uk-width-1-10 md-color-grey-50">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="student_requests" t-as="student_request">
+                                                <tr>
+                                                    <td class="">
+                                                        <t t-esc="student_request.id"/>
+                                                    </td>
+                                                    <td class="">-</td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.term_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.section_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.semester_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="student_request.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="term_resume_del_req({{ student_request.id }});">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form method="post" action="/student/term/resume/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Current Term
+                                                <span class="uk-badge uk-badge-danger"
+                                                      style="font-size:12px;font-weight: bolder;">
+                                                    <t t-esc="student.term_id.name"/>
+                                                </span>
+                                            </h3>
+                                        </div>
+                                        <!-- <div class="uk-width-large-1-12">
+                                            <h3 class="heading_a uk-margin-bottom">Terms</h3>
+                                            <select id="select_demo_5" data-md-selectize="" name="dropDown_term" data-md-selectize-bottom="" data-uk-tooltip="{pos:'left'}" title="Choose term to defer"  required="True">
+                                                <option value="">Select Term...</option>
+                                                <t t-foreach="all_terms" t-as="single_term">
+                                                <option t-att-value="single_term.id" > <t t-esc="single_term.name" />  </option>
+                                                </t>
+                                            </select>
+                                        </div>-->
+                                        <!--  <div class="uk-width-large-1-12">
+                                              &lt;!&ndash;                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>&ndash;&gt;
+                                              <div class="uk-form-row">
+                                                  <label>Reason</label>
+                                                  <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                              </div>
+                                          </div>-->
+                                        <br></br>
+                                        <div class="uk-width-medium-1-12 uk-text-left">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+                <!-- <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                 &lt;!&ndash; ionrangeslider &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                 &lt;!&ndash; htmleditor (codeMirror) &ndash;&gt;
+
+                 <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                 &lt;!&ndash; inputmask &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                 &lt;!&ndash; select2 &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                 &lt;!&ndash; clear button &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+                 &lt;!&ndash;  forms advanced functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+                 <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+                 &lt;!&ndash;  form file input functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>-->
+            </body>
+        </t>
+    </template>
+    <!-- <template id="student_leave_request" name="">
+         <t t-call="web.layout">
+            <t t-set="head">
+                 <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+              </t>
+             <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                 <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                 <div id="page_content" style="background:none;">
+                     <div id="top_bar">
+                         <ul id="breadcrumbs">
+                             <li>
+                                 <a href="/student/profile">
+                                     <i class="material-icons">home</i>
+                                 </a>
+                             </li>
+                             <li>
+                                 <a href="/student/leave">Leave Request</a>
+                             </li>
+                         </ul>
+                     </div>
+                     <div id="page_content_inner">
+                         <h3 class="heading_b uk-margin-bottom">Leave Request</h3>
+                         <div class="md-card uk-margin-medium-bottom">
+                             <div class="md-card-content">
+                                 <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                 <div class="uk-overflow-container">
+                                     <table class="uk-table uk-table-nowrap table_check">
+                                         <thead>
+                                             <tr>
+                                                 <th class="uk-width-2-10 md-color-grey-800">User ID</th>
+                                                 <th class="uk-width-2-10 uk-text-center md-color-grey-800">Request Number</th>
+                                                 <th class="uk-width-1-10 uk-text-center md-color-grey-800">Request Date</th>
+                                                 <th class="uk-width-1-10 uk-text-center md-color-grey-800">From Date</th>
+                                                 <th class="uk-width-1-10 uk-text-center md-color-grey-800">To Date</th>
+                                                 <th class="uk-width-1-10 uk-text-center md-color-grey-800">Courses Affected</th>
+                                                 <th class="uk-width-1-10 uk-text-center md-color-grey-800">Status</th>
+                                             </tr>
+                                         </thead>
+                                         <tbody>
+                                             <tr>
+                                                 <td>206578</td>
+                                                 <td class="uk-text-center">12321</td>
+                                                 <td class="uk-text-center">19-09-2020</td>
+                                                 <td class="uk-text-center">23-09-2020</td>
+                                                 <td class="uk-text-center">19-010-2020</td>
+
+                                                 <td class="uk-text-center">Fundamental of Programming, Databases</td>
+                                                 <td class="uk-text-center">
+                                                     <span class="uk-badge uk&#45;&#45;badge-success">Accepted</span>
+                                                 </td>
+                                             </tr>
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="md-card">
+                             <form>
+                                 <div class="md-card-content">
+                                     <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                     <div class="uk-grid" data-uk-grid-margin="">
+
+                                         <div class="uk-width-large-3-6 uk-width-1-1">
+
+                                             <div class="uk-input-group">
+                                                 <span class="uk-input-group-addon">
+                                                     <i class="uk-input-group-icon uk-icon-calendar"></i>
+                                                 </span>
+                                                 <label for="uk_dp_start">Leave Start Date</label>
+                                                 <input class="md-input" type="text" id="uk_dp_start"/>
+                                             </div>
+                                         </div>
+                                         <div class="uk-width-large-3-6 uk-width-medium-1-1">
+                                             <div class="uk-input-group">
+                                                 <span class="uk-input-group-addon">
+                                                     <i class="uk-input-group-icon uk-icon-calendar"></i>
+                                                 </span>
+                                                 <label for="uk_dp_end">Leave End Date</label>
+                                                 <input class="md-input" type="text" id="uk_dp_end"/>
+                                             </div>
+                                         </div>
+
+                                         <div class="uk-width-large-3-6">
+                                             <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                             <select id="select_adv_s2_1" name="select_adv_s2_1" class="uk-width-1-1" multiple="" data-placeholder="Select courses..." data-md-select2="">
+                                                 <optgroup label="Courses">
+                                                     <option value="0">Programing Fundamental</option>
+                                                     <option value="1">Databases</option>
+                                                 </optgroup>
+
+                                             </select>
+                                         </div>
+                                         <div class="uk-width-large-1-12">
+                                             &lt;!&ndash;                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>&ndash;&gt;
+                                             <div class="uk-form-row">
+                                                 <label>Description/Reason</label>
+                                                 <textarea cols="30" rows="4" class="md-input"></textarea>
+                                             </div>
+                                         </div>
+                                         <div class="uk-width-medium-1-5">
+                                             <button type="submit" class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send Request</button>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="md-fab-wrapper">
+                     <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop" data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                         <i class="material-icons">&#xE316;</i>
+                     </a>
+                 </div>
+                 <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                 <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                 &lt;!&ndash; ionrangeslider &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                 &lt;!&ndash; htmleditor (codeMirror) &ndash;&gt;
+
+                 <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                 &lt;!&ndash; inputmask &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                 &lt;!&ndash; select2 &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                 &lt;!&ndash; clear button &ndash;&gt;
+                 <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                 &lt;!&ndash;  forms advanced functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                 <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                 &lt;!&ndash;  form file input functions &ndash;&gt;
+                 <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+             </body>
+         </t>
+     </template>-->
+    <template id="student_igrade_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">I Grade Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Course</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Credits</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="igrade_request" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.id"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(req.date_request)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.primary_class_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.primary_class_id.credits"/>
+                                                    </td>
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to cancel your igrade request?', function(){ igrade_cancel_req({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form mothod="post" action="/student/igrade/req/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                            <select id="select_adv_single" name="igrade_course" required="true">
+                                                <option value="">Select Course...</option>
+                                                <optgroup label="Courses">
+                                                    <t t-foreach="student.course_ids" t-as="course">
+                                                        <option t-att-value="course.id">
+                                                            <span>
+                                                                <t t-esc="course.course_id.code"/>
+                                                            </span>
+                                                            <span>-
+                                                                <span t-esc="course.course_id.name"/>
+                                                            </span>
+                                                            <span>
+                                                                <b>Credits:</b>
+                                                                <t t-esc="course.course_id.credits"/>
+                                                            </span>
+                                                        </option>
+                                                    </t>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Description/Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_retest_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Retest Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Course</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Credits</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="retest_request" t-as="req">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="req.id"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="str(req.date_request)[:19]"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.primary_class_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="req.primary_class_id.credits"/>
+                                                    </td>
+
+                                                    <td>
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="req.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to cancel your retest request?', function(){ retest_cancel_req({{ req.id }}); });">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form mothod="post" action="/student/retest/req/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                            <select id="select_adv_single" name="retest_course" required="true">
+                                                <option value="">Select Course...</option>
+                                                <optgroup label="Courses">
+                                                    <t t-foreach="student.result_course_ids" t-as="course">
+                                                        <option t-att-value="course.id">
+                                                            <span>
+                                                                <t t-esc="course.course_id.code"/>
+                                                            </span>
+                                                            <span>-
+                                                                <span t-esc="course.course_id.name"/>
+                                                            </span>
+                                                            <span>
+                                                                <b>Credits:</b>
+                                                                <t t-esc="course.course_id.credits"/>
+                                                            </span>
+                                                        </option>
+                                                    </t>
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Description/Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_profileupdate_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/profileupdate">Profile Update</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Profile Update Request</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700">
+                                            <tr>
+                                                <th class="uk-width-2-10 md-color-grey-50">User ID</th>
+                                                <th class="uk-width-2-10 uk-text-center md-color-grey-50">Request
+                                                    Number
+                                                </th>
+                                                <th class="uk-width-1-10 uk-text-center md-color-grey-50">Request Date
+                                                </th>
+                                                <th class="uk-width-1-10 uk-text-center md-color-grey-50">Request
+                                                    Detail
+                                                </th>
+                                                <th class="uk-width-1-10 uk-text-center md-color-grey-50">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>206578</td>
+                                                <td class="uk-text-center">12321</td>
+                                                <td class="uk-text-center">19-09-2020</td>
+                                                <td class="uk-text-center">Student CNIC Update</td>
+                                                <td class="uk-text-center">
+                                                    <span class="uk-badge uk--badge-success">Completed</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form>
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <select id="select_demo_5" data-md-selectize="" data-md-selectize-bottom=""
+                                                    data-uk-tooltip="{pos:'top'}" title="Select with tooltip">
+                                                <option value="">Select Category...</option>
+                                                <option value="a">Update Name</option>
+                                                <option value="b">Update Father Name</option>
+                                                <option value="c">Update Temporary Address</option>
+                                                <option value="c">Update Permanent Address</option>
+                                            </select>
+                                        </div>
+                                        <div class="uk-width-large-3-6">
+                                            <div class="uk-form-row">
+                                                <label>Value to Update</label>
+                                                <input type="text" class="md-input" value=""/>
+                                            </div>
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <h3 class="heading_a uk-margin-small-bottom">Upload Evidence/Picture
+                                                (Max size 60 KB)
+                                            </h3>
+                                            <input type="file" id="input-file-e" class="dropify"
+                                                   data-max-file-size="60K"/>
+                                        </div>
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_project_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Project</h3>
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Project Details</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Reference No</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Effective Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Project Name</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Supervisor</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Co-Supervisor</th>
+                                                <th class="uk-width-1-10 md-color-grey-50 ">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50 ">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="projects" t-as="project">
+                                                <tr class="table-parent-row show_child_row">
+                                                    <td>
+                                                        <a href="#" class="js-toggle-children-row toggle-childrens">
+                                                            <t t-esc="project.project_title"/>
+                                                        </a>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.effective_date"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.supervisor.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.co_supervisor.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="project.short_description"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <span t-attf-class="uk-badge {{'uk--badge-danger' if project.state == 'rejected' else ''}}"
+                                                              t-esc="project.state"/>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="UIkit.modal.confirm('Are you sure to delete?', function(){ dfdf({{ project.id }})});">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-child-row md-bg-blue-grey-800 md-color-grey-50">
+                                                    <th>Group Members</th>
+                                                    <th>GEC Committee</th>
+                                                </tr>
+                                                <t t-foreach="project.student_ids" t-as="student">
+                                                    <tr class="table-child-row">
+                                                        <td class="uk-width-1-10 md-color-grey-800">Compulsory</td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="student.name"/>
+                                                        </td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="student.code"/>
+                                                        </td>
+                                                        <td class="uk-width-1-10 md-color-grey-800">
+                                                            <t t-esc="course.credits"/>
+                                                        </td>
+
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form mothod="post" action="/student/retest/req/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Courses</h3>
+                                            <select id="select_adv_single" name="retest_course" required="true">
+                                                <option value="">Select Course...</option>
+                                                <optgroup label="Courses">
+                                                    <t t-foreach="student.result_course_ids" t-as="course">
+                                                        <option t-att-value="course.id">
+                                                            <span>
+                                                                <t t-esc="course.course_id.code"/>
+                                                            </span>
+                                                            <span>-
+                                                                <span t-esc="course.course_id.name"/>
+                                                            </span>
+                                                            <span>
+                                                                <b>Credits:</b>
+                                                                <t t-esc="course.course_id.credits"/>
+                                                            </span>
+                                                        </option>
+                                                    </t>
+
+                                                </optgroup>
+                                            </select>
+
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Description/Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+                <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                <!-- ionrangeslider -->
+                <script src="/odoocms_web/static/bowerComponents/ion.rangeslider/js/ion.rangeSlider.min.js"></script>
+                <!-- htmleditor (codeMirror) -->
+
+                <script src="/odoocms_web/static/assets/js/uikit_htmleditor_custom.min.js"></script>
+                <!-- inputmask -->
+                <script src="/odoocms_web/static/bowerComponents/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+                <!-- select2 -->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+                <!-- clear button -->
+                <script src="/odoocms_web/static/bowerComponents/Add-Clear/addclear.min.js"></script>
+
+                <!--  forms advanced functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_advanced.min.js"></script>
+
+                <script src="/odoocms_web/static/bowerComponents/dropify/dist/js/dropify.min.js"></script>
+
+                <!--  form file input functions -->
+                <script src="/odoocms_web/static/assets/js/pages/forms_file_input.min.js"></script>
+                <script src="/odoocms_student_portal/static/js/custom_requests.js"></script>
+            </body>
+        </t>
+    </template>
+    <template id="student_tuition_fee_defer_request" name="">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/tuition/fee/defer/request">Tuition Fee Deferment Request</a>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Tuition Fee Deferment Request</h3>
+
+                        <div class="md-card uk-margin-medium-bottom">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-margin-bottom">Requests Detail</h3>
+                                <div class="uk-overflow-container">
+                                    <table class="uk-table uk-table-nowrap table_check">
+                                        <thead class="md-bg-blue-grey-700 ">
+                                            <tr>
+                                                <th class="uk-width-2-10  md-color-grey-50">Request Number</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Request Date</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Current Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Defer Term</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Section</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Semester</th>
+                                                <th class="uk-width-1-10 md-color-grey-50">Status</th>
+                                                <th class="uk-width-1-10  md-color-grey-50">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="student_requests" t-as="student_request">
+                                                <tr>
+                                                    <td class="">
+                                                        <t t-esc="student_request.id"/>
+                                                    </td>
+                                                    <td class="">-</td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.current_term_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.term_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.section_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <t t-esc="student_request.semester_id.name"/>
+                                                    </td>
+                                                    <td class="">
+                                                        <span class="uk-badge uk--badge-success">
+                                                            <t t-esc="student_request.state"/>
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <a t-attf-onclick="term_defer_del_req({{ student_request.id }});">
+                                                            <i class="md-icon material-icons">&#xE872;</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md-card">
+                            <form method="post" action="/student/term/defer/request/save">
+                                <div class="md-card-content">
+                                    <h3 class="heading_a uk-margin-bottom">Make New Request</h3>
+                                    <div class="uk-grid" data-uk-grid-margin="">
+
+                                        <div class="uk-width-large-3-6">
+                                            <h3 class="heading_a uk-margin-bottom">Current Term
+                                                <span class="uk-badge uk-badge-danger"
+                                                      style="font-size:12px;font-weight: bolder;">
+                                                    <t t-esc="student.term_id.name"/>
+                                                </span>
+                                            </h3>
+
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <h3 class="heading_a uk-margin-bottom">Terms</h3>
+                                            <select id="select_demo_5" data-md-selectize="" name="dropDown_term"
+                                                    data-md-selectize-bottom="" data-uk-tooltip="{pos:'left'}"
+                                                    title="Choose term to defer" required="True">
+                                                <option value="">Select Term...</option>
+                                                <t t-foreach="all_terms" t-as="single_term">
+                                                    <option t-att-value="single_term.id">
+                                                        <t t-esc="single_term.name"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+
+                                        </div>
+                                        <div class="uk-width-large-1-12">
+                                            <!--                                           <h3 class="heading_a uk-margin-medium-bottom"></h3>-->
+                                            <div class="uk-form-row">
+                                                <label>Reason</label>
+                                                <textarea cols="30" rows="4" name="reason" class="md-input"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="uk-width-medium-1-5">
+                                            <button type="submit"
+                                                    class="md-btn md-btn-primary md-btn-block md-btn-wave-light">Send
+                                                Request
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-fab-wrapper">
+                    <a class="md-fab md-fab-danger md-fab-wave" href="#page_content_inner" id="scrollTop"
+                       data-uk-smooth-scroll="{offset: 48, duration: 800, easing: bez_easing_swiftOut}">
+                        <i class="material-icons">&#xE316;</i>
+                    </a>
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+            </body>
+        </t>
+    </template>
+</odoo>

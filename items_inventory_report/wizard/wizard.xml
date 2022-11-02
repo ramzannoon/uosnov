@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wizard_item_inventory_Report" model="ir.ui.view">
+            <field name="name">wizard.items.inventory.report</field>
+            <field name="model">items.inventory.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Items Inventory Report">
+                    <group>
+                        <group>
+                            <field name="categ_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_items_inventory_report" model="ir.actions.act_window">
+            <field name="name">Items Inventory Report</field>
+            <field name="res_model">items.inventory.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_items_inventory_report"
+                parent="stock.menu_warehouse_report"
+                name="Items Inventory Report"
+                action="action_items_inventory_report"/>
+
+    </data>
+</odoo>

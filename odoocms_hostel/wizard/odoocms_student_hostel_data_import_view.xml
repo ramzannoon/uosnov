@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_student_hostel_data_import_wizard_form" model="ir.ui.view">
+			<field name="name">odoocms.student.hostel.data.import.form.view</field>
+			<field name="model">odoocms.student.hostel.data.import.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Student Hostel Data Import">
+                    <group>
+                        <group>
+                            <field name="file" filename="name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+				    <footer>
+				        <button name="import_student_hostel_data" string="Import Student Data" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+				    </footer>
+				</form>
+			</field>
+		</record>
+
+         <record id="action_odoocms_student_hostel_data_import" model="ir.actions.act_window">
+            <field name="name">Import Student Hostel Data</field>
+            <field name="res_model">odoocms.student.hostel.data.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_student_hostel_data_import"
+                name="Import Student Hostel Data"
+                action="action_odoocms_student_hostel_data_import"
+                parent="menu_odoocms_hostel_general_config"
+                sequence="100"
+                groups="odoocms_hostel.group_hostel_manager"/>
+
+    </data>
+</odoo>

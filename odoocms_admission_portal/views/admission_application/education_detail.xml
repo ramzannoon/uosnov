@@ -1,0 +1,1503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="education_top_detail" name="Education Top Details">
+        <div class="block-info">
+            <legend style="display:block; color: #0393DC"><h4>Matric / O-Levels</h4></legend>
+            <!-- Metric Degree and Passing Year -->
+            <div class="frm-row">
+                <div class="section colm colm6">
+                    <label for="university">Degree<span style="color: red">*</span></label>
+                    <label class="field select">
+                        <select id="matric_degree" name="matric_degree" onchange="onchange_matric_o_level()">
+                            <option value="O-Level"
+                                    t-att-selected="matric_education and matric_education[0].degree_level == 'O-Level'"
+                                    t-att-disabled="readonly and matric_education and matric_education[0].degree_level != 'O-Level'">
+                                O-Level
+                            </option>
+                            <option value="Matric"
+                                    t-att-selected="(not matric_education) or (matric_education[0].degree_level and matric_education[0].degree_level == 'Matric')"
+                                    t-att-disabled="readonly and matric_education and matric_education[0].degree_level != 'Matric'">
+                                Matric
+                            </option>
+                        </select>
+                        <i class="arrow double"/>
+                    </label>
+                </div>
+                <div class="section colm colm6">
+                    <label for="university">Passing Year<span style="color: red">*</span></label>
+                    <label class="field select">
+                        <select id="matric_pass_year" name="matric_pass_year" required="True">
+                            <t t-foreach="matric_sessions" t-as="session">
+                                <option t-att-value="session.name"
+                                        t-att-selected="matric_education and matric_education[0].year == session.name"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].year != session.name">
+                                    <span t-esc="session.name"/>
+                                </option>
+                            </t>
+                        </select>
+                        <i class="arrow double"/>
+                    </label>
+                </div>
+            </div>
+
+            <div id="matric_div">
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="matric_board">Board</label>
+                        <label class="field select">
+                            <select id="matric_board" name="matric_board" required="True">
+                                <t t-foreach="boards" t-as="board">
+                                    <option t-att-value="board.name"
+                                            t-att-selected="matric_education and matric_education[0].board == board.name"
+                                            t-att-disabled="readonly and matric_education[0].board != board.name">
+                                        <span t-esc="board.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm6">
+                        <label for="university">Group</label>
+                        <label class="field select">
+                            <select id="matric_subject" name="matric_subject">
+                                <option value="Arts"
+                                        t-att-selected="matric_education and matric_education[0].subjects == 'Arts'"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].subjects != 'Arts'">
+                                    Arts
+                                </option>
+                                <option value="Science"
+                                        t-att-selected="matric_education and matric_education[0].subjects == 'Science'"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].subjects != 'Science'">
+                                    Science
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4" id="div_matric_total_marks">
+                        <label for="university">Total Marks<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input min="1" type="number"
+                                   name="matrictotalmarks" id="matrictotalmarks"
+                                   placeholder="total marks" class="gui-input"
+                                   t-att-value="matric_education and matric_education[0].total_marks or ''"
+                                   required="true" onChange="onchange_matric_marks()"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_matric_obtained_marks">
+                        <label for="university">Obtained Marks<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="number"
+                                   name="matricobtainedmarks" id="matricobtainedmarks"
+                                   placeholder="Obtained marks" class="gui-input"
+                                   t-att-value="matric_education and matric_education[0].obtained_marks or 0"
+                                   required="true" onChange="onchange_matric_marks()"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_matric_percentage">
+                        <label for="university">Percentage<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="number"
+                                   step="0.01" name="matricpercentage" id="matricpercentage"
+                                   placeholder="Percentage"
+                                   class="gui-input"
+                                   t-att-value="matric_education and matric_education[0].percentage or ''"
+                                   required="true" readonly="True" min="0"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="o-level_div">
+                <legend style="margin-bottom:5px; color: #0393DC"><h4>Please provide no of grades obtained</h4></legend>
+                <!-- Number of A,B,C Grades -->
+                <div class="frm-row">
+                    <div class="section colm colm3">
+                        <label for="middle_name">A* Grades</label>
+                        <label class="field select">
+                            <select name="grade_aa" id="grade_aa" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_aa != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_aa == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_aa != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="middle_name">A Grades</label>
+                        <label class="field select">
+                            <select name="grade_a" id="grade_a" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_a != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_a == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_a != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="middle_name">B Grades</label>
+                        <label class="field select">
+                            <select name="grade_b" id="grade_b" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_b == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_b != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="middle_name">C Grades</label>
+                        <label class="field select">
+                            <select name="grade_c" id="grade_c" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_c == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_c != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Number of D,E,F & G Grades -->
+                <div class="frm-row">
+                    <div class="section colm colm3">
+                        <label for="middle_name">D Grades</label>
+                        <label class="field select">
+                            <select name="grade_d" id="grade_d" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_b != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_d == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_d != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="middle_name">E Grades</label>
+                        <label class="field select">
+                            <select name="grade_e" id="grade_e" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_e != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_e == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_e != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="middle_name">F Grades</label>
+                        <label class="field select">
+                            <select name="grade_f" id="grade_f" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_f != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_f == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_f != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="section colm colm3">
+                        <label for="grade_g">G Grades</label>
+                        <label class="field select">
+                            <select name="grade_g" id="grade_g" onchange="compute_grades_total()">
+                                <option value="0"
+                                        t-att-disabled="readonly and matric_education and matric_education[0].grade_g != '0'">
+                                    None
+                                </option>
+                                <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" t-as="grade">
+                                    <option t-att-value="grade"
+                                            t-att-selected="matric_education and matric_education[0].grade_g == grade"
+                                            t-att-disabled="readonly and matric_education and matric_education[0].grade_g != grade">
+                                        <span t-esc="grade"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Total Marks, Obtained Marks & Percentage -->
+                <div class="frm-row">
+                    <div class="section colm colm4" id="div_olevel_total_marks">
+                        <label for="name">Total Marks<span style="color: red">*</span></label>
+                        <input type="hidden" id="o-level-total_cal"/>
+                        <input type="hidden" id="o-level-obtained_cal"/>
+                        <label class="field prepend-icon">
+                            <input type="text"
+                                   name="o-level-totalmarks" id="o-level-totalmarks"
+                                   class="gui-input" readonly="True" required="true"
+                                   t-att-value="matric_education and matric_education[0].o_level_total"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_olevel_obtained_marks">
+                        <label for="name">Obtained Marks<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" min="0"
+                                   name="o-level-obtainedmarks" id="o-level-obtainedmarks"
+                                   class="gui-input" readonly="True"
+                                   t-att-value="matric_education and matric_education[0].o_level_obtained"
+                                   required="true"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_olevel_percentage">
+                        <label for="name">Percentage<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" min="60" max="100"
+                                   name="o-level-percentage" id="o-level-percentage" class="gui-input"
+                                   readonly="True"
+                                   t-att-value="matric_education and matric_education[0].o_level_percentage"
+                                   required="true"/>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+
+    <template id="matricpercentage" name="Admission Education Detail">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <t t-call="odoocms_admission_portal.education_top_detail"/>
+
+            <div class="section">
+                <div class="option-group field">
+                    <label class="option option-blue">
+                        <input type="radio" id="inter_radio" name="inter_or_dae"
+                               value="Intermediate"
+                               t-att-checked="(not inter_education) or (inter_education and inter_education.degree_level == 'Intermediate')"
+                               onChange="onchange_dae_inter()"
+                               t-att-disabled="readonly"/>
+                        <span class="radio"/>
+                        Intermediate
+                    </label>
+                    <!--                        <label class="option option-blue">-->
+                    <!--                            <input type="radio" id="dae_radio" name="inter_or_dae"-->
+                    <!--                                   value="DAE"-->
+                    <!--                                   t-att-checked="(inter_education and inter_education.degree_level == 'DAE')"-->
+                    <!--                                   onChange="onchange_dae_inter2()"-->
+                    <!--                                   t-att-disabled="readonly"/>-->
+                    <!--                            <span class="radio"/>-->
+                    <!--                            DAE?-->
+                    <!--                        </label>-->
+                </div>
+                <div class="option-group field">
+
+                </div>
+            </div>
+
+            <div class="block-info" id="intermdiate_a_level_div">
+                <legend style="display:block; color: #0393DC"><h4>Intermediate / A-Levels</h4></legend>
+
+                <div class="section" name="complete_awaited">
+                    <div class="option-group field">
+                        <label class="option option-blue">
+                            <input type="radio" id="inter_result_status_complete"
+                                   name="inter_result_status" value="Complete"
+                                   t-att-checked="(not inter_education) or (inter_education and inter_education[0].inter_result_status == 'Complete')"
+                                   onChange="onchange_inter_result_status_complete()"
+                                   t-att-disabled="readonly"/>
+                            <span class="radio"/>
+                            Intermediate Completed?
+                        </label>
+                        <label class="option option-blue">
+                            <input type="radio" id="inter_result_status_waiting"
+                                   name="inter_result_status" value="Result Waited"
+                                   t-att-checked="inter_education and inter_education[0].inter_result_status == 'Result Waited'"
+                                   onChange="onchange_inter_result_status_waiting()"
+                                   t-att-disabled="readonly"/>
+                            <span class="radio"/>
+                            Result Waiting?
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row" name="degree_year">
+                    <div class="section colm colm6">
+                        <label for="university">Degree</label>
+                        <label class="field select">
+                            <select id="inter_degree" name="inter_degree" onchange="onchange_inter_a_level()">
+                                <option value="Intermediate"
+                                        t-att-selected="inter_education and inter_education[0].degree_level == 'Intermediate'"
+                                        t-att-disabled="readonly and inter_education and inter_education[0].degree_level != 'Intermediate'">
+                                    Intermediate
+                                </option>
+                                <option value="A-Level"
+                                        t-att-selected="inter_education and inter_education[0].degree_level == 'A-Level'"
+                                        t-att-disabled="readonly and inter_education and inter_education[0].degree_level != 'A-Level'">
+                                    A-Level
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm6">
+                        <label for="university">Passing Year</label>
+                        <label class="field select">
+                            <select class="fields_req" onchange="inter_pass_year_check(this.value)"
+                                    id="inter_pass_year" name="inter_pass_year"
+                                    t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">
+                                <t t-foreach="inter_sessions" t-as="session">
+
+                                    <option t-att-value="session.name"
+                                            t-att-selected="inter_education and inter_education[0].year == session.name"
+                                            t-att-disabled="readonly and inter_education and inter_education[0].year != session.name">
+                                        <span t-esc="session.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="intermediate_div">
+                    <div class="frm-row" name="board_specialization">
+                        <div class="section colm colm6">
+                            <label for="university">Board/Institute</label>
+                            <label class="field select">
+                                <select class="fields_req" id="inter_board" name="inter_board"
+                                        t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">
+                                    <t t-foreach="boards" t-as="board">
+                                        <option t-att-value="board.name"
+                                                t-att-selected="inter_education and inter_education[0].board == board.name"
+                                                t-att-disabled="readonly and inter_education and inter_education[0].board != board.name">
+                                            <span t-esc="board.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                                <i class="arrow double"/>
+                            </label>
+                        </div>
+                        <div class="section colm colm6">
+                            <label for="university">Subject/Specialization</label>
+                            <label class="field select">
+                                <select class="fields_req" id="inter_subject" name="inter_subject"
+                                        onchange="onchange_inter_subjects()">
+                                    <t t-foreach="degree_ids" t-as="degree">
+                                        <option t-att-value="degree.id"
+                                                t-att-selected="student.degree.id == degree.id"
+                                                t-att-disabled="readonly and student.degree.id != degree.id">
+                                            <t t-esc="degree.name"/>
+                                        </option>
+                                    </t>
+
+                                    <!--                                        <t t-foreach="degree_ids" t-as="inter_degree">-->
+                                    <!--                                            <option value="Pre-Engineering"-->
+                                    <!--                                                    t-att-selected="inter_education and inter_education.subjects == 'Pre-Engineering'"-->
+                                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education.subjects != 'Pre-Engineering'">-->
+                                    <!--                                                Pre-Engineering-->
+                                    <!--                                            </option>-->
+                                    <!--                                            <option value="Pre-Medical"-->
+                                    <!--                                                    t-att-selected="inter_education and inter_education.subjects == 'Pre-Medical'"-->
+                                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education.subjects != 'Pre-Medical'">-->
+                                    <!--                                                Pre-Medical-->
+                                    <!--                                            </option>-->
+                                    <!--                                            <option value="ICS"-->
+                                    <!--                                                    t-att-selected="inter_education and inter_education.subjects == 'ICS'"-->
+                                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education.subjects != 'ICS'">-->
+                                    <!--                                                ICS-->
+                                    <!--                                            </option>-->
+                                    <!--                                        </t>-->
+                                </select>
+                                <i class="arrow double"/>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="frm-row" name="inter_total_obtained">
+                        <div class="section colm colm4" id="div_inter_total_marks">
+                            <label for="university">Total Marks<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input min="1" type="number"
+                                       name="intertotalmarks" id="intertotalmarks"
+                                       placeholder="Total Marks" class="gui-input fields_req"
+                                       t-att-value="inter_education and inter_education[0].total_marks"
+                                       t-att-readonly="readonly"
+                                       t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                       onChange="onchange_inter_marks()"/>
+                                <span class="field-icon">
+                                    <i class="fa fa-credit-card"/>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="section colm colm4" id="div_inter_obtained_marks">
+                            <label for="university">Obtained Marks<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input min="0" type="number"
+                                       name="interbtainedmarks" id="interbtainedmarks"
+                                       placeholder="Obtained marks" class="gui-input fields_req"
+                                       t-att-value="inter_education and inter_education[0].obtained_marks"
+                                       t-att-readonly="readonly"
+                                       t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                       onChange="onchange_inter_marks()"/>
+                                <span class="field-icon">
+                                    <i class="fa fa-credit-card"/>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="section colm colm4" id="div_inter_percentage">
+                            <label for="university">Percentage<span style="color: red">*</span></label>
+                            <label class="field prepend-icon">
+                                <input max="100" type="number" step="0.01"
+                                       name="interpercentage" id="interpercentage"
+                                       placeholder="Percentage" class="gui-input fields_req"
+                                       t-att-value="inter_education and inter_education[0].percentage"
+                                       t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"
+                                       readonly="True"/>
+                                <span class="field-icon">
+                                    <i class="fa fa-credit-card"/>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div id="a_level_div">
+                    <!--                        <legend style="margin-bottom:10px;font-size:16px; display:block">-->
+                    <!--                            Please provide no of Grades obtained.-->
+                    <!--                        </legend>-->
+                    <!--                        <div class="frm-row">-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">A* Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_aa" id="a_level_grade_aa"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_aa == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_aa != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">A Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_a" id="a_level_grade_a"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_a == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_a != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">B Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_b" id="a_level_grade_b"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_b == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_b != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">C Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_c" id="a_level_grade_c"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_c == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_c != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="frm-row">-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">D Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_d" id="a_level_grade_d"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_d == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_d != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">E Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_e" id="a_level_grade_e"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_e == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_e != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">F Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_f" id="a_level_grade_f"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_f == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_f != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="grade_g">G Grades</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_grade_g" id="a_level_grade_g"-->
+                    <!--                                            onchange="compute_grades_inter_total()">-->
+                    <!--                                        <option value="0">None</option>-->
+                    <!--                                        <t t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]"-->
+                    <!--                                           t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_grade_g == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_grade_g != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="frm-row">-->
+                    <!--                            <div class="section colm colm4" id="div_alevel_total_marks">-->
+                    <!--                                <label for="name">Total Marks</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input min="1" type="text"-->
+                    <!--                                           name="a_level_total" id="a_level_total" class="gui-input fields_req"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_total or 1"-->
+                    <!--                                           readonly="True"-->
+                    <!--                                           t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm4" id="div_alevel_obtained_marks">-->
+                    <!--                                <label for="name">Obtained Marks</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input type="text"-->
+                    <!--                                           name="a_level_obtained" id="a_level_obtained" class="gui-input fields_req"-->
+                    <!--                                           readonly="True"-->
+                    <!--                                           t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_obtained or 0"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm4" id="div_alevel_percentage">-->
+                    <!--                                <label for="name">Percentage</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input max="100" type="text"-->
+                    <!--                                           name="a_level_percentage" id="a_level_percentage"-->
+                    <!--                                           class="gui-input fields_req"-->
+                    <!--                                           readonly="True"-->
+                    <!--                                           t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_percentage or 0"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="frm-row">-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">Math Grade</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select class="fields_req" name="a_level_math" id="a_level_math"-->
+                    <!--                                            onchange="math_grade_per()"-->
+                    <!--                                            t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">-->
+                    <!--                                        <t t-foreach="['','A*','A','B','C','D','E','F','G']" t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_math == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_math != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="university">Percentage</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input type="number" max="100" min="0" step="0.01"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_math_percentage or 0"-->
+                    <!--                                           name="a_level_math_percentage" id="a_level_math_percentage"-->
+                    <!--                                           class="gui-input fields_req"-->
+                    <!--                                           t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                    <!--                                           readonly="True"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">Chemistry Grade</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_che" id="a_level_che"-->
+                    <!--                                            onchange="che_grade_per()">-->
+                    <!--                                        <t t-foreach="['','A*','A','B','C','D','E','F','G']" t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_che == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_che != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="university">Percentage</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input type="number" max="100" step="0.01"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_che_percentage or 0"-->
+                    <!--                                           name="a_level_che_percentage" id="a_level_che_percentage"-->
+                    <!--                                           class="gui-input" readonly="True"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="frm-row">-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">Computer Grade</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select name="a_level_com" id="a_level_com"-->
+                    <!--                                            onchange="com_grade_per()">-->
+                    <!--                                        <t t-foreach="['','A*','A','B','C','D','E','F','G']" t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_com == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_com != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="university">Percentage</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input type="number" min="0" max="100" step="0.01"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_com_percentage or 0"-->
+                    <!--                                           name="a_level_com_percentage" id="a_level_com_percentage"-->
+                    <!--                                           class="gui-input" readonly="True"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="middle_name">Physics Grade</label>-->
+                    <!--                                <label class="field select">-->
+                    <!--                                    <select class="fields_req" name="a_level_physics" id="a_level_physics"-->
+                    <!--                                            onchange="physics_grade_per()"-->
+                    <!--                                            t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">-->
+                    <!--                                        <t t-foreach="['','A*','A','B','C','D','E','F','G']" t-as="grade">-->
+                    <!--                                            <option t-att-value="grade"-->
+                    <!--                                                    t-att-selected="inter_education and inter_education[0].a_level_physics == grade"-->
+                    <!--                                                    t-att-disabled="readonly and inter_education and inter_education[0].a_level_physics != grade">-->
+                    <!--                                                <span t-esc="grade"/>-->
+                    <!--                                            </option>-->
+                    <!--                                        </t>-->
+                    <!--                                    </select>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="section colm colm3">-->
+                    <!--                                <label for="university">Percentage</label>-->
+                    <!--                                <label class="field prepend-icon">-->
+                    <!--                                    <input type="number" max='100' min="0" step="0.01"-->
+                    <!--                                           t-att-value="inter_education and inter_education[0].a_level_physics_percentage or o"-->
+                    <!--                                           name="a_level_physics_percentage" id="a_level_physics_percentage"-->
+                    <!--                                           class="gui-input fields_req"-->
+                    <!--                                           t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'"-->
+                    <!--                                           readonly="True"/>-->
+                    <!--                                </label>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                </div>
+            </div>
+
+            <!--                <div class="block-info" id="dae_div" style="display:none">-->
+            <!--                    <legend style="display:block;">DAE</legend>-->
+            <!--                    <div class="section" name="complete_awaited_dae">-->
+            <!--                        <div class="option-group field">-->
+            <!--                            <label class="option option-blue">-->
+            <!--                                <input type="radio" id="dae_result_status_complete"-->
+            <!--                                       name="dae_result_status" value="Complete"-->
+            <!--                                       t-att-checked="(not inter_education) or (inter_education and inter_education[0].dae_result_status == 'Complete')"-->
+
+            <!--                                       t-att-disabled="readonly"/>-->
+            <!--                                <span class="radio"/>-->
+            <!--                                Dae Completed?-->
+            <!--                            </label>-->
+            <!--                            <label class="option option-blue">-->
+            <!--                                <input type="radio" id="dae_result_status_waiting"-->
+            <!--                                       name="dae_result_status" value="Result Waited"-->
+            <!--                                       t-att-checked="inter_education and inter_education[0].dae_result_status == 'Result Waited'"-->
+
+            <!--                                       t-att-disabled="readonly"/>-->
+            <!--                                &lt;!&ndash;onChange="onchange_inter_result_status_waiting()"&ndash;&gt;-->
+            <!--                                <span class="radio"/>-->
+            <!--                                Result Waiting?-->
+            <!--                            </label>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                    <div class="frm-row">-->
+            <!--                        <div class="section colm colm6">-->
+            <!--                            <label for="university">Degree</label>-->
+            <!--                            <label class="field select">-->
+            <!--                                <select id="inter_dae_degree" name="inter_dae_degree">-->
+            <!--                                    <option value="DAE">DAE</option>-->
+            <!--                                </select>-->
+            <!--                                <i class="arrow double"/>-->
+            <!--                            </label>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                    <div class="frm-row">-->
+            <!--                        <div class="section colm colm4">-->
+            <!--                            <label for="university">Completion Year</label>-->
+            <!--                            <label class="field select">-->
+            <!--                                <select id="inter_pass_year" name="inter_pass_year"-->
+            <!--                                        t-att-required="inter_education and inter_education[0].inter_result_status == 'Complete'">-->
+            <!--                                    <t t-foreach="inter_sessions" t-as="session">-->
+            <!--                                        <option t-att-value="session.name"-->
+            <!--                                                t-att-selected='inter_education and inter_education[0].year == session.name'-->
+            <!--                                                t-att-disabled="readonly and inter_education and inter_education[0].year != session.name">-->
+            <!--                                            <span t-esc="session.name"/>-->
+            <!--                                        </option>-->
+            <!--                                    </t>-->
+            <!--                                </select>-->
+            <!--                                <i class="arrow double"/>-->
+            <!--                            </label>-->
+            <!--                        </div>-->
+            <!--                        <div class="section colm colm4">-->
+            <!--                            <label for="university">Board/Institute</label>-->
+            <!--                            <label class="field select">-->
+            <!--                                <select id="inter_board" name="inter_board" required="True">-->
+            <!--                                    <t t-foreach="boards" t-as="board">-->
+            <!--                                        <option t-att-value="board.name"-->
+            <!--                                                t-att-selected="inter_education and inter_education[0].board == board.name"-->
+            <!--                                                t-att-disabled="readonly and inter_education and inter_education[0].board != board.name">-->
+            <!--                                            <span t-esc="board.name"/>-->
+            <!--                                        </option>-->
+            <!--                                    </t>-->
+            <!--                                </select>-->
+            <!--                                <i class="arrow double"/>-->
+            <!--                            </label>-->
+            <!--                        </div>-->
+            <!--                        <div class="section colm colm4">-->
+            <!--                            <label for="university">Specialization</label>-->
+            <!--                            <label class="field select">-->
+            <!--                                <select id="dae_specialization" name="dae_specialization" required="True">-->
+            <!--                                    <option value="Mechanical"-->
+            <!--                                            t-att-selected="inter_education and inter_education.dae_specialization == 'Mechanical'"-->
+            <!--                                            t-att-disabled="readonly and inter_education and inter_education[0].dae_specialization != 'Mechanical'">-->
+            <!--                                        Mechanical-->
+            <!--                                    </option>-->
+            <!--                                    <option value="Electrical"-->
+            <!--                                            t-att-selected="inter_education and inter_education.dae_specialization == 'Electrical'"-->
+            <!--                                            t-att-disabled="readonly and inter_education and inter_education[0].dae_specialization != 'Electrical'">-->
+            <!--                                        Electrical-->
+            <!--                                    </option>-->
+            <!--                                    <option value="Civil"-->
+            <!--                                            t-att-selected="inter_education and inter_education.dae_specialization == 'Civil'"-->
+            <!--                                            t-att-disabled="readonly and inter_education and inter_education[0].dae_specialization != 'Civil'">-->
+            <!--                                        Civil-->
+            <!--                                    </option>-->
+            <!--                                    <option value="Other"-->
+            <!--                                            t-att-selected="inter_education and inter_education.dae_specialization == 'Other'"-->
+            <!--                                            t-att-disabled="readonly and inter_education and inter_education[0].dae_specialization != 'Other'">-->
+            <!--                                        Other-->
+            <!--                                    </option>-->
+            <!--                                </select>-->
+            <!--                                <i class="arrow double"/>-->
+            <!--                            </label>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+
+            <!--                    <legend style="display:block;font-size:16px;text-align:center">-->
+            <!--                        Yearly Info-->
+            <!--                    </legend>-->
+            <!--                    <div class="block-info">-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4" id="div_dae_1y_total_marks">-->
+            <!--                                <label for="university">First Year Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="1" type="number"-->
+            <!--                                           name="fy_totalmarks" id="fy_totalmarks" placeholder="Total Marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_first_year_total"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="compute_fy_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_1y_obtained_marks">-->
+            <!--                                <label for="university">First Year Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="1"-->
+            <!--                                           name="fy_obtainedmarks" id="fy_obtainedmarks" placeholder="Obtained marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_first_year_obtained"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="compute_fy_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_1y_percentage">-->
+            <!--                                <label for="university">Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="50" max="100" type="number" step='0.01'-->
+            <!--                                           name="fy_percentage" id="fy_percentage" placeholder="Percentage"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_first_year_percentage"-->
+            <!--                                           class="gui-input" required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4" id="div_dae_2y_total_marks">-->
+            <!--                                <label for="university">2nd Year Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="1"-->
+            <!--                                           name="sd_y_totalmarks" id="sd_y_totalmarks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_sec_year_total"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           placeholder="Total Marks" class="gui-input"-->
+            <!--                                           required="true" onChange="compute_sd_y_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_2y_obtained_marks">-->
+            <!--                                <label for="university">2nd Year Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="1" type="number"-->
+            <!--                                           name="sd_y_obtainedmarks" id="sd_y_obtainedmarks"-->
+            <!--                                           placeholder="Obtained marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_sec_year_obtained"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="compute_sd_y_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_2y_percentage">-->
+            <!--                                <label for="university">Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="50" max="100" type="number"-->
+            <!--                                           name="sd_y_percentage" id="sd_y_percentage" placeholder="Percentage"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_sec_year_percentage"-->
+            <!--                                           class="gui-input" required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4" id="div_dae_3y_total_marks">-->
+            <!--                                <label for="university">3rd Year Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="1" type="number"-->
+            <!--                                           name="td_y_totalmarks" id="td_y_totalmarks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_third_year_total"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           placeholder="Total Marks" class="gui-input"-->
+            <!--                                           required="true" onChange="compute_td_y_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_3y_obtained_marks">-->
+            <!--                                <label for="university">3rd Year Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="1" type="number"-->
+            <!--                                           name="td_y_obtainedmarks" id="td_y_obtainedmarks"-->
+            <!--                                           placeholder="Obtained marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_third_year_obtained"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="compute_td_y_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4" id="div_dae_3y_percentage">-->
+            <!--                                <label for="university">Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="50" max="100" type="number" step="0.01"-->
+            <!--                                           name="td_y_percentage" id="td_y_percentage" placeholder="Percentage"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_third_year_percentage"-->
+            <!--                                           class="gui-input" required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+
+            <!--                    <legend style="display:block;font-size:16px;text-align:center">-->
+            <!--                        Subject Info-->
+            <!--                    </legend>-->
+            <!--                    <div class="block-info">-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Physics Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="1"-->
+            <!--                                           name="dae_physics_total_marks" id="dae_physics_total_marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].physics_total_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="dae_compute_inter_ph_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Physics Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number"-->
+            <!--                                           name="dae_physics_marks" id="dae_physics_marks" class="gui-input"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].physics_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           required="true" onChange="dae_compute_inter_ph_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Physics Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" step="0.01" min="0" max='100'-->
+            <!--                                           name="dae_physics_marks_per" id="dae_physics_marks_per"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].physics_marks_per"-->
+            <!--                                           class="gui-input" required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Math Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="1"-->
+            <!--                                           name="dae_math_total_marks" id="dae_math_total_marks" class="gui-input"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].math_total_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           required="true" onChange="dae_compute_inter_math_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Math Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" name="dae_math_marks"-->
+            <!--                                           id="dae_math_marks" class="gui-input"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].math_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           required="true" onChange="dae_compute_inter_math_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Math Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" step="0.01" min="0" max='100'-->
+            <!--                                           name="dae_math_marks_per" id="dae_math_marks_per" class="gui-input"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].math_marks_per"-->
+            <!--                                           required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Chemistry Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="1"-->
+            <!--                                           name="dae_chemistry_total_marks" id="dae_chemistry_total_marks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].chemistry_total_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="dae_compute_inter_che_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Chemistry Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number"-->
+            <!--                                           name="dae_chemistry_marks" id="dae_chemistry_marks" class="gui-input"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].chemistry_marks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           required="true" onChange="dae_compute_inter_che_per()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="subject">Chemistry Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="0" max="100" step="0.01"-->
+            <!--                                           name="dae_chemistry_marks_per" id="dae_chemistry_marks_per"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].chemistry_marks_per"-->
+            <!--                                           class="gui-input" required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                    <legend style="display:block;font-size:16px;text-align:center">-->
+            <!--                        Total-->
+            <!--                    </legend>-->
+            <!--                    <div class="block-info">-->
+            <!--                        <div class="frm-row">-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="university">DAE Total Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input type="number" min="0" name="dae_totalmarks" id="dae_totalmarks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_totalmarks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           placeholder="Total Marks" class="gui-input"-->
+            <!--                                           required="true" onChange="compute_dae_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="university">DAE Obtained Marks</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="0" type="number"-->
+            <!--                                           name="dae_obtainedmarks" id="dae_obtainedmarks"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_obtainedmarks"-->
+            <!--                                           t-att-readonly="readonly"-->
+            <!--                                           placeholder="Obtained marks"-->
+            <!--                                           class="gui-input" required="true"-->
+            <!--                                           onChange="compute_dae_percentage()"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+
+            <!--                            <div class="section colm colm4">-->
+            <!--                                <label for="university">DAE Percentage</label>-->
+            <!--                                <label class="field prepend-icon">-->
+            <!--                                    <input min="50" max="100" type="number"-->
+            <!--                                           name="dae_percentage" id="dae_percentage"-->
+            <!--                                           t-att-value="inter_education and inter_education[0].dae_percentage"-->
+            <!--                                           placeholder="Percentage" class="gui-input"-->
+            <!--                                           required="true" readonly="True"/>-->
+            <!--                                    <span class="field-icon">-->
+            <!--                                        <i class="fa fa-credit-card"/>-->
+            <!--                                    </span>-->
+            <!--                                </label>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+
+
+            <div class="block-info" name="entry_test_detail">
+                <legend style="display:block; color: #0393DC"><h4>Entry Test Details</h4></legend>
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="test_type">Entry Test</label>
+                        <label class="field select">
+                            <select id="test_type" name="test_type"
+                                    t-attf-onchange="onchange_gat_sat('odoocms_admission_portal-t-{{test_step_sequence}}')">
+                                <t>
+                                    <option value="UET"
+                                            t-att-selected="student.test_type == 'UET'"
+                                            t-att-disabled="readonly and student.test_type != 'UET'">
+                                        <!--                                            <span t-esc="company.short_name"/>-->
+                                        Entry Test
+                                    </option>
+                                    <option value="SAT"
+                                            t-att-selected="student.test_type == 'SAT'"
+                                            t-att-disabled="readonly and student.test_type != 'SAT'">
+                                        SAT
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row" id="uet_message_div" style="display:none">
+                    <div class="section colm colm12">
+                        <p>
+                            <b>Test Center Selection will be available on the relevant page.</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="frm-row" id="sat_outer_div" style="display:none">
+                    <p>
+                        <b>Enter Your valid SAT Test detail. Result should be
+                            valid till last date of application submission.
+                        </b>
+                    </p>
+                    <div class="section colm colm4">
+                        <label for="test_total_marks">Total Score</label>
+                        <label class="field prepend-icon">
+                            <input type="number" min="0"
+                                   t-att-value="student.test_total_marks or 2400" t-att-readonly="readonly"
+                                   name="test_total_marks" id="test_total_marks"
+                                   class="gui-input" onChange="onchange_test_marks()"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="test_obtained_marks">Obtained Score</label>
+                        <label class="field prepend-icon">
+                            <input type="number" min='0' t-att-value="student.test_obtained_marks or 0"
+                                   t-att-readonly="readonly"
+                                   name="test_obtained_marks" id="test_obtained_marks"
+                                   class="gui-input" onChange="onchange_test_marks()"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="test_percentage">Percentage</label>
+                        <label class="field prepend-icon">
+                            <input type="number" step="0.01" max="100" t-att-value="student.test_percentage or 0"
+                                   name="test_percentage" id="test_percentage"
+                                   class="gui-input" readonly="True"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!--
+                <div class="frm-row" style="display:none" id="nat_outer_div">
+                    <div class="section colm colm4">
+                        <label for="university">Obtained Score</label>
+                        <label class="field prepend-icon">
+                            <input type="number" min="0" max="100"
+                                   name="nat_test_obtained_marks" id="nat_test_obtained_marks"
+                                   class="gui-input"
+                                   t-att-value="student.test_obtained_marks or 0"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon"><i class="fa fa-credit-card"/></span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4">
+                        <label for="university">Date</label>
+                        <label class="field prepend-icon">
+                            <input type="date" name="test_date" t-att-value="student.test_date" t-att-readonly="readonly"
+                                   t-att-min="last_year" t-att-max="today"
+                                   id="test_date" class="gui-input"/>
+                            <span class="field-icon"><i class="fa fa-credit-card"/></span>
+                        </label>
+                    </div>
+                </div>
+                  -->
+
+
+                <!--                <div t-if="student.test_type == 'NAT'">-->
+                <!--                    <div class="frm-row" id="nat_outer_div">-->
+                <!--                        <div class="section colm colm4">-->
+                <!--                            <label for="university">Obtained Score</label>-->
+                <!--                            <label class="field prepend-icon">-->
+                <!--                                <input type="number" min="0" max="100" t-att-value="student.test_obtained_marks or 0"-->
+                <!--                                       name="nat_test_obtained_marks"-->
+                <!--                                       id="nat_test_obtained_marks" class="gui-input"/>-->
+                <!--                                <span class="field-icon"> <i class="fa fa-credit-card"/></span>-->
+                <!--                            </label>-->
+                <!--                        </div>-->
+                <!--                        <div class="section colm colm4">-->
+                <!--                            <label for="university">Date</label>-->
+                <!--                            <label class="field prepend-icon">-->
+                <!--                                <input type="date" name="test_date"-->
+                <!--                                       t-att-min="last_year" t-att-max="today"-->
+                <!--                                       id="test_date" class="gui-input"-->
+                <!--                                       t-att-value="student.test_date"/>-->
+                <!--                                <span class="field-icon"><i class="fa fa-credit-card"/></span>-->
+                <!--                            </label>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="frm-row" style="display:none" id="sat_outer_div">-->
+                <!--                        <div class="section colm colm4">-->
+                <!--                            <label for="university">Total Score</label>-->
+                <!--                            <label class="field prepend-icon">-->
+                <!--                                <input type="number" min="0" t-att-value="student.test_total_marks or 2400"-->
+                <!--                                       name="test_total_marks" id="test_total_marks"-->
+                <!--                                       class="gui-input" onChange="onchange_test_marks()"/>-->
+                <!--                                <span class="field-icon"><i class="fa fa-credit-card"/></span>-->
+                <!--                            </label>-->
+                <!--                        </div>-->
+                <!--                        <div class="section colm colm4">-->
+                <!--                            <label for="university">Obtained Score</label>-->
+                <!--                            <label class="field prepend-icon">-->
+                <!--                                <input type="number" min="0"-->
+                <!--                                       name="test_obtained_marks" id="test_obtained_marks"-->
+                <!--                                       class="gui-input" onChange="onchange_test_marks()"-->
+                <!--                                       t-att-value="student.test_obtained_marks or 0"/>-->
+                <!--                                <span class="field-icon"><i class="fa fa-credit-card"/></span>-->
+                <!--                            </label>-->
+                <!--                        </div>-->
+                <!--                        <div class="section colm colm4">-->
+                <!--                            <label for="university">Percentage</label>-->
+                <!--                            <label class="field prepend-icon">-->
+                <!--                                <input type="number" step="0.01" max="100"-->
+                <!--                                       name="test_percentage" id="test_percentage"-->
+                <!--                                       class="gui-input" readonly="True"-->
+                <!--                                       t-att-value="student.test_percentage or 0"/>-->
+                <!--                                <span class="field-icon"><i class="fa fa-credit-card"/></span>-->
+                <!--                            </label>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+            </div>
+
+            <br/>
+            <input class="check_ug" type="checkbox" name="check_ug" onchange="ugChecked()" checked="true">
+                <b>Applying for Post Graduate?</b>
+            </input>
+            <div class="ug_education block-info">
+                <br/>
+                <legend style="display:block; color: #0393DC"><h4>Under Graduate</h4></legend>
+                <div class="frm-row">
+                    <div class="section colm colm6">
+                        <label for="university">Degree<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select id="ug_degree" name="ug_degree">
+                                <option value="UG"
+                                        t-att-selected="ug_education and ug_education[0].degree_level == 'UG'"
+                                        t-att-disabled="readonly and ug_education and ug_education[0].degree_level != 'UG'">
+                                    Under Graduate
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm6">
+                        <label for="university">Passing Year<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select id="ug_pass_year" name="ug_pass_year" required="True">
+                                <t t-foreach="ug_sessions" t-as="session">
+                                    <option t-att-value="session.name"
+                                            t-att-selected="ug_education and ug_education[0].year == session.name"
+                                            t-att-disabled="readonly and ug_education and ug_education[0].year != session.name">
+                                        <span t-esc="session.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="ug_degree" class="frm-row">
+                    <div class="section colm colm6" id="div_degree_name">
+                        <label for="university">Degree Name<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text"
+                                   name="degree_name" id="degree_name"
+                                   placeholder="Degree Name" class="gui-input"
+                                   t-att-value="ug_education and ug_education[0].degree or ''"
+                                   required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-graduation-cap"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm6" id="div_university_name">
+                        <label for="university">University Name<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text"
+                                   name="university_name" id="university_name"
+                                   placeholder="University Name" class="gui-input"
+                                   t-att-value="ug_education and ug_education[0].ug_university_name or ''"
+                                   required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-university"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="section colm colm4" id="div_ug_total_cgpa">
+                        <label for="university">Total CGPA<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input min="1" type="number"
+                                   name="ug_total_cgpa" id="ug_total_cgpa"
+                                   placeholder="Total CGPA" class="gui-input"
+                                   t-att-value="ug_education and ug_education[0].total_marks or ''"
+                                   required="true" onChange="onchange_ug_cgpa()"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_ug_obtained_cgpa">
+                        <label for="university">Obtained CGPA<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="number"
+                                   name="ug_obtained_cgpa" id="ug_obtained_cgpa"
+                                   placeholder="Obtained CGPA" class="gui-input"
+                                   t-att-value="ug_education and ug_education[0].obtained_marks or 0"
+                                   required="true" onChange="onchange_ug_cgpa()"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="div_ug_cgpa_percentage">
+                        <label for="university">CGPA Percentage<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="number"
+                                   step="0.01" name="ug_cgpa_percentage" id="ug_cgpa_percentage"
+                                   placeholder="CGPA Percentage"
+                                   class="gui-input"
+                                   t-att-value="ug_education and ug_education[0].percentage or ''"
+                                   required="true" readonly="True" min="0"/>
+                            <span class="field-icon">
+                                <i class="fa fa-credit-card"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <t t-if="not readonly2">
+            <script>
+                $(function() {
+                onchange_matric_o_level();
+                ugChecked();
+
+                onchange_gat_sat('odoocms_admission_portal-t-<t t-esc="test_step_sequence"/>');
+                });
+            </script>
+        </t>
+
+    </template>
+
+
+</odoo>

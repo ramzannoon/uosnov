@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="center_student_report_wiz_form" model="ir.ui.view">
+        <field name="name">center.student.wiz</field>
+        <field name="model">center.student.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Center Student">
+                <sheet>
+                    <group>
+                        <field name="center_ids"
+                               options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_center_student_wiz" model="ir.actions.act_window">
+        <field name="name">Center Student</field>
+        <field name="res_model">center.student.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem
+            id="menu_center_student_wiz"
+            name="Center Student"
+            action="action_center_student_wiz"
+            parent="odoocms_exam_setup.menu_exam_setup_report"
+            sequence="3"/>
+
+</odoo>

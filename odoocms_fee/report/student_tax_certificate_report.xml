@@ -1,0 +1,173 @@
+<odoo>
+    <template id="odoocms_fee.student_tax_certificate_report">
+        <t t-call="web.basic_layout">
+            <style>
+                #invoice-report {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+                }
+
+                #invoice-report td, #invoice-report th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                }
+
+                #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+
+                #invoice-report tr:hover {background-color: #ddd;}
+
+                #invoice-report th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #17134e;
+                color: white;
+                }
+            </style>
+
+            <br/>
+            <br/>
+            <div class="page" style="font-size: 16px; padding:10px ">
+                <div class="row" style="font-size:13px; font-weight:bold">
+                    <div class="col col-12" style="text-align:center;text-decoration: underline;">
+                        <span>CERTIFICATE OF COLLECTION OR DEDUCTION OF INCOME TAX</span>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+
+                <table class="table table-bordered">
+                    <!-- Row1 -->
+                    <tr style="font-size:16px;">
+                        <td colspan="2"></td>
+                        <td>Date of Issue</td>
+                        <td colspan="2">
+                            <span t-esc="current_time"></span>
+                        </td>
+                    </tr>
+
+                    <!-- Row2 -->
+                    <tr style="font-size:16px;">
+                        <td rowspan="2">
+                            on account of income tax
+                            has been deducted /
+                            collected from
+                            (Father/Guardian of Student)
+                        </td>
+                        <td rowspan="2">
+                            <span t-esc="student.father_name"/>
+                        </td>
+                        <td rowspan="2">Student</td>
+                        <td>Regn No</td>
+                        <td>
+                            <span t-esc="student.code"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row3 -->
+                    <tr style="font-size:16px;">
+                        <td colspan="2">
+                            <span t-esc="student.name"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row4 -->
+                    <tr style="font-size:16px;">
+                        <td>Certified that the sum of Rupees (Paid)</td>
+                        <td colspan="4">Rs.&#160;
+                            <span t-esc="tax_amount"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row5 -->
+                    <tr style="font-size:16px;">
+                        <td>CNIC No</td>
+                        <td colspan="4">
+                            <span t-esc="student.father_guardian_cnic"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row6 -->
+                    <tr style="font-size:16px;">
+                        <td>On or during the period</td>
+                        <td colspan="4">
+                            <span t-esc="f_year"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row7 -->
+                    <tr style="font-size:16px;">
+                        <td>Under section on account of</td>
+                        <td colspan="4">
+                            <b>236I</b>
+                            (Collection of Advance tax by educational institute)
+                        </td>
+                    </tr>
+
+                    <!-- Row8 -->
+                    <tr style="font-size:16px;">
+                        <td>On the value/amount of Rupees (Taxable Amount)</td>
+                        <td colspan="4">Rs. &#160;
+                            <span t-esc="receipt_amount"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row9 -->
+                    <tr style="font-size:16px;">
+                        <td colspan="5">This is to further certify that the tax collected/deducted has been deposited in the Federal Government Account as per the following details:-</td>
+                    </tr>
+
+                    <!-- Row10 -->
+                    <tr style="font-size:16px;">
+                        <td>Deposit Date</td>
+                        <td>Bank</td>
+                        <td>Branch/City</td>
+                        <td>Amount of Tax paid (Rs)</td>
+                        <td>CPR NO</td>
+                    </tr>
+
+                    <!-- Row11 -->
+                    <tr style="font-size:16px;">
+                        <td>
+                            <span t-esc="paid_date"/>
+                        </td>
+                        <td>
+                            <span t-esc="bank"/>
+                        </td>
+                        <td>
+                            <span t-esc="branch"/>
+                        </td>
+                        <td>Rs. &#160;<span t-esc="tax_amount"/>
+                        </td>
+                        <td>
+                            <span t-esc="cpr_no"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row12 -->
+                    <tr style="font-size:16px;">
+                        <td>Name:</td>
+                        <td colspan="4" style="font-weight:bold;">
+                            <span t-esc="company_name"/>
+                        </td>
+                    </tr>
+
+                    <!-- Row13 -->
+                    <tr style="font-size:16px;">
+                        <td>Address:</td>
+                        <td colspan="3"></td>
+                        <td style="font-weight:bold;"></td>
+                    </tr>
+
+                    <!-- Row14 -->
+                    <tr style="font-size:16px;text-align:center;">
+                        <td colspan="5">Note: This is a system generated certificate and do not require any signature</td>
+                    </tr>
+
+                </table>
+            </div>
+        </t>
+    </template>
+
+</odoo>

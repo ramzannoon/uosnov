@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="studentProfile" name="Student Profile">
+
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+             </t>
+            <body class="sidebar_main_swipe header_full">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+
+                <div id="page_content">
+                     <div id="top_bar">
+                        <ul id="breadcrumbs">
+                              <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/profile">Profile</a>
+
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner" style="background:none;">
+                        <div class="uk-grid" id="user_profile">
+                            <div class="uk-width-large-7-10">
+
+                                <div class="md-card">
+                                    <div class="user_heading">
+                                        <div class="user_heading_menu hidden-print">
+
+                                        </div>
+                                        <div class="user_heading_avatar">
+
+                                            <div class="thumbnail">
+<!--                                                <img src="/odoocms_web/static/assets/img/avatars/avatar_11.png"-->
+<!--                                                     alt="user avatar"/>-->
+                                                <img t-att-src="image_data_uri(student.image_1920)" alt="user" t-if="student and student.image_1920"/>
+                                            </div>
+                                        </div>
+                                        <div class="user_heading_content" style="padding:2px 0;">
+                                            <h2 class="heading_b uk-margin-bottom">
+                                                <span class="uk-text-truncate" t-esc="student.name">
+
+                                                </span>
+                                                 <span class="sub-heading" t-esc="student.id_number"/>
+
+
+                                                <span class="sub-heading" t-esc="student.program_id.department_id.institute_id.name"/>
+
+
+
+                                            </h2>
+                                            <ul class="user_stats">
+<!--                                                <li>-->
+<!--                                                    <h4 class="heading_a" t-esc="student.id_number">-->
+
+<!--                                                    </h4>-->
+<!--                                                    <span class="sub-heading">ID</span>-->
+<!--                                                </li>-->
+                                                <li>
+                                                    <h4 class="heading_a" t-esc="student.career_id.name">
+
+                                                    </h4>
+                                                    <span class="sub-heading">Academic Level</span>
+                                                </li>
+<!--                                                <li>-->
+<!--                                                    <h4 class="heading_a" t-if="not student.discipline_id">-</h4>-->
+<!--                                                    <h4 class="heading_a" t-esc="student.discipline_id.name" t-if="student.discipline_id"/>-->
+<!--                                                    <span class="sub-heading">Discipline</span>-->
+<!--                                                </li>-->
+                                                <li>
+                                                    <h4 class="heading_a" t-esc="student.program_id.name">Software Engineering
+
+                                                    </h4>
+                                                    <span class="sub-heading">Program</span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="heading_a" t-esc="student.semester_id.name" t-if="student.semester_id"/>
+                                                    <h4 class="heading_a" t-esc="student.semester_id.name" t-if="not student.semester_id">-</h4>
+                                                    <span class="sub-heading">Current Semester</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+<!--                                        <a class="md-fab md-fab-small md-fab-accent hidden-print"-->
+<!--                                           href="page_user_edit.html">-->
+<!--                                            <i class="material-icons">&#xE150;</i>-->
+<!--                                        </a>-->
+                                    </div>
+                                    <div class="user_content">
+                                        <ul id="user_profile_tabs" class="uk-tab" data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}" data-uk-sticky="{ top: 48, media: 960 }">
+                                            <li class="uk-active">
+                                                <a href="">About</a>
+                                            </li>
+                                            <li>
+                                                <a href="">Bio Data</a>
+                                            </li>
+                                        </ul>
+                                        <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
+                                            <li>
+                                                <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom">
+                                                    <div class="uk-width-large-1-2">
+                                                        <h4 class="heading_c uk-margin-small-bottom">Contact Information</h4>
+                                                        <ul class="md-list md-list-addon">
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <i class="md-list-addon-icon material-icons">
+                                                                        &#xE158;
+                                                                    </i>
+                                                                </div>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading" t-esc="student.email">
+
+                                                                    </span>
+                                                                    <span class="uk-text-small uk-text-muted">Email
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <i class="md-list-addon-icon material-icons">
+                                                                        &#xE0CD;
+                                                                    </i>
+                                                                </div>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading" t-esc="student.mobile"></span>
+                                                                    <span class="uk-text-small uk-text-muted">Phone
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <i class="md-list-addon-icon material-icons">
+                                                                        contact_phone
+                                                                    </i>
+                                                                </div>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading" t-esc="student.emergency_contact"></span>
+                                                                    <span class="uk-text-small uk-text-muted">Emergency Contact
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-addon-element">
+                                                                    <i class="md-list-addon-icon material-icons">
+                                                                        &#xE88A;
+                                                                    </i>
+
+                                                                </div>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading" t-esc="student.street"/>
+                                                                    <span class="md-list-heading" t-esc="student.street2"/>
+                                                                    <span class="md-list-heading" t-esc="student.city"/>
+                                                                    <span class="uk-text-small uk-text-muted">Present
+                                                                        Address
+                                                                    </span>
+                                                                </div>
+                                                                </li>
+                                                                <li>
+                                                                <div class="md-list-content">
+                                                                   <span class="md-list-heading" t-esc="student.per_street"/>
+                                                                    <span class="md-list-heading" t-esc="student.per_street2"/>
+                                                                    <span class="md-list-heading" t-esc="student.per_city"/>
+                                                                    <span class="uk-text-small uk-text-muted">Permanent
+                                                                        Address
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                   <!-- <div class="uk-width-large-1-2">
+                                                        <h4 class="heading_c uk-margin-small-bottom">My Clubs</h4>
+                                                        <ul class="md-list">
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">
+                                                                        <a href="#">Saddle Club</a>
+                                                                    </span>
+                                                                    <span class="uk-text-small uk-text-muted">Joined
+                                                                        Date:2/3/2019
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">
+                                                                        <a href="#">Sports Club</a>
+                                                                    </span>
+                                                                    <span class="uk-text-small uk-text-muted">Joined
+                                                                        Date:2/3/2019
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading">
+                                                                        <a href="#">Swimming Club</a>
+                                                                    </span>
+                                                                    <span class="uk-text-small uk-text-muted">Joined
+                                                                        Date:2/3/2019
+                                                                    </span>
+                                                                </div>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>-->
+                                                </div>
+
+                                            </li>
+                                            <li>
+                                                <div id="user_profile_gallery">
+                                                    <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom">
+                                                        <div class="uk-width-large-1-2">
+                                                            <h4 class="heading_c uk-margin-small-bottom">Personal Detail</h4>
+                                                            <ul class="md-list md-list-addon">
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            cake
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.date_of_birth" t-if="student.date_of_birth"/>
+                                                                        <span class="md-list-heading"  t-if="not student.date_of_birth">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Date of Birth
+                                                                        </span>
+                                                                    </div>
+
+
+                                                                </li>
+                                                                <li>
+                                                                     <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            wc
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <t t-esc="dict(student.fields_get(allfields=['gender'])['gender']['selection'])[student.gender]"/>
+<!--                                                                        <span class="md-list-heading" t-esc="student.gender" t-if="student.gender"/>-->
+<!--                                                                        <span class="md-list-heading"  t-if="not student.gender">-</span>-->
+                                                                        <span class="uk-text-small uk-text-muted">Gender
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            credit_card
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.cnic" t-if="student.cnic"/>
+                                                                        <span class="md-list-heading"  t-if="not student.cnic">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">CNIC
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            map
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.domicile_id.name" t-if="student.domicile_id.name"/>
+                                                                        <span class="md-list-heading"  t-if="not student.domicile_id.name">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Domicile
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            flag
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.nationality.name" t-if="student.nationality.name"/>
+                                                                        <span class="md-list-heading"  t-if="not student.nationality.name">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Nationlity
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+                                                                            groups
+                                                                        </i>
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.religion_id.name" t-if="student.religion_id.name"/>
+                                                                        <span class="md-list-heading"  t-if="not student.religion_id">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Religion
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-addon-element">
+                                                                        <i class="md-list-addon-icon material-icons">
+
+                                                                        </i>
+
+                                                                    </div>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.blood_group" t-if="student.blood_group"/>
+                                                                        <span class="md-list-heading"  t-if="not student.blood_group">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Blood Group
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="uk-width-large-1-2">
+                                                            <h4 class="heading_c uk-margin-small-bottom">Family Detail</h4>
+                                                            <ul class="md-list">
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.father_name" t-if="student.father_name"/>
+                                                                        <span class="md-list-heading"  t-if="not student.father_name">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Father Name
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                                <li>
+                                                                    <div class="md-list-content">
+                                                                        <span class="md-list-heading" t-esc="student.marital_status.name" t-if="student.marital_status"/>
+                                                                        <span class="md-list-heading"  t-if="not student.marital_status">-</span>
+                                                                        <span class="uk-text-small uk-text-muted">Marital Status
+                                                                        </span>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </li>
+                                            <li>
+                                                <ul class="md-list">
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Doloribus iste et dolorem autem facere.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">13 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">6</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">248</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Consequatur quod delectus ea qui dolorem
+                                                                    eveniet.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">20 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">14</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">434</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Deserunt possimus et vero voluptates vel
+                                                                    voluptatem.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">23 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">25</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">776</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Eum magni reprehenderit eos error facilis
+                                                                    illo
+                                                                    voluptatem.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">18 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">17</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">273</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Qui dicta quia explicabo tenetur porro enim
+                                                                    corporis.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">05 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">10</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">340</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Quasi repellendus at et dolor omnis natus
+                                                                    commodi.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">24 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">2</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">327</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Quae quisquam est id adipisci expedita.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">15 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">18</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">200</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Illum reiciendis perspiciatis sit hic
+                                                                    totam.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">07 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">6</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">569</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Numquam eligendi est et esse.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">09 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">13</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">801</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Nam odit rerum tempore accusantium animi
+                                                                    repellat non aut.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">18 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">10</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">218</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Dolores culpa et vel iusto est omnis.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">24 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">5</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">333</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">A ducimus magni harum occaecati.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">18 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">1</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">714</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Est non quam qui incidunt blanditiis.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">19 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">26</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">982</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Est repudiandae ad ducimus nemo.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">21 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">23</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">173</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Iure magnam est aspernatur fuga expedita
+                                                                    omnis
+                                                                    hic a.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">08 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">25</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">417</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Rerum consectetur qui qui.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">13 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">15</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">923</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Sit fugiat aut qui et.</a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">26 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">18</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">347</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Animi aut voluptatem praesentium iste
+                                                                    doloremque
+                                                                    ratione.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">22 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">9</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">905</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Animi possimus ab facere architecto
+                                                                    placeat.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">15 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">22</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">487</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="#">Ratione libero cupiditate quia et aut quo
+                                                                    quam.
+                                                                </a>
+                                                            </span>
+                                                            <div class="uk-margin-small-top">
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE192;</i>
+                                                                    <span class="uk-text-muted uk-text-small">27 Mar
+                                                                        2020
+                                                                    </span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE0B9;</i>
+                                                                    <span class="uk-text-muted uk-text-small">14</span>
+                                                                </span>
+                                                                <span class="uk-margin-right">
+                                                                    <i class="material-icons">&#xE417;</i>
+                                                                    <span class="uk-text-muted uk-text-small">160</span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-width-large-3-10 hidden-print">
+                                <div class="md-card">
+                                    <div class="md-card-content">
+                                        <div class="uk-margin-medium-bottom">
+                                            <h3 class="heading_c uk-margin-bottom">Notifications</h3>
+                                            <ul class="md-list md-list-addon uk-overflow-container" style="max-height:500px;">
+                                              <t t-foreach="notifications" t-as="notification" >
+
+
+                                                <li>
+                                                   <!-- <div class="md-list-addon-element">
+                                                         <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                         <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" class="md-card-head-img" t-if="not notification.image"/>
+&lt;!&ndash;                                                        <i class="md-list-addon-icon material-icons uk-text-warning">&ndash;&gt;
+&lt;!&ndash;                                                            &#xE8B2;&ndash;&gt;
+&lt;!&ndash;                                                        </i>&ndash;&gt;
+                                                    </div>-->
+                                                    <div class="md-list-content">
+                                                        <a href="/student/notifications" >
+                                                        <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                            <t  t-if="not notification.image">
+                                                             <span class="md-list-heading"><t t-esc="notification.name" /></span>
+
+                                                            </t>
+                                                        </a>
+                                                       <!-- <span class="md-list-heading"><a href="/student/notifications"><t t-esc="notification.name" /></a></span>
+                                                        <span class="uk-text-small uk-text-muted uk-text-truncate">
+                                                            <t t-esc="notification.description" t-options='{"widget": "html"}'/>
+                                                        </span>-->
+                                                    </div>
+                                                </li>
+                                                </t>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+
+
+                <!--  issues list functions -->
+
+
+                <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>
+                <!--            <script src="/faculty_portal/static/assets/js/pages/components_animations.min.js"></script>-->
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/faculty_portal/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+
+            </body>
+        </t>
+    </template>
+</odoo>

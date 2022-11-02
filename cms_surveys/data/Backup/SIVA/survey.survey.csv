@@ -1,0 +1,16 @@
+id,title,template_seq_no,state,survey_form_type/name,type,access_mode,users_login_required
+__export__.survey_survey_3_005e3e45,Student Course Evaluation,Temp/0001,Draft,Student Course Evaluation,Template,Invited people only,True
+__export__.survey_survey_52_32bdc1a5,Teacher Evaluation,Temp/0002,Draft,Teacher Evaluation,Template,Invited people only,True
+__export__.survey_survey_397_971f619d,Survey of Graduating Students,Temp/0004,Draft,Survey of Graduating Students,Template,Invited people only,True
+__export__.survey_survey_445_9a3705c6,Alumni Survey (Non Engineering),Temp/0005,Draft,Alumni Survey,Template,Invited people only,True
+__export__.survey_survey_446_f120d848,Employer survey (Non Engineering),Temp/0006,Draft,Employer survey,Template,Invited people only,True
+__export__.survey_survey_447_8b96c9a6,Research Student Progress Review,Temp/0007,Draft,Student Course Evaluation,Template,Invited people only,True
+__export__.survey_survey_1_6fd59588,Faculty Survey,Temp/0003,Draft,Faculty Survey,Template,Invited people only,True
+__export__.survey_survey_400_642a2b9a,Industrial Visit,Temp/0008,Draft,Industry Visit,Template,Invited people only,True
+__export__.survey_survey_442_532f2711,Faculty Course Review(Non Engineering),Temp/0009,Draft,Faculty Survey,Template,Invited people only,True
+__export__.survey_survey_12_1ac0ea15,Industry Visit by Faculty (Faculty Feedback),Temp/0010,Draft,Faculty Survey,Template,Invited people only,True
+__export__.survey_survey_17_5e8d8229,Industry Visit by Faculty (Industry Feedback),Temp/0011,Draft,Faculty Survey,Template,Anyone with the link,
+__export__.survey_survey_17_5e8d8230,Class Audit Report,Temp/0012,Draft,Class Audit,Template,Invited people only,True
+__export__.survey_survey_734_3b6a1143,SIVA Post Visit Feedback by Faculty,Temp/0013,Draft,Industry Visit,Template,Invited people only,True
+__export__.survey_survey_735_25f269bd,SIVA Post Visit Feedback by Institute,Temp/0014,Draft,Industry Visit,Template,Invited people only,True
+__export__.survey_survey_736_895d9443,SIVA Post Visit Feedback by Student,Temp/0015,Draft,Industry Visit,Template,Invited people only,True

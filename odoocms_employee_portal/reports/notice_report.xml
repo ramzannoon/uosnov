@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="notice_report_template">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <div class="text-center" style="padding:5px">
+                                <h1>Hello ahsan shah</h1>
+                                <!--                                <span t-raw="o.name"/>-->
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_product_catalog" name="report_product_catalog">
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+            <div class="header">
+                <div class="row mt32 mb32">
+                    <div class="col-6">
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)"
+                             style="max-height: 45px;"/>
+                    </div>
+                </div>
+            </div>
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <h2>PRODUCT CATALOGUE ahsan sahh</h2>
+                            <br/>
+                            <table class="table table-bordered" style="border: 2px solid black;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"
+                                            style="background-color:#893b74; color:#fff; border: 2px solid black;font-family:Verdana">
+                                            <p style="font-weight: bold;" t-field="o.name"/>
+                                        </th>
+                                        <th class="text-center" colspan="2"
+                                            style="background-color:#893b74; color:#fff; font-weight: bold;border: 2px solid black;">
+                                            <p>Specifications</p>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 2px solid black;">
+                                            <div class="col-12 text-center">
+                                                <p style="padding: 50px;" t-field="o.image_1920"
+                                                   t-options='{"widget": "image"}'/>
+                                            </div>
+                                        </td>
+                                        <td style="border: 0px solid black;">
+                                            <t t-if="o.categ_id">
+                                                <span>Category</span>
+                                                <br/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="o.list_price">
+                                                <span>Sale Price</span>
+                                                <br/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="o.default_code">
+                                                <span>Internal Reference</span>
+                                                <br/>
+                                                <br/>
+                                            </t>
+                                            <t t-if="o.description">
+                                                <span>Description</span>
+                                            </t>
+                                        </td>
+                                        <td style="border: 0px solid black;">
+                                            <div class="col-12 text-center">
+                                                <t t-if="o.categ_id">
+                                                    <span t-field="o.categ_id.name"/>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.list_price">
+                                                    <span t-field="o.list_price"
+                                                          t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.default_code">
+                                                    <span t-field="o.default_code"/>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="o.description">
+                                                    <span t-field="o.description"/>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <p style="page-break-after: always;"/>
+                        <t t-if="len(o.product_variant_ids) > 1">
+                            <t t-foreach="o.product_variant_ids" t-as="v">
+                                <h4>PRODUCT VARIANT</h4>
+                                <table class="table table-bordered" style="border: 2px solid black;">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"
+                                                style="background-color:#893b74; color:#fff;border: 2px solid black;font-family:Verdana">
+                                                <p style="font-weight: bold;" t-field="o.name"/>
+                                            </th>
+                                            <th class="text-center" colspan="2"
+                                                style="background-color:#893b74; color:#fff; font-weight: bold;border: 2px solid black;">
+                                                <p>Specifications</p>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="border: 2px solid black;">
+                                                <div class="col-6 text-center">
+                                                    <p style="padding: 20px;" t-field="v.image_1920"
+                                                       t-options='{"widget": "image"}'/>
+                                                </div>
+                                            </td>
+                                            <td style="border: 0px solid black;">
+                                                <t t-if="v.default_code">
+                                                    <span>Internal Reference</span>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="v.product_template_attribute_value_ids">
+                                                    <span>Variant type</span>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="(v.qty_available) > 0">
+                                                    <span>Available</span>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span>Available</span>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+                                                <t t-if="v.lst_price">
+                                                    <span>Sale Price</span>
+                                                    <br/>
+                                                    <br/>
+                                                </t>
+
+
+                                            </td>
+                                            <td style="border: 0px solid black;">
+                                                <div class="col-12 text-center">
+                                                    <t t-if="v.default_code">
+                                                        <span t-field="v.default_code"/>
+                                                        <br/>
+                                                        <br/>
+                                                    </t>
+                                                    <t t-if="v.product_template_attribute_value_ids">
+                                                        <span t-field="v.product_template_attribute_value_ids"/>
+                                                        <br/>
+                                                        <br/>
+                                                    </t>
+
+                                                    <t t-if="(v.qty_available) > 0">
+                                                        <span>In Stock</span>
+                                                        <br/>
+                                                        <br/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span>Out of Stock</span>
+                                                        <br/>
+                                                        <br/>
+                                                    </t>
+                                                    <t t-if="v.lst_price">
+                                                        <span t-field="v.lst_price"
+                                                              t-options='{"widget": "monetary", "display_currency": v.company_id.currency_id}'/>
+                                                        <br/>
+                                                        <br/>
+                                                    </t>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="page-break-after: always;"/>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_payslip">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <t t-foreach="docs" t-as="o">
+                                <h2 t-field="o.name"/>
+                            </t>
+
+                            <table class="table table-sm table-bordered">
+                                <tr>
+                                    <td>
+                                        <strong>Company Information</strong>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <span t-field="o.company_id.name"/>
+                                        </div>
+                                        <div>
+                                            <span t-field="o.company_id.street"/>
+                                        </div>
+                                        <div>
+                                            <span t-field="o.company_id.street2" t-if="o.company_id.street2"/>
+                                        </div>
+                                        <div>
+                                            <span t-field="o.company_id.city"/>
+                                            <span t-field="o.company_id.state_id"/>
+                                            <span t-field="o.company_id.zip"/>
+                                        </div>
+                                        <div>
+                                            <span t-field="o.company_id.country_id"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table name="employee-infos" class="table table-sm table-bordered">
+                                <tr>
+                                    <td>
+                                        <strong>Name</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.sudo().employee_id"/>
+                                    </td>
+                                    <td>
+                                        <strong>Designation</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.employee_id.job_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Address</strong>
+                                    </td>
+                                    <td colspan="3">
+                                        <div t-field="o.sudo().employee_id.address_home_id"
+                                             t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Email</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.sudo().employee_id.work_email"/>
+                                    </td>
+                                    <td>
+                                        <strong>Identification No</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.sudo().employee_id.identification_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Reference</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.number"/>
+                                    </td>
+                                    <td>
+                                        <strong>Bank Account</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.sudo().employee_id.bank_account_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Date From</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_from"/>
+                                    </td>
+                                    <td>
+                                        <strong>Date To</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.date_to"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Computed On</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.compute_date"/>
+                                    </td>
+                                    <td>
+                                        <strong>Registration Number</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.sudo().employee_id.registration_number"/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <tr>
+                                    <td>
+                                        <strong>Basic Salary</strong>
+                                    </td>
+                                    <td>
+                                        <span t-esc="o.line_ids.filtered(lambda line: line.code == 'BASIC').total"
+                                              t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Name</th>
+                                        <th>Number of Hours</th>
+                                        <th>Number of Days</th>
+                                        <th>Quantity/rate</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.sudo().worked_days_line_ids" t-as="worked_days">
+                                        <td>
+                                            <span t-field="worked_days.code"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="worked_days.name"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="worked_days.number_of_hours"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="worked_days.number_of_days"/>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <span t-esc="worked_days.amount" digits="[42, 2]"
+                                                  t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <tr t-foreach="o.sudo().line_ids.filtered(lambda line: line.appears_on_payslip)"
+                                        t-as="line">
+                                        <td>
+                                            <span t-field="line.code"/>
+                                        </td>
+                                        <td>
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="line.total"
+                                                  t-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p class="text-right">
+                                <strong>Authorized signature</strong>
+                            </p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+        <template id="report_payslip_old">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="font-size:10px;">
+                        <div class="oe_structure"/>
+                        <h3 style="color:blue;">Income Tax Computation Sheet</h3>
+
+                        <!--                                                <table class="table table-sm table-bordered">-->
+                        <!--                                                    <tr>-->
+                        <!--                                                        <td>-->
+                        <!--                                                            <strong>Company Information</strong>-->
+                        <!--                                                        </td>-->
+                        <!--                                                        <td>-->
+                        <!--                                                            &lt;!&ndash;                                    <t t-foreach="product" t-as="o">&ndash;&gt;-->
+                        <!--                                                            <div>-->
+                        <!--                                                                <span t-field="docs.employee_id"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div>-->
+                        <!--                                                                <span t-field="docs.employee_id.job_id.name"/>-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div>-->
+                        <!--                                                                &lt;!&ndash;                                            <span t-field="employee_id.street2" t-if="employee_id.street2"/>&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div>-->
+                        <!--&lt;!&ndash;                                                                <span t-field="docs.employee_id.city"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                <span t-field="docs.employee_id.state_id"/>&ndash;&gt;-->
+                        <!--&lt;!&ndash;                                                                <span t-field="docs.employee_id.zip"/>&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            <div>-->
+                        <!--&lt;!&ndash;                                                                <span t-field="docs.employee_id.country_id"/>&ndash;&gt;-->
+                        <!--                                                            </div>-->
+                        <!--                                                            &lt;!&ndash;                                    </t>&ndash;&gt;-->
+                        <!--                                                        </td>-->
+                        <!--                                                    </tr>-->
+                        <!--                                                </table>-->
+
+
+                        <!--                        <table class="table table-sm table-striped table-bordered">-->
+                        <!--                            <tr>-->
+                        <!--                                <th>Date From</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.date_from"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Date To</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.date_to"/>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <!--                        </table>-->
+                        <!--                        <table class="table table-sm table-striped table-bordered">-->
+                        <!--                            <tr>-->
+                        <!--                                <th>EMP#</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Name</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Designation</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.job_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Fiscal Year</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.date_to"/>-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <!--                            <tr>-->
+                        <!--                                <th>Department</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.department_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Location</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Emp Type</th>-->
+                        <!--                                <td>-->
+                        <!--                                    <t t-esc="docs.employee_id.name"/>-->
+                        <!--                                </td>-->
+                        <!--                                <th>Grade</th>-->
+                        <!--                                <td>-->
+                        <!--                                    &lt;!&ndash;                                    <t t-esc="docs.employee_id.grade_designation.name"/>&ndash;&gt;-->
+                        <!--                                </td>-->
+                        <!--                            </tr>-->
+                        <!--                        </table>-->
+                        <!--                        <table class="table table-sm table-striped table-bordered"-->
+                        <!--                               style="table-layout:fixed;font-size:10px;">-->
+                        <!--                            <thead>-->
+                        <!--                                <tr>-->
+                        <!--                                    <th style="color:blue;">Period</th>-->
+                        <!--                                    <t t-foreach="salary_rules" t-as="rule">-->
+                        <!--                                        <t t-if="salary_rules">-->
+                        <!--                                            <th style="color:blue;">-->
+                        <!--                                                <span t-field="rule.report_label"/>-->
+                        <!--                                            </th>-->
+                        <!--                                        </t>-->
+                        <!--                                    </t>-->
+                        <!--                                </tr>-->
+                        <!--                            </thead>-->
+                        <!--                            <tbody class="computation_tbody">-->
+                        <!--                                <t t-set="total_include_amount" t-value="0"/>-->
+                        <!--                                <t t-set="include_amount" t-value="0"/>-->
+                        <!--                                <t t-foreach="payslips" t-as="payslip">-->
+                        <!--                                    <tr>-->
+                        <!--                                        <td>-->
+                        <!--                                            <t t-esc="payslip.date_to.strftime('%b-%y')"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <t t-foreach="salary_rules" t-as="rule">-->
+                        <!--                                            <td>-->
+                        <!--                                                <t t-foreach="payslip.line_ids" t-as="slip_line">-->
+                        <!--                                                    <t t-if="rule.id==slip_line.salary_rule_id.id">-->
+                        <!--                                                        <span t-esc="'{0:,}'.format(int(round(slip_line.amount)))"/>-->
+                        <!--                                                        <t t-if="rule.include_total==True">-->
+                        <!--                                                            <t t-set="include_amount"-->
+                        <!--                                                               t-value="include_amount + slip_line.amount"/>-->
+                        <!--                                                        </t>-->
+                        <!--                                                    </t>-->
+                        <!--                                                </t>-->
+                        <!--                                            </td>-->
+                        <!--                                        </t>-->
+                        <!--                                    </tr>-->
+                        <!--                                </t>-->
+                        <!--                                <tr>-->
+                        <!--                                    <td style="color:blue;">Total</td>-->
+                        <!--                                    <t t-foreach="total_amount_list" t-as="rule_total">-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="'{0:,}'.format(int(round(rule_total['amount'])))"/>-->
+                        <!--                                        </td>-->
+                        <!--                                    </t>-->
+                        <!--                                </tr>-->
+                        <!--                            </tbody>-->
+                        <!--                        </table>-->
+                        <!--                        <br/>-->
+                        <!--                        <p>-->
+                        <!--                            <strong style="color:blue;">Provident Fund Exceeding Limit (150,000)</strong>-->
+                        <!--                            :-->
+                        <!--                            <t t-if="exceed_limit==True">-->
+                        <!--                                <span t-esc="pfund_amount"/>-->
+                        <!--                            </t>-->
+                        <!--                            <t t-if="exceed_limit!=True">0</t>-->
+                        <!--                        </p>-->
+                        <!--                        <br/>-->
+                        <!--                        <table class="table table-sm table-striped table-bordered" style="table-layout:fixed;">-->
+                        <!--                            <thead>-->
+                        <!--                                <tr>-->
+                        <!--                                    <th style="color:blue;">Tax Rebate Details</th>-->
+                        <!--                                    <th style="color:blue;">Period</th>-->
+                        <!--                                    <th style="color:blue;">Amount Credit</th>-->
+                        <!--                                    <th style="color:blue;">Tax Credit</th>-->
+                        <!--                                    <th style="color:blue;">Loan Amount</th>-->
+                        <!--                                </tr>-->
+                        <!--                            </thead>-->
+                        <!--                            <tbody class="computation_credit_tbody">-->
+                        <!--                                <t t-set="total_amount_credit" t-value="0"/>-->
+                        <!--                                <t t-set="total_tax_credit" t-value="0"/>-->
+                        <!--                                <t t-set="total_loan_amount" t-value="0"/>-->
+                        <!--                                <t t-foreach="tax_rebate_detail" t-as="rebate">-->
+                        <!--                                    <tr>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="rebate['name']"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="rebate['period']"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="round(rebate['amount_credit'])"/>-->
+                        <!--                                            <t t-set="total_amount_credit"-->
+                        <!--                                               t-value="total_amount_credit + round(rebate['amount_credit'])"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="'{0:,}'.format(int(round(rebate['tax_credit'])))"/>-->
+                        <!--                                            <t t-set="total_tax_credit"-->
+                        <!--                                               t-value="total_tax_credit+round(rebate['tax_credit'])"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="'{0:,}'.format(int(round(rebate['loan_amount'])))"/>-->
+                        <!--                                            <t t-set="total_loan_amount"-->
+                        <!--                                               t-value="total_loan_amount + round(rebate['loan_amount'])"/>-->
+                        <!--                                        </td>-->
+                        <!--                                    </tr>-->
+                        <!--                                </t>-->
+                        <!--                                <tr>-->
+                        <!--                                    <td style="color:blue;">Total</td>-->
+                        <!--                                    <td/>-->
+                        <!--                                    <td>-->
+                        <!--                                        <span t-esc="'{0:,}'.format(int(round(total_amount_credit)))"/>-->
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        <span t-esc="'{0:,}'.format(int(round(total_tax_credit)))"/>-->
+                        <!--                                    </td>-->
+                        <!--                                    <td>-->
+                        <!--                                        <span t-esc="'{0:,}'.format(int(round(total_loan_amount)))"/>-->
+                        <!--                                    </td>-->
+                        <!--                                </tr>-->
+                        <!--                            </tbody>-->
+                        <!--                        </table>-->
+                        <!--                        <br/>-->
+                        <!--                        <p>-->
+                        <!--                            <strong style="color:blue;">Tax Calculation Perfomed by Applying Following Rates-->
+                        <!--                            </strong>-->
+                        <!--                        </p>-->
+                        <!--                        <br/>-->
+                        <!--                        <table class="table table-sm table-striped table-bordered" style="table-layout:fixed;">-->
+                        <!--                            <thead>-->
+                        <!--                                <tr>-->
+                        <!--                                    <th style="color:blue; text-align:center;">Taxable Income</th>-->
+                        <!--                                    <th style="color:blue; text-align:center;" colspan="4">Rate (%)</th>-->
+                        <!--                                </tr>-->
+                        <!--                            </thead>-->
+                        <!--                            <tbody class="computation_credit_tbody">-->
+                        <!--                                <t t-foreach="tax_range" t-as="range_line">-->
+                        <!--                                    <tr>-->
+                        <!--                                        <td>-->
+                        <!--                                            <strong style="color:blue;text-align:right;">Rs</strong>-->
+                        <!--                                            <span t-esc="round(range_line.start_amount)"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <strong style="color:blue;text-align:right;">- Rs</strong>-->
+                        <!--                                            <span t-esc="round(range_line.end_amount)"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <strong style="color:blue;text-align:right;">+</strong>-->
+                        <!--                                            <span t-esc="round(range_line.addition_amount)"/>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td style="text-align:right;">-->
+                        <!--                                            <span t-esc="range_line.percentage"/>-->
+                        <!--                                            % of excess over-->
+                        <!--                                            <strong style="color:blue;text-align:right;">Rs</strong>-->
+                        <!--                                        </td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <span t-esc="round(range_line.deduction_amount)"/>-->
+                        <!--                                        </td>-->
+                        <!--                                    </tr>-->
+                        <!--                                </t>-->
+                        <!--                            </tbody>-->
+                        <!--                        </table>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

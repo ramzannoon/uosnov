@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_receipt_received_summary_wiz_form" model="ir.ui.view">
+        <field name="name">receipt.received.summary.wiz.form</field>
+        <field name="model">receipt.received.summary.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Receipt Received Summary Report">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Get Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_receipt_received_summary_wiz" model="ir.actions.act_window">
+        <field name="name">Receipt Received Summary Report</field>
+        <field name="res_model">receipt.received.summary.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem
+            id="menu_receipt_received_summary_wiz"
+            name="Receipt Received Summary Report"
+            action="action_receipt_received_summary_wiz"
+            parent="odoocms_fee.menu_fee_reports"
+            groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+            sequence="140"/>
+
+
+    <!--<act_window
+            id="act_odoocms_process_fee_payment"
+            name="Process Fee Payment"
+            res_model="odoocms.process.fee.payment"
+            src_model="odoocms.fee.payment"
+            view_mode="form"
+            multi="True"
+            target="new"
+            key2="client_action_multi"/>
+-->
+</odoo>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_pay_slip" name="">
+        <t t-call="web.layout">
+            <head>
+                <script>document.getElementsByTagName("html")[0].className += " js";</script>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/css/timetable.css"/>
+                <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/weather-icons/css/weather-icons.min.css"
+                      media="all"/>
+                <!-- metrics graphics (charts) -->
+                <link rel="stylesheet"
+                      href="/odoocms_web/static/bowerComponents/metrics-graphics/dist/metricsgraphics.css"/>
+                <!-- chartist -->
+                <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/chartist/dist/chartist.min.css"/>
+
+                <!-- uikit -->
+                <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/uikit/css/uikit.almost-flat.min.css"
+                      media="all"/>
+
+                <!-- flag icons -->
+                <link rel="stylesheet" href="/odoocms_web/static/assets/icons/flags/flags.min.css" media="all"/>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/css/main.min.css" media="all"/>
+                <!-- style switcher -->
+                <!--                <link rel="stylesheet" href="/odoocms_web/static/assets/css/style_switcher.min.css" media="all"/>-->
+
+                <!-- altair admin -->
+
+
+            </head>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+
+                <t t-call="odoocms_faculty_portal.faculty_portal_main_layout"/>
+                <div id="top_bar">
+                    <div class="md-top-bar">
+                        <div class="uk-width-large-8-10 uk-container-center">
+                            <ul class="top_bar_nav" id="list_grid_toggle">
+                                <!--                                <li class="uk-active"  data-view="grid_view">-->
+                                <!--                                    <a href="#">-->
+                                <!--                                        <i class="uk-icon-th-large"></i>-->
+                                <!--                                        Grid-->
+                                <!--                                    </a>-->
+                                <!--                                </li>-->
+                                <!--                                <li data-view="list_view">-->
+                                <!--                                    <a href="#">-->
+                                <!--                                        <i class="uk-icon-list"></i>-->
+                                <!--                                        List-->
+                                <!--                                    </a>-->
+                                <!--                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div id="page_content">
+
+                    <div class="page_content_inner" style="padding:5%;">
+                        <h1>Pay Slip</h1>
+<!--                         <t t-if="not notifications">-->
+<!--                              <p>Notifications are not available.</p>-->
+<!--                         </t>-->
+<!--                             <t t-if="notifications">-->
+<!--                        <t t-foreach="notifications" t-as="notification">-->
+                            <div class="uk-margin-medium-top ">
+                            <div class="md-card uk-margin-medium-top " style="border-radius:10px; box-shadow: 0 1px 3px rgb(0 0 0), 0 1px 2px rgba(0,0,0,.24);">
+                                <div class="uk-grid uk-grid-collapse">
+                                    <div class="uk-width-medium-1-3 ">
+
+                                        <div class="uk-position-relative uk-display-inline-block">
+                                            <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                            <img src="/odoocms_web/static/assets/img/bigger-bolder-superior.jpg" alt="" class="md-card-head-img" t-if="not notification.image"/>
+
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-2-3" style="font-family: 'Roboto';">
+                                        <div class="md-card-content ">
+                                            <h4 class="heading_c uk-margin-bottom">
+                                                <div class="uk-comment-meta uk-text-right" style="font-size:16px;" t-esc="str(notification.date)[:19]"/>
+                                                <b t-esc="notification.name"/>
+                                            </h4>
+                                            <t t-esc="notification.description" t-options='{"widget": "html"}'/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+<!--                        </t>-->
+<!--                             </t>-->
+                    </div>
+
+
+                </div>
+                <script src="/odoocms_web/static/assets/js/common.min.js"></script>
+                <!-- uikit functions -->
+                <script src="/odoocms_web/static/assets/js/uikit_custom.min.js"></script>
+                <!-- altair common functions/helpers -->
+                <script src="/odoocms_web/static/assets/js/altair_admin_common.min.js"></script>
+                <script src="/odoocms_web/static/assets/js/pages/components_cards.min.js"></script>
+                <script src="/odoocms_web/static/assets/js/pages/components_list_grid_view.min.js"></script>
+            </body>
+        </t>
+    </template>
+</odoo>

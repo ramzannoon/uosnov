@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_mark_won_button" model="res.groups">
+        <field name="name">Mark Won Button</field>
+    </record>
+
+</odoo>
+

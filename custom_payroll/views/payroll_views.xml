@@ -1,0 +1,209 @@
+<odoo>
+
+    <record id="view_hr_contract_form_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='salary_and_advantages']" position="after">
+                <group>
+                    <field name="basic"/>
+                    <field name="utility"/>
+                    <field name="house_rent"/>
+                </group>
+            </xpath>
+            <xpath expr="//group[@name='main_info']" position="after">
+                <group>
+                    <group name="allowances" string="Allowances">
+                        <field name="conveyance"/>
+                        <field name="mobile_allowance"/>
+                        <field name="meal_allowance"/>
+                        <field name="fuel_allowance"/>
+                        <field name="medical_allowance"/>
+                        <field name="insurance_allowance"/>
+                    </group>
+
+                    <group name="deductions" string="Deductions">
+                        <field name="income_tax"/>
+                        <field name="advances"/>
+                        <field name="eobi"/>
+                        <field name="provident_fund"/>
+                        <field name="pessi"/>
+                        <field name="other_deductions"/>
+                    </group>
+
+                    <group name="allowances" string="Allowances">
+                        <field name="arears"/>
+                        <field name="car_allowance"/>
+                        <field name="driver_allowance"/>
+                        <field name="over_time"/>
+                    </group>
+
+                    <group name="deductions" string="Deductions">
+                        <field name="unpaid_leaves"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='conveyance']" position="replace">
+                <label for="conveyance"/>
+                <div class="o_row" name="conveyance">
+                    <field name="conveyance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='mobile_allowance']" position="replace">
+                <label for="mobile_allowance"/>
+                <div class="o_row" name="mobile_allowance">
+                    <field name="mobile_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='meal_allowance']" position="replace">
+                <label for="meal_allowance"/>
+                <div class="o_row" name="meal_allowance">
+                    <field name="meal_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='fuel_allowance']" position="replace">
+                <label for="fuel_allowance"/>
+                <div class="o_row" name="fuel_allowance">
+                    <field name="fuel_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='medical_allowance']" position="replace">
+                <label for="medical_allowance"/>
+                <div class="o_row" name="medical_allowance">
+                    <field name="medical_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='insurance_allowance']" position="replace">
+                <label for="insurance_allowance"/>
+                <div class="o_row" name="insurance_allowance">
+                    <field name="insurance_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+                <label for="inflation"/>
+                <div class="o_row" name="inflation">
+                    <field name="inflation" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='income_tax']" position="replace">
+                <label for="income_tax"/>
+                <div class="o_row" name="income_tax">
+                    <field name="income_tax" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='advances']" position="replace">
+                <label for="advances"/>
+                <div class="o_row" name="advances">
+                    <field name="advances" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='eobi']" position="replace">
+                <label for="eobi"/>
+                <div class="o_row" name="eobi">
+                    <field name="eobi" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='provident_fund']" position="replace">
+                <label for="provident_fund"/>
+                <div class="o_row" name="provident_fund">
+                    <field name="provident_fund" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='pessi']" position="replace">
+                <label for="pessi"/>
+                <div class="o_row" name="pessi">
+                    <field name="pessi" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='other_deductions']" position="replace">
+                <label for="other_deductions"/>
+                <div class="o_row" name="other_deductions">
+                    <field name="other_deductions" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='basic']" position="replace">
+                <label for="basic"/>
+                <div class="o_row" name="basic">
+                    <field name="basic" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='utility']" position="replace">
+                <label for="utility"/>
+                <div class="o_row" name="utility">
+                    <field name="utility" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='house_rent']" position="replace">
+                <label for="house_rent"/>
+                <div class="o_row" name="house_rent">
+                    <field name="house_rent" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='driver_allowance']" position="replace">
+                <label for="driver_allowance"/>
+                <div class="o_row" name="driver_allowance">
+                    <field name="driver_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='over_time']" position="replace">
+                <label for="over_time"/>
+                <div class="o_row" name="over_time">
+                    <field name="over_time" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='unpaid_leaves']" position="replace">
+                <label for="unpaid_leaves"/>
+                <div class="o_row" name="unpaid_leaves">
+                    <field name="unpaid_leaves" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='car_allowance']" position="replace">
+                <label for="car_allowance"/>
+                <div class="o_row" name="car_allowance">
+                    <field name="car_allowance" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='arears']" position="replace">
+                <label for="arears"/>
+                <div class="o_row" name="arears">
+                    <field name="arears" nolabel="1"/>
+                    <span>/ month</span>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--    <record id="view_hr_payslip_form_inherit" model="ir.ui.view">-->
+    <!--        <field name="name">hr.payslip.form.inherit</field>-->
+    <!--        <field name="model">hr.payslip</field>-->
+    <!--        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>-->
+    <!--        <field name="arch" type="xml">-->
+    <!---->
+    <!--            <xpath expr="//field[@name='name']" position="after">-->
+    <!--                <field name="unpaid_leave"/>-->
+    <!--            </xpath>-->
+    <!---->
+    <!--        </field>-->
+    <!--    </record>-->
+
+</odoo>

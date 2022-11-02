@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Career -->
+    <record id="view_odoocms_career_tree" model="ir.ui.view">
+        <field name="name">odoocms.career.tree</field>
+        <field name="model">odoocms.career</field>
+        <field name="arch" type="xml">
+            <tree string="Career">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_career_form" model="ir.ui.view">
+        <field name="name">odoocms.career.form</field>
+        <field name="model">odoocms.career</field>
+        <field name="arch" type="xml">
+            <form string="Career">
+                <sheet>
+                    <group>
+                        <group name="1">
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                     <group>
+                            <field name="description"/>
+                     </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_career" model="ir.actions.act_window">
+        <field name="name">Academic Level</field>
+        <field name="res_model">odoocms.career</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Career here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_career"
+            name="Academic Level"
+            parent="menu_odoocms_organization_structure"
+            action="action_odoocms_career"
+            sequence="50"/>
+
+    <!--  groups="odoocms.group_cms_manager" -->
+
+</odoo>

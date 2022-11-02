@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Templates for Batch Entry Test -->
+        <record id="mail_template_batch_entry_test_ind" model="mail.template">
+            <field name="name">Batch Entry Test: Confirmation Email</field>
+            <field name="model_id" ref="odoocms_admission.model_odoocms_application"/>
+            <field name="subject">IAC Admission Test (Online) Roll Number Slip</field>
+            <field name="email_from">cms@uom.edu.pk</field>
+            <field name="email_to">${object.email | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Dear ${object.first_name}
+                    </p>
+                    <br>
+                    </br>
+                    <p>
+                        Thank you for applying to the Institute for Art and Culture (IAC).Your Admission Test Roll
+                        Number is ${object.roll_number} for Fall Session 2022.
+                    </p>
+                    <br></br>
+                    <p>
+                        Note:
+                    </p>
+                    <br></br>
+                    <p>
+                        1: An admission test link to take the online admission test will be sent via email on .
+                    </p>
+                    <br></br>
+                    <p>
+                        2: APTITUDE TEST is required for all the degree programs. Candidates applying for the Bachelor in
+                        Architecture, Interior Design, Fine Arts, Graphic Design, Textile, and Fashion Design are
+                        required to take ADDITIONAL TEST FOR CREATIVITY.
+                    </p>
+                    <br></br>
+                    <p>
+                        Please find hereby the Instructions for Creativity Test
+                    </p>
+                    <br>
+                    </br>
+                    <p>
+                        1: Test will be conducted on the Interview Dates ().
+                        Students are required to give the Drawing/Creativity Test before appearing for the Interview.
+                    </p>
+                    <br></br>
+                    <p>
+                        2: Kindly bring A4 Size White Paper along with Lead Pencils (B, 2B), Pencil Sharpener, and Eraser
+                        for Creativity Test.
+                    </p>
+                    <br></br>
+                    <p>
+                        Candidates are advised to visit the IAC Official Website www.iac.edu.pk for updates. For any
+                        other queries, please reach out to our admissions team on our UAN number (042) 111-111-822.
+                    </p>
+                    <br></br>
+                    <p>
+                        Regards,
+                        The Admission Team
+                        Institute for Art and Culture (IAC)
+                        7.5 km, Main Raiwind Road, Lahore
+                    </p>
+                </div>
+            </field>
+<!--            <field name="user_signature" eval="False"/>-->
+<!--            <field name="auto_delete" eval="False"/>-->
+        </record>
+
+    </data>
+</odoo>

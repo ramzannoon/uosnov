@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_student_project" model="ir.sequence">
+            <field name="name">Student Project</field>
+            <field name="code">odoocms.student.project</field>
+            <field name="prefix">PRO-</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>
+

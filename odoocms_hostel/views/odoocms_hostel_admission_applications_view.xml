@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_hostel_admission_application_form" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.admission.application.form</field>
+        <field name="model">odoocms.hostel.admission.application</field>
+        <field name="arch" type="xml">
+            <form string="Hostel Admission Applications">
+                <header>
+                    <button name="action_approve" type="object" class="oe_highlight" string="Approve" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                    <button name="action_reject" type="object" class="oe_highlight" string="Rejected" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tuition_invoice_paid" required="1"/>
+                        </group>
+                        <group>
+                            <field name="nust_registration_date" string="REG DATE"/>
+                        </group>
+
+                        <group>
+                            <field name="application_type" required="1"/>
+                        </group>
+                        <group/>
+
+                        <!--  Student  -->
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                   placeholder="Student" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="student_name"/>
+                            <field name="student_code"/>
+                            <field name="birth_date"/>
+                            <field name="gender"/>
+                            <field name="merit_no"/>
+                            <field name="cnic"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                            <field name="phone"/>
+                            <field name="domicile_id"/>
+                        </group>
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <field name="session_id"/>
+                            <field name="career_id"/>
+                            <field name="program_id"/>
+                            <field name="institute_id"/>
+                            <field name="campus_id"/>
+                            <field name="discipline_id"/>
+                            <field name="term_id"/>
+                            <field name="semester_id"/>
+                            <field name="batch_id"/>
+                        </group>
+
+                        <!--  Faculty  -->
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <field name="faculty_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_faculty_form'}"
+                                   placeholder="Faculty" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="faculty_name"/>
+                            <field name="faculty_code"/>
+                            <field name="faculty_birth_date"/>
+                            <field name="faculty_gender"/>
+                            <field name="faculty_cnic"/>
+                            <field name="faculty_email"/>
+                            <field name="faculty_mobile"/>
+                            <field name="faculty_phone"/>
+                        </group>
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <field name="faculty_term_id"/>
+                        </group>
+
+                        <!--  Student  -->
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <label for="per_street" string="Present Address"/>
+                            <div name="div_per_address">
+                                <field name="per_street" placeholder="Street..."/>
+                                <field name="per_street2" placeholder="Street2"/>
+                                <div class="address_format">
+                                    <field name="per_city" placeholder="City" style="width: 40%%"/>
+                                    <field name="per_state_id" class="oe_no_button" placeholder="State"
+                                           style="width: 37%%" options='{"no_open": True}'/>
+                                    <field name="per_zip" placeholder="ZIP" style="width: 20%%"/>
+                                </div>
+                                <field name="per_country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
+                            </div>
+                        </group>
+
+                        <!--  Faculty  -->
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <label for="per_street" string="Present Address"/>
+                            <div name="div_per_address">
+                                <field name="faculty_per_street" placeholder="Street..."/>
+                                <field name="faculty_per_street2" placeholder="Street2"/>
+                                <div class="address_format">
+                                    <field name="faculty_per_city" placeholder="City" style="width: 40%%"/>
+                                    <field name="faculty_per_state_id" class="oe_no_button" placeholder="State"
+                                           style="width: 37%%" options='{"no_open": True}'/>
+                                    <field name="faculty_per_zip" placeholder="ZIP" style="width: 20%%"/>
+                                </div>
+                                <field name="faculty_per_country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
+                            </div>
+                        </group>
+
+                        <group>
+                            <label for="temp_street" string="Temporary Address"/>
+                            <div name="div_temp_address">
+                                <field name="temp_street" placeholder="Street..."/>
+                                <field name="temp_street2" placeholder="Street2"/>
+                                <div class="address_format">
+                                    <field name="temp_city" placeholder="City" style="width: 40%%"/>
+                                    <field name="temp_state_id" class="oe_no_button" placeholder="State"
+                                           style="width: 37%%" options='{"no_open": True}'/>
+                                    <field name="temp_zip" placeholder="ZIP" style="width: 20%%"/>
+                                </div>
+                                <field name="temp_country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
+                            </div>
+                        </group>
+                        <!--  Student  -->
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <label for="emergency_contact" string="Emergency Contact"/>
+                            <div name="div_address">
+                                <field name="emergency_contact" placeholder="Name..."/>
+                                <field name="emergency_mobile" placeholder="Mobile"/>
+                                <field name="emergency_email" placeholder="Email"/>
+                                <field name="emergency_address" placeholder="Address..."/>
+                                <field name="emergency_city" placeholder="City"/>
+                            </div>
+                        </group>
+
+                        <!--  Faculty  -->
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <label for="emergency_contact" string="Emergency Contact"/>
+                            <div name="div_address">
+                                <field name="faculty_emergency_contact" placeholder="Name..."/>
+                                <br/>
+                                <field name="faculty_emergency_mobile" placeholder="Mobile"/>
+                                <br/>
+                                <field name="faculty_emergency_address" placeholder="Address..."/>
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="father_job_location"/>
+                            <field name="guardian_occupation"/>
+                        </group>
+
+                        <group colspan="4" string="Parent Data"/>
+
+                        <!--  Student  -->
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <field name="father_name"/>
+                            <field name="occupation"/>
+                            <field name="father_cnic"/>
+                            <field name="father_mobile"/>
+                        </group>
+                        <group attrs="{'invisible':[('application_type','=', 'faculty')]}">
+                            <field name="father_residence_phone" string="Residence Phone"/>
+                            <field name="father_email"/>
+                            <field name="mother_mobile"/>
+                            <field name="office_no"/>
+                        </group>
+
+                        <!--  Faculty  -->
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <field name="faculty_father_name"/>
+                            <field name="faculty_occupation"/>
+                            <field name="faculty_father_cnic"/>
+                            <field name="faculty_father_mobile"/>
+                        </group>
+                        <group attrs="{'invisible':[('application_type','=', 'student')]}">
+                            <field name="faculty_father_residence_phone" string="Residence Phone"/>
+                            <field name="faculty_father_email"/>
+                            <field name="faculty_mother_mobile"/>
+                            <field name="faculty_office_no"/>
+                        </group>
+
+                        <!--                        <group colspan="4" string="Hostel &amp; Spouse Information"/>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="hostel_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+                        <!--                            <field name="room_type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+                        <!--                            <field name="room_id" domain="[('hostel_id','=',hostel_id),('room_type', '=', room_type)]"-->
+                        <!--                                   options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <field name="spouse_name"/>-->
+                        <!--                            <field name="spouse_cnic"/>-->
+                        <!--                            <field name="spouse_mobile"/>-->
+                        <!--                            <field name="child_no"/>-->
+                        <!--                        </group>-->
+
+                        <group colspan="4" string="Spouse Information"/>
+                        <group>
+                            <field name="spouse_name"/>
+                            <field name="spouse_cnic"/>
+                        </group>
+                        <group>
+                            <field name="spouse_mobile"/>
+                            <field name="child_no"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="orphan" widget="checkbox"/>
+                            <field name="shaheed" widget="checkbox"/>
+                            <field name="undertaking" widget="checkbox"/>
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Relatives/Visitors" name="visitors">
+                            <field name="visitor_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="cnic_no"/>
+                                    <field name="relation_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="admission_application_id" invisible="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                            </group>
+                                            <group>
+                                                <field name="cnic_no"/>
+                                                <field name="relation_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Special Information" name="visitors">
+                            <field name="special_info_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="student_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" invisible="1"/>
+                                    <field name="name" invisible="1"/>
+                                    <field name="info_type"/>
+                                    <field name="date"/>
+                                    <field name="remarks"/>
+                                    <field name="state"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="name"/>
+                                                <field name="hostel_adm_application_id" invisible="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                            </group>
+                                            <group>
+                                                <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                <field name="date"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="remarks"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="Medical Records" name="medical_records">
+                            <group>
+                                <group>
+                                    <field name="blood_group"/>
+                                </group>
+                                <group>
+                                    <field name="any_psychiatrists_problem"/>
+                                </group>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="any_medical_history"/>
+                                    <field name="regularly_taken_medicine" attrs="{'invisible':[('any_medical_history','=',False)]}"/>
+                                </group>
+                                <group>
+                                    <field name="disease_detail" attrs="{'invisible':[('any_medical_history','=',False)]}" placeholder="Disease Details...."/>
+                                </group>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="disability"/>
+                                </group>
+                                <group>
+                                    <field name="disability_history" attrs="{'invisible':[('disability','=',False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_admission_applications_tree" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.admission.applications.tree</field>
+        <field name="model">odoocms.hostel.admission.application</field>
+        <field name="arch" type="xml">
+            <tree string="Hostel Admission Applications">
+                <field name="sequence" widget="handle"/>
+                <field name="create_date" string="Create On"/>
+                <field name="name"/>
+                <field name="application_type" invisible="0"/>
+                <field name="student_id" optional="hide" attrs="{'invisible':[('application_type','=', 'faculty')]}"/>
+                <field name="student_name" attrs="{'invisible':[('application_type','=', 'faculty')]}"/>
+                <field name="student_code" attrs="{'invisible':[('application_type','=', 'faculty')]}"/>
+                <field name="faculty_id" optional="hide" attrs="{'invisible':[('application_type','=', 'student')]}"/>
+                <field name="faculty_name" attrs="{'invisible':[('application_type','=', 'student')]}"/>
+                <field name="faculty_code" attrs="{'invisible':[('application_type','=', 'student')]}"/>
+                <field name="cnic"/>
+                <field name="email" optional="1"/>
+                <field name="father_name"/>
+                <field name="father_income" optional="hide"/>
+                <field name="guardian_name" optional="hide"/>
+                <field name="occupation" string="Father Profession" optional="1"/>
+                <field name="birth_date"/>
+                <field name="domicile_id"/>
+                <field name="merit_no"/>
+                <field name="gender"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="institute_code"/>
+                <field name="program_id" optional="hide"/>
+                <field name="term_id" optional="1"/>
+                <field name="institute_id" optional="1"/>
+                <field name="discipline_id"/>
+                <field name="campus_id" optional="1"/>
+                <field name="semester_id" optional="1"/>
+                <field name="orphan" optional="hide"/>
+                <field name="shaheed" optional="hide"/>
+                <field name="any_medical_history" optional="hide"/>
+                <field name="disability_history" optional="hide"/>
+                <field name="blood_group" optional="hide"/>
+                <field name="any_psychiatrists_problem" optional="hide"/>
+                <field name="per_street" optional="hide" string="Permanent Street"/>
+                <field name="per_street2" optional="hide" string="Permanent Street2"/>
+                <field name="per_city" optional="hide" string="Permanent City"/>
+                <field name="per_country_id" optional="hide" string="permanent Country"/>
+                <field name="temp_street" optional="hide" string="Temporary Street"/>
+                <field name="temp_street2" optional="hide" string="Temporary Street2"/>
+                <field name="temp_city" optional="hide" string="Temporary City"/>
+                <field name="temp_country_id" optional="hide" string="Temporary Country"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_admission_application_search" model="ir.ui.view">
+        <field name="name">odoocms.hostel.admission.application.search</field>
+        <field name="model">odoocms.hostel.admission.application</field>
+        <field name="arch" type="xml">
+            <search string="Admission Applications">
+                <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                <field name="student_id" string="Student"/>
+                <field name="student_name"/>
+                <field name="student_code"/>
+                <field name="father_name"/>
+                <field name="father_income"/>
+                <field name="birth_date"/>
+                <field name="merit_no"/>
+                <field name="gender"/>
+                <field name="session_id"/>
+                <field name="career_id"/>
+                <field name="program_id"/>
+                <field name="term_id"/>
+                <field name="institute_id"/>
+                <field name="institute_code"/>
+                <field name="discipline_id"/>
+                <field name="campus_id"/>
+                <field name="semester_id"/>
+                <separator/>
+                <field name="cnic"/>
+                <field name="birth_date"/>
+                <field name="email"/>
+                <field name="merit_no"/>
+                <field name="mobile"/>
+                <field name="semester_id"/>
+                <field name="semester_id"/>
+                <newline/>
+
+                <group expand="0" string="Group By...">
+                    <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                    <filter name="group_by_academic_session" string="Academic Session" domain="[]" context="{'group_by':'session_id'}"/>
+                    <filter name="group_by_academic_program" string="Program" domain="[]" context="{'group_by':'program_id'}"/>
+                    <separator/>
+                    <filter name="group_by_institute_id" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+                    <filter name="group_by_discipline_id" string="Discipline" domain="[]" context="{'group_by':'discipline_id'}"/>
+                    <filter name="group_by_campus_id" string="Campus" domain="[]" context="{'group_by':'campus_id'}"/>
+                    <filter name="group_by_term_id" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="group_by_semester_id" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                    <separator/>
+                    <filter name="group_by_institute_code" string="School Code" domain="[]" context="{'group_by':'institute_code'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_odoocms_hostel_admission_application_model" model="ir.actions.act_window">
+        <field name="name">Hostel Admission Application</field>
+        <field name="res_model">odoocms.hostel.admission.application</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to New Application.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="odoocms_hostel_admission_application_menu"
+            name="Admission Applications"
+            parent="menu_odoocms_hostel_students_main"
+            action="action_odoocms_hostel_admission_application_model"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="20"/>
+
+</odoo>

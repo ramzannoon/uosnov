@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+    <template id="tickets_helpdesk_recs" name="Tickets Helpdesk Form">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <center>
+                        <h3>Tickets</h3>
+                    </center>
+                    <br/>
+
+                    <div class="container" style="text-align:center">
+                        <div class="row" style="text-align:center">
+                            <center>
+                                <a t-attf-href="/helpdesk/tickets">
+                                    <div style="width: 200px;" class="s_website_form_label"/>
+                                    <button type="button" class="btn btn-primary btn-md o_website_form_send">
+                                        Ticket Request Form
+                                    </button>
+                                </a>
+                            </center>
+
+                        </div>
+                    </div>
+
+
+                    <table class="table-striped table">
+                        <thead style="font-size: 14px;">
+                            <tr>
+                                <h6>
+                                    <b>
+                                        <!--                                        <th>Employee</th>-->
+                                        <th>Title</th>
+                                        <th>Priority</th>
+                                        <th>Reported Date</th>
+                                        <th>Stage</th>
+                                    </b>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <t t-foreach="request.env['helpdesk.ticket'].sudo().search([])"
+                               t-as="helpdesk">
+                                <!--                                ('employee_id','=',request.env.user.name),-->
+                                <tr>
+
+                                    <td>
+                                        <span t-esc="helpdesk.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="helpdesk.priority=='0'">
+                                            <p>low</p>
+                                        </t>
+                                        <t t-if="helpdesk.priority=='1'">
+                                            <p>medium</p>
+
+                                        </t>
+
+                                        <t t-if="helpdesk.priority=='2'">
+                                            <p>high</p>
+
+                                        </t>
+
+                                        <t t-if="helpdesk.priority=='3'">
+                                            <p>very high</p>
+
+                                        </t>
+
+                                    </td>
+                                    <td>
+                                        <span t-esc="helpdesk.create_date.date()"/>
+                                    </td>
+
+                                    <td>
+                                        <span t-esc="helpdesk.stage_id.name"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="tickets_helpdesk_form">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <!--                    <div class="col-md-12">-->
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <form action="/helpdesk/tickets/submit">
+                        <center>
+                            <h1>Tickets</h1>
+                        </center>
+                        <br></br>
+                        <div class="form-group">
+                            <label for="name">Title :</label>
+                            <input type="text" class="form-control" name="name"
+                                   id="name"
+                                   required=""/>
+                        </div>
+
+                        <br></br>
+
+                        <div>
+                            <label for="date">Department:</label>
+                            <select name="department_id" t-attf-class="form-control s_website_form_input"
+                                    id="department_id">
+                                <option t-att-disabled="readonly" value="">None</option>
+                                <t t-foreach="department_id" t-as="department">
+                                    <option t-att-value="department.id"
+                                            selected="true">
+                                        <span t-esc="department.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <br></br>
+
+                        <div class="form-group"
+                             data-type="text" data-name="Field">
+                            <label for="priority_label" class="control-label">Priority</label>
+                            <select id="priority" name="priority" class="form-control link-style"
+                                    required="required">
+                                <option value="0">Low</option>
+                                <option value="1">Medium</option>
+                                <option value="2">High</option>
+                                <option value="3">Very High</option>
+                            </select>
+                        </div>
+
+
+                        <br></br>
+
+                        <div class="form-group"
+                             data-type="text" data-name="Field">
+                            <label for="name">Description :</label>
+                            <textarea class="form-control s_website_form_input"
+                                      id="description" name="description" type="text" required=""/>
+                        </div>
+
+                        <br></br>
+                        <center>
+                            <a t-attf-href="/helpdesk/tickets/submit" role="button">
+                                <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                    Submit
+                                </button>
+                            </a>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="tickets_helpdesk_submit" name="Tickets Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            Ticket Created Successfully.
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <a t-attf-href="/helpdesk/tickets/back">
+                        <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                            Back
+                        </button>
+                    </a>
+                    <br></br>
+                </center>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="purchase_request_recs" name="Purchase Form">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <center>
+                        <h3>Purchase Request</h3>
+                    </center>
+                    <br/>
+
+                    <div class="container" style="text-align:center">
+                        <div class="row" style="text-align:center">
+                            <center>
+                                <a t-attf-href="/purchase/request/form">
+                                    <div style="width: 200px;" class="s_website_form_label"/>
+                                    <button type="button" class="btn btn-primary btn-md o_website_form_send">
+                                        Purchase Request Form
+                                    </button>
+                                </a>
+                            </center>
+
+                        </div>
+                    </div>
+
+                    <table class="table-striped table">
+                        <thead style="font-size: 14px;">
+                            <tr>
+                                <h6>
+                                    <b>
+                                        <th>Employee</th>
+                                        <th>Requisition Action</th>
+                                        <th>Request Date</th>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Of Measure</th>
+                                    </b>
+                                </h6>
+                            </tr>
+                        </thead>
+                        <t t-foreach="request.env['material.purchase.requisition'].sudo().search([('employee_id','=',request.env.user.name)])"
+                           t-as="purchase">
+                            <!--                                ('employee_id','=',request.env.user.name),-->
+                            <tr>
+                                <td>
+                                    <span t-esc="purchase.employee_id.name"/>
+                                </td>
+
+                                <td>
+                                    <span t-esc="purchase.requisition_line_ids.requisition_type"/>
+                                </td>
+
+                                <td>
+                                    <span t-esc="purchase.request_date"/>
+                                </td>
+
+                                <td>
+                                    <span t-esc="purchase.requisition_line_ids.product_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="purchase.requisition_line_ids.qty"/>
+                                </td>
+                                <td>
+                                    <span t-esc="purchase.requisition_line_ids.uom.name"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </table>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="purchase_request_form_template">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/employee/dashboard">
+                                    <i class="material-icons">Home</i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <form action="/purchase/request/form/submit">
+                        <center>
+                            <h1>Material Request</h1>
+                        </center>
+                        <br></br>
+                        <div>
+                            <label for="date">Product:</label>
+                            <select name="product_id" t-attf-class="form-control s_website_form_input"
+                                    id="product_id">
+                                <t t-foreach="product_id" t-as="product">
+                                    <option t-att-value="product.id"
+                                            selected="true">
+                                        <span t-esc="product.name"/>
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+                        <br></br>
+                        <div class="form-group">
+                            <label for="name">Quantity:</label>
+                            <input type="text" class="form-control" name="product_uom_qty" id="product_uom_qty"
+                                   required="true"/>
+                        </div>
+                        <br></br>
+                        <div class="form-group"
+                             data-type="text" data-name="Field">
+                            <label for="name">Note :</label>
+                            <textarea class="form-control s_website_form_input"
+                                      id="note" name="note" type="text"/>
+                        </div>
+
+                        <center>
+                            <a t-attf-href="/purchase/request/form/submit" role="button">
+                                <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                    Submit
+                                </button>
+                            </a>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+    <template id="purchase_request_form_submit" name="purchase Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="alert alert-success">
+                            Material Request Created Successfully.
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <a t-attf-href="/purchase/request/form">
+                        <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                            Back
+                        </button>
+                    </a>
+                    <br></br>
+                </center>
+            </div>
+        </t>
+        <style>body{ background: #e1e4f0; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #e1e4f0; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #e1e4f0; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #e1e4f0; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1a3399; }
+        </style>
+    </template>
+
+
+</odoo>

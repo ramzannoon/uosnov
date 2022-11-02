@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_generate_timetable_roaster_form" model="ir.ui.view">
+			<field name="name">odoocms.generate.attendance.roaster.form</field>
+			<field name="model">odoocms.generate.attendance.roaster</field>
+			<field name="arch" type="xml">
+				<form string="Generate Attendance Roaster">
+					<group>
+						<group>
+							<field name="date_class" required="1"/>
+							<field name="date_class_to" required="1"/>
+						</group>
+						<group>
+							<field name="term_id" widget="selection" required="1"/>
+							<field name="level" required="1"/>
+						</group>
+					</group>
+					<group>
+                            <field name="batch_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'batch')], 'required': [('level','=','batch')]}">
+                                <tree class="tree_no_open">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="department_id"/>
+                                    <field name="program_id"/>
+                                </tree>
+                            </field>
+                            <field name="program_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'program')], 'required': [('level','=','program')]}">
+                                <tree class="tree_no_open">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="career_id"/>
+                                    <field name="department_id"/>
+                                    <field name="discipline_id"/>
+                                </tree>
+                            </field>
+                            <field name="department_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'department')], 'required': [('level','=','department')]}">
+                                <tree class="tree_no_open">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="institute_id"/>
+                                </tree>
+                            </field>
+                            <field name="institute_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'institute')], 'required': [('level','=','institute')]}">
+                                <tree class="tree_no_open">
+                                    <field name="code"/>
+                                    <field name="name" string="Name"/>
+                                    <field name="campus_id"/>
+                                </tree>
+                            </field>
+                            <field name="career_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'career')], 'required': [('level','=','career')]}">
+                                <tree class="tree_no_open">
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <field name="class_ids"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}"
+                                   attrs="{'invisible': [('level','!=', 'class')], 'required': [('level','=','class')]}">
+                                <tree class="tree_no_open">
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field>
+                        </group>
+					<footer>
+						<button name="generate_roaster" string="Generate Classes" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_odoocms_generate_attendance_roaster" model="ir.actions.act_window">
+            <field name="name">Generate Attendance Roaster</field>
+            <field name="res_model">odoocms.generate.attendance.roaster</field>
+            <field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+
+		<menuitem
+                id="menu_odoocms_generate_attendance_roaster"
+                name="Generate Attendance Roaster"
+                parent="menu_odoocms_class_attendance_root"
+                action="action_odoocms_generate_attendance_roaster"
+				sequence="30"/>
+
+		
+    </data>
+</odoo>

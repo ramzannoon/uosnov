@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.actions.server" id="mass_reject_students">
+            <field name="name">Reject Students</field>
+            <field name="model_id" ref="model_odoocms_application"/>
+            <field name="binding_model_id" ref="model_odoocms_application" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.reject_application()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="mass_create_students">
+            <field name="name">Create Students</field>
+            <field name="model_id" ref="model_odoocms_application"/>
+            <field name="binding_model_id" ref="model_odoocms_application" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.create_student()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="mass_send_for_verification">
+            <field name="name">Send for Verification</field>
+            <field name="model_id" ref="model_odoocms_application"/>
+            <field name="binding_model_id" ref="model_odoocms_application" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.send_to_verify()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="mass_verify_application">
+            <field name="name">Verify application</field>
+            <field name="model_id" ref="model_odoocms_application"/>
+            <field name="binding_model_id" ref="model_odoocms_application" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.application_verify()
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="mass_create_user">
+            <field name="name">Create Applicant User</field>
+            <field name="model_id" ref="model_odoocms_application"/>
+            <field name="binding_model_id" ref="model_odoocms_application" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = records.create_application_user()
+            </field>
+        </record>
+
+    </data>
+</odoo>

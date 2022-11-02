@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_class_grade_form_academic" model="ir.ui.view">
+            <field name="name">odoocms.class.grade.form.academic</field>
+            <field name="model">odoocms.class.grade</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_grade_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                    <button name="assign_grades" type="object"
+                            class="oe_highlight" string="Assign Grades"
+                            invisible="context.get('dbs',False) or context.get('disposal',False)"
+                            attrs="{'invisible': [('state','not in',('current'))]}"/>
+                    <button name="unlock_class" type="object"
+                            class="oe_highlight" string="Unlock"
+                            invisible="context.get('dbs',False) or context.get('disposal',False)"
+                            attrs="{'invisible': [('state','not in',('lock'))]}"/>
+                    <button name="submit_result" type="object"
+                            invisible="context.get('dbs',False) or context.get('disposal',False)"
+                            attrs="{'invisible': ['|',('grade_assigned', '=', False),('state','not in',('lock'))]}"
+                            class="oe_highlight" string="Submit Result"/>
+                    <button name="dbs_approve_reload" type="object"
+                            invisible="not context.get('dbs',False)"
+                            attrs="{'invisible': ['|','|',
+                                ('state','!=','submit'),('dbs_id','=',False),('dbs_action','!=','new')
+                            ]}"
+                            class="oe_highlight" string="Approve"/>
+                    <button name="revisit_result" type="object"
+                            invisible="not context.get('dbs',False)"
+                            attrs="{'invisible': ['|','|',
+                                ('state','!=','submit'),('dbs_id','=',False),('dbs_action','!=','new')
+                            ]}"
+                            string="Revise"/>
+                    <button name="fbs_approve_reload" type="object"
+                            invisible="not context.get('fbs',False)"
+                            attrs="{'invisible': ['|','|',
+                                ('state','!=','approval'),('fbs_id','=',False),('fbs_action','!=','new')
+                            ]}"
+                            class="oe_highlight" string="Approve"/>
+                    <button name="revisit_result" type="object"
+                            invisible="not context.get('fbs',False)"
+                            attrs="{'invisible': ['|','|',
+                                ('state','!=','approval'),('fbs_id','=',False),('fbs_action','!=','new')
+                            ]}"
+                            string="Revise"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="assign_grade_option"/>
+                    <field name="grade_assigned" invisible="1"/>
+                    <field name="dbs_id" invisible="1"/>
+                    <field name="dbs_action" invisible="1"/>
+                    <field name="fbs_id" invisible="1"/>
+                    <field name="fbs_action" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='grade_staff_id']" position="after">
+                    <field name="grade_method_id"
+                        attrs="{'readonly': [('state','not in',('draft','current','lock'))]}"
+                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    <field name="grade_calculation_date"/>
+                    <field name="grade_upload_date"/>
+                    <field name="grade_upload_date2"/>
+                </xpath>
+
+                <group name="one" position="after">
+                    <div attrs="{'invisible': [('plotly_error','=','no')]}">
+                        <field name="plotly_error" nolabel="1"/>
+                    </div>
+                    <div>
+                        <field name="plotly_chart" widget="plotly_chart" nolabel="1"/>
+                    </div>
+                </group>
+                <page name='primary_classes' position="before">
+                    <page name="students" string="Students">
+                        <field name="registration_ids" nolabel="1">
+                            <tree name="students" string="Students" edit="false" delete="false" create="false">
+                                <field name="student_id"/>
+                                <field name="program_id"/>
+                                <field name="session_id"/>
+                                <field name="normalized_marks" string="Obtained Marks"/>
+                                <field name="grade"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="histo" string="Histogram">
+                        <field name="histo_ids" nolabel="1">
+                            <tree name="histo" string="Histogram" edit="true" delete="false" create="false">
+                                <field name="name"/>
+                                <field name="low_per"/>
+                                <field name="high_per"/>
+                                <field name="cnt"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+
+            </field>
+        </record>
+
+
+        <record id="view_odoocms_class_primary_form_academic" model="ir.ui.view">
+            <field name="name">odoocms.class.primary.form.academic</field>
+            <field name="model">odoocms.class.primary</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_primary_form"/>
+            <field name="arch" type="xml">
+                 <field name="grade_class_id" position="attributes">
+                    <attribute name="context">{'dbs':False}</attribute>
+                </field>
+                <xpath expr="//field[@name='registration_ids']/tree/field[@name='term_id']" position="after">
+                    <field name="total_marks"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_odoocms_class_form_academic" model="ir.ui.view">
+            <field name="name">odoocms.class.form.academic</field>
+            <field name="model">odoocms.class</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_form"/>
+            <field name="arch" type="xml">
+<!--                <header position="inside">-->
+
+<!--                    &lt;!&ndash;                    <button name="submit_result" type="object"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        attrs="{'invisible': ['|',('grade_assigned', '=', False),('state','!=','current')]}"&ndash;&gt;-->
+<!--                    &lt;!&ndash;                        class="oe_highlight" string="Submit Result"/>&ndash;&gt;-->
+<!--                </header>-->
+                <xpath expr="//group[@name='components']" position="before">
+                    <group>
+                        <field name="have_assessment" invisible="1"/>
+                        <field name="assessment_template_id"
+                               attrs="{'invisible': [('have_assessment','=',True)]}"
+                               options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+
+                </xpath>
+                <!--<xpath expr="//field[@name='study_scheme_line_id']" position="after">
+                   <field name="grade_calculation_date" />
+                   <field name="grade_upload_date" />
+                    <field name="grade_upload_date2" />
+               </xpath>-->
+                <xpath expr="//tree[@name='students']/field[@name='term_id']" position="after">
+                     <field name="total_marks" string="Marks"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='other']" position="before">
+                    <page string="Assessment Types" name="assessment_types">
+                        <group>
+                            <field name="assessment_component_ids" nolabel="1"
+                                   attrs="{'readonly': [('state','=','lock')]}">
+                                <tree editable="bottom">
+                                    <field name="assessment_type_id"
+                                        domain="[('template_id','=',parent.assessment_template_id)]"
+                                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                    <field name="weightage"/>
+                                    <field name="min" optional="show"/>
+                                    <field name="max" optional="show"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+
+                    <page string="Assessments" name="academic_activities">
+                        <group>
+                            <field name="assessment_ids" nolabel="1"
+                                   domain="[('parent_id','=',False)]"
+                                   attrs="{'readonly': [('state','=','lock')]}">
+                                <!--                                attrs="{'readonly': ['|',('state','=','lock'),('obe_enable','=',True)]}">-->
+                                <tree string="Assessment Result" editable="bottom" delete="false">
+                                    <field name="can_delete" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="name" required="1"/>
+                                    <field name="code" required="1"/>
+                                    <field name="assessment_component_id" required="1"
+                                        domain="[('class_id','=',parent.id)]"
+                                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                    <field name="date_assessment"/>
+                                    <field name="max_marks"/>
+                                    <field name="weightage"/>
+                                    <field name="average"/>
+                                    <button name="assessment_result" type="object" string="Result"/>
+                                    <button name="unlink" class="fa fa-trash-o" type="object"
+                                        attrs="{'invisible': [('can_delete', '=', False)]}"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <!--         <record id="view_odoocms_student_subject_tree_inherit" model="ir.ui.view">-->
+        <!--            <field name="name">odoocms.student.course.tree,inherit</field>-->
+        <!--            <field name="model">odoocms.student.course</field>-->
+        <!--            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_subject_tree"/>-->
+        <!--            <field name="arch" type="xml">-->
+
+        <!--                <field name="class_id" position="after">-->
+        <!--                    <field name="total_marks"/>-->
+        <!--                    <field name="normalized_marks"/>-->
+        <!--                    <field name="grade"/>-->
+        <!--                    <field name="gpa"/>-->
+        <!--                    <field name="grade_points" string="GP"/>-->
+        <!--                </field>-->
+
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+    </data>
+</odoo>

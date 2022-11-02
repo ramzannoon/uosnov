@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_student_merit_list_wizard_form" model="ir.ui.view">
+            <field name="name">view.student.merit.list.wizard.form</field>
+            <field name="model">student.merit.list.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Student Merit List Wizard">
+                    <group>
+                        <group>
+                            <field name="register_id" required="1"
+                                   options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group>
+                            <field name="merit_register_id" required="1"
+                                   options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group>
+                            <field name="remarks" />
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                   </form>
+                </field>
+        </record>
+
+        <record id="action_student_merit_list_wizard" model="ir.actions.act_window">
+            <field name="name">Student Merit List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">student.merit.list.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+            id="menu_odoocms_student_merit_list_report"
+            name="Merit List Report"
+            parent="menu_odoocms_admission_report"
+            action="action_student_merit_list_wizard"
+            sequence="25"/>
+
+        <act_window
+            id="action_student_merit_list_wizard_admission_reg"
+            name="Merit List Report"
+            res_model="student.merit.list.wizard"
+            binding_model="odoocms.admission.register"
+            binding_views="form"
+            target="new"
+        />
+
+
+    </data>
+</odoo>

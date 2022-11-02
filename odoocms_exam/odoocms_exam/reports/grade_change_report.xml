@@ -1,0 +1,209 @@
+<odoo>
+
+	<template id ="odoocms_exam.grade_change_term_report">
+			<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+                <style>
+                    .grade-change {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    .grade-change td, .grade-change th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    .grade-change tr:nth-child(even){background-color: #f2f2f2;}
+
+                    .grade-change tr:hover {background-color: #ddd;}
+
+                    .grade-change th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    .personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    .personal-info td, .personal-info th {
+                      padding: 3px;
+                    }
+
+                    .personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; border-style: double; padding:10px ">
+
+                    <div class="row">
+                        <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company_id.name" t-if="company_id"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <t t-if="not grade_change">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="grade_change">
+                        <div style="text-align:center">
+                                <span>Department Wise Grade Change Report</span>
+                        </div>
+                        <div class="row" style="margin-top:25px; height:">
+                            <div class="col col-6">
+                                <table class="personal-info">
+                                     <tr>
+                                         <th>Institution:</th> <td><span t-esc="company_id.name"/> </td>
+                                     </tr>
+                                    <tr>
+                                         <th>Term:</th><td><span t-esc="grade_change[0].term_id.name"/></td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+
+                        <table class="grade-change">
+                             <tr>
+                                 <th style="width:8%">Sr. No</th>
+                                 <th style="width:20%">Student</th>
+                                 <th style="tet-align:center; width:30%">Subject</th>
+<!--                                 <th style="tet-align:center; width:20%">Academic Term</th>-->
+                                 <th style="text-align:center;width:10%">Previous Grade</th>
+                                 <th style="text-align:center;width:10%">New Grade</th>
+                                 <th style="text-align:center;width:10%">Date</th>
+                             </tr>
+                             <t t-foreach="grade_change_line" t-as="gr">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="gr_index+1" /></td>
+                                     <td><span t-esc="gr.student_id.name" /></td>
+                                     <td><span t-esc="gr.student_subject_id.class_id.name" /></td>
+                                     <td><span t-esc="gr.prev_grade" /></td>
+                                     <td><span t-esc="gr.grade" /></td>
+                                     <td><span t-esc="gr.date_request" /></td>
+                                 </tr>
+                             </t>
+                         </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id ="odoocms_exam.grade_change_department_report">
+			<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+                <style>
+                    .grade-change {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 100%;
+                        margin-top:15px;
+                    }
+
+                    .grade-change td, .grade-change th {
+                      border: 1px solid #ddd;
+                      padding: 8px;
+                    }
+
+                    .grade-change tr:nth-child(even){background-color: #f2f2f2;}
+
+                    .grade-change tr:hover {background-color: #ddd;}
+
+                    .grade-change th {
+                      padding-top: 12px;
+                      padding-bottom: 12px;
+                      text-align: left;
+                      background-color: #A9A9A9;
+                      color: white;
+                    }
+
+                    .personal-info {
+                      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                      border-collapse: collapse;
+                      width: 95%;
+                      margin-top:15px;
+                        display: inline;
+                    }
+
+                    .personal-info td, .personal-info th {
+                      padding: 3px;
+                    }
+
+                    .personal-info th {
+                      padding-top: 6px;
+                      text-align: left;
+                    }
+
+                </style>
+				<div class="page" style="font-size: 16px; border-style: double; padding:10px ">
+
+                    <div class="row">
+                        <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company_id.name" t-if="company_id"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <t t-if="not grade_change">
+                        <span>No record found</span>
+                    </t>
+                    <t t-if="grade_change">
+                        <div style="text-align:center">
+                                <span>Term Wise Grade Change Report</span>
+                        </div>
+                        <div class="row" style="margin-top:25px; height:">
+                            <div class="col col-6">
+                                <table class="personal-info">
+                                     <tr>
+                                         <th>Institution:</th> <td><span t-esc="company_id.name"/> </td>
+                                     </tr>
+                                    <tr>
+                                         <th>Department:</th><td><span t-esc="grade_change[0].program_id.department_id.name" t-if="grade_change[0].program_id.department_id.name"/></td>
+                                    </tr>
+                                </table>
+                             </div>
+                        </div>
+
+                        <table class="grade-change">
+                             <tr>
+                                 <th style="width:8%">Sr. No</th>
+                                 <th style="width:20%">Student</th>
+                                 <th style="tet-align:center; width:30%">Subject</th>
+                                 <th style="tet-align:center; width:20%">Department</th>
+                                 <th style="text-align:center;width:10%">Previous Grade</th>
+                                 <th style="text-align:center;width:10%">New Grade</th>
+                                 <th style="text-align:center;width:10%">Date</th>
+                             </tr>
+                             <t t-foreach="grade_change_line" t-as="gr">
+                                 <tr style="font-size:12px;">
+                                     <td><span t-esc="gr_index+1" /></td>
+                                     <td><span t-esc="gr.student_id.name" /></td>
+                                     <td><span t-esc="gr.student_subject_id.class_id.name" /></td>
+                                     <td><span t-esc="gr.program_id.department_id.name" t-if="gr.program_id.department_id.name"/></td>
+                                     <td><span t-esc="gr.prev_grade2" /></td>
+                                     <td><span t-esc="gr.grade" /></td>
+                                     <td><span t-esc="gr.date_request" /></td>
+                                 </tr>
+                             </t>
+                         </table>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

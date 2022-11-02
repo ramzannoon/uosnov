@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_profile_head_home" name="">
+
+        <div>
+            <div class="user_heading_menu hidden-print">
+
+            </div>
+            <div class="user_heading_avatar">
+                <div class="thumbnail">
+                    <img t-att-src="image_data_uri(faculty_staff.image_1920)" alt="user" t-if="faculty_staff and faculty_staff.image_1920"/>
+                </div>
+            </div>
+            <div name='staff_profile' class="user_heading_content" style="padding:2px 0;">
+                <h2 class="heading_b uk-margin-bottom ">
+                    <span name="staff_code" class="uk-text-truncate" style="display:block;">
+                        <t t-esc="name"/>
+                        <span t-if="faculty_staff.code">(<t t-esc="faculty_staff.code"/>)</span>
+
+                    </span> <!--profile_edit_fields-->
+                      <input class=" md-input md-color-grey-50  uk-form-width-medium" name="name" type="text"  t-att-value="name" id="name"  style="display:none" />
+                      <!--<span class="sub-heading" t-esc="faculty_staff.employee_id"/>
+
+                     Faculty Staff-->
+                    <span class="sub-heading" ><t t-if="faculty_staff.designation.hr_desig_short_desc" t-esc="faculty_staff.designation.hr_desig_short_desc"/> - <t class="sub-heading" t-if="faculty_staff.institute.name"  t-esc="faculty_staff.institute.name" /></span>
+                    <span class="sub-heading" t-if="faculty_staff.department.name"  t-esc="faculty_staff.department.name" />
+                </h2>
+            </div>
+        </div>
+    </template>
+    <template id="faculty_profile_head" name="">
+
+        <div class="user_heading">
+            <div class="user_heading_menu hidden-print">
+
+            </div>
+            <div class="user_heading_avatar">
+                <div class="thumbnail">
+                    <img t-att-src="image_data_uri(faculty_staff.image_1920)" alt="user" t-if="faculty_staff and faculty_staff.image_1920"/>
+                </div>
+            </div>
+            <div name='staff_profile' class="user_heading_content" style="padding:2px 0;">
+                <h2 class="heading_b uk-margin-bottom ">
+                    <span name="staff_code" class="uk-text-truncate" style="display:block;">
+                        <t t-esc="name"/>
+                        <span t-if="faculty_staff.code">(<t t-esc="faculty_staff.code"/>)</span>
+                    </span>
+                    <!--  <input class="profile_edit_fields md-input md-color-grey-50  uk-form-width-medium" name="f_name" type="text"  t-att-value="name" id="f_name"  style="display:none" />-->
+                    <!--  <span class="sub-heading" t-esc="faculty_staff.employee_id"/>-->
+
+                    <!-- Faculty Staff
+                    <span class="sub-heading" ><t t-esc="faculty_staff.designation.hr_desig_short_desc"/> - <t class="sub-heading"  t-esc="faculty_staff.institute.name" /></span>
+                    <span class="sub-heading"  t-esc="faculty_staff.department.name" />
+                    -->
+                </h2>
+
+                <!-- Faculty Staff
+                <ul class="user_stats">
+                     <li>
+                         <h4 class="heading_a" t-esc="faculty_staff.employed_from"/>
+                         <span class="sub-heading">EMPLOYED FROM</span>
+                     </li>
+                </ul>
+                -->
+            </div>
+        </div>
+    </template>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+    <data>
+        <record id="view_employee_type_form" model="ir.ui.view">
+            <field name="name">employee_type_from</field>
+            <field name="model">employee.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="employee_type_tree" model="ir.ui.view">
+            <field name="name">employee_type_tree</field>
+            <field name="model">employee.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="employee_type_action">
+            <field name="name">Employee Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.type</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="employee_type_menu"
+                  name="Employee Type"
+                  parent="hr.menu_human_resources_configuration"
+                  action="employee_type_action"
+                  sequence="3"/>
+
+    </data>
+    
+</odoo>

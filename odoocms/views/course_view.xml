@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_course_tag_tree" model="ir.ui.view">
+        <field name="name">odoocms.course.tag.tree</field>
+        <field name="model">odoocms.course.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Course Tags">
+                <field name="code"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_course_tag_form" model="ir.ui.view">
+        <field name="name">odoocms.course.tag.form</field>
+        <field name="model">odoocms.course.tag</field>
+        <field name="arch" type="xml">
+            <form string="Course Tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_course_tag" model="ir.actions.act_window">
+        <field name="name">Course Tags</field>
+        <field name="res_model">odoocms.course.tag</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Course Tag here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_course_tree" model="ir.ui.view">
+        <field name="name">odoocms.course.tree</field>
+        <field name="model">odoocms.course</field>
+        <field name="arch" type="xml">
+            <tree string="Course">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="credits"/>
+                <field name="effective_date"/>
+                <field name="stream_id"/>
+                <field name="career_id"/>
+                <field name="CourseID"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_odoocms_course_form" model="ir.ui.view">
+        <field name="name">odoocms.course.form</field>
+        <field name="model">odoocms.course</field>
+        <field name="arch" type="xml">
+            <form string="Syllabus Courses">
+                <sheet>
+                    <group string="Course">
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="credits"/>
+                            <field name="career_id"
+                                options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                        <group>
+                            <field name="stream_id"
+                                options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="coreq_course" domain="[('id','!=',id)]"
+                                options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="tag_ids" widget="many2many_tags"
+                                options="{'color_field': 'color', 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+
+                        <group>
+                            <field name="major_course"/>
+                            <field name="self_enrollment"/>
+                            <field name="effective_date"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="CourseID"/>
+                            <field name="prereq_course"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page name="Course Components" string="Course Components">
+                            <field name="component_lines">
+                                <tree editable="bottom">
+                                    <field name="component_id"/>
+                                    <field name="weightage"/>
+                                    <field name="contact_hours"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="component_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="weightage"/>
+                                        <field name="contact_hours"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="pre_requisite" string="Pre-Requisite">
+                            <group string="Pre Requisit">
+                                <field name="prereq_operator"/>
+                            </group>
+                            <group>
+                                <field name="prereq_ids">
+                                    <tree editable="bottom">
+                                        <field name="prereq_id" domain="[('prereq_course','=',True)]"
+                                            options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                        <field name="effective_date"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="course_id"/>
+                                                <field name="prereq_id"/>
+                                            </group>
+                                            <group>
+                                                <field name="effective_date"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="equivalent_courses" string="Equivalent Courses">
+                            <field name="equivalent_ids">
+                                <tree editable="bottom">
+                                    <field name="equivalent_id" domain="[('id','!=',id)]"
+                                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                    <field name="effective_date"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="course_id"/>
+                                            <field name="equivalent_id"/>
+                                        </group>
+                                        <group>
+                                            <field name="effective_date"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="Descriptions" string="Descriptions">
+                            <group>
+                                <field name="outline" placeholder="Enter outline here"/>
+                                <field name="suggested_books" placeholder="Enter Suggested Book here"/>
+                                <field name="description" placeholder="Enter Description here"/>
+                                <field name="formal_description" placeholder="Enter Formal Description here"/>
+                            </group>
+                        </page>
+                        <page string="Scheme Lines">
+                            <field name="study_scheme_line_ids" readonly="1">
+                                <tree class="tree_no_open">
+                                    <field name="study_scheme_id"/>
+                                    <field name="self_enrollment"/>
+                                    <field name="course_type"/>
+                                    <field name="semester_id"/>
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+        <record id="view_odoocms_course_search" model="ir.ui.view">
+            <field name="name">odoocms.course.search</field>
+            <field name="model">odoocms.course</field>
+            <field name="priority" eval="14"/>
+            <field name="arch" type="xml">
+            <search string="Course">
+                <field name="name" string="Course" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                <field name="CourseID"/>
+                <separator/>
+                <newline />
+                    <group expand="0" string="Group By...">
+                        <filter string="Career" domain="[]" name="career" context="{'group_by':'career_id'}" />
+<!--                        <filter string="Course Tags" domain="[]" name="tags" context="{'group_by':'tag_ids'}" />-->
+
+                    </group>
+
+            </search>
+            </field>
+        </record>
+
+    <record id="action_odoocms_course" model="ir.actions.act_window">
+        <field name="name">Courses</field>
+        <field name="res_model">odoocms.course</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <!--        <field name="search_view_id" ref="view_odoocms_subject_search"/>-->
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Course here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_course_catalogue"
+            name="Course Catalogue"
+            parent="menu_odoocms_academic_setup"
+            sequence="30"/>
+            <!-- groups="odoocms.group_cms_manager" -->
+
+    <menuitem
+            id="menu_odoocms_course"
+            name="Courses"
+            parent="menu_odoocms_course_catalogue"
+            action="action_odoocms_course"
+            sequence="5"/>
+
+    <menuitem
+            id="menu_odoocms_course_tag"
+            name="Course Tags"
+            parent="menu_odoocms_course_catalogue"
+            action="action_odoocms_course_tag"
+            sequence="10"/>
+    <!--      groups="odoocms.group_cms_manager"-->
+
+</odoo>

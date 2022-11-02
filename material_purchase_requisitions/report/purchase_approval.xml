@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="purchase_approval_layout">
+            <div class="header">
+                <div class="row" style="width:100%">
+                    <div class="col-3 text-center" style="font-size:12px">
+                        <span>
+                            <t t-if="company.phone">Tel:<span t-field="company.phone"/>,
+                                <br/>
+                            </t>
+                            <t t-if="company.name"><span t-field="company.name"/>,
+                                <br/>
+                            </t>
+                            <t t-if="company.street"><span t-field="company.street"/>,
+                            </t>
+                            <t t-if="company.street2"><span t-field="company.street2"/>,
+                            </t>
+                            <t t-if="company.city"><span t-field="company.city"/>,
+                            </t>
+                            <br/>
+                            <t t-if="company.website"><span t-field="company.website"/>,
+                            </t>
+                        </span>
+                    </div>
+                    <div class="col-6 text-center">
+                        <h4>
+                            <span>
+                                <u>PURCHASE APPROVAL</u>
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="col-3 text-right">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"
+                             style="width:150px;height:60px;"/>
+                    </div>
+                </div>
+                <div style="width:100%; margin-top:18px">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:45%; border-bottom:2px solid black">
+                                <b>Date :</b>
+                                <span t-esc="get_date_format(doc.request_date)"/>
+                            </td>
+                            <td style="width:55%;"/>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:2px solid black">
+                                <b>Department :</b>
+                                <span t-esc="doc.department_id.name"/>
+                            </td>
+                            <td/>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:2px solid black">
+                                <b>Ref # :</b>
+                                <span t-esc="doc.name"/>
+                            </td>
+                            <td/>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-raw="0"/>
+            </div>
+
+            <div class="footer"/>
+        </template>
+
+        <template id="purchase_approval">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="material_purchase_requisitions.purchase_approval_layout">
+                        <style>
+                            div{
+                            width: 100%;
+                            margin-top: 12px;
+                            }
+                            table{
+                            width: 100%;
+                            }
+                            th{
+                            padding: 2px;
+                            }
+                            td{
+                            padding: 2px;
+                            }
+                        </style>
+                        <div class="page" style="font-size:14px">
+                            <div class="text-center" style="margin-top:18px">
+                                <h4>
+                                    <span>
+                                        <u>COMPARATIVE STATEMENT</u>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="text-center">
+                                <table>
+                                    <t t-set="sr" t-value="0"/>
+                                    <t t-set="sr_no" t-value="0"/>
+                                    <t t-set="total_vendors" t-value="total_vendors(doc.requisition_line_ids)"/>
+                                    <tr>
+                                        <th rowspan="3" style="width:3%; border:1px solid black">
+                                            <span><br/>SR.#
+                                            </span>
+                                        </th>
+                                        <th rowspan="3" style="border:1px solid black">
+                                            <span><br/>ITEM NAME
+                                            </span>
+                                        </th>
+                                        <th rowspan="3" style="border:1px solid black">
+                                            <span><br/>SPECIFICATION
+                                            </span>
+                                        </th>
+                                        <th rowspan="3" style="border:1px solid black">
+                                            <span><br/>QTY
+                                            </span>
+                                        </th>
+                                        <th rowspan="3" style="border:1px solid black">
+                                            <span><br/>WARRANTY
+                                            </span>
+                                        </th>
+                                        <t t-foreach="total_vendors" t-as="vendor">
+                                            <t t-set="sr" t-value="sr + 1"/>
+                                            <th colspan="2" style="width:15%; border:1px solid black">
+                                                <t t-esc="sr"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <t t-foreach="total_vendors" t-as="vendor">
+                                            <th colspan="2" style="width:15%; border:1px solid black">
+                                                <t t-esc="vendor.name"/>
+                                            </th>
+                                        </t>
+                                    </tr>
+                                    <tr>
+                                        <t t-foreach="total_vendors" t-as="vendor">
+                                            <th style="border:1px solid black">P/Rate</th>
+                                            <th style="border:1px solid black">Total</th>
+                                        </t>
+                                    </tr>
+                                    <t t-foreach="doc.requisition_line_ids" t-as="pr_line">
+                                        <tr>
+                                            <t t-set="sr_no" t-value="sr_no + 1"/>
+                                            <td style="border:1px solid black">
+                                                <t t-esc="sr_no"/>
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                <t t-esc="pr_line.product_id.name"/>
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                <t t-esc="pr_line.specifications"/>
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                <t t-esc="pr_line.qty"/>
+                                            </td>
+                                            <td style="border:1px solid black">
+                                                <t t-esc="pr_line.warranty"/>
+                                            </td>
+                                            <t t-foreach="total_vendors" t-as="vendor">
+                                                <t t-if="vendor == pr_line.partner_id">
+                                                    <td style="border:1px solid black">
+                                                        <span t-esc="pr_line.cost_price"/>
+                                                    </td>
+                                                    <td style="border:1px solid black">
+                                                        <span t-esc="pr_line.cost_price * pr_line.qty"/>
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <td style="border:1px solid black"/>
+                                                    <td style="border:1px solid black"/>
+                                                </t>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <tr class="text-right">
+                                        <th colspan="5" style="background-color: #8f8f8f; border:1px solid black">TOTAL
+                                            COST
+                                        </th>
+                                        <t t-foreach="total_vendors" t-as="vendor">
+                                            <td colspan="2" style="background-color: #8f8f8f; border:1px solid black">
+                                                <span t-esc="get_amount_total_vendor(doc.requisition_line_ids, vendor)"/>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                    <tr class="text-right">
+                                        <th colspan="5" style="background-color: #8f8f8f; border:1px solid black">MODE
+                                            OF PAYMENT
+                                        </th>
+                                        <t t-foreach="total_vendors" t-as="vendor">
+                                            <td colspan="2" style="background-color: #8f8f8f;border:1px solid black">
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div>
+                                <span>ALL RATES WITHOUT TAXES</span>
+                            </div>
+                            <div style="border:1px solid black;">
+                                <table>
+                                    <tr>
+                                        <th style="width:10%; height: 50px">Selected Vendor :</th>
+                                        <td style="width:90%">
+                                            <span t-esc="get_purchase_order_vendor(doc.purchase_order_ids)"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="border:1px solid black; margin-top: 10px;">
+                                <table>
+                                    <tr>
+                                        <span><b>REMARKS :</b></span>
+                                        <br></br>
+                                        <td>
+                                            <t t-esc="doc.reason"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="page-break-inside: avoid;">
+                                <table class="text-center" style="margin-top: 46px;">
+                                    <tr>
+                                        <th style="color:green">
+                                            <t t-if="doc.procurement_dept_approval and doc.procurement_dept_approval_user">
+                                                <t t-if="doc.procurement_dept_approval_user.signature_image">
+                                                    <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.procurement_dept_approval_user.signature_image)"/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                        <td/>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>(Prepared by)</span>
+                                            <br/>
+                                            <span>Procurement Dep.</span>
+                                        </th>
+                                        <td style="width:80%"/>
+                                    </tr>
+                                </table>
+                                <!--                            </div>-->
+                                <!--                            <div style="margin-top: 38px;">-->
+                                <table class="text-center" style="margin-top: 46px;">
+                                    <tr>
+                                        <th style="color:green">
+                                            <t t-if="doc.department_approval and doc.department_approval_user">
+                                                <t t-if="doc.department_approval_user.signature_image">
+                                                    <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.department_approval_user.signature_image)"/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                        <td/>
+                                        <th style="color:green">
+                                            <t t-if="doc.treasure_approval and doc.treasure_approval_user">
+                                                <t t-if="doc.treasure_approval_user.signature_image">
+                                                    <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.treasure_approval_user.signature_image)"/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>(Head of Administration)</span>
+                                        </th>
+                                        <td style="width:60%"/>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>(Treasure IAC)</span>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <!--                            </div>-->
+                                <!--                            <div style="margin-top: 38px;">-->
+                                <table class="text-center" style="margin-top: 46px;">
+                                    <tr>
+                                        <th style="color:green">
+                                            <t t-if="doc.registrar_approval and doc.registrar_approval_user">
+                                                <t t-if="doc.registrar_approval_user.signature_image">
+                                                    <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.registrar_approval_user.signature_image)"/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                        <td/>
+                                        <th style="color:green">
+                                            <t t-if="doc.pro_vc_approval and doc.pro_vc_approval_user">
+                                                <t t-if="doc.pro_vc_approval_user.signature_image">
+                                                    <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.pro_vc_approval_user.signature_image)"/>
+                                                </t>
+                                            </t>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>(Registrar)</span>
+                                        </th>
+                                        <td style="width:60%"/>
+                                        <th style="width:20%; border-top:1px solid black">
+                                            <span>(Pro-VC)</span>
+                                        </th>
+                                    </tr>
+                                </table>
+                                <t t-if="doc.secretary_approval_user">
+                                    <table class="text-center" style="margin-top: 46px;">
+                                        <tr>
+                                            <th style="color:green">
+                                                <t t-if="doc.registrar_approval and doc.secretary_approval_user">
+                                                    <t t-if="doc.secretary_approval_user.signature_image">
+                                                        <img alt="..." style="max-width:120px" t-att-src="image_data_uri(doc.secretary_approval_user.signature_image)"/>
+                                                    </t>
+                                                </t>
+                                            </th>
+                                            <td/>
+                                            <th/>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:20%; border-top:1px solid black">
+                                                <span>(Seceratery)</span>
+                                            </th>
+                                            <td style="width:60%"/>
+                                            <th style="width:20%;"/>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

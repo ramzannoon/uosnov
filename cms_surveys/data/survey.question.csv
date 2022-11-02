@@ -1,0 +1,329 @@
+id,survey_id,title,question_type,labels_ids_2/id,labels_ids/id
+__export__.survey_question_1_98dae4fc,Faculty Survey,Faculty Survey,Matrix,__export__.survey_label_6_47475868,
+,,,,__export__.survey_label_7_08cc03a4,
+,,,,__export__.survey_label_8_a2a16e3d,
+,,,,__export__.survey_label_9_9f84dc2c,
+,,,,__export__.survey_label_10_41168ae7,
+,,,,__export__.survey_label_11_c79c7c85,
+,,,,__export__.survey_label_12_7be669db,
+,,,,__export__.survey_label_13_62ecf45f,
+,,,,__export__.survey_label_14_5ccda7bf,
+,,,,__export__.survey_label_15_ee235f1e,
+,,,,__export__.survey_label_16_f55d612f,
+,,,,__export__.survey_label_17_4165991e,
+,,,,__export__.survey_label_18_13805c4f,
+,,,,__export__.survey_label_19_a6c99162,
+,,,,,__export__.survey_label_1_93ed2ae3
+,,,,,__export__.survey_label_2_06e8c306
+,,,,,__export__.survey_label_3_da0abd02
+,,,,,__export__.survey_label_4_a8cc10cb
+,,,,,__export__.survey_label_5_c92a5305
+__export__.survey_question_2_91e0d7ec,Faculty Survey,15. What are the best programs / factors currently available in your department that enhance your motivation and job satisfaction?,Multiple Lines Text Box,,
+__export__.survey_question_3_988695c0,Faculty Survey,16. Suggest programs / factors that could improve your motivation and job satisfaction?,Multiple Lines Text Box,,
+__export__.survey_question_7_cc4c49ae,Student Course Evaluation,Student Course Evaluation,Matrix,__export__.survey_label_44_c2cd1c9c,
+,,,,__export__.survey_label_45_90e9c53a,
+,,,,__export__.survey_label_46_917f5bf1,
+,,,,__export__.survey_label_47_39b9e664,
+,,,,__export__.survey_label_48_09906560,
+,,,,__export__.survey_label_49_455dec8f,
+,,,,__export__.survey_label_50_4136ed91,
+,,,,__export__.survey_label_51_8f0cd04f,
+,,,,__export__.survey_label_52_a5d5af1d,
+,,,,__export__.survey_label_53_af539601,
+,,,,__export__.survey_label_54_3a0805c7,
+,,,,__export__.survey_label_55_38ec584e,
+,,,,__export__.survey_label_56_49e75a1e,
+,,,,__export__.survey_label_57_20555ce6,
+,,,,__export__.survey_label_58_333bdf85,
+,,,,,__export__.survey_label_39_88e16ce4
+,,,,,__export__.survey_label_40_b5e4d1a9
+,,,,,__export__.survey_label_41_a9d2569f
+,,,,,__export__.survey_label_42_99b9db0f
+,,,,,__export__.survey_label_43_5de95e63
+__export__.survey_question_8_e0f7daf5,Student Course Evaluation,Your comments (if any):,Multiple Lines Text Box,,
+__export__.survey_question_75_e14d585a,Teacher Evaluation-I,Teacher Evaluation,Matrix,__export__.survey_label_424_4e3f56a1,
+,,,,__export__.survey_label_425_65b5c94e,
+,,,,__export__.survey_label_678_f6328aca,
+,,,,__export__.survey_label_679_82066868,
+,,,,__export__.survey_label_680_9b9cd9e2,
+,,,,__export__.survey_label_681_fdd2b61f,
+,,,,__export__.survey_label_682_cf3c8983,
+,,,,__export__.survey_label_683_11219aea,
+,,,,__export__.survey_label_684_ef072e3e,
+,,,,__export__.survey_label_685_ef19c077,
+,,,,__export__.survey_label_686_71855a21,
+,,,,__export__.survey_label_687_dd4c763a,
+,,,,__export__.survey_label_688_c2671261,
+,,,,__export__.survey_label_689_10361c74,
+,,,,__export__.survey_label_690_7e290f3e,
+,,,,__export__.survey_label_1051_41f4da7e,
+,,,,__export__.survey_label_1052_19a01c67,
+,,,,__export__.survey_label_1053_67347617,
+,,,,__export__.survey_label_1054_e8a31734,
+,,,,__export__.survey_label_1055_d8734883,
+,,,,,__export__.survey_label_419_9649d78e
+,,,,,__export__.survey_label_420_c866d83b
+,,,,,__export__.survey_label_421_aadb9f0f
+,,,,,__export__.survey_label_422_a4b217f9
+,,,,,__export__.survey_label_423_3de8f2cc
+__export__.survey_question_421_e906483b,Survey of Graduating Students,Survey Questions,Matrix,__export__.survey_label_5046_38108373,
+,,,,__export__.survey_label_5047_d2d97825,
+,,,,__export__.survey_label_5048_1c35c725,
+,,,,__export__.survey_label_5049_25e13283,
+,,,,__export__.survey_label_5050_aef3457f,
+,,,,__export__.survey_label_5051_9ee1349e,
+,,,,__export__.survey_label_5052_15f7f0ad,
+,,,,__export__.survey_label_5053_a4676e47,
+,,,,,__export__.survey_label_5031_eede9786
+,,,,,__export__.survey_label_5032_e8d4a39b
+,,,,,__export__.survey_label_5033_a56e6827
+,,,,,__export__.survey_label_5034_044654fc
+,,,,,__export__.survey_label_5035_b967bc31
+__export__.survey_question_422_2af41d31,Survey of Graduating Students,"9. I can now work effectively, on multifaceted and /or multidisciplinary settings",Matrix,__export__.survey_label_5054_d17deacf,
+,,,,__export__.survey_label_5055_c920c836,
+,,,,,__export__.survey_label_5036_0bdc0e6e
+,,,,,__export__.survey_label_5037_97affd3d
+,,,,,__export__.survey_label_5038_c488d0f0
+,,,,,__export__.survey_label_5039_94aa0e17
+,,,,,__export__.survey_label_5040_444a46e6
+__export__.survey_question_423_54d2dec9,Survey of Graduating Students,Professional Training,Matrix,__export__.survey_label_5056_586d437f,
+,,,,__export__.survey_label_5057_a3cdb52b,
+,,,,__export__.survey_label_5058_89d5e466,
+,,,,,__export__.survey_label_5041_f417ffb4
+,,,,,__export__.survey_label_5042_2c7f74a4
+,,,,,__export__.survey_label_5043_c07635ef
+,,,,,__export__.survey_label_5044_4f4c7ee9
+,,,,,__export__.survey_label_5045_617b18e1
+__export__.survey_question_426_b350d8e6,Industrial Visit,What learning objective were achieved during the visit?,Multiple Lines Text Box,,
+__export__.survey_question_427_18f16a73,Industrial Visit,Highlight some key issues that students were able to address during and after the visit?,Multiple Lines Text Box,,
+__export__.survey_question_428_cfcd8c81,Industrial Visit,Were the student able to connect their technical knowledge demonstrated during the visit?,Multiple Lines Text Box,,
+__export__.survey_question_552_de98067a,Faculty Course Review(Non Engineering),a) Content and organization,Matrix,__export__.survey_label_6202_7b2b5b1e,
+,,,,__export__.survey_label_6203_d160a78a,
+,,,,__export__.survey_label_6204_25925949,
+,,,,__export__.survey_label_6205_c1fa676f,
+,,,,__export__.survey_label_6206_31dc65f1,
+,,,,__export__.survey_label_6207_d8709a87,
+,,,,,__export__.survey_label_6187_39ca0a2c
+,,,,,__export__.survey_label_6188_3545b47c
+,,,,,__export__.survey_label_6189_f5acae66
+,,,,,__export__.survey_label_6190_67624ffd
+,,,,,__export__.survey_label_6191_17e7d82e
+__export__.survey_question_553_8eef114a,Faculty Course Review(Non Engineering),b) Intellectual stimulation,Matrix,__export__.survey_label_6208_8a58204c,
+,,,,__export__.survey_label_6209_df3b0b53,
+,,,,__export__.survey_label_6210_36f7d411,
+,,,,__export__.survey_label_6211_7e9dfce8,
+,,,,,__export__.survey_label_6192_cd067689
+,,,,,__export__.survey_label_6193_1e4ff138
+,,,,,__export__.survey_label_6194_1094e0d4
+,,,,,__export__.survey_label_6195_bc09efe6
+,,,,,__export__.survey_label_6196_056af855
+__export__.survey_question_554_4fbaadd5,Faculty Course Review(Non Engineering),c) Facilities and resources,Matrix,__export__.survey_label_6212_7fca5a75,
+,,,,__export__.survey_label_6213_81e450b9,
+,,,,__export__.survey_label_6214_11872acf,
+,,,,__export__.survey_label_6215_44ff01c9,
+,,,,__export__.survey_label_6216_d4b5ad78,
+,,,,__export__.survey_label_6217_2eee5906,
+,,,,,__export__.survey_label_6197_6ee81ab9
+,,,,,__export__.survey_label_6198_78bb5d9c
+,,,,,__export__.survey_label_6199_7578b117
+,,,,,__export__.survey_label_6200_4ef76750
+,,,,,__export__.survey_label_6201_7b651471
+__export__.survey_question_555_4b9ded28,Faculty Course Review(Non Engineering),Overall Remarks (At least 1500 Characters),Multiple Lines Text Box,,
+__export__.survey_question_558_b178a10d,Alumni Survey (Non Engineering),a) Knowledge,Matrix,__export__.survey_label_6288_0b0eeb92,
+,,,,__export__.survey_label_6289_6c8b5f0b,
+,,,,__export__.survey_label_6290_0596df70,
+,,,,__export__.survey_label_6291_6f494ef8,
+,,,,__export__.survey_label_6292_e06b6dd9,
+,,,,__export__.survey_label_6293_d2541f9a,
+,,,,,__export__.survey_label_6263_9f47d3ab
+,,,,,__export__.survey_label_6264_b301d949
+,,,,,__export__.survey_label_6265_1127441c
+,,,,,__export__.survey_label_6266_d7f197a9
+,,,,,__export__.survey_label_6267_8aee360a
+__export__.survey_question_559_51068b8c,Alumni Survey (Non Engineering),b) Communications Skills,Matrix,__export__.survey_label_6294_d1d41249,
+,,,,__export__.survey_label_6295_28a0ef57,
+,,,,__export__.survey_label_6296_b120d18c,
+,,,,,__export__.survey_label_6268_550d0b77
+,,,,,__export__.survey_label_6269_8aa85cae
+,,,,,__export__.survey_label_6270_97869263
+,,,,,__export__.survey_label_6271_75974aed
+,,,,,__export__.survey_label_6272_4654bd9c
+__export__.survey_question_560_fb8fc437,Alumni Survey (Non Engineering),c)  Interpersonal Skills,Matrix,__export__.survey_label_6297_633a75ff,
+,,,,__export__.survey_label_6298_860f71f7,
+,,,,__export__.survey_label_6299_2f852876,
+,,,,__export__.survey_label_6300_c6061ec9,
+,,,,,__export__.survey_label_6273_c7c2fe6f
+,,,,,__export__.survey_label_6274_6edf06e7
+,,,,,__export__.survey_label_6275_f4d06875
+,,,,,__export__.survey_label_6276_55fdde7f
+,,,,,__export__.survey_label_6277_132dac8a
+__export__.survey_question_561_4496d7b2,Alumni Survey (Non Engineering),d) Planning/Management/Leadership Skills,Matrix,__export__.survey_label_6301_628ce893,
+,,,,__export__.survey_label_6302_3df7a13d,
+,,,,__export__.survey_label_6303_225aca30,
+,,,,__export__.survey_label_6304_0700fe62,
+,,,,,__export__.survey_label_6278_c5be5ce7
+,,,,,__export__.survey_label_6279_287dcf25
+,,,,,__export__.survey_label_6280_d9fd0e86
+,,,,,__export__.survey_label_6281_3e5b453b
+,,,,,__export__.survey_label_6282_ece77c72
+__export__.survey_question_562_fbc34ad0,Alumni Survey (Non Engineering),e) Department Status,Matrix,__export__.survey_label_6305_42a8225d,
+,,,,__export__.survey_label_6306_d67b6aea,
+,,,,__export__.survey_label_6307_6ec72246,
+,,,,__export__.survey_label_6308_ca1ad40f,
+,,,,,__export__.survey_label_6283_8c0aa501
+,,,,,__export__.survey_label_6284_1db7dacb
+,,,,,__export__.survey_label_6285_8ee360af
+,,,,,__export__.survey_label_6286_f36bcae3
+,,,,,__export__.survey_label_6287_878ca7e7
+__export__.survey_question_563_2fc1815f,Alumni Survey (Non Engineering),"22. Are you currently employed? If yes then, how satisfied are you with your current role?",Multiple Lines Text Box,,
+__export__.survey_question_564_7a05f111,Alumni Survey (Non Engineering),23. Any suggestion to strengthen the program (e.g. addition of new courses or deletion of old ones)?,Multiple Lines Text Box,,
+__export__.survey_question_565_c5737063,Alumni Survey (Non Engineering),24. Did the school career placement office help you with internship / job?,Multiple Lines Text Box,,
+__export__.survey_question_567_6812df0d,Alumni Survey (Non Engineering),a) Name:,Single Line Text Box,,
+__export__.survey_question_568_b961e54a,Alumni Survey (Non Engineering),b) Name of organization:,Single Line Text Box,,
+__export__.survey_question_569_b9cfec26,Alumni Survey (Non Engineering),c) Position in organization:,Single Line Text Box,,
+__export__.survey_question_570_26b31085,Alumni Survey (Non Engineering),d) Year of graduation:,Single Line Text Box,,
+__export__.survey_question_571_bae0c1ae,Alumni Survey (Non Engineering),e) Email:,Single Line Text Box,,
+__export__.survey_question_572_eed39e8b,Alumni Survey (Non Engineering),f) Phone:,Single Line Text Box,,
+__export__.survey_question_573_469a2a79,Alumni Survey (Non Engineering),g) Employer Information,Multiple Lines Text Box,,
+__export__.survey_question_574_667c8edb,Employer survey (Non Engineering),a) Knowledge,Matrix,__export__.survey_label_6334_74784162,
+,,,,__export__.survey_label_6335_dd07cda5,
+,,,,__export__.survey_label_6336_293859f8,
+,,,,__export__.survey_label_6337_1ad4ed66,
+,,,,__export__.survey_label_6338_59181682,
+,,,,__export__.survey_label_6339_bfe1d2a0,
+,,,,,__export__.survey_label_6309_8ab72379
+,,,,,__export__.survey_label_6310_aeb80f6e
+,,,,,__export__.survey_label_6311_536f92fa
+,,,,,__export__.survey_label_6312_174acbcd
+,,,,,__export__.survey_label_6313_541f4e08
+__export__.survey_question_593_f3c8568b,Research Student Progress Review,Date of admission to the department,Date,,
+__export__.survey_question_594_017f6449,Research Student Progress Review,Date of initiation of research,Date,,
+__export__.survey_question_595_e18c263a,Research Student Progress Review,Date of completion of Course work (if completed),Date,,
+__export__.survey_question_596_c27598ad,Research Student Progress Review,Date of Synopsis Defense,Date,,
+__export__.survey_question_597_55bad4f0,Research Student Progress Review,Number of credit hours completed,Numerical Value,,
+__export__.survey_question_598_895853a1,Research Student Progress Review,Cumulative Grade Point Average (CGPA) secured,Numerical Value,,
+__export__.survey_question_599_638d2959,Research Student Progress Review,Please outline details of progress in your research since your last review (including any research publications):,Multiple Lines Text Box,,
+__export__.survey_question_600_ddc24912,Research Student Progress Review,Comments on the level of supervision received?,Single Line Text Box,,
+__export__.survey_question_601_9b96a851,Research Student Progress Review,What do you plan to achieve over the next 6 months?,Multiple Lines Text Box,,
+__export__.survey_question_602_d5a698ed,Research Student Progress Review,Do you have adequate access to scientific equipment and research material?,Multiple Lines Text Box,,
+__export__.survey_question_575_92d158ea,Employer survey (Non Engineering),b) Communications Skills,Matrix,__export__.survey_label_6340_17fd5b94,__export__.survey_label_6314_e55d0e15
+,,,,__export__.survey_label_6341_7feeaa6f,
+,,,,__export__.survey_label_6342_13f2ae4d,
+,,,,,__export__.survey_label_6315_92f98892
+,,,,,__export__.survey_label_6316_53a70798
+,,,,,__export__.survey_label_6317_89f25808
+,,,,,__export__.survey_label_6318_8b83249c
+__export__.survey_question_576_e4a9ffc1,Employer survey (Non Engineering),c)  Interpersonal Skills,Matrix,__export__.survey_label_6343_1f9d732d,__export__.survey_label_6319_cfea9430
+,,,,__export__.survey_label_6344_3c19a1a9,
+,,,,__export__.survey_label_6345_70d34672,
+,,,,__export__.survey_label_6346_c569a271,
+,,,,__export__.survey_label_6355_2a339c57,
+,,,,__export__.survey_label_6356_1e6e3433,
+,,,,,__export__.survey_label_6320_275fb0f7
+,,,,,__export__.survey_label_6321_a154556c
+,,,,,__export__.survey_label_6322_fe2df367
+,,,,,__export__.survey_label_6323_1213317c
+__export__.survey_question_590_73a32f59,Employer survey (Non Engineering),a) Please make any suggestion that may help us strengthen our programs?,Multiple Lines Text Box,,
+__export__.survey_question_591_10be95ab,Employer survey (Non Engineering),Have you ever participated in a job fair organized by the school? Did you ever employ a student as a result of the participation?,Multiple Lines Text Box,,
+__export__.survey_question_584_88216a01,Employer survey (Non Engineering),a) Name of organization:,Single Line Text Box,,
+__export__.survey_question_583_72a7a2fd,Employer survey (Non Engineering),b) Type of Industry/Business,Single Line Text Box,,
+__export__.survey_question_585_ff0f2301,Employer survey (Non Engineering),c) Number of undergraduate or post graduate students  in your organization,Single Line Text Box,,
+__export__.survey_question_586_b52d0720,Employer survey (Non Engineering),d) How long have these  employee worked for your organization,Single Line Text Box,,
+__export__.survey_question_587_2f9382ef,Employer survey (Non Engineering),e) At what level of their career did these employee join your organization,Single Line Text Box,,
+__export__.survey_question_588_e67ac6f4,Employer survey (Non Engineering),f) What is the current level of this employee,Single Line Text Box,,
+__export__.survey_question_58_507f3f3e,Industry Visit by Faculty (Faculty Feedback),Introduction of the Organization,Multiple Lines Text Box,,
+__export__.survey_question_59_92ebf458,Industry Visit by Faculty (Faculty Feedback),Visit Plan,Multiple Lines Text Box,,
+__export__.survey_question_60_8ee99831,Industry Visit by Faculty (Faculty Feedback),Summary & Findings of Visit,Multiple Lines Text Box,,
+__export__.survey_question_61_cdbf5d73,Industry Visit by Faculty (Faculty Feedback),Needs/Problems Identified,Multiple Lines Text Box,,
+__export__.survey_question_62_eb411157,Industry Visit by Faculty (Faculty Feedback),Research / Industrial / Consultancy Projects Proposed,Multiple Lines Text Box,,
+__export__.survey_question_63_53462517,Industry Visit by Faculty (Faculty Feedback),Trainings/Workshops Proposed,Multiple Lines Text Box,,
+__export__.survey_question_64_7a9ed8a4,Industry Visit by Faculty (Faculty Feedback),Internship/Job Opportunities,Multiple Lines Text Box,,
+__export__.survey_question_65_7521d4f3,Industry Visit by Faculty (Faculty Feedback),Recommendations,Multiple Lines Text Box,,
+__export__.survey_question_100_ad711477,Industry Visit by Faculty (Industry Feedback),Summary of Visit,Multiple Lines Text Box,,
+__export__.survey_question_99_8e7d20e2,Industry Visit by Faculty (Industry Feedback),Visit Plan,Multiple Lines Text Box,,
+__export__.survey_question_102_1236305b,Industry Visit by Faculty (Industry Feedback),Collaboration / Industrial / Consultancy Projects Proposed,Multiple Lines Text Box,,
+__export__.survey_question_103_9b530090,Industry Visit by Faculty (Industry Feedback),Trainings/Workshops Proposed,Multiple Lines Text Box,,
+__export__.survey_question_104_230ba0f6,Industry Visit by Faculty (Industry Feedback),Internship/Job Opportunities,Multiple Lines Text Box,,
+__export__.survey_question_106_c2f079c3,Industry Visit by Faculty (Industry Feedback),Suggestions,Multiple Lines Text Box,,
+__export__.survey_question_106_c2f079c4,Class Audit Report,Areas Being Evaluated,Matrix,__export__.survey_label_1359_6197e846,
+,,,,__export__.survey_label_1360_f6251409,
+,,,,__export__.survey_label_1361_f3817ed3,
+,,,,__export__.survey_label_1362_818c297d,
+,,,,__export__.survey_label_1363_ac779ffa,
+,,,,__export__.survey_label_1364_348502a3,
+,,,,__export__.survey_label_1365_e118c362,
+,,,,__export__.survey_label_1366_d58f0f04,
+,,,,__export__.survey_label_1367_d56a09f5,
+,,,,__export__.survey_label_1368_fb0171c2,
+,,,,__export__.survey_label_1369_3e523690,
+,,,,__export__.survey_label_1370_7a036590,
+,,,,__export__.survey_label_1371_72d5beed,
+,,,,__export__.survey_label_1372_336ff54f,
+,,,,__export__.survey_label_1373_a362bd08,
+,,,,__export__.survey_label_1374_c774a776,
+,,,,__export__.survey_label_1375_d4b0e9be,
+,,,,__export__.survey_label_1376_f225cb98,
+,,,,__export__.survey_label_1377_51cec9c6,
+,,,,__export__.survey_label_1378_3fdee53a,
+,,,,,__export__.survey_label_1354_02ee0e29
+,,,,,__export__.survey_label_1355_eb45c6a6
+,,,,,__export__.survey_label_1356_75c7c53a
+,,,,,__export__.survey_label_1357_829e6f5b
+,,,,,__export__.survey_label_1358_18b04195
+__export__.survey_question_106_c2f07965,Class Audit Report,a. Strong Areas:,Multiple Lines Text Box,,
+__export__.survey_question_106_c2f07966,Class Audit Report,b. Suggestions to Improve: He/She has been advised to:,Multiple Lines Text Box,,
+__export__.survey_question_siva_1359_e1e560b2,SIVA Post Visit Feedback by Faculty,Faculty Post-Visit Feedback,Matrix,__export__.survey_label_5912_72b26892,
+,,,,__export__.survey_label_5913_4a20f5f3,
+,,,,__export__.survey_label_5914_b96f0019,
+,,,,,__export__.survey_label_5910_2acc8b7e
+,,,,,__export__.survey_label_5911_53996431
+__export__.survey_question_siva_1360_1242825f,SIVA Post Visit Feedback by Faculty,Visit Rating,Matrix,__export__.survey_label_5920_00cad3f6,
+,,,,__export__.survey_label_5921_0267374d,
+,,,,__export__.survey_label_5922_2723883b,
+,,,,__export__.survey_label_5923_af48f1be,
+,,,,__export__.survey_label_5924_0c43d701,
+,,,,__export__.survey_label_5925_9ad59774,
+,,,,,__export__.survey_label_5915_e9ff6f23
+,,,,,__export__.survey_label_5916_5d942ede
+,,,,,__export__.survey_label_5917_25fad8de
+,,,,,__export__.survey_label_5918_586cafda
+,,,,,__export__.survey_label_5919_de69a0ad
+__export__.survey_question_siva_1361_8bfa93e6,SIVA Post Visit Feedback by Faculty,How was the conduct of Students?,Single Line Text Box,,
+__export__.survey_question_siva_1362_09ae235c,SIVA Post Visit Feedback by Faculty,Any other suggestion for improving the conduct of the students?,Multiple Lines Text Box,,
+__export__.survey_question_siva_1367_bf296f33,SIVA Post Visit Feedback by Institute,What Learning Objectives were achieved during the visit?,Multiple Lines Text Box,__export__.survey_label_5933_e25bc114,
+,,,,__export__.survey_label_5934_c489cc81,
+,,,,__export__.survey_label_5935_5a2512db,
+,,,,,__export__.survey_label_5926_42baa742
+,,,,,__export__.survey_label_5927_1db19277
+__export__.survey_question_siva_1368_7b280bfc,SIVA Post Visit Feedback by Institute,Highlight some key issues that students were able to address during and after the visit,Multiple Lines Text Box,__export__.survey_label_5936_761ad9c5,
+,,,,__export__.survey_label_5937_74f22479,
+,,,,__export__.survey_label_5938_e77cf6fe,
+,,,,__export__.survey_label_5939_ec630f8a,
+,,,,__export__.survey_label_5940_0db03990,
+,,,,__export__.survey_label_5941_f699bace,
+,,,,,__export__.survey_label_5928_48ed5381
+,,,,,__export__.survey_label_5929_d8ba6ccb
+,,,,,__export__.survey_label_5930_2c364f56
+,,,,,__export__.survey_label_5931_3635567d
+,,,,,__export__.survey_label_5932_d3f24063
+__export__.survey_question_siva_1369_92ecf97b,SIVA Post Visit Feedback by Institute,Were students able to link the technical knowledge demonstrated during the visit with their respective courses and theoretical concepts please elaborate?,Multiple Lines Text Box,,
+__export__.survey_question_siva_1370_f372393e,SIVA Post Visit Feedback by Institute,Elaborate the possible area of collaboration with the visiting company(join research projects / and other specific areas discussed during the visit)?,Multiple Lines Text Box,,
+__export__.survey_question_siva_1372_4d102cee,SIVA Post Visit Feedback by Student,Name of company's ownership?,Single Line Text Box,__export__.survey_label_5949_3ebd44f9,
+,,,,__export__.survey_label_5950_2b1511e4,
+,,,,__export__.survey_label_5951_82460965,
+,,,,,__export__.survey_label_5942_a25c0343
+,,,,,__export__.survey_label_5943_237897bf
+__export__.survey_question_siva_1373_6413b6cd,SIVA Post Visit Feedback by Student,Company,Matrix,__export__.survey_label_5956_d3cf4654,
+,,,,,__export__.survey_label_5944_9e5aaa00
+,,,,,__export__.survey_label_5945_9662b063
+,,,,,__export__.survey_label_5946_1f374a92
+,,,,,__export__.survey_label_5947_081fd1f2
+__export__.survey_question_siva_1374_ee118f00,SIVA Post Visit Feedback by Student,Process Details,Matrix,__export__.survey_label_5961_b98e771a,
+,,,,__export__.survey_label_5962_80a02621,
+,,,,__export__.survey_label_5963_474b471a,
+,,,,__export__.survey_label_5964_b69c1201,
+,,,,__export__.survey_label_5965_45c92ff0,
+,,,,__export__.survey_label_5966_8bd2a9eb,
+,,,,,__export__.survey_label_5958_510e130d
+,,,,,__export__.survey_label_5959_8e9c1ef5
+,,,,,__export__.survey_label_5960_395facc2

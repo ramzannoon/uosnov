@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="fee_receipt_cancel_wiz_view" model="ir.ui.view">
+        <field name="name">fee.receipt.cancel.wiz.form</field>
+        <field name="model">fee.receipt.cancel.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Fee Receipts Cancellation Wizard">
+                <field name="show_detail" invisible="1"/>
+                <group>
+                    <p>
+                        Selected Fee Receipts will be Cancelled.
+                    </p>
+                </group>
+                <group>
+                    <p attrs="{'invisible':[('show_detail','=',True)]}">
+                        <h2>
+                            Selected Records have no Receipt In Draft State, Only Draft State Receipts will be Processed Here
+                        </h2>
+                    </p>
+                </group>
+                <group string="Fee Receipts" attrs="{'invisible':[('show_detail','=',False)]}">
+                    <field name="receipt_ids" nolabel="1" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,'no_create':True,}"/>
+                </group>
+
+                <footer>
+                    <button name="action_cancel_receipt" string="Cancel Receipts" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-sm btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fee_receipt_cancel_wiz" model="ir.actions.act_window">
+        <field name="name">Fee Receipts Cancellation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fee.receipt.cancel.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="groups_id" eval="[(4, ref('odoocms_fee.group_fee_manager')),(4, ref('odoocms_fee.group_fee_coordinator'))]"/>
+
+    </record>
+</odoo>

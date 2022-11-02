@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	
+    	<menuitem id="menu_cms_notification_root"
+              name="CMS Notifications"
+              web_icon="cms_notifications,static/description/icon.png"
+              sequence="1"/>
+
+		<menuitem id="menu_student_recs_c_cms_notification"
+			name="Students"
+			parent="menu_cms_notification_root"
+			action="odoocms.action_odoocms_student"
+			sequence="1"/>            
+
+		<menuitem id="menu_faculty_c_recs_cms_notification"
+			name="Faculty"
+			parent="menu_cms_notification_root"
+			action="odoocms.action_odoocms_faculty_staff"
+			sequence="2"/>            
+
+    	<menuitem id="menu_cms_notification_main"
+              name="Notifications"
+              parent="menu_cms_notification_root"
+              sequence="3"/>
+              
+        <menuitem id="menu_cms_notification_category"
+                  name="Notifications"
+                  parent="menu_cms_notification_main"
+                  action="action_cms_notification"
+                  sequence="1"/>
+                  
+	</data>
+</odoo>

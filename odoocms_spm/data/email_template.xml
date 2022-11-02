@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="email_template" model="mail.template">
+            <field name="name">MileStone Date Limit : Send By Email</field>
+            <field name="model_id" ref="odoocms_student_project_management.model_odoocms_student_project"/>
+<!--            <field name="email_from">${(object.user_id.email_formatted | safe}</field>-->
+<!--            <field name="email_to">${object.email_id}</field>-->
+<!--            <field name="subject">Mile Stone Date Reached (Ref ${object.project_number})</field>-->
+            <field name="body_html" type="html">
+                <p>Dear ${(object.project_number)},<br/><br/>
+                    Good job, you've just created your first e-mail template!<br/></p>
+                Regards,<br/>
+                ${(object.company_id.name)}
+              ></field>
+<!--             make report and add template here-->
+<!--            <field name="report_template" ref="odoocms.report_student_data"></field>-->
+<!--            <field name="report_name">MileStone_${(object.name_seq)}</field>-->
+        </record>
+    </data>
+</odoo>

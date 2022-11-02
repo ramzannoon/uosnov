@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+
+        <template id='faculty_asset' name='Student Portal' inherit_id='web.assets_frontend' active='True'>
+            <xpath expr='.' position='inside'>
+                <script src="/odoocms_faculty_portal/static/js/custom.js"/>
+            </xpath>
+             <xpath expr='<body>' position='inside'>
+                <script src="/odoocms_faculty_portal/static/js/custom.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

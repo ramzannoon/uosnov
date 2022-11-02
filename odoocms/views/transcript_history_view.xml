@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_transcript_history_tree" model="ir.ui.view">
+        <field name="name">odoocms.transcript.history.tree</field>
+        <field name="model">odoocms.transcript.history</field>
+        <field name="arch" type="xml">
+            <tree string="Transcript History">
+                <field name="date"/>
+                <field name="student_id"/>
+<!--                <field name="academic_semester_id"/>-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_transcript_history_form" model="ir.ui.view">
+        <field name="name">odoocms.transcript.history.form</field>
+        <field name="model">odoocms.transcript.history</field>
+        <field name="arch" type="xml">
+            <form string="Subject Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+<!--                            <field name="academic_semester_id"/>-->
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="transcript"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+ <record id="action_odoocms_transcript_history" model="ir.actions.act_window">
+        <field name="name">Transcript History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.transcript.history</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+     <menuitem
+            id="menu_odoocms_transcript"
+            name="Transcript History"
+            parent="menu_odoocms_students_root"
+            action="action_odoocms_transcript_history"
+            sequence="120"/>
+</odoo>

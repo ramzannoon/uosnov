@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <menuitem
+                id="menu_odoocms_registration_root"
+                name="Registration"
+                groups="odoocms.group_cms_manager,odoocms_registration.group_registration_user"
+                web_icon="odoocms_registration,static/description/icon.png"
+                sequence="12"/>
+
+        <menuitem
+                id="menu_odoocms_registration_main"
+                name="Registration"
+                parent="menu_odoocms_registration_root"
+                sequence="20"/>
+
+                <menuitem
+                    id="menu_odoocms_registration_classes"
+                    name="Classes"
+                    parent="menu_odoocms_registration_main"
+                    sequence="10"/>
+
+                <menuitem
+                    id="menu_odoocms_registration_registration"
+                    name="Registration"
+                    parent="menu_odoocms_registration_main"
+                    sequence="20"/>
+
+        <menuitem
+                id="menu_student_request_root"
+                name="Students Requests"
+                parent="menu_odoocms_registration_root"
+                sequence="30"/>
+
+        <menuitem
+                id="menu_odoocms_registration_report"
+                name="Registration Reports"
+                parent="menu_odoocms_registration_root"
+                sequence="150"/>
+
+        <menuitem
+                id="menu_registration_configuration"
+                parent="menu_odoocms_registration_root"
+                name="Configuration"
+                groups="odoocms.group_cms_manager,odoocms_registration.group_registration_manager"
+                sequence="200"/>
+
+<!--        <menuitem-->
+<!--                id="menu_odoocms_academic_root"-->
+<!--                name="Academics"-->
+<!--                groups="odoocms.group_cms_manager,odoocms_registration.group_academic_user"-->
+<!--                web_icon="odoocms_registration,static/description/icon2.png"-->
+<!--                sequence="13"/>-->
+
+<!--        <menuitem-->
+<!--                id="menu_odoocms_academic_main"-->
+<!--                name="Academic Classes"-->
+<!--                parent="menu_odoocms_academic_root"-->
+<!--                sequence="20"/>-->
+
+
+</odoo>

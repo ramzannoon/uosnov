@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_portal_projects" name="Projects">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/project">Project Management</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Projects</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <div class="uk-width-large-1-12">
+                                    <div class="" data-uk-grid-margin="">
+                                        <div class="md-card-content">
+                                            <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                                <li class="uk-active">
+                                                    <a href="#" style="color:#008744;">Active Projects</a>
+                                                </li>
+                                            </ul>
+                                            <ul id="tabs_anim1" class="uk-switcher" style="padding: 0px 0px 0px 22px;">
+                                                <li>
+                                                    <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show"
+                                                         data-uk-grid-margin="" id="hierarchical-show"
+                                                         data-show-delay="280">
+                                                        <t t-if="not projects">
+                                                            <span>No Projects Available</span>
+                                                        </t>
+                                                        <t t-if="projects">
+                                                            <t t-foreach="projects" t-as="project">
+                                                                <div style="padding-left:15px;">
+                                                                    <ul t-attf-class="{{color[project_index]}} md-color-grey-50 md-list md-list-addon md-list-right classCards">
+                                                                        <li>
+                                                                            <a t-attf-href="/faculty/project/detail/id/{{project.id}}"
+                                                                               class="md-list-addon-element">
+                                                                                <i class="md-list-addon-icon material-icons md-color-grey-50"
+                                                                                   data-uk-tooltip="{pos:'top'}"
+                                                                                   title="Open Project">&#xE163;</i>
+                                                                            </a>
+                                                                            <div class="md-list-content">
+                                                                                <span class="md-list-heading"
+                                                                                      t-esc="project.project_title"></span>
+                                                                                <span class="uk-text-small ">
+                                                                                    Project</span>
+                                                                            </div>
+                                                                        </li>
+                                                                        <li>
+                                                                            <div class="md-list-content">
+                                                                                <span class="md-list-heading"
+                                                                                      t-esc="str(project.project_number)[:25]">
+                                                                                </span>
+                                                                                <span class="uk-text-small">Code</span>
+
+                                                                            </div>
+                                                                        </li>
+
+
+                                                                        <li>
+                                                                            <span class="uk-text-small">Completion
+                                                                                Percentage: <t
+                                                                                        t-esc="project.checklist_progress"/>
+                                                                                % </span>
+                                                                            <div t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if project.checklist_progress >=0 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">
+                                                                                <div class="uk-progress-bar"
+
+                                                                                     t-attf-style="width: {{project.checklist_progress}}%;"></div>
+                                                                            </div>
+
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </t>
+                                                        </t>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+            </body>
+        </t>
+    </template>
+    <template id="faculty_portal_project_detail" name="Project Details">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                <link rel="stylesheet"
+                      href="/odoocms_web/static/bowerComponents/select2/dist/css/select2.min.css"/>
+            </t>
+            <body class="sidebar_main_swipe header_full" id="template_body">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <!--                <t t-call="odoocms_faculty_portal.faculty_portal_main_layout"/>-->
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/faculty/project">Student Projects</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner" style="background:none;">
+                        <div class="uk-grid">
+                            <div class="uk-width-large-10-10">
+                                <div class="md-card">
+                                    <div class="user_heading">
+                                        <div class="user_heading_content" style="padding:2px 0;">
+                                            <span>
+                                                <ul class="user_stats">
+                                                    <li>
+                                                        <h2 class="heading_b uk-margin-bottom ">
+                                                            <span class="sub-heading ">
+                                                                Title</span>
+
+                                                            <span class="uk-text-truncate" style="display:block;"
+                                                                  t-esc="project.project_title"
+                                                            />
+                                                        </h2></li>
+                                                    <li>
+                                                        <h2 class="heading_b uk-margin-bottom ">
+                                                            <span class="sub-heading">
+                                                                Code</span>
+                                                            <span class="uk-text-truncate" style="display:block;"
+                                                                  t-esc="project.project_number"/>
+                                                        </h2>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="heading_b uk-margin-bottom ">
+                                                            <span class="sub-heading">
+                                                                Start Date</span>
+                                                            <span class="uk-text-truncate" style="display:block;"
+                                                                  t-esc="project.date_start"/>
+                                                        </h2>
+                                                    </li>
+                                                    <li>
+                                                        <h2 class="heading_b uk-margin-bottom ">
+                                                            <span class="sub-heading">
+                                                                End Date</span>
+                                                            <span class="uk-text-truncate" style="display:block;"
+                                                                  t-esc="project.date_end"/>
+                                                        </h2>
+                                                    </li>
+                                                </ul>
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="user_content">
+                                        <ul id="user_profile_tabs" class="uk-tab"
+                                            data-uk-tab="{connect:'#user_profile_tabs_content', animation:'slide-horizontal'}"
+                                            data-uk-sticky="{ top: 48, media: 960 }">
+                                            <t t-if="AT == '2'">
+                                                <li>
+                                                    <a href="">Project Details</a>
+                                                </li>
+                                            </t>
+                                            <t t-if="AT != '2'">
+                                                <li class="uk-active">
+                                                    <a href="">Project Details</a>
+                                                </li>
+                                            </t>
+                                            <t t-if="AT == '2'">
+                                                <li class="uk-active">
+                                                    <a href="">Project Milestones</a>
+                                                </li>
+                                            </t>
+                                            <t t-if="AT != '2'">
+                                                <li>
+                                                    <a href="">Project Milestones</a>
+                                                </li>
+                                            </t>
+                                            <li>
+                                                <a href="">Feedback for Student</a>
+                                            </li>
+                                            <li>
+                                                <a href="">Meeting Notification</a>
+                                            </li>
+                                            <li>
+                                                <a href="">Student Attachments</a>
+                                            </li>
+                                        </ul>
+                                        <ul id="user_profile_tabs_content" class="uk-switcher uk-margin">
+                                            <!--student information  here-->
+                                            <!--   description here-->
+                                            <li>
+                                                <div class="uk-grid uk-margin-medium-top uk-margin-large-bottom">
+                                                    <div class="uk-width-large-1-2">
+                                                        <h4 class="heading_c uk-margin-small-bottom">Students
+                                                        </h4>
+                                                        <t t-if="project.student_ids">
+                                                            <t t-foreach="project.student_ids" t-as="student">
+                                                                <div class="uk-margin-medium-top ">
+                                                                    <div class="md-card uk-margin-medium-top "
+                                                                         style="border-radius:10px; box-shadow: 0 1px 3px rgb(0 0 0), 0 1px 2px rgba(0,0,0,.24);">
+                                                                        <div class="uk-grid uk-grid-collapse">
+                                                                            <div class="uk-width-medium-3-3"
+                                                                                 style="font-family: 'Roboto';">
+                                                                                <div class="md-card-content ">
+                                                                                    <h4>
+                                                                                        <div class="uk-comment-meta uk-text-left"
+                                                                                             style="font-size:16px;"
+                                                                                             t-esc="student.name"/>
+                                                                                    </h4>
+                                                                                    <div>
+                                                                                        <t t-if="student.id_number">
+                                                                                            <span>ID:</span>
+                                                                                            <t t-esc="student.id_number"
+                                                                                            />
+                                                                                        </t>
+                                                                                    </div>
+                                                                                    <div>
+                                                                                        <t t-if="student.phone">
+                                                                                            <span>Ph#:</span>
+                                                                                            <t t-esc="student.phone"
+                                                                                            />
+                                                                                        </t>
+                                                                                    </div>
+
+                                                                                    <div>
+                                                                                        <t t-if="student.email">
+                                                                                            <span>Email:</span>
+                                                                                            <t t-esc="student.email"
+                                                                                            />
+                                                                                        </t>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                        </t>
+                                                    </div>
+                                                    <div class="uk-width-large-1-2">
+                                                        <h4 class="heading_c uk-margin-small-bottom">Project
+                                                            Description</h4>
+                                                        <ul class="md-list md-list uk-margin-medium-top">
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading profile_default_fields"
+                                                                          t-esc="project.description"
+                                                                          t-if="project.description"/>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading profile_default_fields"
+                                                                          t-esc="project.short_description"
+                                                                          t-if="project.short_description"/>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="md-list-content">
+                                                                    <span class="md-list-heading profile_default_fields"
+                                                                          t-esc="project.formal_description"
+                                                                          t-if="project.formal_description"/>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--Selection milestone div here-->
+                                            <li id="milestone_datatable">
+                                                <!-- milestone selection here-->
+                                                <div class="uk-grid" id="add_milestone_selection">
+                                                    <div class="uk-width-large-2-2">
+                                                        <h3 class="heading_a uk-margin-bottom">Milestones list</h3>
+                                                        <select id="milestone_ids" style="width:100%"
+                                                                name="milestone_ids"
+                                                                class="uk-width-1-1" multiple="true"
+                                                                data-placeholder="Select milestone..."
+                                                                data-md-select2="data-md-select2">
+                                                            <optgroup label="Milestones">
+                                                                <t t-foreach="unselected_milestones" t-as="rec">
+                                                                    <option t-att-value="rec.id">
+                                                                        <span>-
+                                                                            <span t-esc="rec.name"/>
+                                                                        </span>
+                                                                    </option>
+                                                                </t>
+                                                            </optgroup>
+                                                        </select>
+                                                        <div id="select_milestone_grid"
+                                                             class="uk-margin-top uk-width-medium-1-5">
+                                                            <!--                                                            issue if their is no milestones attach from administrator-->
+                                                            <t t-if="selected_milestones">
+                                                                <button type="button"
+                                                                        t-attf-onclick="attach_new_milestone({{len(selected_milestones)}},{{project.id}});"
+                                                                        class="md-btn md-btn-primary md-btn-block md-btn-wave-light">
+                                                                    Add Milestone</button>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <button type="button"
+                                                                        t-attf-onclick="attach_new_milestone({{0}},{{project.id}});"
+                                                                        class="md-btn md-btn-primary md-btn-block md-btn-wave-light">
+                                                                    Add Milestone</button>
+                                                            </t>
+
+                                                        </div>
+                                                        <div>
+                                                            <input type="hidden" name="project" id="project"
+                                                                   t-att-value="project.id"/>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- milestone datatable here-->
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-large-2-2" id="attach_milestone_grid">
+                                                        <form method="post" id="milestone_datatable"
+                                                              action="/faculty/project/milestone/update">
+                                                            <!-- <form action="" method="" id="milestone_datatable">-->
+                                                            <!-- data table -->
+                                                            <h3 class="heading_b uk-margin-bottom">Milestones</h3>
+                                                            <div class="md-card uk-margin-medium-bottom">
+                                                                <div class="md-card-content">
+                                                                    <table id="milestone_selection_table"
+                                                                           class="uk-table"
+                                                                           cellspacing="0" width="100%">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Name</th>
+                                                                                <th>Start date</th>
+                                                                                <th>End date</th>
+                                                                                <th>Completed</th>
+                                                                                <th class="uk-margin-left">Remove</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <t t-foreach="selected_milestones"
+                                                                               t-as="milestone">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               class="md-input"
+                                                                                               name="name"
+                                                                                               readonly="true"
+                                                                                               t-att-id="'name' +  str(milestone.id)"
+                                                                                               t-att-value="milestone.name"
+                                                                                        />
+                                                                                    </td>
+
+
+                                                                                    <div class="uk-width-1-1">
+
+                                                                                        <div class="uk-grid"
+                                                                                             data-uk-grid-margin="">
+                                                                                            <td><div
+                                                                                                    class="uk-width-large-3-3 uk-width-1-1">
+                                                                                                <div class="uk-input-group">
+                                                                                                    <span class="uk-input-group-addon"><i
+                                                                                                            class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                                                                                    <label for="uk_dp_start">
+                                                                                                        Start
+                                                                                                        Date</label>
+                                                                                                    <input class="md-input"
+                                                                                                           name="start_date"
+                                                                                                           type="text"
+                                                                                                           t-att-id="'start_date' +  str(milestone.id)"
+                                                                                                           t-att-value="milestone.start_date"
+
+                                                                                                           data-uk-datepicker="{format:'YYYY-MM-DD'}"/>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div class="uk-width-large-3-3 uk-width-medium-1-1">
+                                                                                                    <div class="uk-input-group">
+                                                                                                        <span class="uk-input-group-addon"><i
+                                                                                                                class="uk-input-group-icon uk-icon-calendar"></i></span>
+                                                                                                        <label for="uk_dp_end">
+                                                                                                            End
+                                                                                                            Date</label>
+                                                                                                        <input class="md-input"
+                                                                                                               name="end_date"
+                                                                                                               type="text"
+                                                                                                               t-att-id="'end_date' +  str(milestone.id)"
+                                                                                                               t-att-value="milestone.end_date"
+                                                                                                               data-uk-datepicker="{format:'YYYY-MM-DD'}"
+                                                                                                               t-attf-onchange="check_end_date({{milestone.id}});"
+                                                                                                               autocomplete="false"
+                                                                                                               autofill="false"
+                                                                                                        />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </div>
+
+                                                                                    </div>
+
+
+                                                                                    <td>
+                                                                                        <div class="uk-width-medium-1-4">
+
+                                                                                            <input type="checkbox"
+                                                                                                   name="completed_check"
+                                                                                                   checked="true"
+                                                                                                   data-switchery=""
+                                                                                                   data-switchery-color="#1e88e5"
+                                                                                                   t-att-checked="milestone.complition_status"
+                                                                                                   t-att-id="'check_id_' +  str(milestone.id)"
+                                                                                                   t-attf-onchange="check_completed({{milestone.id}})"
+                                                                                            />
+                                                                                            <input type="hidden"
+                                                                                                   t-att-id="'check_id_' +  str(milestone.id)"
+                                                                                                   name="completed_check"
+                                                                                                   t-att-value="milestone.complition_status"/>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div>
+                                                                                            <a class="btnSectionRemove"
+                                                                                               t-att-id="'del_id_' +  str(milestone.id)"
+                                                                                               t-attf-onclick="UIkit.modal.confirm('Are you sure to delete your attached milestone?', function(){ milestone_del({{ milestone.id }},{{project.id}}); });">
+                                                                                                <i class="material-icons md-24">
+                                                                                                    </i></a>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="hidden"
+                                                                                               name="milestone_id"
+                                                                                               t-att-id="'milestone_id_' +  str(milestone.id)"
+                                                                                               t-att-value="milestone.milestone_id.id"/>
+                                                                                        <input type="hidden"
+                                                                                               name="project"
+                                                                                               t-att-id="'project_id_' +  str(milestone.id)"
+                                                                                               t-att-value="project.id"/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </t>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <div id="datatable_milestone_save"
+                                                                         class="uk-margin-top uk-width-medium-1-5">
+                                                                        <button type="submit"
+                                                                                class="md-btn md-btn-primary md-btn-block md-btn-wave-light">
+                                                                            Save Milestone</button>
+                                                                        <!--                                                                        <button onclick="milestone_submit()"-->
+                                                                        <!--                                                                                class="md-btn md-btn-primary md-btn-block md-btn-wave-light">-->
+                                                                        <!--                                                                            Attach Milestone</button>-->
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- data table -->
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--feedback msg-->
+                                            <li>
+                                                <div class="uk-grid">
+
+                                                    <!--feedback for whole project-->
+                                                    <div class="uk-width-large-2-2">
+                                                        <h3 class="heading_b uk-margin-bottom">Feedback for project</h3>
+                                                        <div class="md-card uk-margin-medium-bottom">
+                                                            <div class="md-card-content">
+                                                                <div class="uk-grid">
+                                                                    <!--                                                feedback here-->
+                                                                    <div class="uk-width-large-1-2 uk-margin-bottom">
+                                                                        <div class="uk-grid uk-grid-collapse">
+                                                                            <!--                                data-uk-grid-margin-->
+                                                                            <div class="uk-width-large-10-10">
+
+                                                                                <div class="md-card-content padding-reset">
+                                                                                    <div class="chat_submit_box"
+                                                                                         id="chat_submit_box">
+                                                                                        <div>
+                                                                                            <form method="post"
+                                                                                                  action="/project/faculty/feedback">
+                                                                                                <input type="text"
+                                                                                                       class="md-input"
+                                                                                                       name="submit_message"
+                                                                                                       id="general_feedback_message"
+                                                                                                       placeholder="Send general feedback"/>
+                                                                                                <div>
+                                                                                                    <!---->
+                                                                                                    <input type="hidden"
+                                                                                                           name="project"
+                                                                                                           id="project_id"
+                                                                                                           t-att-value="project.id"/>
+                                                                                                </div>
+                                                                                                <span>
+                                                                                                    <button type="button"
+                                                                                                            t-attf-onclick="general_feedback({{project.id}});"><i
+                                                                                                            class="material-icons md-24">
+                                                                                                        &#xE163;</i></button>
+                                                                                                </span>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <!--feedback for milestone-->
+                                                    <div class="uk-width-large-2-2">
+                                                        <form method="post" id="milestone_feeback_datatable"
+                                                              action="/faculty/project/milestone/feedback">
+                                                            <!-- data table -->
+                                                            <h3 class="heading_b uk-margin-bottom">Milestones</h3>
+                                                            <div class="md-card uk-margin-medium-bottom">
+                                                                <div class="md-card-content">
+                                                                    <table id="milestone_feeback_table" class="uk-table"
+                                                                           cellspacing="0" width="100%">
+                                                                        <thead class="md-input-wrapper">
+                                                                            <tr>
+                                                                                <th class="md-input uk-form-width-medium"><strong>
+                                                                                    Name</strong></th>
+                                                                                <th class="md-input uk-form-width-large"><strong>
+                                                                                    Feedback</strong></th>
+                                                                                <th class="md-input uk-form-width-small"><strong>
+                                                                                    Send</strong></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <t t-foreach="selected_milestones"
+                                                                               t-as="milestone">
+                                                                                <tr class="md-input-wrapper">
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               class="md-input uk-form-width-medium"
+                                                                                               name="name"
+                                                                                               readonly="true"
+                                                                                               t-att-id="'name' +  str(milestone.id)"
+                                                                                               t-att-value="milestone.name"
+                                                                                        />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text"
+                                                                                               name="feedback"
+                                                                                               t-att-id="'feedback' +  str(milestone.id)"
+                                                                                               class="md-input uk-form-width-large"
+                                                                                        />
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <button type="button"
+                                                                                                t-attf-onclick="selected_milestone_feedback({{milestone.id}},{{project.id}});"><i
+                                                                                                class="material-icons md-24">
+                                                                                            &#xE163;</i></button>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="uk-width-medium-1-6">
+                                                                                            <button class="md-btn md-btn-primary"
+                                                                                                    t-attf-onclick="selected_milestone_feedback_history({{milestone.id}},{{project.id}},{{len(centralized_milestones)}});"
+                                                                                                    type="button"
+                                                                                                    data-uk-button="">
+                                                                                                History</button>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="hidden"
+                                                                                               name="milestone_id"
+                                                                                               t-att-id="'milestone_id_' +  str(milestone.id)"
+                                                                                               t-att-value="milestone.id"/>
+                                                                                        <input type="hidden"
+                                                                                               name="project"
+                                                                                               t-att-id="'project_id_' +  str(milestone.id)"
+                                                                                               t-att-value="project.id"/>
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </t>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+
+                                                </div>
+                                            </li>
+                                            <!--meeting link here-->
+                                            <li>
+                                                <h3 class="heading_b uk-margin-bottom">Meeting Arrangement</h3>
+                                                <div class="md-card uk-margin-medium-bottom">
+                                                    <div class="md-card-content">
+                                                        <div class="uk-grid">
+                                                            <div class="uk-width-large-1-2 uk-margin-bottom">
+                                                                <div class="uk-grid uk-grid-collapse">
+                                                                    <!--                                data-uk-grid-margin-->
+                                                                    <div class="uk-width-large-10-10">
+
+                                                                        <div class="md-card-content padding-reset">
+                                                                            <t t-foreach="projects"
+                                                                               t-as="project">
+                                                                            </t>
+                                                                            <div class="chat_submit_box"
+                                                                                 id="link-share_box">
+                                                                                <div>
+                                                                                    <form method="post"
+                                                                                          action="/project/faculty/meeting/link">
+                                                                                        <input type="text"
+                                                                                               class="md-input"
+                                                                                               name="meeting_link"
+                                                                                               id="meeting_link"
+                                                                                               placeholder="Send Meeting Link"/>
+                                                                                        <div>
+                                                                                            <!--                                                             <t t-set="i" t-value="project.id"/>-->
+                                                                                            <input type="hidden"
+                                                                                                   name="project"
+                                                                                                   id="project"
+                                                                                                   t-att-value="project.id"/>
+                                                                                        </div>
+                                                                                        <span>
+
+                                                                                            <button type="button"
+                                                                                                    t-attf-onclick="meeting_notification({{project.id}});"><i
+                                                                                                    class="material-icons md-24">
+                                                                                                &#xE163;</i></button>
+                                                                                        </span>
+                                                                                    </form>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <!--Student Attachments-->
+                                            <li>
+                                                <div class="uk-grid">
+                                                    <!--Attachments-->
+
+
+                                                    <div class="uk-width-large-2-2">
+                                                        <h3 class="heading_b uk-margin-bottom">Attachments</h3>
+                                                        <div class="md-card uk-margin-medium-bottom">
+                                                            <div class="md-card-content">
+                                                                <table id="milestone_feeback_table" class="uk-table"
+                                                                       cellspacing="0" width="100%">
+                                                                    <thead class="md-input-wrapper">
+                                                                        <tr>
+                                                                            <th class="md-input uk-form-width-medium"><strong>
+                                                                                Related Milestone</strong></th>
+                                                                            <th class="md-input uk-form-width-large"><strong>
+                                                                                Attachment</strong></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <t t-foreach="documents"
+                                                                           t-as="document">
+                                                                            <tr class="md-input-wrapper">
+                                                                                <td>
+                                                                                    <input type="text"
+                                                                                           class="md-input uk-form-width-medium"
+                                                                                           name="title"
+                                                                                           readonly="true"
+                                                                                           t-att-value="document.document_title"
+                                                                                    />
+                                                                                </td>
+                                                                                <!--                                                                                    <td>-->
+                                                                                <!--                                                                                        <input type="text"-->
+                                                                                <!--                                                                                               name="feedback"-->
+                                                                                <!--                                                                                               t-att-id="'feedback' +  str(milestone.id)"-->
+                                                                                <!--                                                                                               class="md-input uk-form-width-large"-->
+                                                                                <!--                                                                                        />-->
+                                                                                <!--                                                                                    </td>-->
+                                                                                <td>
+                                                                                    <a t-att-href="'/project/document/download/%i' % document.id"
+                                                                                       target="_blank" title="Download">
+                                                                                        <i class="md-icon material-icons">
+                                                                                            Attachment_download</i>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <!--                                                                                <td>-->
+                                                                                <!--                                                                                    <input type="file"-->
+                                                                                <!--                                                                                           id="attached_document"-->
+                                                                                <!--                                                                                           name="attached_document"-->
+                                                                                <!--                                                                                           class="dropify"-->
+                                                                                <!--                                                                                           t-att-value="document.attachment_file"/>-->
+                                                                                <!--                                                                                </td>-->
+                                                                            </tr>
+                                                                        </t>
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--attach milestone datatable script-->
+                <!--attach milestone datatable script-->
+                <script>
+                    function attach_new_milestone(totalCount,project_id){
+                    var formData = new FormData();
+                    var milestone_ids = document.getElementById("milestone_ids").selectedOptions;
+                    for (i=0; i &lt; milestone_ids.length; i++){
+                    formData.append('milestone_orignal_id',milestone_ids[i].value);
+                    formData.append('milestone_name',milestone_ids[i].innerText);
+                    formData.append('project_id',project_id);
+                    }
+
+                    $.ajax({
+                    url: "/faculty/project/milestone/add",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    showNotify('Added Successfully','success','top-right');
+                    setTimeout(function(){window.location.href = '/faculty/project/detail/id/'+project_id+'?AT=2'},
+                    1000);
+                    }
+                    else{
+                    showNotify("Add Milestone Error!",'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Add Milestone Error!','danger','top-right');
+                    }
+                    });
+                    }
+
+
+                </script>
+                <!-- delete milestone-->
+                <script>
+                    function milestone_del(id,project_id) {
+                    var rowtodelete = document.getElementById('del_id_'+id);
+                    if(rowtodelete != false){
+                    rowtodelete.parentNode.removeChild(rowtodelete);
+                    }
+                    var formData = new FormData();
+                    formData.append('id',id);
+                    $.ajax({
+                    url: "/faculty/project/milestone/remove",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    // beforeSend: function(){$("#body-overlay-documents").show();},
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    { if (data.status_is != 'Error'){
+
+                    showNotify('Deleted Successfully','success','top-right');
+                    setTimeout(function(){window.location.href = '/faculty/project/detail/id/'+project_id+'?AT=2'},
+                    1000);
+                    }
+                    else{
+                    showNotify(data.message,'success','top-right');
+                    }
+                    },
+                    error: function()
+                    {
+                    showNotify('Something went wrong!','danger','top-right');
+                    }
+                    });
+
+                    }
+
+                </script>
+                <!--check box check script-->
+                <script>
+                    function check_completed(id){
+                    var checkbox= document.getElementById('check_id_'+id);
+                    var start_date= document.getElementById('start_date'+id);
+                    var end_date= document.getElementById('end_date'+id);
+                    var project= document.getElementById('project_id_'+id);
+                    var milestone_orignal_id = document.getElementById('milestone_id_'+id);
+                    var formData = new FormData();
+
+                    if(checkbox.checked == true){
+                    checkbox.checked = true;
+                    checkbox.value = 'on';
+                    formData.append('complition_status','True');
+                    }
+                    if(checkbox.checked == false){
+                    checkbox.checked = false;
+                    checkbox.value = 'off';
+                    formData.append('complition_status','False');
+                    }
+                    formData.append('start_date',start_date.value);
+                    formData.append('end_date',end_date.value);
+                    formData.append('project_id',project.value);
+                    formData.append('milestone_orignal_id',milestone_orignal_id.value);
+                    formData.append('checklist_line_id',id);
+
+                    $.ajax({
+                    url: "/faculty/project/milestone/complete/status",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    showNotify('Updated Successfully','success','top-right');
+                    }
+                    else{
+                    showNotify(data.error_message,'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Something wrong!','danger','top-right');
+                    }
+                    });
+
+
+                    }
+                </script>
+                <!--   selected milestone feedback-->
+                <script>
+                    function selected_milestone_feedback(orignal_milestone_id,project_id){
+                    var name= document.getElementById('name'+orignal_milestone_id);
+                    var feedback= document.getElementById('feedback'+orignal_milestone_id);
+                    var project= document.getElementById('project_id_'+orignal_milestone_id);
+                    var milestone_orignal_id = document.getElementById('milestone_id_'+orignal_milestone_id);
+                    var formData = new FormData();
+
+                    formData.append('feedback',feedback.value);
+                    formData.append('name',name.value);
+                    formData.append('project_id',project.value);
+                    formData.append('milestone_orignal_id',milestone_orignal_id.value);
+
+                    $.ajax({
+                    url: "/faculty/project/milestone/feedback",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    showNotify('Forwarded Successfully','success','top-right');
+                    feedback.value = "";
+                    }
+                    else{
+                    showNotify(data.error_message,'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Something wrong!','danger','top-right');
+                    }
+                    });
+                    }
+
+                </script>
+                <!--     selected milestone feedback history-->
+                <script>
+                    function selected_milestone_feedback_history(orignal_milestone_id,project_id,rowlength){
+                    var name= document.getElementById('name'+orignal_milestone_id);
+                    var project= document.getElementById('project_id_'+orignal_milestone_id);
+                    var milestone_orignal_id = document.getElementById('milestone_id_'+orignal_milestone_id);
+                    var formData = new FormData();
+
+                    formData.append('name',name.value);
+                    formData.append('project_id',project.value);
+                    formData.append('milestone_orignal_id',milestone_orignal_id.value);
+
+                    $.ajax({
+                    url: "/faculty/project/milestone/feedback/history",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    var table = document.getElementById("milestone_feeback_table");
+                    if (table.rows.length &gt; rowlength+1){
+                    var row = table.deleteRow(rowlength+1);
+                    }
+                    var row = table.insertRow(rowlength+1);
+                    var cell0 = row.insertCell(0);
+                    var feedback = data['feedback'];
+                    cell0.innerHTML = '<textarea rows="4" id="history_textarea" cols="125" name="history"
+                                                 readonly="true"/>';
+                    document.getElementById("history_textarea").value = feedback;
+                    }
+                    else{
+                    showNotify("No feedback history available for this milestone",'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('No feedback history available for this milestone!','danger','top-right');
+                    }
+                    });
+                    }
+
+                </script>
+                <!--dates check script-->
+                <script>
+                    function check_end_date(id) {
+
+                    var startDate = document.getElementById('start_date'+id)
+                    var endDate = document.getElementById('end_date'+id)
+                    if(Date.parse(startDate.value) &gt; Date.parse(endDate.value))
+                    {
+                    showNotify("End date should be greater than Start date",'success','top-right');
+                    endDate.value=""
+                    }
+                    }
+
+                </script>
+                <!--   general feedback-->
+                <script>
+                    function general_feedback(project_id){
+                    debugger;
+                    var submited_message= document.getElementById('general_feedback_message');
+                    var project= document.getElementById('project_id');
+                    var formData = new FormData();
+                    formData.append('submited_message',submited_message.value);
+                    formData.append('project_id',project.value);
+
+                    $.ajax({
+                    url: "/project/faculty/feedback",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    showNotify('Forwarded Successfully','success','top-right');
+                    feedback.value = "";
+                    }
+                    else{
+                    showNotify(data.error_message,'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Something wrong!','danger','top-right');
+                    }
+                    });
+                    }
+
+                </script>
+                <!--   meeting notification-->
+                <script>
+                    function meeting_notification(project_id){
+                    debugger;
+                    var link= document.getElementById('meeting_link');
+                    var formData = new FormData();
+                    formData.append('link',link.value);
+                    formData.append('project_id',project_id);
+
+                    $.ajax({
+                    url: "/project/faculty/meeting/link",
+                    type: "POST",
+                    dataType: "json",
+                    data: formData,
+                    contentType: false,
+                    processData:false,
+                    success: function(data)
+                    {
+                    if (data.status_is != 'Error'){
+                    showNotify('Forwarded Successfully','success','top-right');
+                    }
+                    else{
+                    showNotify(data.error_message,'danger','top-right');
+                    }
+                    setInterval(function() {$("#body-overlay-documents").hide(); },100);
+                    },
+                    error: function()
+                    {
+                    showNotify('Something wrong!','danger','top-right');
+                    }
+                    });
+                    }
+
+                </script>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_spm/static/js/spm_custom.js"></script>
+                <!--                <script src="/odoocms_faculty_portal/static/js/custom.js"></script>-->
+                <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>
+
+            </body>
+        </t>
+    </template>
+</odoo>

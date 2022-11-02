@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_contact_detail" name="Admission Contact Detail">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <div class="block-info">
+                <legend style="color: #0393DC"><h4>Contact Details</h4></legend>
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="phone">Cell Number<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="mobile" id="mobile" class="gui-input" placeholder="03400748699"
+                                   t-att-value="student.mobile" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <label for="phone">Email<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="email" name="email" id="email" class="gui-input" placeholder="asd@gmail.com"
+                                   t-att-value="student.email" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <label for="phone">Landline</label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="phone" id="phone" class="gui-input" placeholder="051455452"
+                                   t-att-value="student.phone" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+                <legend style="color: #0393DC"><h4>Permanent Address</h4></legend>
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="address">Address line 1<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="per_street" id="per_street" placeholder="Permanent Address line 1"
+                                   class="gui-input" t-att-value="student.per_street" required="true"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-map-marker"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="address">Address line 2</label>
+                        <label class="field prepend-icon">
+
+                            <input type="text" name="per_street2" id="per_street2"
+                                   placeholder="Permanent Address line 2" class="gui-input"
+                                   t-att-value="student.per_street2" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-map-marker"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="city">Country<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="per_country" id="per_country" onchange="onchange_per_country()">
+                                <t t-if="student.per_country_id">
+                                    <t t-foreach="countries" t-as="country">
+                                        <option t-att-value="country.id"
+                                                t-att-selected="student.per_country_id.id == country.id"
+                                                t-att-disabled="readonly and student.per_country_id.id != country.id">
+                                            <span t-esc="country.name"/>
+                                        </option>
+                                    </t>
+                                </t>
+                                <t t-if="not student.per_country_id">
+                                    <t t-foreach="countries" t-as="country">
+                                        <t t-if="country.name == 'Pakistan'">
+                                            <option t-att-value="country.id" selected="True">
+                                                <span t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="country.name != 'Pakistan'">
+                                            <option t-att-value="country.id">
+                                                <span t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </t>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4" id="country_province">
+                        <label for="address">Province/State<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="per_province" id="per_province" onchange="student_per_province_change()">
+                                <option value="Punjab" t-att-selected="student.per_province == 'Punjab'"
+                                        t-att-disabled="readonly and student.per_province != 'Punjab'">Punjab
+                                </option>
+                                <option value="Sindh" t-att-selected="student.per_province == 'Sindh'"
+                                        t-att-disabled="readonly and student.per_province != 'Sindh'">Sindh
+                                </option>
+                                <option value="KPK" t-att-selected="student.per_province == 'KPK'"
+                                        t-att-disabled="readonly and student.per_province != 'KPK'">KPK
+                                </option>
+                                <option value="Blochistan" t-att-selected="student.per_province == 'Blochistan'"
+                                        t-att-disabled="readonly and student.per_province != 'Blochistan'">Blochistan
+                                </option>
+                                <option value="GB" t-att-selected="student.per_province == 'GB'"
+                                        t-att-disabled="readonly and student.per_province != 'GB'">GB
+                                </option>
+                                <option value="FATA" t-att-selected="student.per_province == 'FATA'"
+                                        t-att-disabled="readonly and student.per_province != 'FATA'">FATA
+                                </option>
+                                <option value="AJK" t-att-selected="student.per_province == 'AJK'"
+                                        t-att-disabled="readonly and student.per_province != 'AJK'">AJK
+                                </option>
+                                <option value="ICT" t-att-selected="student.per_province == 'ICT'"
+                                        t-att-disabled="readonly and student.per_province != 'ICT'">ICT
+                                </option>
+                                <option value="Other" t-att-selected="student.per_province == 'Other'"
+                                        t-att-disabled="readonly and student.per_province != 'Other'">Other
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+                    <div class="section colm colm4" id="country_province" style="display:none;"
+                         t-if="not student.per_country_id.name == 'Pakistan'">
+                        <label for="address">Province/State<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="per_province" id="per_province" onchange="student_per_province_change()">
+                                <option value="Punjab" t-att-selected="student.per_province == 'Punjab'"
+                                        t-att-disabled="readonly and student.per_province != 'Punjab'">Punjab
+                                </option>
+                                <option value="Sindh" t-att-selected="student.per_province == 'Sindh'"
+                                        t-att-disabled="readonly and student.per_province != 'Sindh'">Sindh
+                                </option>
+                                <option value="KPK" t-att-selected="student.per_province == 'KPK'"
+                                        t-att-disabled="readonly and student.per_province != 'KPK'">KPK
+                                </option>
+                                <option value="Blochistan" t-att-selected="student.per_province == 'Blochistan'"
+                                        t-att-disabled="readonly and student.per_province != 'Blochistan'">Blochistan
+                                </option>
+                                <option value="GB" t-att-selected="student.per_province == 'GB'"
+                                        t-att-disabled="readonly and student.per_province != 'GB'">GB
+                                </option>
+                                <option value="FATA" t-att-selected="student.per_province == 'FATA'"
+                                        t-att-disabled="readonly and student.per_province != 'FATA'">FATA
+                                </option>
+                                <option value="AJK" t-att-selected="student.per_province == 'AJK'"
+                                        t-att-disabled="readonly and student.per_province != 'AJK'">AJK
+                                </option>
+                                <option value="ICT" t-att-selected="student.per_province == 'ICT'"
+                                        t-att-disabled="readonly and student.per_province != 'ICT'">ICT
+                                </option>
+                                <option value="Other" t-att-selected="student.per_province == 'Other'"
+                                        t-att-disabled="readonly and student.per_province != 'Other'">Other
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div id="per_province_id2_div" class="section colm colm4" style="display:none">
+                        <label for="phone">Province/State<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="per_province2" id="per_province2" class="gui-input" placeholder=""
+                                   required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div id="per_province_id2_div" style="display:none" class="section colm colm4"
+                         t-if="student.per_country_id.name == 'Pakistan'">
+                        <label for="phone">Province/State<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="per_province2" id="per_province2"
+                                   t-att-value="student.per_province2" class="gui-input" placeholder="ISB"
+                                   required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <label for="address">City<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="per_city" id="per_city" placeholder="City" class="gui-input"
+                                   t-att-value="student.per_city" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-bank"/>
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="block-info">
+                <legend style="color: #0393DC"><h4>Present Address</h4></legend>
+                <div class="section">
+                    <div class="option-group field address_switch">
+                        <label class="option option-blue">
+                            <input type="checkbox" name="is_same_address" id="is_same_address"
+                                   t-att-checked="student.is_same_address" onclick="isSameAddress()"
+                                   t-att-disabled="readonly"/>
+                            <span class="checkbox"/>
+                            Same as permanent
+                        </label>
+                    </div>
+                </div><!-- end section -->
+
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="address">Present Address line 1<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="street" id="street"
+                                   placeholder="Present Address line 1" class="gui-input" t-att-value="student.street"
+                                   required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-map-marker"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="section colm colm12">
+                        <label for="address">Address line 2</label>
+                        <label class="field prepend-icon">
+                            <input type="text"  name="street2" id="street2"
+                                   placeholder="Present Address line 2" class="gui-input" t-att-value="student.street2"
+                                   t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-map-marker"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="frm-row">
+                    <div class="section colm colm4">
+                        <label for="city">Country<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="present_country_id" id="present_country_id" onchange="change_present_country()">
+
+                                <t t-if="student.present_country_id">
+                                    <t t-foreach="countries" t-as="country">
+                                        <option t-att-value="country.id"
+                                                t-att-selected="student.present_country_id.id == country.id"
+                                                t-att-disabled="readonly and student.present_country_id.id != country.id">
+                                            <span t-esc="country.name"/>
+                                        </option>
+                                    </t>
+                                </t>
+                                <t t-if="not student.present_country_id">
+                                    <t t-foreach="countries" t-as="country">
+                                        <t t-if="country.name == 'Pakistan'">
+                                            <option t-att-value="country.id" selected="True">
+                                                <span t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                        <t t-if="country.name != 'Pakistan'">
+                                            <option t-att-value="country.id">
+                                                <span t-esc="country.name"/>
+                                            </option>
+                                        </t>
+                                    </t>
+                                </t>
+
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div id="present_province_select_div" class="section colm colm4">
+                        <label for="address">Province/State<span style="color: red">*</span></label>
+                        <label class="field select">
+                            <select name="present_province" id="present_province"
+                                    onchange="student_present_province_change()">
+                                <option value="Punjab" t-att-selected="student.present_province == 'Punjab'"
+                                        t-att-disabled="readonly and student.present_province != 'Punjab'">Punjab
+                                </option>
+                                <option value="Sindh" t-att-selected="student.present_province == 'Sindh'"
+                                        t-att-disabled="readonly and student.present_province != 'Sindh'">Sindh
+                                </option>
+                                <option value="KPK" t-att-selected="student.present_province == 'KPK'"
+                                        t-att-disabled="readonly and student.present_province != 'KPK'">KPK
+                                </option>
+                                <option value="Blochistan" t-att-selected="student.present_province == 'Blochistan'"
+                                        t-att-disabled="readonly and student.present_province != 'Blochistan'">
+                                    Blochistan
+                                </option>
+                                <option value="GB" t-att-selected="student.present_province == 'GB'"
+                                        t-att-disabled="readonly and student.present_province != 'GB'">GB
+                                </option>
+                                <option value="FATA" t-att-selected="student.present_province == 'FATA'"
+                                        t-att-disabled="readonly and student.present_province != 'FATA'">FATA
+                                </option>
+                                <option value="AJ&amp;K" t-att-selected="student.present_province == 'AJK'"
+                                        t-att-disabled="readonly and student.present_province != 'AJK'">AJ&amp;K
+                                </option>
+                                <option value="ICT" t-att-selected="student.present_province == 'ICT'"
+                                        t-att-disabled="readonly and student.present_province != 'ICT'">ICT
+                                </option>
+                                <option value="Other" t-att-selected="student.present_province == 'Other'"
+                                        t-att-disabled="readonly and student.present_province != 'Other'">Other
+                                </option>
+                            </select>
+                            <i class="arrow double"/>
+                        </label>
+                    </div>
+
+                    <div id="present_province_id2_div" class="section colm colm4" style="display:none"
+                         t-if="student.present_province != 'Other'">
+                        <label for="phone">Province/State<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="present_province2" id="present_province2" class="gui-input"
+                                   placeholder="id 1" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div id="present_province_id2_div" class="section colm colm4"
+                         t-if="student.present_province == 'Other'">
+                        <label for="phone">Province/State<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="present_province2" id="present_province2"
+                                   t-att-value="student.present_province2" class="gui-input" placeholder="id 2"
+                                   required="true" readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-phone-square"/>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="section colm colm4">
+                        <label for="address">City<span style="color: red">*</span></label>
+                        <label class="field prepend-icon">
+                            <input type="text" name="city" id="city" placeholder="City" class="gui-input"
+                                   t-att-value="student.city" required="true" t-att-readonly="readonly"/>
+                            <span class="field-icon">
+                                <i class="fa fa-bank"/>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <script>
+            // toggle on spacebar checkbox
+            $('.address_switch').on('keydown', function(e) {
+
+
+            if(e.keyCode == 32) {
+
+            if($("#is_same_address").attr('checked')) {
+            $("#is_same_address").attr('checked', false);
+            } else {
+            $("#is_same_address").attr('checked', true);
+            isSameAddress();
+            }
+            }
+            });
+        </script>
+    </template>
+</odoo>

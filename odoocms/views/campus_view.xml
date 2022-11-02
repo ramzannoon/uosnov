@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_campus_tree" model="ir.ui.view">
+        <field name="name">odoocms.campus.tree</field>
+        <field name="model">odoocms.campus</field>
+        <field name="arch" type="xml">
+            <tree string="Campus">
+                <field name="code"/>
+                <field name="name" string="Name"/>
+                <field name="city"/>
+                <field name="effective_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_campus_form" model="ir.ui.view">
+        <field name="name">odoocms.campus.form</field>
+        <field name="model">odoocms.campus</field>
+        <field name="arch" type="xml">
+            <form string="Campus">
+                <sheet>
+                    <group string="Campus">
+                        <group>
+                            <field name="name" string="Name"/>
+                            <field name="code" required="1"/>
+                            <field name="effective_date"/>
+                        </group>
+                        <group>
+                            <label for="street" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id" placeholder="Country" class="o_address_country"
+                                       options='{"no_open": True, "no_create": True}'/>
+                            </div>
+                        </group>
+                        <group>
+
+                        </group>
+                        <group>
+                            <field name="company_id" widget="selection"/>
+                            <field name="is_military"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="institutes" string="Schools">
+                            <field name="institute_ids" context="{'default_campus_id':id}">
+                                <tree string="Schools">
+                                    <field name="code"/>
+                                    <field name="name" string="Name"/>
+                                    <field name="phone"/>
+                                    <field name="website"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="faculty" string="Faculty">
+                            <field name="faculty_ids" colspan="4" context="{'default_campus_id':id}">
+                                <tree editable="bottom">
+                                    <field name="employee_id"/>
+                                    <field name="employee_tag_id" widget="many2many_tags"/>
+                                    <field name="employee_name"/>
+                                    <field name="employee_work_phone"/>
+                                    <field name="employee_work_email"/>
+                                    <field name="employee_department_id"/>
+                                    <field name="employee_job_id"/>
+                                    <field name="employee_parent_id"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="employee_id"/>
+                                            <field name="employee_name"/>
+                                        </group>
+                                        <group>
+                                            <field name="employee_work_phone"/>
+                                            <field name="employee_work_email"/>
+                                        </group>
+                                        <group>
+                                            <field name="employee_department_id"/>
+                                            <field name="employee_job_id"/>
+                                            <field name="employee_parent_id"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="description" string="Description">
+                            <group colspan="4">
+                                <field name="description"/>
+                                <field name="short_description"/>
+                                <field name="formal_description"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+<!--                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>-->
+<!--                    <field name="activity_ids" widget="mail_activity"/>-->
+
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_campus_search" model="ir.ui.view">
+        <field name="name">odoocms.campus.search</field>
+        <field name="model">odoocms.campus</field>
+        <field name="priority" eval="14"/>
+        <field name="arch" type="xml">
+            <search string="Campus">
+                <field name="name"/>
+                <field name="code"/>
+                <newline/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_campus" model="ir.actions.act_window">
+        <field name="name">Campuses</field>
+        <field name="res_model">odoocms.campus</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_odoocms_campus_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First Campus here.
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem
+            id="menu_odoocms_campus"
+            name="Campuses"
+            parent="menu_odoocms_organization_structure"
+            action="action_odoocms_campus"
+            sequence='10'/>
+    <!-- groups="group_cms_manager" -->
+</odoo>

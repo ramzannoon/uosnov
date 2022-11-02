@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Survey Close Date-->
+        <record id="ir_cron_data_cms_survey_closed" model="ir.cron">
+            <field name="name">Survey Closed After Deadline</field>
+            <field name="model_id" ref="model_survey_survey"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.survey_inprogress_enddate()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_data_cms_survey_result" model="ir.cron">
+            <field name="name">Survey Prepare Result</field>
+            <field name="model_id" ref="model_survey_survey"/>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">model.survey_prepare_result()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+    </data>
+</odoo>

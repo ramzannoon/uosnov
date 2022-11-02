@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_process_fee_reversal_form" model="ir.ui.view">
+			<field name="name">odoocms.process.fee.reversal.form</field>
+			<field name="model">odoocms.process.fee.reversal</field>
+			<field name="arch" type="xml">
+				<form string="Process Fee Payment">
+					<group>
+						<separator string="Fee Heads" colspan="2"/>
+						<field name="fee_head_ids" widget="many2many_tags"/>
+						<separator string="Description" colspan="2"/>
+						<field name="description"/>
+						<group>
+						</group>
+					</group>
+					<notebook>
+						<page string="Invoices">
+							<group>
+								<field name="invoice_ids" colspan="4" nolabel="1">
+									<tree string="Invoices">
+										<field name="student_id" />
+										<field name="invoice_date" />
+										<field name="name"/>
+										<field name="amount_total_signed"/>
+										<field name="receipt_type_ids"/>
+										<field name="state" />
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+					<footer>
+						<button name="process_reversal" string="Process Revert" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_fee_reversal_process"
+				name="Revert Fee Invoices"
+				res_model="odoocms.process.fee.reversal"
+				binding_model="account.move"
+				view_mode="form"
+				binding_views="list,form"
+            	target="new"
+            	/>
+		
+    </data>
+</odoo>

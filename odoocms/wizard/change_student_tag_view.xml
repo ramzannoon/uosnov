@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record id="view_odoocms_student_tag_change" model="ir.ui.view">
+			<field name="name">odoocms.student.tag.change</field>
+			<field name="model">odoocms.student.tag.change</field>
+			<field name="arch" type="xml">
+				<form string="Change Student Tag">
+					<group>
+						<group>
+							<field name="action" required="True"/>
+							<field name="tag_id" required="True"/>
+						</group>
+						<group>
+							<field name="date_effective"/>
+						</group>
+					</group>
+					<group>
+						<field name="description"/>
+					</group>
+					<notebook>
+						<page string="Students">
+							<group>
+								<field name="student_ids">
+									<tree string="Students">
+										<field name="code" />
+										<field name="name" />
+										<field name="gender"/>
+										<field name="email"/>
+										<field name="mobile"/>
+										<field name="program_id" />
+										<field name="semester_id" />
+										<field name="state" invisible="1"/>
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+					<footer>
+						<button name="change_student_tag" string="Add/ Remove Tag" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<act_window
+				id="act_odoocms_change_student_tag"
+				name="Change Student Tag"
+				binding_model="odoocms.student"
+				res_model="odoocms.student.tag.change"
+				binding_views="list,form"  view_mode="form"
+				target="new"
+				groups="odoocms.group_cms_tags"/>
+
+
+    </data>
+</odoo>

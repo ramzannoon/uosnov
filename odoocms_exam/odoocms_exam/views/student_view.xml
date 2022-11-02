@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_term_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.term.tree</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_term_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="disposal_type_id"/>
+                    <field name="rule_line_id"/>
+                     <field name="credits"/>
+                    <field name="earned_credits"/>
+                    <field name="grade_points"/>
+                    <field name="sgpa"/>
+                    <field name="cgpa"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="odoocms_student_term_form" model="ir.ui.view">
+            <field name="name">odoocms.student.term.form</field>
+            <field name="model">odoocms.student.term</field>
+            <field name="arch" type="xml">
+                <form edit="false" delete="false">
+                    <header>
+                        <button type="object" name="get_sgpa" string="Re-Calculate"
+                                groups="base.group_no_one,odoocms_exam.group_exam_manager"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" readonly="1"/>
+                                <field name="session_id"/>
+                                <field name="state"/>
+                            </group>
+                            <group>
+                                <field name="program_id"/>
+                                <field name="term_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="disposal_type_id"/>
+                                <field name="rule_line_id"/>
+                            </group>
+                            <group>
+                                <field name="earned_credits"/>
+                                <field name="grade_points"/>
+                                <field name="sgpa"/>
+                            </group>
+                            <group>
+                                <field name="import_identifier"/>
+                            </group>
+                        </group>
+                        <field name="student_course_ids">
+                            <tree create="false" delete="false" edit="false">
+                                <field name="course_id"/>
+                                <field name="primary_class_id"/>
+                                <field name="total_marks"/>
+                                <field name="normalized_marks"/>
+                                <field name="gpa"/>
+                                <field name="grade"/>
+                                <field name="include_in_cgpa" string="CGPA"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_form_inherit_reg" model="ir.ui.view">
+            <field name="name">odoocms.student.form.exam</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_student_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='registered_courses']" position="after">
+                    <page string="Results" name="results">
+                        <group>
+                            <field name="term_ids" nolabel="1"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='dropped_course_ids']/tree/field[@name='credits']" position="after">
+                    <field name="grade"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_form_inherit_main" model="ir.ui.view">
+            <field name="name">odoocms.student.form.main</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='academic_information']/group/group[@name='academic_term']" position="after">
+                     <group>
+                        <field name="grade_points"/>
+                        <field name="credits"/>
+                         <field name="earned_credits"/>
+                         <field name="cgpa"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_tree_inherit_reg" model="ir.ui.view">
+            <field name="name">odoocms.student.tree.inherit.reg</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='program_id']" position="after">
+                    <field name="grade_points" optional="hide"/>
+                    <field name="credits" optional="hide"/>
+                    <field name="earned_credits" optional="hide"/>
+                    <field name="cgpa" optional="hide"/>
+                    <field name="f_grades" optional="hide"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!--
+        <record id="view_exam_results_students" model="ir.actions.act_window">
+            <field name="name">Exam Results Student</field>
+            <field name="res_model">odoocms.exam.results</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="domain">[('student_id', '=', active_id)]</field>
+            <field name="context">{'search_default_group_exam_id':1}</field>
+        </record>
+
+
+        <record id="student_smart_button_exam_form" model="ir.ui.view">
+            <field name="name">student_smart_button_exam_form.form</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="odoocms_exam.view_exam_results_students" type="action"
+                            class="oe_stat_button" icon="fa-archive" string="Exam Results"/>
+                </xpath>
+
+            </field>
+        </record>
+        -->
+
+    </data>
+</odoo>

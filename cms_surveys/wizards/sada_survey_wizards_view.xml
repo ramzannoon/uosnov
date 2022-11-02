@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="view_survey_wizard_sada_form" model="ir.ui.view">
+            <field name="name">survey.wizard_sada.form</field>
+            <field name="model">survey.wizard_sada</field>
+            <field name="arch" type="xml">
+                <form string="Course Survey Wizard">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="template"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                       domain="['|',('template_seq_no', '=', 'Temp/0001'), ('template_seq_no', '=', 'Temp/0002'),('type', '=', 'template'),]"/>
+
+                                <field name="template_seq_no" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="survey_form_type" readonly="1" />
+                                <field name="class_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="survey_form_type_name" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="end_date"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="course_detail_line">
+                                <tree editable="bottom">
+                                    <field name="course_detail" invisible="1"/>
+                                    <field name="class_id" invisible="1"/>
+                                    <field name="faculty_staff_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}" />
+                                    <field name="student_course_comp_ids" widget="many2many_tags" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True}"
+                                           domain="[('class_id', '=', class_id)]"/>
+                                </tree>
+                                <form>
+                                    <field name="course_detail" invisible="1"/>
+                                    <field name="class_id" invisible="1"/>
+                                    <field name="faculty_staff_id"/>
+                                    <field name="student_course_comp_ids" widget="many2many_tags"
+                                           domain="[('class_id', '=', class_id)]"/>
+                                </form>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="create_survey_form" string="Generate Surveys" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_wizard_sada">
+            <field name="name">Course Survey Wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">survey.wizard_sada</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_survey_wizard_sada_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_survey_wizard_sada_submenu" name="Courses Survey Wizard" sequence="30"
+                  parent="menu_survey_template"/>
+
+        <menuitem id="menu_survey_wizard_sada_action" name="Courses Survey Wizard" sequence="40"
+                  parent="menu_survey_wizard_sada_submenu" action="action_survey_wizard_sada"/>
+    </data>
+</odoo>

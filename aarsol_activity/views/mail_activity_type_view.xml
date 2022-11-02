@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="mail_activity_type_view_form" model="ir.ui.view">
+        <field name="name">mail.activity.type.view.form</field>
+        <field name="model">mail.activity.type</field>
+        <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+        <field name="arch" type="xml">
+            <group name="activity_planning" position="after">
+<!--                <group name="user">-->
+<!--                    <field name="user_id"/>-->
+<!--                </group>-->
+                <group name="functions">
+                    <field name="validation_function"/>
+                    <field name="prev_function"/>
+                    <field name="post_function"/>
+                    <field name="cancel_function"/>
+                </group>
+            </group>
+
+
+            <field name="mail_template_ids" position="before">
+                <field name="back_activity_type_id" domain="[('res_model_id','=',res_model_id)]"/>
+                <field name="special_state"/>
+            </field>
+
+            <field name="icon" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </field>
+
+            <field name="decoration_type" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </field>
+
+            <field name="res_model_id" position="attributes">
+                <attribute name="groups">base.group_user</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="mail_activity_type_view_tree" model="ir.ui.view">
+        <field name="name">mail.activity.type.view.tree</field>
+        <field name="model">mail.activity.type</field>
+        <field name="priority">64</field>
+        <field name="arch" type="xml">
+            <tree string="Approvals">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="default_user_id"/>
+                <field name="category"/>
+                <field name="default_next_type_id"/>
+                <field name="back_activity_type_id"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_hostel_data_import_wizard_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.data.import.form.view</field>
+            <field name="model">odoocms.hostel.data.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Data Import">
+                    <group>
+                        <group>
+                            <field name="file" filename="name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="import_fall2020_data" string="Import Fall202" type="object" class="btn-primary"/>
+                        <button name="import_hostel_data" string="Import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_hostel_data_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import Hostel Data</field>
+            <field name="res_model">odoocms.hostel.data.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_hostel_data_import_wizard"
+                name="Import Data"
+                action="action_odoocms_hostel_data_import_wizard"
+                parent="menu_odoocms_hostel_general_config"
+                sequence="50"
+                groups="base.group_no_one"/>
+
+    </data>
+</odoo>

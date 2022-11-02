@@ -1,0 +1,49 @@
+@startuml
+
+actor "Portal User" as P
+entity CMS
+actor "HOD" as H
+participant "Invoice Wizard " as D #99FF99
+database "Database" as DB
+hide footbox
+
+P -> CMS: Freeze Student Request
+CMS -> H: Submit Request
+note right: Dynamic Configurable    \nApproval Hierarchy
+group Reject
+    H --> CMS: Cancel Request
+    CMS --> P: Rejection Notify
+end
+group Accept
+    H --> CMS: Approved Request
+    activate CMS #FFBBBB
+        CMS --> CMS: Get Invoice Parameters
+        note left: *Select Fee Structure\n*Get Fee Receipt Type
+        activate CMS #DarkSalmon
+
+        CMS -> D: << Genarate Invoice >>
+        activate D
+            D --> CMS: Invoice
+        deactivate D
+        deactivate CMS
+        CMS -> P: Invoice
+
+    deactivate CMS
+    P --> CMS: Upload Paid Invoice
+
+    group Freeze Semester
+            CMS --> CMS:
+            activate CMS
+            CMS --> CMS: Unlink Registration of Current Semester
+
+            activate CMS #DarkSalmon
+
+            CMS -> DB: Freezed
+
+            deactivate CMS
+            CMS -> P: Freezed Status
+
+        deactivate CMS
+    end
+end
+@enduml

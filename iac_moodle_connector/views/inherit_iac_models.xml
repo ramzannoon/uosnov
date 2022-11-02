@@ -1,0 +1,121 @@
+<odoo>
+    <data>
+        <!--&&&&&&&&&&&&&&&& INHERIT CAMPUS FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_campus_form" model="ir.ui.view">
+            <field name="name">inherit_iac_campus_form</field>
+            <field name="model">odoocms.campus</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_campus_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='effective_date']" position="after">
+                    <!--                    <field name="moodle_region_id" string="Region"/>-->
+                    <!--                    <field name="moodle_city_id" string="City"/>-->
+                    <field name="iac_moodle_id" string="Moodle ID"/>
+                    <field name="iac_sync_state"/>
+                    <!--                    <field name="disp_moodle_id_on_campus"/>-->
+                </xpath>
+            </field>
+        </record>
+
+        <!--&&&&&&&&&&&&&&&& INHERIT SCHOOL FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_school_form" model="ir.ui.view">
+            <field name="name">inherit_iac_school_form</field>
+            <field name="model">odoocms.institute</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_institute_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="iac_moodle_id" string="Moodle ID"/>
+                    <field name="iac_sync_state"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--&&&&&&&&&&&&&&&& INHERIT DEPARTMENT FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_department_form" model="ir.ui.view">
+            <field name="name">inherit_iac_department_form</field>
+            <field name="model">odoocms.department</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_department_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="iac_moodle_id" string="Moodle ID"/>
+                    <field name="iac_sync_state"/>
+                    <field name="acade_level_moodle_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--&&&&&&&&&&&&&&&& INHERIT PROGRAM FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_program_form" model="ir.ui.view">
+            <field name="name">inherit_iac_program_form</field>
+            <field name="model">odoocms.program</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_program_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="iac_moodle_id" string="Moodle ID"/>
+                    <field name="iac_sync_state"/>
+                </xpath>
+            </field>
+        </record>
+        <!--&&&&&&&&&&&&&&&& INHERIT BATCHES FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_batch_form2" model="ir.ui.view">
+            <field name="name">inherit_iac_batch_form2</field>
+            <field name="model">odoocms.batch</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_batch_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='semester_id']" position="after">
+                    <field name="iac_moodle_id" string="Moodle ID"/>
+                    <field name="iac_sync_state"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- &&&&&&&&&&&&&&&& INHERIT CLASS COMPONENT FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ndash;&gt;&ndash;&gt;-->
+        <record id="inherit_iac_class_form" model="ir.ui.view">
+            <field name="name">inherit_iac_class_form</field>
+            <field name="model">odoocms.class</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_class_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='course_id']" position="after">
+                    <field name="course_moodle_id"/>
+                    <field name="campus_id" force_save="1"/>
+                    <!--                    <field name="section_sync_state" force_save="1"/>-->
+                    <field name="section_related" invisible="1"/>
+                    <field name="course_sync_state"/>
+                    <field name="course_short_name" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+        <!--        &&&&&&&&&&&&&&&&&&&&&&&&& INHERIT BATCH SECTION FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_batch_section_form" model="ir.ui.view">
+            <field name="name">inherit_iac_batch_section_form</field>
+            <field name="model">odoocms.batch.section</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_batch_section_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='student_count']" position="after">
+                    <field name="batch_section_moodle_id" string="Moodle Id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--        &&&&&&&&&&&&&&&&&&&&&&&&& INHERIT STUDENT FORM &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
+        <record id="inherit_iac_student_section_form" model="ir.ui.view">
+            <field name="name">inherit_iac_student_section_form</field>
+            <field name="model">odoocms.student</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_student_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='campus_id']" position="after">
+                    <field name="moodle_student_id" string="Moodle Id"/>
+                    <field name="company_id" invisible="1"/>
+                    <!--                    <field name="city_id" force_save="1" invisible="1"/>-->
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

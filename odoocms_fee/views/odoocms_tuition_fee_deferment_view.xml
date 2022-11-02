@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_tuition_fee_deferment_request_form" model="ir.ui.view">
+            <field name="name">odoocms.tuition.fee.deferment.request.form</field>
+            <field name="model">odoocms.tuition.fee.deferment.request</field>
+            <field name="arch" type="xml">
+                <form string="Fee Deferment Requests">
+                    <header>
+                        <button name="action_submit" states="draft" string="Submit" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_approved" states="submit" string="Approved" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <button name="action_rejected" states="draft,submit" string="Rejected" type="object" class="oe_highlight" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="session_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="career_id" required="1"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="term_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                            <group>
+                                <field name="institute_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="campus_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="discipline_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="semester_id"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+
+                            <group>
+                                <field name="semester_tuition_fee" required="1"/>
+                                <field name="defer_type" required="1" attrs="{'readonly':[('state','=', 'approved')]}"/>
+                                <field name="defer_value" required="1" attrs="{'readonly':[('state','=', 'approved')]}"/>
+                                <field name="approved_tuition_fee"/>
+                            </group>
+                            <group>
+                                <field name="request_date" required="1" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="approve_date" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                                <field name="installments_start_date" attrs="{'readonly':[('state','=', 'approved')]}"/>
+
+                            </group>
+
+                            <group>
+                                <field name="total_amount"/>
+                                <field name="total_paid_amount"/>
+                                <field name="total_unpaid_amount"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="notes" attrs="{'readonly':[('state','!=', 'draft')]}"/>
+                        </group>
+                        <notebook>
+                            <page name="deferment_detail" string="Detail">
+                                <field name="line_ids" readonly="1">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="deferment_id" invisible="1"/>
+                                        <field name="student_id" invisible="1"/>
+                                        <field name="original_invoice_id" string="Invoice"/>
+                                        <field name="defer_invoice_id" string="Deferment Invoice"/>
+                                        <field name="payment_id"/>
+                                        <field name="invoice_date"/>
+                                        <field name="invoice_date_due"/>
+                                        <field name="amount" sum="sum_amount"/>
+                                        <field name="state"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="student_id" readonly="1"/>
+                                                    <field name="deferment_id" readonly="1"/>
+                                                    <field name="payment_id" readonly="1"/>
+                                                    <field name="amount" readonly="1"/>
+                                                    <field name="paid_amount" readonly="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="original_invoice_id" readonly="1"/>
+                                                    <field name="defer_invoice_id" readonly="1"/>
+                                                    <field name="invoice_date" readonly="1"/>
+                                                    <field name="invoice_date_due" readonly="1"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_tuition_fee_deferment_request_tree" model="ir.ui.view">
+            <field name="name">odoocms.tuition.fee.deferment.request.tree</field>
+            <field name="model">odoocms.tuition.fee.deferment.request</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Deferment Requests" decoration-success="state != 'reject'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id" optional="1"/>
+                    <field name="institute_id" optional="1"/>
+                    <field name="discipline_id" optional="1"/>
+                    <field name="campus_id" optional="1"/>
+                    <field name="defer_type"/>
+                    <field name="defer_value"/>
+                    <field name="request_date"/>
+                    <field name="approve_date"/>
+                    <field name="total_amount" sum="sum_total_amount"/>
+                    <field name="total_paid_amount" sum="sum_total_paid_amount"/>
+                    <field name="total_unpaid_amount" sum="sum_total_unpaid_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_tuition_fee_deferment_request_search" model="ir.ui.view">
+            <field name="name">odoocms.tuition.fee.deferment.request.search</field>
+            <field name="model">odoocms.tuition.fee.deferment.request</field>
+            <field name="arch" type="xml">
+                <search string="">
+                    <field name="name"/>
+                    <field name="student_id"/>
+                    <field name="session_id"/>
+                    <field name="career_id"/>
+                    <field name="term_id"/>
+                    <field name="semester_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id"/>
+                    <field name="campus_id"/>
+                    <field name="request_date"/>
+                    <field name="approve_date"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <separator/>
+                        <filter name="group_by_session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                        <filter name="group_career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                        <filter name="group_term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                        <filter name="group_semester" string="Semester" domain="[]" context="{'group_by':'semester_id'}"/>
+                        <filter name="group_institute" string="School" domain="[]" context="{'group_by':'institute_id'}"/>
+
+                        <separator/>
+                        <filter name="group_by_request_date" string="Request Date" domain="[]" context="{'group_by':'request_date'}"/>
+                        <filter name="group_by_approved_type" string="Approved Date" domain="[]" context="{'group_by':'approve_date'}"/>
+                        <separator/>
+                        <filter name="group_by_defer_type" string="Type" domain="[]" context="{'group_by':'defer_type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="state" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_tuition_fee_deferment_request_view" model="ir.actions.act_window">
+            <field name="name">Fee Deferment Requests</field>
+            <field name="res_model">odoocms.tuition.fee.deferment.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_tuition_fee_deferment_request"
+                name="Fee Deferment Requests"
+                parent="menu_student_fee_request_root"
+                sequence='10'
+                action="action_odoocms_tuition_fee_deferment_request_view"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+        />
+    </data>
+</odoo>

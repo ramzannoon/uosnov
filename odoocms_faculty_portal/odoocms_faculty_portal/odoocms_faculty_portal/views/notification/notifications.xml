@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="faculty_notifications" name="">
+        <t t-call="web.layout">
+
+            <t t-set="head">
+                <script>document.getElementsByTagName("html")[0].className += " js";</script>
+                <link rel="stylesheet" href="/odoocms_web/static/assets/css/timetable.css"/>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+
+                <!-- style switcher -->
+                <!--                <link rel="stylesheet" href="/odoocms_web/static/assets/css/style_switcher.min.css" media="all"/>-->
+
+                <!-- altair admin -->
+                <style>
+                    .zoom {
+<!--  padding: 50px;-->
+<!--  background-color: green;-->
+  transition: transform .2s;
+<!--  width: 200px;-->
+<!--  height: 200px;-->
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  -ms-transform: scale(2.5);
+  -webkit-transform: scale(2.5);
+  transform: scale(2.5);
+}
+                </style>
+
+
+            </t>
+            <body class="sidebar_main_swipe header_full" style="background:none;">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <div id="page_content">
+                       <div id="top_bar">
+                    <ul id="breadcrumbs">
+                                                     <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                        <li>
+                            <a href="/faculty/notifications">Notifications</a>
+                        </li>
+                    </ul>
+                      </div>
+                    <div class="page_content_inner" style="padding:5%;">
+                        <h1>Notifications</h1>
+                         <t t-if="not notifications">
+                              <p>Notifications are not available.</p>
+                         </t>
+                             <t t-if="notifications">
+                        <t t-foreach="notifications" t-as="notification">
+                            <div class="uk-margin-medium-top ">
+                            <div class="md-card uk-margin-medium-top " style="border-radius:10px; box-shadow: 0 1px 3px rgb(0 0 0), 0 1px 2px rgba(0,0,0,.24);">
+                                <div class="uk-grid uk-grid-collapse">
+                                    <div class="uk-width-medium-1-3 zoom">
+                                        <div class="uk-position-relative uk-display-inline-block " >
+                                             <img t-att-src="image_data_uri(notification.image)" alt="" t-if="notification.image"/>
+                                             <img src="/odoocms_web/static/assets/img/superior1.jpg" alt="" t-if="not notification.image"/>
+<!--                                            <img src="/odoocms_web/static/assets/img/nust.png" alt=""  t-if="not notification.image"/>-->
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-medium-2-3" style="font-family: 'Roboto';">
+                                        <div class="md-card-content">
+                                            <h4 class="uk-text-left uk-margin-bottom" style="text-align: justify;">
+                                                <div class="uk-comment-meta uk-text-right" style="font-size:16px;" t-esc="str(notification.date)[:19]"/>
+                                                <b t-esc="notification.name"/>
+                                            </h4>
+                                             <div class="uk-text-left" style="text-align: justify;">
+                                                 <t t-esc="notification.description" t-options='{"widget": "html"}'/>
+                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        </t>
+                             </t>
+                    </div>
+
+
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+                <script src="/odoocms_web/static/assets/js/pages/components_cards.min.js"></script>
+                <script src="/odoocms_web/static/assets/js/pages/components_list_grid_view.min.js"></script>
+            </body>
+        </t>
+    </template>
+</odoo>

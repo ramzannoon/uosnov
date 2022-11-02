@@ -1,0 +1,1374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!--    <record id="menu_recruitment" model="website.menu">-->
+    <!--        <field name="name">Recruitment</field>-->
+    <!--        <field name="url">/recruitment/employee/form</field>-->
+    <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    <!--        <field name="sequence">65</field>-->
+    <!--    </record>-->
+
+
+    <!--    <template id="user_navbar_inherit_website_hr_recruitment" inherit_id="website_hr_recruitment.detail">-->
+    <!--        <xpath expr="//form[@id='hr_recruitment_form']/div/div[3]" position="replace">-->
+    <!--               <p>-->
+    <!--                    adkjcfweklcjhkdnklfjcnqwklefjcnklqeifjckqweilsfjkl-->
+    <!--                </p>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    <!--                <xpath expr="//div[@class='js_hr_recruitment']/div/section/div/div"-->
+
+
+    <record id="hr_applicant_form_view_inherit" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <!--            <xpath expr='//field[@name="partner_name"]' position='after'>-->
+            <xpath expr='//group[1]//group[1]' position='before'>
+                <group string="Personal Information">
+                    <field name="address"/>
+                    <field name="zip_code"/>
+                    <field name="country"/>
+                    <field name="city"/>
+                    <field name="province"/>
+                    <field name="birth_date"/>
+                    <field name="citizen"/>
+                    <field name="worked_before"/>
+                    <field name="skills"/>
+                    <field name="qualification"  widget="website_redirect_button"/>
+<!--                    			<field name="is_published" widget="website_redirect_button" modifiers="{}"/>-->
+
+                </group>
+            </xpath>
+            <xpath expr='//group[1]//group[3]' position='after'>
+                <group string="Resume Details">
+                    <field name="resume_attach"/>
+                    <field name="signature_attach"/>
+                </group>
+            </xpath>
+
+            <xpath expr='//group[1]//group[6]' position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr='//group[1]//group[5]' position='after'>
+                <group string="Education">
+                    <field name="high_school"/>
+                    <field name="number_of_years_attended"/>
+                    <field name="graduated"/>
+<!--                    <field name="area_of_degree_stud"/>-->
+                </group>
+                <group string="Other Education">
+
+                    <field name="high_school_2"/>
+                    <field name="number_of_years_attended_2"/>
+                    <field name="graduated_2"/>
+<!--                    <field name="area_of_degree_stud_2"/>-->
+                </group>
+            </xpath>
+
+            <xpath expr='//group[1]//group[6]' position='after'>
+                <group string="Employement Desired">
+                    <field name="empl_desired_position_applying_for"/>
+                    <field name="desired_date"/>
+                    <field name="empl_desired_sallary"/>
+                </group>
+            </xpath>
+
+            <xpath expr='//group[1]//group[8]' position='after'>
+                <group string="Previous Employment 1">
+                    <field name="previous_employer_1"/>
+                    <field name="previous_employer_start_date"/>
+                    <field name="previous_employer_end_date"/>
+                    <field name="previous_employer_salary"/>
+                    <field name="previous_employer_position"/>
+                    <field name="previous_employer_reasonleave"/>
+                </group>
+            </xpath>
+
+            <xpath expr='//group[1]//group[9]' position='after'>
+                <group string="Previous Employment 2">
+                    <field name="previous_employer_2"/>
+                    <field name="previous_employer_start_date_2"/>
+                    <field name="previous_employer_end_date_2"/>
+                    <field name="previous_employer_salary_2"/>
+                    <field name="previous_employer_position_2"/>
+                    <field name="previous_employer_reasonleave_2"/>
+                </group>
+            </xpath>
+
+
+            <xpath expr='//group[1]//group[3]' position='after'>
+                <group string="Current Employment">
+                    <field name="current_employment"/>
+                    <field name="position"/>
+                    <field name="reason"/>
+                    <field name="sallary"/>
+                </group>
+            </xpath>
+
+            <xpath expr='//group[1]//group[2]' position='after'>
+                <group string="Reference 1">
+                    <field name="reference_1"/>
+                    <field name="relationship"/>
+                    <field name="years_Acquainted"/>
+                    <field name="reference_1_phone"/>
+                    <field name="reference_1_email"/>
+                </group>
+                <group string="Reference 2">
+                    <field name="reference_2"/>
+                    <field name="relationship_reference_2"/>
+                    <field name="years_Acquainted_2"/>
+                    <field name="reference_2_phone"/>
+                    <field name="reference_2_email"/>
+
+                </group>
+            </xpath>
+
+            <!--            <xpath expr='//group[1]//group[4]' position='attribute'>-->
+            <!--                <field>-->
+            <!--                    <group>-->
+
+            <!--                    </group>-->
+            <!--                </field>-->
+
+
+            <!--            </xpath>-->
+
+            <!--group[@name='program_merit_number_group']"-->
+
+            <!--            <xpath expr="//form/sheet/group/group[3]" position='replace'>-->
+            <!--                <field name="sallary"/>-->
+            <!--            </xpath>-->
+
+            <!--            <xpath expr='//field[@name="salary_proposed"]' position='replace'>-->
+            <!--                <field name="sallary"/>-->
+            <!--            </xpath>-->
+
+            <!--            <xpath expr='//field[@name="proposed_sallary"]' position='replace'>-->
+            <!--                <field name="proposed_sallary_new"/>-->
+            <!--            </xpath>-->
+
+        </field>
+    </record>
+
+    <template id="my_custom_from">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div id="wrap">
+                    <div class="container">
+                        <div id="top_bar">
+                            <ul id="breadcrumbs">
+                                <li>
+                                    <i class="material-icons">Home</i>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="recruitment_employee_form">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div id="wrap">
+                    <div class="container">
+                        <div id="top_bar">
+                            <ul id="breadcrumbs">
+                                <li>
+                                    <!--                                    <a href="/employee/dashboard">-->
+                                    <i class="material-icons">Home</i>
+                                    <!--                                    </a>-->
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="page" style="font-size: 5px; padding:30px">
+
+                            <form action="/jobs/apply/submit" role="form" id="admission_form"
+                                  enctype="multipart/form-data"
+                                  method="POST" style="font-size: 14px;">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <center>
+                                    <p>
+                                        <h2>Employment Application</h2>
+                                    </p>
+                                </center>
+                                <!--                                    <table id="child_tabel" class="table table-striped table-hover">-->
+                                <!--                                        <th>Employment Application:</th>-->
+                                <!--                                    </table>-->
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Personal Information:</th>
+                                </table>
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 180px">
+                                            <span class="s_website_form_label_content">Full Name</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <!--                                        <label for="birth_date" class="control-label">First Name</label>-->
+                                                <input type="text" t-att-value="name" id="name"
+                                                       name="name" class="form-control"
+                                                       placeholder="First Name"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <!--                                        <label for="birth_place" class="control-label">Middle Nam</label>-->
+                                                <input type="text" t-att-value="middle_name" id="middle_name"
+                                                       name="middle_name" class="form-control"
+                                                       placeholder="Middle Name"/>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <!--                                        <label for="Last_place" class="control-label">Last Name</label>-->
+                                                <input type="text" t-att-value="Last_name" id="Last_name"
+                                                       name="Last_name" class="form-control" placeholder="Last Name"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Address</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="form-group"
+                                             data-type="text" data-name="Field">
+                                            <!--                                            <span class="s_website_form_label_content">Address</span>-->
+                                            <textarea class="form-control s_website_form_input"
+                                                      id="address" name="address" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="form-group"
+                                             data-type="text" data-name="Field">
+                                            <textarea class="form-control s_website_form_input"
+                                                      id="address" name="address" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="zip_code"
+                                               id="zip_code" placeholder="Zip/Code"
+                                        />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <select name="country" t-attf-class="form-control s_website_form_input"
+                                                id="country">
+                                            <t t-foreach="country" t-as="count">
+                                                <option t-att-value="count.id"
+                                                        selected="true">
+                                                    <span t-esc="count.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <!--                                    <div class="col-sm-4">-->
+                                    <!--                                        <input type="text" class="form-control" name="country"-->
+                                    <!--                                               id="country"-->
+                                    <!--                                        />-->
+                                    <!--                                    </div>-->
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="city"
+                                               id="city" placeholder="City"
+                                        />
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" name="province" placeholder="Province"
+                                               id="province"
+                                        />
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="form-group col-12 s_website_form_field s_website_form_required"
+                                     data-type="text" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 180px">
+                                            <span class="s_website_form_label_content">Phone Number</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input type="text" t-att-value="partner_phone" id="partner_phone"
+                                                       name="partner_phone" class="form-control"
+                                                       placeholder="Phone Number "/>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" t-att-value="Day" id="partner_phone"
+                                                       name="partner_phone" class="form-control" placeholder="Tel:"/>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Email</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control s_website_form_input"
+                                                  id="email_from" name="email_from" type="text"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Birth Date</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <input type="date"
+                                               id="birth_date" name="birth_date"/>
+                                    </div>
+                                </div>
+
+
+                                <!--                        <br/>-->
+                                <!--                        <strong>Gender:</strong>-->
+                                <!--                        <input type="radio" id="gender" name="gender" value="male"-->
+                                <!--                               checked="checked"></input>-->
+                                <!--                        <label for="male">Male</label>-->
+                                <!--                        <input type="radio" id="gender" name="gender" value="female"></input>-->
+                                <!--                        <label for="female">Female</label>-->
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <br/>
+                                    <div class="col-sm-6">
+                                        <h6>Are You a Pakistani Citizen?</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="checkbox" name="citizen"
+                                               t-att-value="citizen" id="citizen"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                        <br/>
+                                        <input type="checkbox" name="citizen"
+                                               t-att-value="citizen" id="citizen"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="father_is_guardian" class="control-label">No
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Employment Desired</th>
+                                    <tbody>
+                                        <input type="hidden" id="currentRowedit"/>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+
+                                    <div class="col-sm-2">
+                                        <label for="job_id" class="control-label">Position Applying For</label>
+                                        <select name="job_id" t-attf-class="form-control s_website_form_input"
+                                                id="job_id">
+                                            <t t-foreach="job_id" t-as="job">
+                                                <option t-att-value="job.name"
+                                                        selected="true">
+                                                    <span t-esc="job.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                        <!--                                        <select id="priority" name="priority" class="form-control link-style">-->
+                                        <!--                                            <option value="0">Position 1</option>-->
+                                        <!--                                            <option value="1">Position 2</option>-->
+                                        <!--                                            <option value="2">Position 3</option>-->
+                                        <!--                                        </select>-->
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="date" class="control-label">Date</label>
+
+                                        <input type="date" t-att-value="availability" id="availability"
+                                               name="availability" class="form-control"
+                                               placeholder="Month "/>
+                                    </div>
+                                    <!--                                    <div class="col-sm-2">-->
+                                    <!--                                        <label for="birth_place" class="control-label">Day</label>-->
+                                    <!--                                        <input type="date" t-att-value="availability" id="availability"-->
+                                    <!--                                               name="availability" class="form-control" placeholder="Day"/>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="col-sm-2">-->
+                                    <!--                                        <label for="Year" class="control-label">Year</label>-->
+                                    <!--                                        <input type="date" t-att-value="availability" id="availability"-->
+                                    <!--                                               name="availability" class="form-control" placeholder="Year"/>-->
+                                    <!--                                    </div>-->
+                                    <div class="col-sm-2">
+                                        <label for="Year" class="control-label">Expected Salary</label>
+                                        <input type="text" class="form-control" name="empl_desired_sallary"
+                                               id="empl_desired_sallary"
+                                        />
+
+                                        <!--                                        <input type="number" t-att-value="salary_expected" id="salary_expected"-->
+                                        <!--                                               name="salary_expected" class="form-control"-->
+                                        <!--                                               placeholder="Salary Desired"/>-->
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <br/>
+                                    <div class="col-sm-6">
+                                        <h6>Have You Worked Here Before? ?</h6>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h6>Have You Applied Here Before? ?</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="checkbox" name="mother_is_guardian"
+                                               t-att-value="mother_is_legal_guardian" id="mother_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                        <br/>
+                                        <input type="checkbox" name="father_is_guardian"
+                                               t-att-value="father_is_legal_guardian" id="father_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="father_is_guardian" class="control-label">No
+                                        </label>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <input type="checkbox" name="mother_is_guardian"
+                                               t-att-value="mother_is_legal_guardian" id="mother_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                        <br/>
+                                        <input type="checkbox" name="father_is_guardian"
+                                               t-att-value="father_is_legal_guardian" id="father_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="father_is_guardian" class="control-label">No
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <!--                                <button type="button" class="btn btn-primary pull-right" data-toggle="modal"-->
+                                <!--                                        onclick="clear_field();" data-target="#myModal">Add child-->
+                                <!--                                </button>-->
+
+                                <br/>
+                                <br/>
+
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Education:</th>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label for="high_school" class="control-label">Masters
+                                        </label>
+                                        <input type="text" t-att-value="high_school" id="high_school"
+                                               name="high_school" class="form-control"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="high_school" class="control-label">Duration in years
+                                        </label>
+                                        <input type="text" t-att-value="any_other" id="any_other"
+                                               name="any_other" class="form-control"
+                                        />
+
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="number_of_years_attended" class="control-label">Passing year
+                                            Attended in others
+                                        </label>
+                                        <input type="text" t-att-value="number_of_years_attended"
+                                               id="number_of_years_attended"
+                                               name="number_of_years_attended" class="form-control"
+                                        />
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="graduated" class="control-label">Graduated?
+                                        </label>
+
+                                        <input type="checkbox" name="graduated"
+                                               t-att-value="graduated" id="graduated"
+                                               data-target=""/>
+                                        <label for="graduated" class="control-label">Yes
+                                        </label>
+                                    </div>
+
+                                    <!--                                    <div class="row">-->
+                                    <!--                                        <div class="col-sm-2">-->
+                                    <!--                                            <label class="col-form-label col-sm-auto s_website_form_label"-->
+                                    <!--                                                   style="width: 200px">-->
+                                    <!--                                                <span class="s_website_form_label_content">Area of Degree/Specialization-->
+                                    <!--                                                </span>-->
+                                    <!--                                                <span class="s_website_form_mark">*</span>-->
+                                    <!--                                            </label>-->
+                                    <!--                                        </div>-->
+                                    <!--                                        <div class="col-sm-10">-->
+                                    <!--                                            <textarea class="form-control s_website_form_input"-->
+                                    <!--                                                      id="area_of_Degree_stud" name="area_of_Degree_stud" type="text"/>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+
+                                <br></br>
+                                <br></br>
+                                <br></br>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label for="high_school" class="control-label">MS/M.Phil
+                                        </label>
+                                        <input type="text" t-att-value="high_school" id="high_school"
+                                               name="high_school" class="form-control"/>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="high_school" class="control-label">Duration in years
+                                        </label>
+                                        <input type="text" t-att-value="any_other" id="any_other"
+                                               name="any_other" class="form-control"
+                                        />
+
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="number_of_years_attended" class="control-label">Passing year
+                                            Attended in others
+                                        </label>
+                                        <input type="text" t-att-value="number_of_years_attended"
+                                               id="number_of_years_attended"
+                                               name="number_of_years_attended" class="form-control"
+                                        />
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="graduated" class="control-label">Graduated?
+                                        </label>
+
+                                        <input type="checkbox" name="graduated"
+                                               t-att-value="graduated" id="graduated"
+                                               data-target=""/>
+                                        <label for="graduated" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Area of Degree/Specialization
+                                            </span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control s_website_form_input"
+                                                  id="area_of_Degree_stud" name="area_of_Degree_stud" type="text"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <hr size="1" style="border:1px solid black;  margin-top:2px"/>
+
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="birth_date" class="control-label">College</label>
+                                        <input type="text" t-att-value="College" id="College"
+                                               name="College" class="form-control"
+                                               placeholder="College "/>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="birth_date" class="control-label">Number of Years Attended
+                                        </label>
+                                        <input type="text" t-att-value="Years" id="Years"
+                                               name="Years" class="form-control"
+                                               placeholder="Number of Years Attended "/>
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="Graduated" class="control-label">Graduated?
+                                        </label>
+                                        <input type="checkbox" name="Graduated"
+                                               t-att-value="Graduated" id="Graduated"
+                                               data-target=""/>
+                                        <label for="Graduated" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <!--                                <div class="row">-->
+                                <!--                                    <div class="col-sm-2">-->
+                                <!--                                        <label for="birth_place" class="control-label">Position Applying For</label>-->
+                                <!--                                        <select name="job_id" t-attf-class="form-control s_website_form_input"-->
+                                <!--                                                id="job_id" required="True">-->
+                                <!--                                            <t t-foreach="job_id" t-as="job">-->
+                                <!--                                                <option t-att-value="job.id"-->
+                                <!--                                                        selected="true">-->
+                                <!--                                                    <span t-esc="job.name"/>-->
+                                <!--                                                </option>-->
+                                <!--                                            </t>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+
+                                <!--                                    &lt;!&ndash;                                    <div class="col-sm-2">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <label for="birth_place" class="control-label">Position Applying For</label>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        <select name="job_id" t-attf-class="form-control s_website_form_input"&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                                id="job_id" required="True">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                            <t t-foreach="job_id" t-as="job">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                                <option t-att-value="job.id"&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                                        selected="true">&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                                    <span t-esc="job.name"/>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                                </option>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                            </t>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                        </select>&ndash;&gt;-->
+                                <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                                <!--                                </div>-->
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Area of Degree/Study</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control s_website_form_input"
+                                                  id="type_id" name="type_id" type="text"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <hr size="1" style="border:1px solid black;  margin-top:2px"/>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="birth_date" class="control-label">Graduate School
+                                        </label>
+                                        <input type="text" t-att-value="Month" id="Month"
+                                               name="Month" class="form-control"
+                                               placeholder="Month "/>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="birth_date" class="control-label">Number of Years Attended
+                                        </label>
+                                        <input type="text" t-att-value="Month" id="Month"
+                                               name="Month" class="form-control"
+                                               placeholder="Month "/>
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="birth_date" class="control-label">Graduated?
+                                        </label>
+                                        <input type="checkbox" name="mother_is_guardian"
+                                               t-att-value="mother_is_legal_guardian" id="mother_is_guardian"
+                                               data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Area of Dgree/Study</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+
+
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control s_website_form_input"
+                                                  id="Area" name="Area" type="text"/>
+                                    </div>
+                                </div>
+
+                                <br/>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <hr size="1" style="border:1px solid black;  margin-top:2px"/>
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="birth_date" class="control-label">Trade School/Other
+
+                                        </label>
+                                        <input type="text" t-att-value="Month" id="Month"
+                                               name="Month" class="form-control"
+                                               placeholder="Month "/>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="birth_date" class="control-label">Number of Years Attended
+
+                                        </label>
+                                        <input type="text" t-att-value="Month" id="Month"
+                                               name="Month" class="form-control"
+                                               placeholder="Month "/>
+
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label for="birth_date" class="control-label">Graduated?
+                                        </label>
+                                        <input type="checkbox" name="mother_is_guardian"
+                                               t-att-value="mother_is_legal_guardian" id="mother_is_guardian"
+                                               data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <label class="col-form-label col-sm-auto s_website_form_label"
+                                               style="width: 200px">
+                                            <span class="s_website_form_label_content">Area of Degree/Study</span>
+                                            <span class="s_website_form_mark">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control s_website_form_input"
+                                                  id="Area" name="Area" type="text"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <hr size="1" style="border:1px solid black;  margin-top:2px"/>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Skills/Qualifications:</th>
+                                </table>
+
+                                <div class="form-group"
+                                     data-type="text" data-name="Field">
+                                    <label for="name">Skills:</label>
+                                    <textarea class="form-control s_website_form_input"
+                                              id="skills" name="skills" type="text"/>
+                                </div>
+                                <br/>
+
+                                <div class="form-group"
+                                     data-type="text" data-name="Field">
+                                    <label for="name">Qualifications :</label>
+                                    <textarea class="form-control s_website_form_input"
+                                              id="qualification" name="qualification" type="text"/>
+                                </div>
+                                <br/>
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Current Employment:</th>
+                                    <tbody>
+                                        <!--                                <input type="hidden" id="currentRowedit"/>-->
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="current_employment" class="control-label">Current Employer</label>
+                                        <input type="text" t-att-value="current_employment" id="current_employment"
+                                               name="current_employment" class="form-control"
+                                        />
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="position" class="control-label">Position</label>
+                                        <input type="text" t-att-value="position" id="position"
+                                               name="position" class="form-control"
+                                        />
+
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="birth_date" class="control-label">Salary</label>
+                                        <input type="text" t-att-value="sallary" id="sallary"
+                                               name="sallary" class="form-control"
+                                        />
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="birth_date" class="control-label">Reason for Leaving?</label>
+                                        <input type="text" t-att-value="reason" id="reason"
+                                               name="reason" class="form-control"
+                                        />
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <hr size="1" style="border:1px solid black;  margin-top:2px"/>
+
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row">
+                                            <label for="birth_date" class="control-label">Current Employement Date
+                                            </label>
+                                            <input type="date" class="form-control" name="currentempl_date"
+                                                   id="currentempl_date"
+                                                   placeholder="Current Employement Date "/>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <br/>
+                                        <div>
+                                            <h5>May We Contact?</h5>
+                                        </div>
+                                        <input type="checkbox" name="mother_is_guardian"
+                                               t-att-value="mother_is_legal_guardian" id="mother_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="mother_is_guardian" class="control-label">Yes
+                                        </label>
+                                        <br/>
+                                        <input type="checkbox" name="father_is_guardian"
+                                               t-att-value="father_is_legal_guardian" id="father_is_guardian"
+                                               data-toggle="collapse" data-target=""/>
+                                        <label for="father_is_guardian" class="control-label">No
+                                        </label>
+                                    </div>
+                                </div>
+                                <br/>
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Previous Employment:</th>
+                                </table>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <label for="birth_date" class="control-label">Previous Employment
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_1" id="previous_employer_1"
+                                               name="previous_employer_1" class="form-control"
+                                               placeholder="Previous Employer"/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="ReasonforLeaving" class="control-label">Position</label>
+                                        <input type="text" t-att-value="previous_employer_position"
+                                               id="previous_employer_position"
+                                               name="previous_employer_position" class="form-control"
+                                               placeholder="Position"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label for="previous_employer_salary" class="control-label">Salary
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_salary"
+                                               id="previous_employer_salary"
+                                               name="previous_employer_salary" class="form-control"
+                                               placeholder="Salary"/>
+
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label for="previous_employer_reasonleave" class="control-label">Reason for
+                                            Leaving?
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_reasonleave"
+                                               id="previous_employer_reasonleave"
+                                               name="previous_employer_reasonleave" class="form-control"
+                                               placeholder="Reason for Leaving"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <label for="previous_employer_start_date" class="control-label">Start Date
+                                        </label>
+                                        <input type="date" class="form-control" name="previous_employer_start_date"
+                                               id="previous_employer_start_date"
+                                               placeholder="Start Date "/>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="end_date" class="control-label">End Date
+                                        </label>
+                                        <input type="date" class="form-control" name="previous_employer_end_date"
+                                               id="previous_employer_end_date"
+                                               placeholder="End Date "/>
+
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <hr></hr>
+
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <label for="birth_date" class="control-label">Previous Employer 2
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_2" id="previous_employer_2"
+                                               name="previous_employer_2" class="form-control"
+                                               placeholder="Sallary"/>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label for="birth_date" class="control-label">Position</label>
+                                        <input type="text" t-att-value="previous_employer_position_2"
+                                               id="previous_employer_position_2"
+                                               name="previous_employer_position_2" class="form-control"
+                                               placeholder="Reason for Leaving"/>
+
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label for="previous_employer_salary_2" class="control-label">Salary
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_salary_2"
+                                               id="previous_employer_salary_2"
+                                               name="previous_employer_salary_2" class="form-control"
+                                               placeholder="Salary"/>
+
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <label for="previous_employer_reasonleave_2" class="control-label">Reason for
+                                            Leaving?
+                                        </label>
+                                        <input type="text" t-att-value="previous_employer_reasonleave_2"
+                                               id="previous_employer_reasonleave_2"
+                                               name="previous_employer_reasonleave_2" class="form-control"
+                                               placeholder="Reason for Leaving"/>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+
+                                    <div class="col-sm-4">
+                                        <label for="previous_employer_start_date_2" class="control-label">Start Date
+                                        </label>
+                                        <input type="date" class="form-control" name="previous_employer_start_date_2"
+                                               id="previous_employer_start_date_2"
+                                               placeholder="Start Date "/>
+                                    </div>
+
+                                    <div class="col-sm-4">
+                                        <label for="previous_employer_end_date_2" class="control-label">End Date
+                                        </label>
+                                        <input type="date" class="form-control" name="previous_employer_end_date_2"
+                                               id="previous_employer_end_date_2"
+                                               placeholder="End Date "/>
+
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+
+                                <table id="references" class="table table-striped table-hover">
+                                    <th>References:</th>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="birth_date" class="control-label">Reference 1
+
+                                        </label>
+                                        <input type="text" t-att-value="reference_1" id="reference_1"
+                                               name="reference_1" class="form-control"
+                                               placeholder="Name of Reference "/>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="relationship" class="control-label">Relationship
+
+                                        </label>
+                                        <input type="text" t-att-value="relationship" id="relationship"
+                                               name="relationship" class="form-control"
+                                               placeholder="Relationship "/>
+
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                        <label for="years_Acquainted" class="control-label">Years Acquainted
+                                        </label>
+                                        <input type="checkbox" name="years_Acquainted"
+                                               t-att-value="years_Acquainted" id="years_Acquainted"
+                                               data-target=""/>
+                                        <label for="years_Acquainted" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="reference_1_phone" class="control-label">Phone
+
+                                        </label>
+                                        <input type="text" t-att-value="reference_1_phone" id="reference_1_phone"
+                                               name="reference_1_phone" class="form-control"
+                                               placeholder="Reference Phone "/>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="reference_1_email" class="control-label">Email
+
+                                        </label>
+                                        <input type="text" t-att-value="reference_1_email" id="reference_1_email"
+                                               name="reference_1_email" class="form-control"
+                                               placeholder="Reference Email "/>
+
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="reference_2" class="control-label">Reference 2
+                                        </label>
+                                        <input type="text" t-att-value="reference_2" id="reference_2"
+                                               name="reference_2" class="form-control"
+                                               placeholder="Reference 2 "/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="relationship_reference_2" class="control-label">Relationship
+
+                                        </label>
+                                        <input type="text" t-att-value="relationship_reference_2"
+                                               id="relationship_reference_2"
+                                               name="relationship_reference_2" class="form-control"
+                                               placeholder="Relationship "/>
+
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                        <label for="years_Acquainted_2" class="control-label">Years Acquainted
+                                        </label>
+                                        <input type="checkbox" name="years_Acquainted_2"
+                                               t-att-value="years_Acquainted_2" id="years_Acquainted_2"
+                                               data-target=""/>
+                                        <label for="years_Acquainted_2" class="control-label">Yes
+                                        </label>
+                                    </div>
+                                </div>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="reference_2_phone" class="control-label">Phone
+
+                                        </label>
+                                        <input type="text" t-att-value="reference_2_phone" id="reference_2_phone"
+                                               name="reference_2_phone" class="form-control"
+                                               placeholder=" Phone "/>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="reference_Email" class="control-label">Email
+
+                                        </label>
+                                        <input type="text" t-att-value="reference_2_email" id="reference_2_email"
+                                               name="reference_2_email" class="form-control"
+                                               placeholder="Email "/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <br/>
+
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Cover Letter and Resume (Optional):</th>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+
+                                        <label for="Cover_letter" class="control-label">Cover Letter</label>
+
+                                        <input type="file" class="o_input_file"
+                                               name="Cover_letter" accept="image/*"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="Resume" class="control-label">Resume</label>
+                                        <input type="file" class="o_input_file"
+                                               name="resume_attach" accept="image/*"/>
+                                    </div>
+                                </div>
+                                <br/>
+                                <!--                                <div class="row">-->
+                                <!--                                    <div class="col-sm-4">-->
+                                <!--                                        -->
+                                <!--                                            <label for="Resume" class="control-label">Resume</label>-->
+
+                                <!--                                            <input type="file" class="o_input_file" required="required"-->
+                                <!--                                                   name="Resume" accept="image/*"/>-->
+
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <br/>
+
+
+                                <table id="child_tabel" class="table table-striped table-hover">
+                                    <th>Send Application: :</th>
+                                </table>
+                                <p>By clicking the submit button below, I cerity that all of the information provided by
+                                    me
+                                    on
+                                    this application is true and complete, and I understand that if any false
+                                    information,
+                                    ommissions, or misrepresentations are discovered, my application may be rejected
+                                    and, if
+                                    I
+                                    am employed, my employement may be terminated at any time.
+
+                                    In consideration of my employment, I agree to conform to the company's rules and
+                                    regulations, and I agree that my employment and compenstation can be terminated,
+                                    with or
+                                    without cause, and with or without notice, at any time, at either my or the
+                                    company's
+                                    option.
+
+                                    I also understand and agree that the terms and conditions of my employment may be
+                                    changed,
+                                    with or without cause, and with or without notice, at any time by the company.
+                                </p>
+
+
+                                <br/>
+                                <div class="row">
+                                    <!--                                    <div class="col-sm-4">-->
+                                    <!--                                        <center>-->
+                                    <div class="form-group"
+                                         data-type="text" data-name="Field">
+                                        <label for="name">Signature :</label>
+                                        <input type="file" class="o_input_file"
+                                               name="signature_attach" accept="image/*"/>
+                                    </div>
+                                    <!--                                        </center>-->
+
+                                    <!--                                    </div>-->
+                                </div>
+
+                                <center>
+                                    <a t-attf-href="/jobs/apply/submit" role="button">
+                                        <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                            Submit
+                                        </button>
+                                    </a>
+                                </center>
+                                <br/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+        <style>body{ background: #f2f2f2; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #112031; border-right: none; padding: 5px; height: 26px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #112031; }
+            .searchButton { width: 40px; height: 16px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 10px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #112031; font-family: 'Droid serif', serif; font-size: 6px;
+            font-weight: 100; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1e3d75; }
+        </style>
+    </template>
+
+    <template id="test_success" name="Travel Leave Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1 class="text-center">Congratulations!</h1>
+                                <p class="text-center">
+                                    Your application has been posted successfully.
+                                </p>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <h3 class="mb32 text-center">Your application has been sent</h3>
+                            </div>
+
+                            <div class="col-lg-12 mt32 text-center">
+                                <span>
+                                    We usually reply between one and three days.
+                                    <br/>
+                                    Feel free to contact him/her if you have further questions.
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="row" id="o_recruitment_thank_cta">
+                            <div class="col-lg-12 text-center mt32 mb32">
+                                In the meantime,
+                                <h3 class="mt8 mb32">Look around on our website:</h3>
+                                <a role="button" href="/" class="btn btn-primary btn-lg">Continue To Our
+                                    Website
+                                </a>
+                            </div>
+                        </div>
+                        <center>
+                            <a t-attf-href="/recruitment/employee/form" role="button">
+                                <button type="submit" class="btn btn-default btn-primary mb32 a-submit">
+                                    Back to Job Application
+                                </button>
+                            </a>
+                        </center>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+        <style>body{ background: #f2f2f2; font-family: 'Open Sans', sans-serif; } .search { width: 100%; position:
+            relative; display: flex; }
+            .searchTerm { width: 100%; border: 2px solid #112031; border-right: none; padding: 5px; height: 36px;
+            border-radius: 5px 0 0 5px; outline: none; color: #112031; } .searchTerm:focus{ color: #112031; }
+            .searchButton { width: 40px; height: 36px; border: 1px solid #112031; background: #112031; text-align:
+            center; color: #fff; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 20px; } /*Resize the wrap to
+            see the search bar change!*/ .wrap{ width: 30%; position: absolute; top: 30%; left: 50%; transform:
+            translate(-50%, -50%); } h1 { color: #112031; font-family: 'Droid serif', serif; font-size: 36px;
+            font-weight: 400; font-style: italic; line-height: 44px; margin: 10px 0 12px; text-align: center; border:
+            1px solid #1e3d75; padding: 20px; background-color: #1e3d75; }
+        </style>
+    </template>
+
+
+    <!--    <record id="thankyou_testtt" model="website.page">-->
+    <!--        <field name="url">/jobs/apply/submit</field>-->
+    <!--        <field name="is_published">True</field>-->
+    <!--&lt;!&ndash;        <field name="website_indexed" eval="False"/>&ndash;&gt;-->
+    <!--        <field name="name">Thank you (Recruitment)</field>-->
+    <!--        <field name="type">qweb</field>-->
+    <!--        <field name="key">recruitement_employee_form.thankyou</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--&lt;!&ndash;            <t name="Thank you (Recruitment)" t-name="website_hr_recruitment.thankyou">&ndash;&gt;-->
+    <!--                <t t-call="website.layout">-->
+    <!--                    <div id="wrap">-->
+    <!--                        <div class="oe_structure">-->
+    <!--                            <div class="container">-->
+    <!--                                <div class="row">-->
+    <!--                                    <div class="col-lg-12">-->
+    <!--                                        <h1 class="text-center">Congratulations!</h1>-->
+    <!--                                        <p class="text-center">-->
+    <!--                                            Your application has been posted successfully.-->
+    <!--                                        </p>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="col-lg-12">-->
+    <!--                                        <h3 class="mb32 text-center">Your application has been sent to:</h3>-->
+    <!--                                    </div>-->
+
+    <!--                                    <div class="col-lg-12 mt32 text-center">-->
+    <!--                                        <span>-->
+    <!--                                            We usually reply between one and three days.-->
+    <!--                                            <br/>-->
+    <!--                                            Feel free to contact him/her if you have further questions.-->
+    <!--                                        </span>-->
+    <!--                                    </div>-->
+
+    <!--                                </div>-->
+    <!--                                <div class="row" id="o_recruitment_thank_cta">-->
+    <!--                                    <div class="col-lg-12 text-center mt32 mb32">-->
+    <!--                                        In the meantime,-->
+    <!--                                        <h3 class="mt8 mb32">Look around on our website:</h3>-->
+    <!--                                        <a role="button" href="/" class="btn btn-primary btn-lg">Continue To Our-->
+    <!--                                            Website-->
+    <!--                                        </a>-->
+    <!--                                    </div>-->
+    <!--                                </div>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </t>-->
+    <!--&lt;!&ndash;            </t>&ndash;&gt;-->
+    <!--        </field>-->
+    <!--    </record>-->
+
+</odoo>

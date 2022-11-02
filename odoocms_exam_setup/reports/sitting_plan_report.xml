@@ -1,0 +1,96 @@
+<odoo>
+
+    <template id="odoocms_exam_setup.exam_sitting_plan_report">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <style>#invoice-report {
+                    font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    }
+                    #invoice-report td, #invoice-report th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align:center;
+                    }
+                    #invoice-report tr:nth-child(even){background-color: #f2f2f2;}
+                    #invoice-report tr:hover {background-color: #ddd;}
+                    #invoice-report th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    background-color: #17134e;
+                    color: white;
+                    }
+                    #top-info {
+                    font-family: &quot;Trebuchet MS&quot;, Arial, Helvetica, sans-serif;
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin-top:15px;
+                    display: inline;
+                    }
+                    #top-info td, #personal-info th {
+                    padding: 3px;
+                    }
+                </style>
+                <!--                <div class="page" style="font-size: 16px; border-style: double; padding:10px ">-->
+                <div class="page" style="padding:10px">
+
+                    <div class="row">
+                        <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                            <div class="col col-12">
+                                <span t-esc="company_id.name" t-if="company_id"/>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-if="sitting_plan_line">
+                        <div style="text-align:center">
+
+                            <span>Sitting Plan: Date (<t t-esc="sitting_plan.date"></t>) Course (<span
+                                    t-esc="sitting_plan_line[0].course"/>)</span>
+                        </div>
+                        <!--                    here-->
+                        <div class="row" style="margin-top:25px; height:">
+                            <div>
+                                <table id="invoice-report" style="width:100%;">
+                                    <tr>
+                                        <th style="font-size:14px;font-weight:bold;text-align:center;">Student Name
+                                        </th>
+                                        <th style="font-size:14px;font-weight:bold;text-align:center;">Sequence Number
+                                        </th>
+                                    </tr>
+                                    <t t-as="plan" t-foreach="sitting_plan_line">
+                                        <tr>
+                                            <td>
+                                                <!--                                            <span t-esc="lst[lst_index + 1]['date']" t-if="lst[lst_index + 1]['date']"/>-->
+                                                <span t-esc="plan.student_id.name"/>
+                                            </td>
+                                            <t t-as="pl" t-foreach="plan">
+                                                <td>
+                                                    <span t-esc="pl.sitting_number"/>
+                                                </td>
+                                            </t>
+
+                                        </tr>
+                                    </t>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <newline/>
+                        <newline/>
+                        <div class="row">
+                            <div style="width:100% ;font-size:18px; font-weight:bold; text-align:center">
+                                <div class="col col-12">
+                                    <h6>No Record found for this Input</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+
+</odoo>

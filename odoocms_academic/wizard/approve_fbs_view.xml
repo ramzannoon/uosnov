@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="odoocms_approve_fbs_wiz_form" model="ir.ui.view">
+        <field name="name">odoocms.approve.fbs.wiz.form</field>
+        <field name="model">odoocms.approve.fbs.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Approve Grades">
+                <group>
+                	<group>
+						<field name="fbs_id" readonly="1"/>
+		            </group>
+		            <group>
+		            </group>
+                </group>
+                <footer>
+                    <button name="approve_fbs" string="Approve Grades" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window
+        id="act_odoocms_approve_fbs"
+        name="Approve Grades"
+        binding_model="odoocms.fbs"
+        res_model="odoocms.approve.fbs.wiz"
+        binding_views="list,form"  view_mode="form"
+        target="new"
+        groups="odoocms.group_cms_user"/>
+
+</odoo>

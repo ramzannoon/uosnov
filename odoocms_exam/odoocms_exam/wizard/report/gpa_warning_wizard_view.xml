@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_gpa_warning_wizard_form" model="ir.ui.view">
+            <field name="name">gpa.warning.wizard.form</field>
+            <field name="model">gpa.warning.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Student GPA Warning">
+                    <group>
+                        <group>
+                            <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="student_id" domain="[('batch_id','=', batch_id)]" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <field name="description"/>
+                    </group>
+
+                    <footer>
+                        <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                   </form>
+                </field>
+        </record>
+
+        <record id="action_gpa_warning_wizard" model="ir.actions.act_window">
+            <field name="name">GPA Warning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gpa.warning.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+            id="menu_gpa_warning_report"
+            name="Less GPA Warning"
+            parent="menu_odoocms_exam_report"
+            action="action_gpa_warning_wizard"
+            sequence="50"/>
+
+
+    </data>
+</odoo>

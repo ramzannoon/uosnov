@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_student_transcript_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.transcript.tree</field>
+            <field name="model">odoocms.student.transcript</field>
+            <field name="arch" type="xml">
+                <tree string="Student Transcript">
+                    <field name="student_id"/>
+                    <field name="program_id"/>
+                    <field name="institute_id"/>
+                    <field name="discipline_id" invisible="1"/>
+                    <field name="campus_id" invisible="1"/>
+                    <field name="date_request"/>
+                    <field name="date_approve"/>
+                    <field name="date_done"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_student_transcript_form" model="ir.ui.view">
+            <field name="name">odoocms.student.transcript.form</field>
+            <field name="model">odoocms.student.transcript</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Student Transcript">
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                        <field name="state" statusbar_visible="draft,submit,approve,done" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="student_id"/>
+                                <field name="program_id"/>
+                            </group>
+                            <group>
+                                <field name="institute_id"/>
+                                <field name="discipline_id"/>
+                                <field name="campus_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="date_approve"/>
+                                <!--<field name="date_done"/>-->
+                            </group>
+                            <group>
+                                <field name="attachment"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="act_student_transcript_view" model="ir.actions.act_window">
+            <field name="name">Student Transcript</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.transcript</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_student_degree_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.degree.tree</field>
+            <field name="model">odoocms.student.degree</field>
+            <field name="arch" type="xml">
+                <tree string="Student Degree">
+                    <field name="student_id"/>
+                    <field name="term_id"/>
+                    <field name="date_request"/>
+                    <field name="date_approve"/>
+                    <field name="date_done"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_student_degree_form" model="ir.ui.view">
+            <field name="name">odoocms.student.degree.form</field>
+            <field name="model">odoocms.student.degree</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Student Degree">
+                    <header>
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight" states="draft"/>
+                        <button name="action_invoice" string="Generate Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': ['|',('invoice_created', '=', True),('state', '!=', 'approve')]}"/>
+                        <field name="state" statusbar_visible="draft,submit,approve,invoice,done" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="invoice_created" invisible="1"/>
+                                <field name="student_id"/>
+                                <field name="term_id"/>
+                            </group>
+                            <group>
+                                <field name="date_request"/>
+                                <field name="date_approve"/>
+                                <field name="date_done"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="act_student_degree_view" model="ir.actions.act_window">
+            <field name="name">Degree Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.degree</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_student_transcript"
+                action="act_student_transcript_view"
+                name="Transcript Request"
+                parent="menu_odoocms_student_course_request"
+                sequence="200"/>
+
+        <menuitem
+                id="menu_odoocms_student_degree"
+                action="act_student_degree_view"
+                name="Degree Request"
+                parent="menu_odoocms_student_course_request"
+                sequence="210"/>
+
+    </data>
+</odoo>

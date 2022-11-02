@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id='odoocms_admission_confirm_fee_tree_view' model='ir.ui.view'>
+        <field name="name">odoocms.admission.confirm.fee.tree</field>
+        <field name="model">odoocms.admission.confirm.fee</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="false">
+                <field name="entryID"/>
+                <field name="application_id"/>
+                <field name="date_paid"/>
+                <field name="amount"/>
+                <field name="state" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_admission_confirm_fee" model="ir.actions.act_window">
+        <field name="name">Admission Confirm Fee</field>
+        <field name="res_model">odoocms.admission.confirm.fee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Fee Record here.
+            </p>
+        </field>
+    </record>
+
+    <record id='view_odoocms_reject_reason_form_view' model='ir.ui.view'>
+        <field name="name">odoocms.application.reject.reason.form</field>
+        <field name="model">odoocms.application.reject.reason</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id='odoocms_reject_reason_tree_view' model='ir.ui.view'>
+        <field name="name">odoocms.application.reject.reason.tree</field>
+        <field name="model">odoocms.application.reject.reason</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_reject_reason" model="ir.actions.act_window">
+        <field name="name">Reject Reasons</field>
+        <field name="res_model">odoocms.application.reject.reason</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First reject reason here.
+            </p>
+        </field>
+    </record>
+
+
+    <record id='view_odoocms_application_hafiz_quran_result_form_view' model='ir.ui.view'>
+        <field name="name">odoocms.application.hafiz.quran.result.form</field>
+        <field name="model">odoocms.application.hafiz.quran.result</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="application_id"/>
+                </group>
+                <group>
+                    <field name="total_marks"/>
+                    <field name="obtained_marks"/>
+                    <field name="date"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id='odoocms_application_hafiz_quran_result_tree_view' model='ir.ui.view'>
+        <field name="name">oodoocms.application.hafiz.quran.result.tree</field>
+        <field name="model">odoocms.application.hafiz.quran.result</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="name"/>
+                    <field name="application_id"/>
+                    <field name="total_marks"/>
+                    <field name="obtained_marks"/>
+                    <field name="date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_application_hafiz_quran_result" model="ir.actions.act_window">
+        <field name="name">Hafiz Quran Result</field>
+        <field name="res_model">odoocms.application.hafiz.quran.result</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Hafiz Quran Result Here.
+            </p>
+        </field>
+    </record>
+
+    <record id='view_odoocms_candidate_verification_form_view' model='ir.ui.view'>
+        <field name="name">odoocms.candidate.verification.form</field>
+        <field name="model">odoocms.condidate.verification</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="cnic"/>
+                        </group>
+                        <group>
+                            <field name="mobile"/>
+                            <field name="is_verified"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='odoocms_candidate_verification_tree_view' model='ir.ui.view'>
+        <field name="name">odoocms.candidate.verification.tree</field>
+        <field name="model">odoocms.condidate.verification</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="cnic"/>
+                <field name="mobile"/>
+                <field name="is_verified"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_candidate_verification" model="ir.actions.act_window">
+        <field name="name">Candidate Login Verification</field>
+        <field name="res_model">odoocms.condidate.verification</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First reject reason here.
+            </p>
+        </field>
+    </record>
+
+    <record id="view_application_board_form" model="ir.ui.view">
+        <field name="name">odoocms.application.board.form</field>
+        <field name="model">odoocms.application.board</field>
+        <field name="arch" type="xml">
+            <form string="Board">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sh_name"/>
+                            <field name="code"/>
+                            <field name="city_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='odoocms_application_board_tree_view' model='ir.ui.view'>
+        <field name="name">odoocms.application.board.tree</field>
+        <field name="model">odoocms.application.board</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="sh_name"/>
+                <field name="code"/>
+                <field name="city_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_application_board" model="ir.actions.act_window">
+       <field name="name">Examination Boards</field>
+        <field name="res_model">odoocms.application.board</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Create the First city here.
+            </p>
+        </field>
+    </record>
+
+    <record id='odoocms_application_passing_year_tree_view' model='ir.ui.view'>
+        <field name="name">odoocms.application.passing.year.tree</field>
+        <field name="model">odoocms.application.passing.year</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom" delete="false">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="matric"/>
+                <field name="inter"/>
+                <field name="ug"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_application_passing_year" model="ir.actions.act_window">
+        <field name="name">Passing Years</field>
+        <field name="res_model">odoocms.application.passing.year</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the First Passing Year here.
+            </p>
+        </field>
+    </record>
+
+    <record id='view_odoocms_degree_tree' model='ir.ui.view'>
+        <field name="name">odoocms.degree.tree</field>
+        <field name="model">odoocms.degree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="career_id"
+                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='view_odoocms_degree_form' model='ir.ui.view'>
+        <field name="name">odoocms.degree.form</field>
+        <field name="model">odoocms.degree</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                    <group>
+                        <field name="career_id"
+                            options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page name="programs" string="Programs">
+                        <group>
+                            <field name="program_ids"
+                                options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}">
+                                <tree ediable="bottom">
+                                    <field name="name"/>
+                                    <field name="name"/>
+                                    <field name="career_id"
+                                        options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_program_form" model="ir.ui.view">
+        <field name="name">odoocms.program.form</field>
+        <field name="model">odoocms.program</field>
+        <field name="inherit_id" ref="odoocms.view_odoocms_program_form"/>
+        <field name="arch" type="xml">
+            <page name="specialization" position="after">
+                <page name="degree" string="Eligibility Criteria">
+                    <group>
+                        <field name="degree_ids"
+                            options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}">
+                            <tree ediable="bottom">
+                                <field name="name"/>
+                                <field name="name"/>
+                                <field name="career_id"
+                                    options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="action_odoocms_degree" model="ir.actions.act_window">
+        <field name="name">Eligibility Criteria</field>
+        <field name="res_model">odoocms.degree</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create the your First Degree here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_education_reject_reason"
+            name="Reject Reason"
+            parent="menu_admission_configuration"
+            action="action_odoocms_reject_reason"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_application_hafiz_quran_result"
+            name="Result Hafiz Quran"
+            parent="menu_admission_configuration"
+            action="action_odoocms_application_hafiz_quran_result"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_admission_confirm_fee"
+            name="Admission Confirm Fee"
+            parent="menu_odoocms_admission_main"
+            action="action_odoocms_admission_confirm_fee"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="30"/>
+
+    <menuitem
+            id="menu_odoocms_application_board"
+            name="Examination Boards"
+            parent="menu_admission_configuration"
+            action="action_odoocms_application_board"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="50"/>
+
+    <menuitem
+            id="menu_odoocms_application_passing_year"
+            name="Passing Years"
+            parent="menu_admission_configuration"
+            action="action_odoocms_application_passing_year"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="60"/>
+
+    <menuitem
+            id="menu_candidate_verification"
+            name="Candidate Verification"
+            parent="menu_odoocms_admission_main"
+            action="action_odoocms_candidate_verification"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="100"/>
+
+    <menuitem
+            id="menu_odoocms_degree"
+            name="Eligibility Criteria"
+            parent="menu_admission_configuration"
+            action="action_odoocms_degree"
+            groups="odoocms.group_cms_manager,odoocms_admission.group_admission_manager"
+            sequence="110"/>
+
+
+
+</data>
+</odoo>

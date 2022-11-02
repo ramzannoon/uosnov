@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="ad_hoc_charges_import_wiz_view" model="ir.ui.view">
+            <field name="name">wizard for import Ad-hoc Charges from csv or excel file</field>
+            <field name="model">ad.hoc.charges.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Import Ad-hoc Charges From Excel / CSV File">
+                    <group>
+                        <group>
+                            <field name="import_option" widget="radio"/>
+                            <field name="sequence_opt" invisible="1"/>
+                            <field name="file" filename="name"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="action_ad_hoc_charges_import" string="Import File" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_ad_hoc_charges_import_wiz" model="ir.actions.act_window">
+            <field name="name">Import Ad hoc Charges</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ad.hoc.charges.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_ad_hoc_import_wizard"
+                name="Import Ad hoc Charges"
+                action="action_ad_hoc_charges_import_wiz"
+                parent="menu_fee_ad_hoc_charges_main"
+                groups="odoocms_fee.group_fee_manager,odoocms_fee.group_fee_coordinator"
+                sequence="20"/>
+    </data>
+</odoo>

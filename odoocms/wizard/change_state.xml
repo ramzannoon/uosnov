@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_student_state_change" model="ir.ui.view">
+            <field name="name">odoocms.student.state.change</field>
+            <field name="model">odoocms.student.state.change</field>
+            <field name="arch" type="xml">
+                <form string="Change Student State">
+                    <group>
+                        <group>
+                            <field name="state2" required="True"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="change_student_state" string="Change Status" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

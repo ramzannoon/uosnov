@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="asset_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="script[last()]" position="after">
+           
+            <script src="/odoocms_admission/static/src/common/vendor/jquery/jquery.min.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/jquery-validation/dist/jquery.validate.min.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/jquery-validation/dist/additional-methods.min.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/jquery-steps/jquery.steps.min.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/minimalist-picker/dobpicker.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/nouislider/nouislider.min.js" type="text/javascript"/>
+            <script src="/odoocms_admission/static/src/common/vendor/wnumb/wNumb.js" type="text/javascript"/>
+          <!--
+            <script src="/odoocms_admission/static/src/common/js/main.js" type="text/javascript"/>
+            -->             
+
+        </xpath>
+    </template>
+        
+    <template id="index" name="Admissions">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="mb16">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 text-center mb16">
+                                    <h2>Our Admissions Offers</h2>
+                                    <!--  <h3 class="text-muted">Join us and help disrupt the enterprise market!</h3>-->
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    <p>
+                                        <!--  Join us, we offer you an extraordinary chance to learn, to
+                                    develop and to be part of an exciting experience and
+                                    team. -->
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="container oe_website_Admissions">
+                    <div class="row">
+                        <div class="d-none" id="Admissions_grid_left"/>
+                        <div class="col-lg-12" id="Admissions_grid">
+                            <div t-if="not Admissions">
+                                <div class="text-center text-muted">
+                                    <h3 class="css_editable_hidden">
+                                        <a t-attf-href="/contactus">Contact us</a>for admission opportunities.</h3>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled" t-if="Admissions">
+                                <li t-as="admission" t-attf-class="media#{' mt-3' if admission_index else ''}" t-foreach="Admissions">
+                                    <div class="media-body" t-att-data-publish="admission.website_published and 'on' or 'off'">
+                                        <h3>
+                                            <a t-attf-href="/Admissions/detail/#{ slug(admission) }">
+                                                <span t-field="admission.name"/>
+                                            </a>
+                                            <!--  <small t-if="admission.no_of_recruitment &gt; 1"><t t-esc="admission.no_of_recruitment"/>open positions
+                                        </small>-->
+                                        </h3>
+                                        <!--    <span t-field="admission.address_id" t-options='{
+                                        "widget": "contact",
+                                        "fields": ["address"],
+                                        "no_tag_br": True
+                                        }'/>-->
+                                        <span class="badge badge-danger" t-if="not admission.website_published">unpublished</span>
+                                        <div class="text-muted">
+                                            <i aria-label="Publication date" class="fa fa-clock-o" role="img" title="Publication date"/>
+                                            <!-- <span t-field="admission.write_date"/>-->
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="detail" name="Admissions Detail">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Admission Detail</t>
+            <div class="js_hr_recruitment" id="wrap">
+                <div class="oe_structure" id="oe_structure_odoocms_Admissions_detail_1"/>
+                <!-- Breadcrumb -->
+                <section class="mb16 bg-white">
+                    <div class="container">
+                        <div class="float-right">
+                            <a class="btn btn-primary btn-lg float-right mt32 mb4" role="button" t-attf-href="/Admissions/apply/#{admission.id}">Apply Now!</a>
+                        </div>
+                        <label class="mb0 mt16">
+                            <a href="/Admissions">Admissions</a>
+                        </label>/
+                    
+                        <h1 class="mb0 mt0" t-field="admission.name"/>
+                        <!--  <h4 class="mt0" t-field="admission.address_id" t-options='{
+                        "widget": "contact",
+                        "fields": ["city"],
+                        "no_tag_br": True
+                    }'/>--></div>
+                </section>
+                <!--    <div t-field="admission.website_description"/>-->
+                <div class="oe_structure">
+                    <section class="o_admission_bottom_bar mt32 mb32">
+                        <div class="text-center">
+                            <a class="btn btn-primary btn-lg" role="button" t-attf-href="/Admissions/apply/#{admission.id}">Apply Now!</a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <template id="apply">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Apply Admission</t>
+            
+            <xpath expr="." position="inside">
+                
+                <link href="/odoocms_admission/static/src/common/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+                <link href="/odoocms_admission/static/src/common/vendor/nouislider/nouislider.min.css" rel="stylesheet"/>
+                             
+                <link href="/odoocms_admission/static/src/common/css/style.css" rel="stylesheet"/>
+            
+		    </xpath>
+            
+            <body>
+                <div class="main">
+                    <div class="container">
+                        <form action="#" class="signup-form" id="signup-form" method="POST">
+                            <div>
+                                <h3>Personal info</h3>
+                                <fieldset>
+                                    <h2>Personal information</h2>
+                                    <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                                    <div class="fieldset-content">
+                                        <div class="form-row">
+                                            <label class="form-label">Name</label>
+                                            <div class="form-flex">
+                                                <div class="form-group" style="width:100%">
+                                                    <input id="first_name" name="first_name" type="text"/>
+                                                    <span class="text-input">First</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input id="last_name" name="last_name" type="text"/>
+                                                    <span class="text-input">Last</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="email">Email</label>
+                                            <input id="email" name="email" type="email"/>
+                                            <span class="text-input">Example  :
+                                                <span>Jeff@gmail.com</span></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="phone">Phone</label>
+                                            <input id="phone" name="phone" type="text"/>
+                                        </div>
+                                        <div class="form-date">
+                                            <label class="form-label" for="birth_date">Birth Date</label>
+                                            <div class="form-date-group">
+                                                <div class="form-date-item">
+                                                    <select id="birth_month" name="birth_month"/>
+                                                    <span class="text-input">MM</span>
+                                                </div>
+                                                <div class="form-date-item">
+                                                    <select id="birth_date" name="birth_date"/>
+                                                    <span class="text-input">DD</span>
+                                                </div>
+                                                <div class="form-date-item">
+                                                    <select id="birth_year" name="birth_year"/>
+                                                    <span class="text-input">YYYY</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="ssn">SSN</label>
+                                            <input id="ssn" name="ssn" type="text"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <h3>Connect Bank Account</h3>
+                                <fieldset>
+                                    <h2>Connect Bank Account</h2>
+                                    <p class="desc">Please enter your infomation and proceed to next step so we can build your account</p>
+                                    <div class="fieldset-content">
+                                        <div class="form-group">
+                                            <label class="form-label" for="find_bank">Find Your Bank</label>
+                                            <div class="form-find">
+                                                <input id="find_bank" name="find_bank" placeholder="Ex. Techcombank" type="text"/>
+                                                <input class="submit" type="submit" value="Search"/>
+                                                <span class="form-icon">
+                                                    <i class="zmdi zmdi-search"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="choose-bank">
+                                            <p class="choose-bank-desc">Or choose from these popular bank</p>
+                                            <div class="form-radio-flex">
+                                                <div class="form-radio-item">
+                                                    <input checked="checked" id="bank_1" name="choose_bank" type="radio" value="bank_1"/>
+                                                    <label for="bank_1">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-1.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_2" name="choose_bank" type="radio" value="bank_2"/>
+                                                    <label for="bank_2">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-2.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_3" name="choose_bank" type="radio" value="bank_3"/>
+                                                    <label for="bank_3">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-3.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_4" name="choose_bank" type="radio" value="bank_4"/>
+                                                    <label for="bank_4">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-4.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_5" name="choose_bank" type="radio" value="bank_5"/>
+                                                    <label for="bank_5">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-5.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_6" name="choose_bank" type="radio" value="bank_6"/>
+                                                    <label for="bank_6">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-6.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_7" name="choose_bank" type="radio" value="bank_7"/>
+                                                    <label for="bank_7">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-7.jpg"/>
+                                                    </label>
+                                                </div>
+                                                <div class="form-radio-item">
+                                                    <input id="bank_8" name="choose_bank" type="radio" value="bank_8"/>
+                                                    <label for="bank_8">
+                                                        <img alt="" src="/odoocms_admission/static/src/common/images/bank-8.jpg"/>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <h3>Set Financial Goals</h3>
+                                <fieldset>
+                                    <h2>Set Financial Goals</h2>
+                                    <p class="desc">Set up your money limit to reach the future plan</p>
+                                    <div class="fieldset-content">
+                                        <div class="donate-us">
+                                            <div class="price_slider ui-slider ui-slider-horizontal">
+                                                <div id="slider-margin"/>
+                                                <p class="your-money">Your money you can spend per month :
+                                        
+                                                    <span class="money" id="value-lower"/>
+                                                    <span class="money" id="value-upper"/></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+           
+            <script>
+              $(document).ready(function() {
+
+        debugger;
+
+    var form = $("#signup-form");
+ 
+    form.validate({
+        errorPlacement: function errorPlacement(error, element) {
+            element.before(error);
+        },
+        rules: {
+            email: {
+                email: true
+            }
+        },
+        onfocusout: function(element) {
+            $(element).valid();
+        },
+    });
+    form.children("div").steps({
+        headerTag: "h3",
+        bodyTag: "fieldset",
+        transitionEffect: "fade",
+        stepsOrientation: "vertical",
+        titleTemplate: '<div class="title"><span class="step-number">#index#</span><span class="step-text">#title#</span></div>',
+        labels: {
+            previous: 'Previous',
+            next: 'Next',
+            finish: 'Finish',
+            current: ''
+        },
+        onStepChanging: function(event, currentIndex, newIndex) {
+            if (currentIndex === 0) {
+                form.parent().parent().parent().append('<div class="footer footer-' + currentIndex + '"></div>');
+            }
+            if (currentIndex === 1) {
+                form.parent().parent().parent().find('.footer').removeClass('footer-0').addClass('footer-' + currentIndex + '');
+            }
+            if (currentIndex === 2) {
+                form.parent().parent().parent().find('.footer').removeClass('footer-1').addClass('footer-' + currentIndex + '');
+            }
+            if (currentIndex === 3) {
+                form.parent().parent().parent().find('.footer').removeClass('footer-2').addClass('footer-' + currentIndex + '');
+            }
+            // if(currentIndex === 4) {
+            //     form.parent().parent().parent().append('<div class="footer" style="height:752px;"></div>');
+            // }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onFinishing: function(event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function(event, currentIndex) {
+            alert('Submited');
+        },
+        onStepChanged: function(event, currentIndex, priorIndex) {
+
+            return true;
+        }
+    });
+
+    jQuery.extend(jQuery.validator.messages, {
+        required: "",
+        remote: "",
+        email: "",
+        url: "",
+        date: "",
+        dateISO: "",
+        number: "",
+        digits: "",
+        creditcard: "",
+        equalTo: ""
+    });
+
+    $.dobPicker({
+        daySelector: '#birth_date',
+        monthSelector: '#birth_month',
+        yearSelector: '#birth_year',
+        dayDefault: '',
+        monthDefault: '',
+        yearDefault: '',
+        minimumAge: 0,
+        maximumAge: 120
+    });
+    var marginSlider = document.getElementById('slider-margin');
+    if (marginSlider != undefined) {
+        noUiSlider.create(marginSlider, {
+              start: [1100],
+              step: 100,
+              connect: [true, false],
+              tooltips: [true],
+              range: {
+                  'min': 100,
+                  'max': 2000
+              },
+              pips: {
+                    mode: 'values',
+                    values: [100, 2000],
+                    density: 4
+                    },
+                format: wNumb({
+                    decimals: 0,
+                    thousand: '',
+                    prefix: '$ ',
+                })
+        });
+        var marginMin = document.getElementById('value-lower'),
+	    marginMax = document.getElementById('value-upper');
+
+        marginSlider.noUiSlider.on('update', function ( values, handle ) {
+            if ( handle ) {
+                marginMax.innerHTML = values[handle];
+            } else {
+                marginMin.innerHTML = values[handle];
+            }
+        });
+    }
+})
+            </script>
+            
+             </body>
+            
+            
+        </t>
+    </template>
+    <!-- <template id="apply"><t t-call="website.layout"><t t-set="additional_title">Apply admission</t><div id="wrap"  class="container"><h1 class="text-center mt-2">admission Application Form
+            </h1><h2 t-if="admission" class="text-center text-muted"><span t-field="admission.name"/></h2><div class="row mt-3"><section id="forms" class="col"><form action="/website_form/" method="post" class="s_website_form" enctype="multipart/form-data" data-model_name="odoocms.application" data-success_page="/admission-thank-you" t-att-data-form_field_admission_id="admission and admission.id or False"><div class="form-group row form-field o_website_form_required_custom"><div class="col-lg-3 col-md-4 text-right"><label class="col-form-label" for="name">Your Name</label></div><div class="col-lg-7 col-md-8"><input type="text" class="form-control o_website_form_input" name="name" required=""/></div></div><div class="form-group row form-field o_website_form_required_custom"><div class="col-lg-3 col-md-4 text-right"><label class="col-form-label" for="email">Your Email</label></div><div class="col-lg-7 col-md-8"><input type="email" class="form-control o_website_form_input" name="email" required=""/></div></div><div class="form-group row form-field o_website_form_required_custom"><div class="col-lg-3 col-md-4 text-right"><label class="col-form-label" for="phone">Your Phone Number</label></div><div class="col-lg-7 col-md-8"><input type="text" class="form-control o_website_form_input" name="phone" required=""/></div></div><div class="form-group row"><div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7"><a href="#" role="button" class="btn btn-primary btn-lg o_website_form_send">Submit</a><span id="o_website_form_result"></span></div></div></form></section></div></div></t></template>-->
+    <template id="default_website_description">
+        <!-- Description -->
+        <section class="mb32">
+            <div class="container">
+                <p class="mt0 lead">Short summary of the admission: A sales admission for smart people and can
+                learn quickly new industries management practices. You will be
+                in charge of the full sales cycle from the opportunity
+                qualification to the negotiation, going through astonishing
+                product demos.
+            </p>
+            </div>
+        </section>
+        <!-- Responsibilities -->
+        <section class="o_tasks">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <h4>
+                            <strong>Responsibilities</strong>
+                        </h4>
+                        <p>Full sales cycle</p>
+                        <p>Achieve monthly targets</p>
+                        <p>US + Canada Territory</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <h4>
+                            <strong>Challenges</strong>
+                        </h4>
+                        <p>Full sales cycle</p>
+                        <p>Achieve monthly targets</p>
+                        <p>US + Canada Territory</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <h4>
+                            <strong>Must Have</strong>
+                        </h4>
+                        <p>Full sales cycle</p>
+                        <p>Achieve monthly targets</p>
+                        <p>US + Canada Territory</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- What's great -->
+        <section class="mb32 mt16">
+            <div class="container">
+                <h4>
+                    <strong>What's great in the admission?</strong>
+                </h4>
+                <ul>
+                    <li>No outbound calls, you get leads and focus on providing value to them</li>
+                    <li>You sell management software to directors of SMEs: interesting projects and people</li>
+                    <li>Large apps scope: CRM, MRP, Accounting, Inventory, HR, Project Mgt, etc.</li>
+                    <li>Direct coordination with functional consultants for qualification and follow ups</li>
+                    <li>High commissions for good performers</li>
+                </ul>
+            </div>
+        </section>
+        <!-- Datas -->
+        <section style="border: 0 solid #e3e3e3; border-width: 2px 0;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mt16 mb16">
+                        <div class="s_rating s_rating_stars s_rating_3">
+                            <h6 class="mb0">admission Complexity:</h6>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <div class="s_rating_bar"/>
+                        </div>
+                        <div class="s_rating s_rating_stars s_rating_1">
+                            <h6 class="mb0">Personal Evolution:</h6>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <div class="s_rating_bar"/>
+                        </div>
+                        <div class="s_rating s_rating_stars s_rating_4">
+                            <h6 class="mb0">Variability of the admission:</h6>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <div class="s_rating_bar"/>
+                        </div>
+                        <div class="s_rating s_rating_stars s_rating_5">
+                            <h6 class="mb0">admission Security:</h6>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <div class="s_rating_bar"/>
+                        </div>
+                        <div class="s_rating s_rating_stars s_rating_2">
+                            <h6 class="mb0">Overachieving Possibilities:</h6>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <i class="fa"/>
+                            <div class="s_rating_bar"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt16 mb16">
+                        <h6 class="mb0">Team / Company Size:</h6>
+                        <p class="text-uppercase ">10  / 40 people</p>
+                        <h6 class="mb0">Avg Deal Size:</h6>
+                        <p class="text-uppercase ">$15k</p>
+                        <h6 class="mb0">Sales Cycle:</h6>
+                        <p class="text-uppercase ">3 months</p>
+                        <h6 class="mb0">Company Growth:</h6>
+                        <p class="text-uppercase ">50% YoY</p>
+                        <h6 class="mb0">Company Maturity:</h6>
+                        <p class="text-uppercase ">Profitable</p>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mt16 mb16">
+                        <h3 class="mt0">Need More Info?</h3>
+                        <ul>
+                            <li>
+                                <a href="#">The founder’s story</a>
+                            </li>
+                            <li>
+                                <a href="#">The culture</a>
+                            </li>
+                            <li>
+                                <a href="https://twitter.com/odoo/likes">What people say about us?</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Perks -->
+        <section class="o_perk mt16 mb16">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mb0 mt8">
+                            <span class="fa fa-2x fa-heart"/>Benefits</h4>
+                        <p>Healthcare, dental, vision, life insurance, Flexible Spending Account (FSA), Health Savings Account (HSA)</p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mt8 mb0">
+                            <span class="fa fa-2x fa-sun-o"/>PTOs</h4>
+                        <p>Vacation, Sick, and paid leaves</p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mt8 mb0">
+                            <span class="fa fa-2x fa-car"/>Save on commute</h4>
+                        <p>Pre-tax commuter benefitsbr 
+                            <br/>
+                            (parking and transit) </p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mb0 mt8">
+                            <span class="fa fa-2x fa-check-circle"/>Discount Programs</h4>
+                        <p>Brand-name product and services in categories like travel, electronics, health, fitness, cellular, and more</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mb0 mt8">
+                            <span class="fa fa-2x fa-map-marker"/>Prime location</h4>
+                        <p>Only a couple blocs from BART, Caltrain, Highway 101, carpool pickup, and Bay Bridge.</p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mt8 mb0">
+                            <span class="fa fa-2x fa-calendar"/>Sponsored Events</h4>
+                        <p>Tuesday Dinners, Monthly Lunch Mixers, Monthly Happy Hour, Annual day event</p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mt8 mb0">
+                            <span class="fa fa-2x fa-futbol-o"/>Sport Activity</h4>
+                        <p>Play any sport with colleagues and the bill is covered</p>
+                    </div>
+                    <div class="text-center col-lg-3 mt16 mb16">
+                        <h4 class="mb0 mt8">
+                            <span class="fa fa-2x fa-coffee"/>Eat &amp; Drink</h4>
+                        <p>Peet's and Philz coffee provided all day to order and pantry snacks</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Photos -->
+        <section class="mt16 mb16">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-6 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_3.jpg"/>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_2.jpg"/>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_4.jpg"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_6.jpg"/>
+                    </div>
+                    <div class="col-md-6 col-lg-3 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_5.jpg"/>
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt16 mb16">
+                        <img alt="" class="img img-fluid" src="/odoocms_Admissions/static/src/img/admission_image_1.jpg"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+    <record id="thankyou" model="website.page">
+        <field name="url">/admission-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="name">Thank you </field>
+        <field name="type">qweb</field>
+        <field name="key">odoocms_Admissions.thankyou</field>
+        <field name="arch" type="xml">
+            <t name="Thank you ()" t-name="odoocms_Admissions.thankyou">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="oe_structure">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h1 class="text-center">Congratulations!</h1>
+                                        <p class="text-center">Your application has been posted successfully.
+                                    </p>
+                                    </div>
+                                    <t t-if="request.session.get('form_builder_model_model', '') == 'hr.applicant'">
+                                        <t t-set="admission" t-value="request.website._website_form_last_record().sudo().admission_id"/>
+                                        <t t-set="responsible" t-value="admission and admission.user_id.website_published and admission.user_id "/>
+                                    </t>
+                                    <t t-if="responsible">
+                                        <div class="col-lg-12">
+                                            <h3 class="mb32 text-center">Your application has been sent to:</h3>
+                                        </div>
+                                        <div class="col-lg-1 offset-lg-4">
+                                            <p t-field="responsible.image_small" t-options="{'widget': 'image', 'class': 'rounded-circle d-block mx-auto'}"/>
+                                        </div>
+                                        <div class="col-lg-5 o_responsible_data">
+                                            <h4 class="mt0" t-field="responsible.name"/>
+                                            <p t-field="responsible.function"/>
+                                            <t t-if="responsible.email">
+                                                <i aria-label="Email" class="fa fa-envelope" role="img" title="Email"/>
+                                                <a t-attf-href="mailto:#{responsible.email}" t-esc="responsible.email"/>
+                                            </t>
+                                            <t t-if="responsible.phone">
+                                                <br/>
+                                                <i aria-label="Phone" class="fa fa-phone" role="img" title="Phone"/>
+                                                <span t-field="responsible.phone"/>
+                                            </t>
+                                        </div>
+                                        <div class="col-lg-12 mt32 text-center">
+                                            <span>We usually reply between one and three days.
+                                                <br/>
+                                                Feel free to contact him/her if you have further questions.</span>
+                                        </div>
+                                    </t>
+                                </div>
+                                <div class="row" id="o_recruitment_thank_cta">
+                                    <div class="col-lg-12 text-center mt32 mb32">In the meantime,
+                                    
+                                        <h3 class="mt8 mb32">Look around on our website:</h3>
+                                        <a class="btn btn-primary btn-lg" href="/" role="button">Continue To Our Website</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+    
+    <!-- <template id="admission_offices" inherit_id="odoocms_Admissions.index" active="False" customize_show="True" name="Filter by Offices"><xpath expr="//div[@id='Admissions_grid_left']" position="inside"><ul class="nav nav-pills flex-column mb32"><li class="nav-item"><a t-attf-href="/Admissions#{ '/country/%s' % slug(country_id) if country_id else '' }#{ '/department/%s' % slug(department_id) if department_id else '' }" t-attf-class="nav-link#{'' if office_id else ' active'}">All Offices</a></li><t t-foreach="offices" t-as="thisoffice"><li class="nav-item"><a t-attf-href="/Admissions#{ '/country/%s' % slug(country_id) if country_id else '' }#{ '/department/%s' % slug(department_id) if department_id else '' }/office/#{ thisoffice.id }"
+                        t-attf-class="nav-link#{' active' if office_id == thisoffice.id else ''}"><span t-field="thisoffice.city"/><t t-if="thisoffice.country_id">,
+                            <span t-field="thisoffice.country_id.name"/></t></a></li></t></ul></xpath><xpath expr="//div[@id='Admissions_grid_left']" position="attributes"><attribute name="class">col-lg-3</attribute></xpath><xpath expr="//div[@id='Admissions_grid']" position="attributes"><attribute name="class">col-lg-9</attribute></xpath></template>-->
+    <!-- User Navbar -->
+</odoo>

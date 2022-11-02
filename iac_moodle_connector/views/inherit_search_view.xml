@@ -1,0 +1,78 @@
+<odoo>
+    <data>
+        <record id="inherit_iac_campus_search_view" model="ir.ui.view">
+            <field name="name">inherit_iac_campus_search_view</field>
+            <field name="model">odoocms.campus</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_campus_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="iac_sync_state"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter name="group_iac_sync_state" string="Sync State" domain="[]"
+                            context="{'group_by':'iac_sync_state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_iac_institute_search_view" model="ir.ui.view">
+            <field name="name">inherit_iac_institute_search_view</field>
+            <field name="model">odoocms.institute</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_institute_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="iac_sync_state"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter name="group_iac_sync_state" string="Sync State" domain="[]"
+                            context="{'group_by':'iac_sync_state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_iac_department_search_view" model="ir.ui.view">
+            <field name="name">inherit_iac_department_search_view</field>
+            <field name="model">odoocms.department</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_department_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="iac_sync_state"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter name="group_iac_sync_state" string="Sync State" domain="[]"
+                            context="{'group_by':'iac_sync_state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_iac_program_search_view" model="ir.ui.view">
+            <field name="name">inherit_iac_program_search_view</field>
+            <field name="model">odoocms.program</field>
+            <field name="inherit_id" ref="odoocms.view_odoocms_program_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="iac_sync_state"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter name="group_iac_sync_state" string="Sync State" domain="[]"
+                            context="{'group_by':'iac_sync_state'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_iac_batch_search_view" model="ir.ui.view">
+            <field name="name">inherit_iac_batch_search_view</field>
+            <field name="model">odoocms.batch</field>
+            <field name="inherit_id" ref="odoocms_registration.view_odoocms_batch_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="iac_sync_state"/>
+                </xpath>
+                <xpath expr="//search" position="inside">
+                    <filter name="group_iac_sync_state" string="Sync State" domain="[]"
+                            context="{'group_by':'iac_sync_state'}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

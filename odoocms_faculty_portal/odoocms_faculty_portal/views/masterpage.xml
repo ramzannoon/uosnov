@@ -1,0 +1,213 @@
+<odoo>
+    <template id="faculty_portal_main_layout" name="">
+        <header id="header_main" style="background:#28a745">
+            <div class="header_main_content">
+                <nav class="uk-navbar">
+                    <!-- main sidebar switch -->
+                    <a href="#" id="sidebar_main_toggle" class="sSwitch sSwitch_left">
+                        <span class="sSwitchIcon"/>
+                    </a>
+                    <!-- secondary sidebar switch -->
+                    <a href="#" id="sidebar_secondary_toggle" class="sSwitch sSwitch_right sidebar_secondary_check">
+                        <span class="sSwitchIcon"/>
+                    </a>
+                    <div id="menu_top_dropdown" class="uk-float-left uk-hidden-small">
+                        <div class="uk-button-dropdown" data-uk-dropdown="{mode:'click'}">
+                            <a href="#" class="top_menu_toggle">
+                                <i class="material-icons md-24">&#xE8F0;</i>
+                            </a>
+                            <div class="uk-dropdown uk-dropdown-width-3">
+                                <div class="uk-grid uk-dropdown-grid">
+                                    <div class="uk-width-2-3">
+                                        <div class="uk-grid uk-grid-width-medium-1-3 uk-margin-bottom uk-text-center">
+                                            <a href="/faculty/notifications" class="uk-margin-top">
+                                                <i class="material-icons md-36 md-color-cyan-600">&#xe85a;</i>
+                                                <span class="uk-text-muted uk-display-block">Notifications</span>
+                                            </a>
+                                            <a href="/faculty/profile" class="uk-margin-top">
+                                                <i class="material-icons md-36 md-color-orange-600">&#xE87C;</i>
+                                                <span class="uk-text-muted uk-display-block">User Profile</span>
+                                            </a>
+                                            <a href="/faculty/class/schedule" class="uk-margin-top">
+                                                <i class="material-icons md-36 md-color-blue-600">&#xe8b5;</i>
+                                                <span class="uk-text-muted uk-display-block">Class Schedules</span>
+                                            </a>
+                                            <a href="/faculty/class/attendance/page" class="uk-margin-top">
+                                                <i class="material-icons md-36 md-color-red-600">&#xe8ce;</i>
+                                                <span class="uk-text-muted uk-display-block">Attendance</span>
+                                            </a>
+<!--                                            <a href="/studentwebportal/invoices" class="uk-margin-top">-->
+<!--                                                <i class="material-icons md-36 md-color-purple-600">&#xE53E;</i>-->
+<!--                                                <span class="uk-text-muted uk-display-block">Invoices</span>-->
+<!--                                            </a>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="md-color-grey-50 uk-text-bold" >
+                            <img class="logo_regular" t-att-src="image_data_uri(company.logo)" alt="Logo" height="40" width="40"/>
+                           <span t-esc="company.name"/>
+                        </span>
+                    </div>
+                    <div class="uk-navbar-flip">
+                        <ul class="uk-navbar-nav user_actions">
+                            <li>
+                                <a href="#" id="full_screen_toggle" class="user_action_icon uk-visible-large">
+                                    <i class="material-icons md-24 md-light">fullscreen</i>
+                                </a>
+                            </li>
+                            <!--                            <li>-->
+                            <!--                                <a href="#" id="main_search_btn" class="user_action_icon">-->
+                            <!--                                    <i class="material-icons md-24 md-light">&#xE8B6;</i>-->
+                            <!--                                </a>-->
+                            <!--                            </li>-->
+                            <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
+
+                                    <a href="#" class="user_action_icon">
+                                        <i class="material-icons md-24 md-light">&#xE7F4;</i>
+                                        <span class="uk-badge md-bg-red-600"><t t-esc="len(notifications)" t-if="notifications" /></span>
+                                    </a>
+
+                                <div class="uk-dropdown uk-dropdown-xlarge">
+                                    <div class="md-card-content">
+                                        <ul class="uk-tab uk-tab-grid" data-uk-tab="{connect:'#header_alerts',animation:'slide-horizontal'}">
+                                            <li class="uk-width-1-2 uk-active">
+                                                <a href="#" class="js-uk-prevent uk-text-small">Notifications</a>
+                                            </li>
+                                            <li class="uk-width-1-2">
+                                                <a href="#" class="js-uk-prevent uk-text-small">Alerts</a>
+                                            </li>
+                                        </ul>
+                                        <ul id="header_alerts" class="uk-switcher uk-margin">
+                                            <li>
+                                                <ul class="md-list md-list-addon">
+                                                    <t t-foreach="notifications" t-as="notification" >
+                                                    <li>
+                                                        <div class="md-list-addon-element">
+                                                            <!--
+                                                            <i class="md-list-addon-icon material-icons uk-text-warning">
+                                                                &#xE8B2;
+                                                            </i> -->
+                                                           <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                        </div>
+                                                        <div class="md-list-content">
+                                                            <span class="md-list-heading">
+                                                                <a href="/faculty/notifications"><t t-esc="notification.name" />
+                                                                </a>
+                                                            </span>
+                                                            <span class="uk-text-small uk-text-muted">
+                                                                <t t-esc="str(notification.date)[:19]"/>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                                    </t>
+                                                </ul>
+                                                <div class="uk-text-center uk-margin-top uk-margin-small-bottom">
+                                                    <a href="/faculty/notifications"
+                                                       class="md-btn md-btn-flat md-btn-flat-primary js-uk-prevent">
+                                                        Show
+                                                        All
+                                                    </a>
+                                                </div>
+                                            </li>
+                                           <li>
+                                                <ul class="md-list md-list-addon">
+                                                    <t t-foreach="alerts" t-as="alert">
+                                                        <li>
+                                                            <!--<div class="md-list-addon-element">
+                                                                <img t-att-src="image_data_uri(alert.image)" alt="Image" t-if="alert.image"/>
+                                                                <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" class="md-card-head-img" t-if="not alert.image"/>
+                                                            </div>-->
+                                                            <div class="md-list-content">
+                                                                <span class="md-list-heading">
+                                                                    <a t-attf-href="{{alert.url}}">
+                                                                        <t t-esc="alert.name" />
+                                                                    </a>
+                                                                    <t t-esc="alert.description" t-options='{"widget": "html"}'/>
+                                                                </span>
+                                                                <span class="uk-text-small uk-text-muted">
+                                                                    <t t-esc="str(alert.date)[:19]"/>
+                                                                </span>
+                                                            </div>
+                                                        </li>
+                                                    </t>
+                                                </ul>
+                                                <!--<div class="uk-text-center uk-margin-top uk-margin-small-bottom">
+                                                    <a href="/student/notifications"
+                                                       class="md-btn md-btn-flat md-btn-flat-primary js-uk-prevent">
+                                                        Show All
+                                                    </a>
+                                                </div>-->
+
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li data-uk-dropdown="{mode:'click',pos:'bottom-right'}">
+                                <a href="#" class="user_heading_avatar">
+                                    <div class="thumbnail" style="height:43px;width:43px;margin-top:3px;">
+                                        <img t-att-src="image_data_uri(faculty_staff.image_1920)" alt="user" t-if="faculty_staff and faculty_staff.image_1920"/>
+                                    </div>
+                                </a>
+                                <div class="uk-dropdown uk-dropdown-small">
+                                    <ul class="uk-nav js-uk-prevent">
+                                        <li>
+                                            <a href="/faculty/profile">
+                                                 <i class="material-icons">&#xE87C;</i> My profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="/faculty/credentials/reset">
+                                              <i class="material-icons">lock</i>  Change password</a>
+                                        </li>
+                                         <li>
+                                            <a href="/web/session/logout?redirect=/">
+                                                <i class="material-icons">exit_to_app</i>Log out</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- main header end -->
+        <!-- main sidebar -->
+        <aside id="sidebar_main">
+            <div class="sidebar_main_header uk-text-center" style="height:120px;background-image:none; background-color:#e5daba;">
+                <div class="user_heading_avatar">
+                    <div class="thumbnail" style="height:70px; width:70px; margin:8px 0 0 0;">
+                        <img t-att-src="image_data_uri(faculty_staff.image_1920)" style="height:72px; width:72px;" alt="user" t-if="faculty_staff and faculty_staff.image_1920"/>
+                    </div>
+                    <div  class="md-color-blue-grey-800 uk-text-bold uk-text-center uk-margin-left" t-esc="faculty_staff.name"/>
+                </div>
+            </div>
+
+            <div class="menu_section">
+                <ul>
+                    <t t-foreach="menus" t-as="menu">
+                        <t t-if="not menu.parent_id">
+                            <li t-attf-class="{{'current_section' if active_menu == menu.code else ''}}" t-attf-title="{{menu.title}}">
+                                <a t-attf-href="{{menu.href or ''}}" t-attf-style="{{menu.css_class or ''}}">
+                                    <span class="menu_icon"><i class="material-icons"><t t-esc="menu.menu_icon"/></i></span>
+                                    <span class="menu_title"><t t-esc="menu.name"/></span>
+                                </a>
+                                <t t-if="menu.child_ids">
+                                    <ul>
+                                        <t t-foreach="menu.child_ids" t-as="child">
+                                            <li><a t-attf-href="{{child.href or ''}}"><t t-esc="child.name"/></a></li>
+                                        </t>
+                                    </ul>
+                                </t>
+                            </li>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+        </aside>
+
+    </template>
+</odoo>

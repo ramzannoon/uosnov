@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="grade_method_absolute" model="odoocms.grade.method">
+            <field name="name">Absolute Grading</field>
+            <field name="method">assign_absolute_grades</field>
+            <field name="code">absolute</field>
+        </record>
+
+        <record id="grade_method_normalized" model="odoocms.grade.method">
+            <field name="name">Normalized Grading</field>
+            <field name="method">assign_normalized_grades</field>
+            <field name="code">normalized</field>
+        </record>
+
+        <record id="grade_method_grade_histogram" model="odoocms.grade.method">
+            <field name="name">Histogram Grading</field>
+            <field name="method">assign_histogram_grades</field>
+            <field name="code">histogram</field>
+        </record>
+
+        <record id="mail_act_result_submit" model="mail.activity.type">
+            <field name="name">Result Submit</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="category">approval</field>
+            <field name="res_model_id" ref="odoocms_registration.model_odoocms_class_grade"/>
+            <field name="role_domain">[["department_id.faculty_ids.employee_tag_id.name","=","HOD"]]</field>
+            <field name="prev_function">record.revisit_result()</field>
+            <field name="cancel_function">record.revisit_result()</field>
+            <field name="module_category_id" ref="module_category_odoocms_academic"/>
+        </record>
+
+        <record id="mail_act_result_hod_to_dean" model="mail.activity.type">
+            <field name="name">Result HOD-> Dean</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="category">approval</field>
+            <field name="res_model_id" ref="odoocms_registration.model_odoocms_class_grade"/>
+            <field name="role_domain">[["institute_id.faculty_ids.employee_tag_id.name","=","Dean"]]</field>
+            <field name="cancel_function">record.revisit_result()</field>
+            <field name="back_activity_type_id" ref="odoocms_academic.mail_act_result_submit"/>
+            <field name="module_category_id" ref="module_category_odoocms_academic"/>
+        </record>
+
+        <record id="mail_act_result_dean_to_controller" model="mail.activity.type">
+            <field name="name">Result Dean --> Controller</field>
+            <field name="icon">fa-sun-o</field>
+            <field name="category">approval</field>
+            <field name="res_model_id" ref="odoocms_registration.model_odoocms_class_grade"/>
+            <field name="role_domain">[["campus_id.faculty_ids.employee_tag_id.name","=","Controller"]]</field>
+            <field name="post_function">record.compute_result()</field>
+            <field name="cancel_function">record.revisit_result()</field>
+            <field name="back_activity_type_id" ref="odoocms_academic.mail_act_result_hod_to_dean"/>
+            <field name="module_category_id" ref="module_category_odoocms_academic"/>
+        </record>
+
+        <record id="odoocms_academic.mail_act_result_submit" model="mail.activity.type">
+            <field name="force_next">True</field>
+            <field name="default_next_type_id" ref="odoocms_academic.mail_act_result_hod_to_dean"/>
+        </record>
+
+        <record id="odoocms_academic.mail_act_result_hod_to_dean" model="mail.activity.type">
+            <field name="force_next">True</field>
+            <field name="default_next_type_id" ref="odoocms_academic.mail_act_result_dean_to_controller"/>
+        </record>
+
+    </data>
+</odoo>

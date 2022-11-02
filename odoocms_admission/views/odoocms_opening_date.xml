@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="odoocms_opening_date_form_view" model="ir.ui.view">
+            <field name="name">odoocms_opening_date_form</field>
+            <field name="model">odoocms.opening.date</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="opening_date"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="odoocms_opening_date_tree_view" model="ir.ui.view">
+            <field name="name">odoocms_opening_date_tree</field>
+            <field name="model">odoocms.opening.date</field>
+            <field name="arch" type="xml">
+                <tree string="Leads">
+                    <field name="opening_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="odoocms_opening_date_act_window" model="ir.actions.act_window">
+            <field name="name">Opening Date</field>
+            <field name="res_model">odoocms.opening.date</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add Opening Date
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="odoocms_opening_date_menu"
+                  name="Opening Date"
+                  parent="odoocms_admission.menu_admission_configuration"
+                  action="odoocms_opening_date_act_window"
+                  sequence="211"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<record id="view_odoocms_revert_result_form" model="ir.ui.view">
+			<field name="name">odoocms.revert.result.form</field>
+			<field name="model">odoocms.revert.result</field>
+			<field name="arch" type="xml">
+				<form string="Revert Result">
+					<group>
+                        <field name="grade_class_ids"
+                               domain="[('state','=','disposal')]"
+                               options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True}">
+                            <tree class="tree_no_open">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                    </group>
+					<footer>
+						<button name="revert_result" string="Revert Result" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+		<record id="action_odoocms_revert_result" model="ir.actions.act_window">
+            <field name="name">Revert Result</field>
+            <field name="res_model">odoocms.revert.result</field>
+            <field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+
+		<menuitem
+                id="menu_odoocms_revert_result"
+                name="Revert Result"
+                parent="odoocms_academic.menu_odoocms_academic_result"
+                action="action_odoocms_revert_result"
+				sequence="400"/>
+
+		
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="0">
+
+        <!--Email template -->
+        <record id="lead_notification" model="mail.template">
+            <field name="name">Payment Request</field>
+            <field name="email_from">${(user.login and '%s &lt;%s&gt;' % (user.name,user.partner_id.email) or '')|safe}</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">Payment Request Detail: ${object.sequence}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        You have set the reminder to followup with this lead
+                        <br/>
+                        ${object.name}
+                        <br/>
+                        reminder date: ${object.reminder}
+                    </p>
+                </div>
+            </field>
+        </record>
+
+        <!-- Templates for Send Lead Email -->
+        <record id="mail_template_crm_lead" model="mail.template">
+            <field name="name">Send Lead: Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">CRM Lead Mail</field>
+            <field name="email_from">admissions@iac.edu.pk</field>
+            <field name="email_to">${object.email_from | safe}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 12px;">
+                        Hello,
+                    </p>
+                </div>
+            </field>
+<!--             <field name="user_signature" eval="False"/> -->
+            <field name="auto_delete" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

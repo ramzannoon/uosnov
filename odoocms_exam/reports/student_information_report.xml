@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_student_information">
+            <t t-call="web.html_container">
+                <div class="page">
+                <t t-call="web.external_layout">
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th name="th_sr" class="text-left">Sr.</th>
+                                <th name="th_reg" class="text-left">Registration</th>
+                                <th name="th_name" class="text-left">Name</th>
+                                <th name="th_fname" class="text-left">Father Name</th>
+                                <th name="th_bgroup" class="text-left">Blood Group</th>
+                                <th name="th_gp" class="text-right">Grade Points</th>
+                                <th name="th_credits" class="text-right">Credits</th>
+                                <th name="th_cgpa" class="text-right">CGPA</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-foreach="students" t-as="line">
+                                <tr>
+                                    <td><span t-esc="line_index + 1"/></td>
+                                    <td name="td_reg"><span t-esc="line['id_number']"/></td>
+                                    <td name="td_name"><span t-esc="line['name']"/></td>
+                                    <td name="td_fname"><span t-esc="line['father_name']"/></td>
+                                    <td name="td_bgroup"><span t-esc="line['blood_group']"/></td>
+                                    <td name="td_gp" class="text-right"><span t-esc="line['grade_points']"/></td>
+                                    <td name="td_credits" class="text-right"><span t-esc="line['earned_credits']"/></td>
+                                    <td name="td_cgpa" class="text-right"><span t-esc="'{0:,.2f}'.format(line['cgpa']) or '-'"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

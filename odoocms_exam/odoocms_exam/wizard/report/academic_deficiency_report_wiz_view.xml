@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="academic_deficiency_warning_wiz_view_form" model="ir.ui.view">
+        <field name="name">academic.deficiency.warning.wiz.form</field>
+        <field name="model">academic.deficiency.warning.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Academic Deficiency(Warning)">
+                <group>
+                	<group>
+                        <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_academic_deficiency_warning_wiz" model="ir.actions.act_window">
+        <field name="name">Academic Deficiency(Warning)</field>
+        <field name="res_model">academic.deficiency.warning.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem
+            id="menu_academic_deficiency_warning_wiz"
+            name="Academic Deficiency(Warning)"
+            action="action_academic_deficiency_warning_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="200"/>
+
+
+    <record id="academic_deficiency_probation_wiz_view_form" model="ir.ui.view">
+        <field name="name">academic.deficiency.probation.wiz.form</field>
+        <field name="model">academic.deficiency.probation.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Academic Deficiency(Probation)">
+                <group>
+                	<group>
+                        <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_academic_deficiency_probation_wiz" model="ir.actions.act_window">
+        <field name="name">Academic Deficiency(Probation)</field>
+        <field name="res_model">academic.deficiency.probation.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem
+            id="menu_academic_deficiency_probation_wiz"
+            name="Academic Deficiency(Probation)"
+            action="action_academic_deficiency_probation_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="200"/>
+
+
+
+    <record id="academic_deficiency_suspension_wiz_view_form" model="ir.ui.view">
+        <field name="name">academic.deficiency.suspension.wiz.form</field>
+        <field name="model">academic.deficiency.suspension.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Academic Deficiency(Suspension)">
+                <group>
+                	<group>
+                        <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_academic_deficiency_suspension_wiz" model="ir.actions.act_window">
+        <field name="name">Academic Deficiency(Suspension)</field>
+        <field name="res_model">academic.deficiency.suspension.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem
+            id="menu_academic_deficiency_suspension_wiz"
+            name="Academic Deficiency(Suspension)"
+            action="action_academic_deficiency_suspension_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="200"/>
+
+    <record id="academic_deficiency_withdraw_wiz_view_form" model="ir.ui.view">
+        <field name="name">academic.deficiency.withdraw.wiz.form</field>
+        <field name="model">academic.deficiency.withdraw.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Academic Deficiency(Withdraw)">
+                <group>
+                	<group>
+                        <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_academic_deficiency_withdraw_wiz" model="ir.actions.act_window">
+        <field name="name">Academic Deficiency(Withdraw)</field>
+        <field name="res_model">academic.deficiency.withdraw.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+     <menuitem
+            id="menu_academic_deficiency_withdraw_wiz"
+            name="Academic Deficiency(Withdraw)"
+            action="action_academic_deficiency_withdraw_wiz"
+            parent="odoocms_exam.menu_odoocms_exam_report"
+            sequence="200"/>
+
+
+</odoo>

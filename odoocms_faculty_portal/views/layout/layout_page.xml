@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="f_main_layout" name="">
+        <!-- main header end -->
+        <t t-call="odoocms_faculty_portal.f_header_main"/>
+        <!-- main sidebar -->
+        <t t-call="odoocms_faculty_portal.f_sidebar_main"/>
+    </template>
+</odoo>

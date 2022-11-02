@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="act_donor_invoices_list" model="ir.actions.act_window">
+            <field name="res_model">account.move</field>
+            <field name="name">Invoices</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_fee_receipts_filter"/>
+            <field name="view_id" ref="odoocms_receipt_tree"/>
+            <field name="context">{'search_default_donor_id': [active_id], 'default_donor_id': active_id}</field>
+        </record>
+
+        <record id="act_donor_payment_list" model="ir.actions.act_window">
+            <field name="res_model">account.payment</field>
+            <field name="name">Payments</field>
+            <field name="view_mode">tree,form</field>
+            <!--            <field name="search_view_id" ref="view_fee_receipts_filter"/>-->
+            <!--            <field name="view_id" ref="odoocms_receipt_tree"/>-->
+            <field name="context">{'search_default_donor_id': [active_id], 'default_donor_id': active_id}</field>
+        </record>
+
+
+        <!-- ***** Fee Donors ***** -->
+        <record id="view_odoocms_fee_donors_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.donors.tree</field>
+            <field name="model">odoocms.fee.donors</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Donors" decoration-info="state=='draft'" decoration-success="state=='lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="vat"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_donors_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.donors.form</field>
+            <field name="model">odoocms.fee.donors</field>
+            <field name="arch" type="xml">
+                <form string="Fee Donors">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" states="draft" string="Lock" groups="odoocms_fee.group_fee_manager"/>
+                        <button name="action_unlock" type="object" string="UnLock" states="lock" groups="odoocms_fee.group_fee_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="%(act_donor_invoices_list)d"
+                                    class="oe_stat_button"
+                                    icon="fa-money"
+                                    type="action"
+                                    groups="base.group_user">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                            <button name="%(act_donor_payment_list)d"
+                                    class="oe_stat_button"
+                                    icon="fa-money"
+                                    type="action"
+                                    groups="base.group_user">
+                                <field name="payment_count" widget="statinfo" string="Payment"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="first_name" class="oe_edit_only" string="Name"/>
+                                <h2>
+                                    <table>
+                                        <tr>
+                                            <td style="padding-right:10px;">
+                                                <field style="width:inherit;" name="first_name" required="1"
+                                                       placeholder="First Name"/>
+                                            </td>
+                                            <td style="padding-right:10px;">
+                                                <field style="width:inherit;" name="last_name" placeholder="Last Name"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </h2>
+                            </group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="city" placeholder="City" class="o_address_city" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True, "no_create": True}' attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                    <field name="date" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                </div>
+
+                            </group>
+                            <group>
+                                <field name="phone" widget="phone" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="mobile" widget="phone" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="website" widget="url" placeholder="e.g." attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="vat" placeholder="e.g. BE0477472701" string="NTN" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_donors_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.donors.search</field>
+            <field name="model">odoocms.fee.donors</field>
+            <field name="arch" type="xml">
+                <search string="Fee Donors">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="vat"/>
+                    <field name="street"/>
+                    <field name="street2"/>
+                    <field name="city"/>
+                    <field name="state"/>
+                    <newline/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <separator/>
+                        <filter name="group_city" string="City" domain="[]" context="{'group_by':'city'}"/>
+                        <filter name="group_country" string="Country" domain="[]" context="{'group_by':'country_id'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_donors" model="ir.actions.act_window">
+            <field name="name">Fee Donors</field>
+            <field name="res_model">odoocms.fee.donors</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to Create New Record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_donors"
+                action="action_odoocms_fee_donors"
+                parent="menu_fee_configuration_waivers"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="5"/>
+
+
+        <!-- ***** Fee Advance Payments ***** -->
+        <record id="view_odoocms_fee_advance_payment_tree" model="ir.ui.view">
+            <field name="name">odoocms.fee.advance.payment.tree</field>
+            <field name="model">odoocms.fee.advance.payment</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Advance Payments">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="donor_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="division_type"/>
+                    <field name="amount_value"/>
+                    <field name="total_student"/>
+                    <field name="per_student_amount"/>
+                    <field name="remaining_amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_advance_payment_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.advance.payment.form</field>
+            <field name="model">odoocms.fee.advance.payment</field>
+            <field name="arch" type="xml">
+                <form string="Fee Donors">
+                    <header>
+                        <button name="action_approve" type="object" class="oe_highlight" states="draft" string="Approve" groups="odoocms_fee.group_fee_manager"/>
+                        <button name="action_cancel" type="object" string="Cancel" states="draft" groups="odoocms_fee.group_fee_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="donor_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"
+                                       required="1" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+                                <field name="date"/>
+                                <field name="journal_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+
+                            </group>
+                            <group>
+                                <field name="amount" required="1"/>
+                                <field name="division_type" required="1"/>
+                                <field name="amount_value" required="1"/>
+                                <field name="total_student" required="1"/>
+                                <field name="per_student_amount" required="1"/>
+                                <field name="remaining_amount" required="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+
+                        <notebook>
+                            <page name="student_ids" string="Students">
+                                <field name="student_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_fee_advance_payment_search" model="ir.ui.view">
+            <field name="name">odoocms.fee.advance.payment.search</field>
+            <field name="model">odoocms.fee.advance.payment</field>
+            <field name="arch" type="xml">
+                <search string="Fee Advance Payments">
+                    <field name="name"/>
+                    <field name="donor_id"/>
+                    <field name="amount"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <newline/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_donor" string="Donors" domain="[]" context="{'group_by':'donor_id'}"/>
+                        <separator/>
+                        <filter name="group_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_advance_payment" model="ir.actions.act_window">
+            <field name="name">Fee Advance Payments</field>
+            <field name="res_model">odoocms.fee.advance.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to Create New Record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_fee_advance_payment"
+                action="action_odoocms_fee_advance_payment"
+                parent="menu_odoocms_advance_fee_payment_main"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager,odoocms_fee.group_fee_readonly_user"
+                sequence="10"/>
+
+    </data>
+</odoo>

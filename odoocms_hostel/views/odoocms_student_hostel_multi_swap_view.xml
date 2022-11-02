@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- *****  Student Hostel Multi Swap  ***** -->
+        <record id="view_odoocms_student_hostel_multi_swap_tree" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.multi.swap.tree</field>
+            <field name="model">odoocms.student.hostel.multi.swap</field>
+            <field name="arch" type="xml">
+                <tree string="Hostel Multi" decoration-success="state=='Approved'" decoration-primary="state=='Draft'" decoration-danger="state=='Rejected'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_odoocms_student_hostel_multi_swap_form" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.multi.swap.form</field>
+            <field name="model">odoocms.student.hostel.multi.swap</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Multi Swap">
+                    <header>
+                        <button name="action_approved" states="Draft" string="Request Approved" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <button name="action_rejected" states="Draft" string="Request Rejected" type="object" class="oe_highlight" groups="base.group_user"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state','!=', 'Draft')]}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+                        <group>
+                            <field name="remarks"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Student Details">
+                                <field name="line_ids" attrs="{'readonly':[('state','!=','Draft')]}">
+                                    <tree editable="top" decoration-success="state=='Approved'" decoration-primary="state=='Draft'" decoration-danger="state=='Rejected'">
+                                        <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="student_reg_no"/>
+                                        <field name="gender"/>
+                                        <field name="old_hostel_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="old_room_id" domain="[('hostel_id','=',old_hostel_id)]"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="old_room_type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="new_hostel_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="new_room_id" domain="[('hostel_id','=',new_hostel_id),('room_blocked', '=', False)]" required="1"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="new_room_type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <!--                                        <field name="new_dinning_hall_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>-->
+                                        <field name="occupied_student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                               domain="[('room_id','=', new_room_id)]"
+                                               options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="state" optional="1"/>
+                                    </tree>
+
+                                    <form string="Hostel Multi Swap">
+                                        <header>
+                                            <field name="state" widget="statusbar"/>
+                                        </header>
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                                           options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="student_reg_no"/>
+                                                    <field name="gender"/>
+                                                    <field name="new_hostel_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="new_room_id" domain="[('hostel_id','=',new_hostel_id)]" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="new_room_type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                </group>
+                                                <group>
+                                                    <field name="occupied_student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                                           domain="[('room_id','=', new_room_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="old_hostel_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="old_room_id" domain="[('hostel_id','=',old_hostel_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                    <field name="old_room_type" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_student_hostel_multi_swap_search" model="ir.ui.view">
+            <field name="name">odoocms.student.hostel.multi.swap.search</field>
+            <field name="model">odoocms.student.hostel.multi.swap</field>
+            <field name="arch" type="xml">
+                <search string="Student Hostel Multi Swap Filter">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <newline/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_state" string="Student" domain="[]" context="{'group_by':'state'}"/>
+                        <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'date'}"/>
+                        <separator/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_student_hostel_multi_swap">
+            <field name="name">Student Hostel Multi Swap</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.student.hostel.multi.swap</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to Creat a new Record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_student_hostel_multi_swap_menu"
+                name="Student Hostel Multi Swap"
+                parent="menu_odoocms_hostel_swap_main"
+                action="action_odoocms_student_hostel_multi_swap"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="20"/>
+
+    </data>
+</odoo>

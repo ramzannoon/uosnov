@@ -1,0 +1,259 @@
+<odoo>
+
+    <template id="portal_my_applicant_merit_list" inherit_id="portal.portal_my_home" name="Merit List" priority="25">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="application and application.register_id and application.register_id.state == 'merit' and application.register_id.merit_register_id and application.register_id.merit_register_id.state == 'open'" t-call="portal.portal_docs_entry">
+                <t t-set="title">Merit List</t>
+                <t t-set="url" t-value="'/my/merit'"/>
+            </t>
+
+        </xpath>
+    </template>
+
+    <template id="portal_applicant_merit" name="Merit Details">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Applicant</t>
+            </t>
+            <t class="list-group-item fle-xgrow-1">
+                <div style=" text-align: center;background: #1abc9c;color: white; font-size: 30px;">
+                    <span>Merit Details</span>
+                </div>
+                <div class="row py-2">
+                    <div class="col-xl-12 col-md-12 col-sm-12 mx-auto">
+                        <div class="bg-white shadow rounded overflow-hidden">
+
+                            <div class="px-4 pt-0 pb-4" style="background:#137562;">
+                                <div class="media align-items-end profile-header">
+<!--                                    <div class="profile mr-3">-->
+<!--                                        <img alt="..." width="130" class="rounded mb-2 img-thumbnail" t-att-src="image_data_uri(applicant.image)" t-if="applicant.image"/>-->
+<!--                                        <img alt="..." width="130" class="rounded mb-2 img-thumbnail" src="/web/static/src/img/user_menu_avatar.png" t-if=" not applicant.image"/>-->
+<!--                                    </div>-->
+                                    <div class="media-body mb-5 text-white">
+                                        <h4 class="mt-0 mb-0">
+                                            <span t-esc="applicant.name" t-options="{&quot;widget&quot;: &quot;name&quot;}"/>
+                                            <span style="margin-left:10px; margin-right:10px">|</span>
+                                            <span t-esc="applicant.application_no" t-options="{&quot;widget&quot;: &quot;name&quot;}"/>
+                                        </h4>
+                                        <p class="small mb-4">
+                                            <i class="fa fa-map-marker mr-2"></i>
+                                            <span>&#160;</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row px-4" style="padding-top:4em">
+                                <div style="font-size:18px; font-weight:bold; text-align:left">
+                                    <div class="col col-12">
+                                        <span t-esc="admission_reg.merit_register_id.merit_list_id.name" t-if="admission_reg.merit_register_id"/>
+                                        <span>Merit list for</span>&#160;<span t-esc="applicant.register_id.name" t-if="applicant"/>
+                                        <span style="color:red;font-weight:bold" t-if="applicant_merit">(Last date of fee submission is<span t-esc="admission_reg.merit_register_id.date_end"/>)
+                                            <a class="btn btn-secondary o_download_btn" href="/download/admission/feevoucher" title="Download">Download Voucher</a>
+                                            <a class="btn btn-secondary o_download_btn" onclick="document.getElementById('merit_guidelines').style.display='block';" title="Guidelines" style="color:white">GuideLines</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-if="applicant_merit" id="merit_guidelines" class="w3-modal cms-modal" style="display:block">
+                                <!-- Modal content -->
+                                <div class="w3-modal-content cms-modal-content">
+                                    <div class="modal-header cms-modal-header">
+                                        <span class="close" id="close-merit_guidelines" onclick="document.getElementById('merit_guidelines').style.display='none';">X</span>
+                                    </div>
+                                    <div class="modal-body cms-modal-body">
+                                        <div class="frm-row">
+                                            <div class="section colm colm12">
+                                                <img style="width:100%; height:100%" src="/odoocms_admission_portal/static/images/merit_guidelines.png" alt="Merit Guidelines"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-4" style="padding-bottom:15px">
+                                <t t-if="not applicant_merit">
+                                    <strong style="color:red; margin-bottom:5px; font-size:20px">
+                                        <span>You have not been selected in Merit List. Your aggregate is <t t-esc="applicant.total_aggregates"/> and Your merit no is </span>&#160;<span t-esc="applicant.merit_number"/>.
+                                    </strong>
+                                    <p>Merit Closing Detail</p>
+                                    <table id="custom-table">
+                                        <tr>
+                                            <th>Program</th>
+                                            <th>Category</th>
+                                            <th>Quota</th>
+                                            <th>Merit Closed on</th>
+                                        </tr>
+                                        <t t-foreach="allocation_lines" t-as="line_ids">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="line_ids.program_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-if="line_ids.category == 'open_merit'">Open Merit</span>
+                                                    <span t-if="line_ids.category == 'quota'">Quota</span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line_ids.quota_id.name" t-if="line_ids.category == 'quota'"/>
+                                                    <span t-if="line_ids.category != 'quota'">-</span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line_ids.merit_closed_one"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </t>
+                                <t t-if="applicant_merit">
+                                    <strong style="color:green; margin-bottom:5px; font-size:20px">
+                                        <span>Congratulations you have been selected in</span>&#160;<span t-esc="applicant.program_id.name"/>
+                                    </strong>
+                                    <table id="custom-table">
+                                        <tr>
+                                            <th>Program</th>
+                                            <th>Preference</th>
+                                            <th>Program Merit No.</th>
+                                            <th>Total Seats</th>
+                                            <th t-if="applicant.dae_quota_id">DAE Merit No.</th>
+                                            <th t-if="applicant.dae_quota_id">DAE Seats.</th>
+                                            <th t-if="applicant.quota_id">
+                                                <span t-esc="applicant.quota_id.name"/>
+                                                Merit No.
+                                            </th>
+                                            <th t-if="applicant.quota_id">
+                                                <span t-esc="applicant.quota_id.name"/>
+                                                Seats.
+                                            </th>
+                                            <th t-if="applicant.quota_id2">
+                                                <span t-esc="applicant.quota_id2.name"/>
+                                                Merit No.
+                                            </th>
+                                            <th t-if="applicant.quota_id2">
+                                                <span t-esc="applicant.quota_id2.name"/>
+                                                Seats.
+                                            </th>
+                                            <th>Selected</th>
+                                        </tr>
+                                        <t t-foreach="applicant_merit.line_ids" t-as="line_ids">
+                                            <tr t-attf-class="{{ 'text-success font-weight-bold' if line_ids.selected == True else '' }}">
+                                                <td>
+                                                    <span t-esc="line_ids.program_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line_ids.preference"/>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line_ids.program_merit_number" t-if="line_ids.program_merit_number >0"/>
+                                                    <span t-if="line_ids.program_merit_number == 0">-</span>
+                                                </td>
+                                                <td>
+                                                    <span t-if="line_ids.seats != 0" t-esc="line_ids.seats"/>
+                                                    <span t-if="line_ids.seats == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.dae_quota_id">
+                                                    <span t-esc="line_ids.dae_quota_number" t-if="line_ids.dae_quota_number > 0"/>
+                                                    <span t-if="line_ids.dae_quota_number == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.dae_quota_id">
+                                                    <span t-esc="line_ids.dae_seats" t-if="line_ids.dae_seats > 0"/>
+                                                    <span t-if="line_ids.dae_seats == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.quota_id">
+                                                    <span t-esc="line_ids.quota_number" t-if="line_ids.quota_number > 0"/>
+                                                    <span t-if="line_ids.quota_number == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.quota_id">
+                                                    <span t-esc="line_ids.quota_seats" t-if="line_ids.quota_seats > 0"/>
+                                                    <span t-if="line_ids.quota_seats == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.quota_id2">
+                                                    <span t-esc="line_ids.quota_number2" t-if="line_ids.quota_number2 > 0"/>
+                                                    <span t-if="line_ids.quota_number2 == 0">-</span>
+                                                </td>
+                                                <td t-if="applicant.quota_id2">
+                                                    <span t-esc="line_ids.quota_seats2" t-if="line_ids.quota_seats2 > 0"/>
+                                                    <span t-if="line_ids.quota_seats2 == 0">-</span>
+                                                </td>
+                                                <td>
+                                                    <span t-esc="line_ids.selected"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                    <div class="smart-wrap" style="padding:0px">
+                                        <div class="smart-forms">
+                                            <div class="form-body" style="padding:0px; padding-top:20px; padding-bottom:20px">
+                                                <form method="post" action="/save/admission/voucher" enctype="multipart/form-data" t-if="applicant_merit and applicant_merit.merit_register_id.date_end >= today and applicant_merit.state == 'draft'">
+                                                    <input type="hidden" t-att-value="applicant_merit.id" name="applicant_merit"/>
+                                                    <div style=" border:1px solid; margin:5px; padding:10px">
+                                                        <div class="frm-row">
+                                                            <div class="section colm colm4">
+                                                                <label for="phone">Voucher Number</label>
+                                                                <label class="field prepend-icon">
+                                                                    <input type="text" name="voucher_number" id="admission_voucher_number" class="gui-input" t-att-value="applicant_merit.voucher_number" required="True"/>
+                                                                    <span class="field-icon"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="section colm colm4">
+                                                                <label for="phone">Deposit Date</label>
+                                                                <label class="field prepend-icon">
+                                                                    <input type="date" name="date_voucher" id="admission_voucher_date" class="gui-input" t-att-value="applicant_merit.date_voucher" required="True"/>
+                                                                    <span class="field-icon"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="section colm colm4">
+                                                                <label for="lock_seat">Do you want to Lock your Seat?</label>
+                                                                <label class="field select" style="z-index: 1;">
+                                                                    <select name="lock_seat" id="lock_seat">
+                                                                        <option value="yes" t-att-selected="applicant_merit.locked">Yes</option>
+                                                                        <option value="no" t-att-selected="not applicant_merit.locked">No</option>
+                                                                    </select>
+                                                                    <i class="arrow double"></i>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="section">
+                                                            <label for="file1" class="field-label">
+                                                                Upload Voucher -
+                                                                <span class="small-text fine-grey">(ONLY JPG : PNG )</span>
+                                                            </label>
+                                                            <label class="field prepend-icon file">
+                                                                <span class="button btn-blue">Choose File</span>
+                                                                <input type="file" class="gui-file" name="voucher_image" id="admission_voucher_image"
+                                                                       onChange="document.getElementById('admission_voucher_image1').value = this.value;" accept="image/x-png,image/gif,image/jpeg"/>
+                                                                <input type="text" class="gui-input" id="admission_voucher_image1" placeholder="no file selected" required="1" accept="image/x-png,image/gif,image/jpeg"/>
+                                                                <span class="field-icon">
+                                                                    <i class="fa fa-upload"></i>
+                                                                </span>
+                                                            </label>
+                                                        </div><!-- end  section -->
+                                                        <div class="frm-row">
+                                                            <div class="section colm colm3">
+                                                            </div>
+                                                            <div style="float:right" class="section colm colm1">
+                                                                <label for="phone"></label>
+                                                                <label class="field prepend-icon">
+                                                                    <input type="submit" style="padding-left:10px" name="voucher_detail_submit" id="voucher_detail_submit" class="btn btn-primary" value="Submit"/>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <p style='font-weight:bold; text-align:center; color:green' t-if="applicant_merit.date_submission and applicant_merit.voucher_status == False">Details are submitted on
+                                                            <span t-esc="applicant_merit.date_submission"/>
+                                                        </p>
+                                                        <p style='font-weight:bold; text-align:center; color:red' t-if="applicant_merit.voucher_status == 'reject'">Your Fee Details are rejected by Treasure Office!</p>
+                                                        <p style='font-weight:bold; text-align:center; color:green' t-if="applicant_merit.voucher_status == 'accept'">Your Fee Details are accepted by Treasure Office!</p>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

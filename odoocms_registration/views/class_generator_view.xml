@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_class_generator_tree" model="ir.ui.view">
+            <field name="name">odoocms.class.generator.tree</field>
+            <field name="model">odoocms.class.generator</field>
+            <field name="arch" type="xml">
+                <tree string="Class Generator" delete="false">
+                    <field name="name"/>
+                    <field name="institute_id"/>
+                    <field name="program_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_class_generator_form" model="ir.ui.view">
+            <field name="name">odoocms.class.generator.form</field>
+            <field name="model">odoocms.class.generator</field>
+            <field name="arch" type="xml">
+                <form string="Class Generator" delete="false">
+                    <header>
+                        <button name="action_generate" string="Generate" type="object" class="oe_highlight"
+                                attrs="{'invisible':['|',('can_generate','=',False),('state','!=','draft')]}"/>
+                        <button name="action_reject" string="Reject" type="object" class="oe_highlight"
+                                states="draft" groups="odoocms.group_cms_manager"/>
+                        <button name="action_reset_draft" string="Reset to Draft" class="oe_highlight" states="cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                        <field name="can_generate" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="institute_id" required="1"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="department_id" required="1"
+                                    domain="[('institute_id','=',institute_id)]"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                                <field name="program_id"
+                                    domain="[('department_id','=',department_id)]"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                    attrs="{'required':[('class_type','=','regular')]}"/>
+                            </group>
+                            <group>
+                                <field name="class_type" widget="radio"/>
+                                <field name="type" widget="radio"/>
+                                <field name="term_id" required="1"
+                                    options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                    domain="[('enrollment_active','=',True),('short_code','!=',False)]"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="batch_ids" colspan="4" widget="many2many_tags"
+                                domain="[('program_id','=',program_id)]"
+                                options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                attrs="{'required':[('class_type','=','regular')]}"/>
+                        </group>
+                        <group>
+                            <button name="fetch_scheme" type="object" string="Get Courses" class="oe_highlight"
+                                attrs="{'invisible':['|',('state','!=','draft'),('class_type','!=','regular')]}"/>
+                            <field name="course_id"
+                                attrs="{'invisible':['|',('state','!=','draft'),('class_type','=','regular')]}"/>
+                            <button name="add_course" type="object" string="Add Course" class="oe_highlight"
+                                attrs="{'invisible':['|',('state','!=','draft'),('class_type','=','regular')]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Courses">
+                                <field name="line_ids" nolabel="1">
+                                    <tree editable="bottom" create="false">
+                                        <field name="name" readonly="1"/>
+                                        <field name="code" readonly="1"/>
+                                        <field name="batch_id" readonly="1"/>
+                                        <field name="department_id" readonly="1" optional="hide"/>
+                                        <field name="institute_id" readonly="1" optional="hide"/>
+                                        <field name="scheme_line_id" readonly="1" optional="hide"/>
+                                        <field name="course_id" readonly="1" optional="show"/>
+                                        <field name="type" readonly="1" optional="show"/>
+                                        <field name="class_type" readonly="1" optional="show"/>
+                                        <field name="count"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Primary Classes" attrs="{'invisible': [('state','!=','done')]}">
+                                <field name="primary_class_ids" readonly="1"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+<!--        <record id="view_odoocms_course_registration_search" model="ir.ui.view">-->
+<!--            <field name="name">odoocms.course.registration.search</field>-->
+<!--            <field name="model">odoocms.course.registration</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <search string="Course Registration">-->
+<!--                    <field name="student_id"/>-->
+<!--                    <field name="program_id"/>-->
+<!--                    <field name="term_id"/>-->
+<!--                    <newline/>-->
+<!--                    <group expand="0" string="Group By...">-->
+<!--                        <filter name="group_by_program" string="Program" domain="[]"-->
+<!--                                context="{'group_by':'program_id'}"/>-->
+<!--                        <filter name="group_by_semester" string="Academic Term" domain="[]"-->
+<!--                                context="{'group_by':'term_id'}"/>-->
+<!--                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>-->
+<!--                    </group>-->
+<!--                    <searchpanel>-->
+<!--                        <field name="program_id" icon="fa-users"/>-->
+<!--                        <field name="term_id" icon="fa-users"/>-->
+<!--                    </searchpanel>-->
+<!--                </search>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="action_odoocms_class_generator" model="ir.actions.act_window">
+            <field name="name">Class Generator</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.class.generator</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="search_view_id" ref="view_odoocms_course_registration_search"/>-->
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+
+        <menuitem
+                id="menu_odoocms_class_generator"
+                name="Class Generator"
+                action="action_odoocms_class_generator"
+                parent="menu_odoocms_registration_classes"
+                sequence="50"/>
+
+    </data>
+</odoo>

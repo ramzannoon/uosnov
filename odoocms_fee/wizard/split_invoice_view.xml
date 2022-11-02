@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+		<act_window
+				id="odoocms_split_invoice"
+				name="Split Invoice"
+				binding_model="account.move"
+				res_model="odoocms.split.invoice"
+				binding_views="list,form"  view_mode="form"  target="new"
+				groups="odoocms.group_cms_manager"/>
+
+		<record id="view_odoocms_split_invoice_form" model="ir.ui.view">
+			<field name="name">odoocms.split.invoice.form</field>
+			<field name="model">odoocms.split.invoice</field>
+			<field name="arch" type="xml">
+				<form string="Split Invoice">
+					<group>
+						<group>
+							<field name="invoice_id" readonly="1"/>
+							<field name="date_due1"/>
+							<field name="date_due2"/>
+						</group>
+						<group>
+							<field name="amount_percentage"/>
+							<field name="total_amount"/>
+							<field name="per_amount"/>
+						</group>
+						<group>
+							<field name="total1"/>
+							<field name="total2"/>
+						</group>
+					</group>
+
+					<notebook>
+						<page string="Lines">
+							<group>
+								<field name="line_ids" colspan="4" nolabel="1">
+									<tree string="Invoice Lines" editable="bottom" create="false" delete="false">
+										<field name="invoice_line"  readonly="1"/>
+										<field name="amount" readonly="1"/>
+										<field name="percentage" invisible="1"/>
+										<field name="amount1" readonly="1"/>
+										<field name="amount2" readonly="1" />
+									</tree>
+								</field>
+							</group>
+						</page>
+					</notebook>
+
+
+					<footer>
+						<button name="split_invoice" string="Split Invoice" type="object" class="btn-primary"/>
+						<button string="Cancel" class="btn-default" special="cancel" />
+					</footer>
+			   </form>
+			</field>
+		</record>
+
+    </data>
+</odoo>

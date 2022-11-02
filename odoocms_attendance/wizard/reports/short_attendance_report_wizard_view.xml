@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_short_attendance_report_wizard_form" model="ir.ui.view">
+            <field name="name">short.attendance.report.wizard.form</field>
+            <field name="model">short.attendance.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Student Short Attendance Wizard">
+                    <group>
+                        <group>
+                            <field name="batch_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="term_id" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="attendance_percentage" required="1"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                   </form>
+                </field>
+        </record>
+
+        <record id="action_short_attendance_report_wizard" model="ir.actions.act_window">
+            <field name="name">Short Attendance Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">short.attendance.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+        <menuitem
+            id="menu_short_attendance_report"
+            name="Short Attendance Report"
+            parent="menu_odoocms_class_attendance_report_root"
+            action="action_short_attendance_report_wizard"
+            sequence="50"/>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="faculty_dashboard" name="Dashboard">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <!--  <meta http-equiv="cache-control" content="max-age=0"/>
+                  <meta http-equiv="cache-control" content="no-cache"/>
+                  <meta http-equiv="expires" content="0"/>
+                  <meta http-equiv="pragma" content="no-cache"/>-->
+                <!-- <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />-->
+                <!--<meta http-equiv="refresh" content="5;url=" />-->
+                <!--<meta http-equiv="Pragma" content="no-cache" />
+                <meta http-equiv="Expires" content="0" />-->
+
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+
+                <link rel="stylesheet" href="/odoocms_faculty_portal/static/css/custom.css" media="all"/>
+                <style>
+                    .md-icon{
+                    color:white;
+                    }
+
+                    .highcharts-figure, .highcharts-data-table table {
+                    min-width: 310px;
+                    max-width: 800px;
+                    margin: 1em auto;
+                    }
+
+                    .container {
+                    height: 400px;
+                    }
+
+                    .highcharts-data-table table {
+                    font-family: Verdana, sans-serif;
+                    border-collapse: collapse;
+                    border: 1px solid #EBEBEB;
+                    margin: 10px auto;
+                    text-align: center;
+                    width: 100%;
+                    max-width: 500px;
+                    }
+                    .highcharts-data-table caption {
+                    padding: 1em 0;
+                    font-size: 1.2em;
+                    color: #555;
+                    }
+                    .highcharts-data-table th {
+                    font-weight: 600;
+                    padding: 0.5em;
+                    }
+                    .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+                    padding: 0.5em;
+                    }
+                    .highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+                    background: #f8f8f8;
+                    }
+                    .highcharts-data-table tr:hover {
+                    background: #f1f7ff;
+                    }
+
+                </style>
+
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/dashboard">Dashboard</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <!--<div class="md-fab-wrapper">
+        <a class="md-fab md-fab-danger" href="#" id="replay-animations">
+            <i class="material-icons">&#xE042;</i>
+        </a>
+    </div>-->
+                        <!--                        <h3 class="heading_b uk-margin-bottom">Dashboard</h3>-->
+                        <!--hierarchical_show-->
+                        <div class="uk-grid uk-grid-width-large-1-4 uk-grid-width-medium-1-2 uk-grid-medium uk-sortable sortable-handler hierarchical_show"
+                             data-uk-grid-margin="" id="hierarchical-show" data-show-delay="500">
+                            <div>
+                                <div class="md-card md-card-test md-card-hover md-card-overlay"
+                                     style="padding-bottom:0px;">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                                            <span class="peity_visitors peity_data"><t t-esc="lectures"/>,
+                                                <t t-esc="labs"/>
+                                            </span>
+                                        </div>
+                                        <!--                                        <span class="uk-text-muted uk-text-small">Workload</span>-->
+                                        <h2 class="uk-margin-remove">
+                                            <span class="countUpMe">
+                                                <t t-esc="workload.total_workload"/>
+                                                CH.
+                                            </span>
+                                        </h2>
+                                    </div>
+                                    <div class="md-card-overlay-content">
+                                        <div class="uk-clearfix md-card-overlay-header">
+                                            <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                            <h4>
+                                                Workload
+                                            </h4>
+                                        </div>
+                                        <div class="uk-grid uk-text-small">
+                                            <t t-foreach="workload.workload_lines" t-as="work">
+                                                <div class="uk-width-1-2">
+                                                    <span>Lectures:
+                                                        <t t-esc="work.code"/>
+                                                    </span>
+                                                </div>
+                                            </t>
+
+                                            <!-- <div class="uk-width-1-2">
+                                                 <span>Research: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>Admin Tasks: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>Misc: 0</span>
+                                             </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div>
+                                 <div class="md-card md-card-test md-card-hover md-card-overlay" style="padding-bottom:0px;">
+                                     <div class="md-card-content">
+                                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                                             <span class="peity_orders peity_data"><t t-esc="journal_p_total_count"/>  ,<t t-esc="conference_p_total_count"/> ,<t t-esc="editorial_p_total_count"/></span>
+                                         </div>
+                                         &lt;!&ndash;                                          <span class="uk-text-muted uk-text-small">Publications</span>&ndash;&gt;
+                                         <h2 class="uk-margin-remove">
+                                             <span class="countUpMe">0<noscript><t t-esc="publications"/></noscript></span>
+                                         </h2>
+                                     </div>
+                                     <div class="md-card-overlay-content">
+                                         <div class="uk-clearfix md-card-overlay-header">
+                                             <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                             <h3>
+                                                 Publications
+                                             </h3>
+                                         </div>
+
+                                         <div class="uk-grid">
+                                             <div class="uk-width-1-2">
+                                                 <span>Journals: <t t-esc="journal_p_total_count"/> </span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>Conference Papers: <t t-esc="conference_p_total_count"/></span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>Editorial Activity: <t t-esc="editorial_p_total_count"/></span>
+                                             </div>
+                                            &lt;!&ndash; <div class="uk-width-1-2">
+                                                 <span>2018: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2019: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2020: 3</span>
+                                             </div>&ndash;&gt;
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div>
+                                 <div class="md-card md-card-test md-card-hover md-card-overlay" style="padding-bottom:0px;">
+                                     <div class="md-card-content">
+                                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                                             <span class="peity_sale peity_data"><t t-esc="project_p_total_count"/></span>
+                                         </div>
+                                         &lt;!&ndash;                                          <span class="uk-text-muted uk-text-small">Projects</span>&ndash;&gt;
+                                         <h2 class="uk-margin-remove">
+                                             <span class="countUpMe">0<noscript><t t-esc="project_p_total_count"/></noscript></span>
+                                         </h2>
+                                     </div>
+                                     <div class="md-card-overlay-content">
+                                         <div class="uk-clearfix md-card-overlay-header">
+                                             <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                             <h3>
+                                                 Projects
+                                             </h3>
+                                         </div>
+                                         <div class="uk-grid">
+                                             <div class="uk-width-1-2">
+                                                 <span>Projects: <t t-esc="project_p_total_count"/></span>
+                                             </div>
+                                          &lt;!&ndash;   <div class="uk-width-1-2">
+                                                 <span>2016: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2017: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2018: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2019: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2020: 2</span>
+                                             </div>&ndash;&gt;
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div>
+                                 <div class="md-card md-card-test md-card-hover md-card-overlay" style="padding-bottom:0px;">
+                                     <div class="md-card-content">
+                                         <div class="uk-float-right uk-margin-top uk-margin-small-right">
+                                             <span class="peity_visitors peity_data">0</span>
+                                         </div>
+                                         &lt;!&ndash;                                          <span class="uk-text-muted uk-text-small">Projects</span>&ndash;&gt;
+                                         <h2 class="uk-margin-remove">
+                                             <span class="countUpMe">0<noscript>0</noscript></span>
+                                         </h2>
+                                     </div>
+                                     <div class="md-card-overlay-content">
+                                         <div class="uk-clearfix md-card-overlay-header">
+                                             <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                             <h3>
+                                                 AAR Score
+                                             </h3>
+                                         </div>
+                                         <div class="uk-grid">
+                                             <div class="uk-width-1-2">
+                                                 <span>2018: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2019: 0</span>
+                                             </div>
+                                             <div class="uk-width-1-2">
+                                                 <span>2020: 0</span>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+
+                             <div>
+                                   <div class="md-card uk-width-large">
+                                       <div class="md-card-content">
+                                           <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                           <span class="uk-text-muted uk-text-small">Student Supervised UG (Fall-2020)</span>
+                                           <h2 class="uk-margin-remove"><span>0</span></h2>
+                                       </div>
+                                   </div>
+                               </div>
+                              <div>
+                                   <div class="md-card uk-width-large">
+                                       <div class="md-card-content">
+                                           <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                           <span class="uk-text-muted uk-text-small">Student Supervised PG (Fall-2020)</span>
+                                           <h2 class="uk-margin-remove"><span>0</span></h2>
+                                       </div>
+                                   </div>
+                               </div>-->
+                            <div>
+                                <div class="md-card uk-width-large" style="width: max-content !important">
+                                    <div class="md-card-content">
+                                        <div class="uk-float-right uk-margin-top uk-margin-small-right"></div>
+                                        <span class="uk-text-muted uk-text-small">Today Classes</span>
+                                        <h2 class="uk-margin-remove uk-text-small">
+                                            <span>
+                                                <t t-if="not today_classes">
+                                                    <p>No class is schedule for today.</p>
+                                                </t>
+                                                <t t-if="today_classes">
+                                                    <t t-foreach="today_classes" t-as="today_class">
+                                                        <div>
+                                                            <t t-esc="today_class.class_id.name"/>
+                                                            :
+                                                            <t t-esc="'%02d:%02d' % (divmod(today_class.time_from * 60, 60))"/>
+                                                            Hrs -
+                                                            <t t-esc="'%02d:%02d' % (divmod(today_class.time_to * 60, 60))"/>
+                                                            Hrs.
+                                                        </div>
+                                                    </t>
+                                                </t>
+                                            </span>
+                                            <!--                                              <br><span>Networking : </span><span >10:00 - 11:00</span></br>-->
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  <div>
+                                  <div class="md-card">
+                                      <div class="md-card-content">
+                                          <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_sale peity_data">5,3,9,6,5,9,7,3,5,2</span></div>
+                                          <span class="uk-text-muted uk-text-small">Sale</span>
+                                          <h2 class="uk-margin-remove">$<span class="countUpMe">0<noscript>142384</noscript></span></h2>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="md-card">
+                                      <div class="md-card-content">
+                                          <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_orders peity_data">64/100</span></div>
+                                          <span class="uk-text-muted uk-text-small">Orders Completed</span>
+                                          <h2 class="uk-margin-remove"><span class="countUpMe">0<noscript>64</noscript></span>%</h2>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div>
+                                  <div class="md-card">
+                                      <div class="md-card-content">
+                                          <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_live peity_data">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,7,3,5,2</span></div>
+                                          <span class="uk-text-muted uk-text-small">Visitors (live)</span>
+                                          <h2 class="uk-margin-remove" id="peity_live_text">46</h2>
+                                      </div>
+                                  </div>
+                              </div>-->
+                            <!-- <div class="md-card">
+                                       <div class="md-card-content">
+                                           <div class="uk-float-right uk-margin-top uk-margin-small-right"><span class="peity_live peity_data">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,7,3,5,2</span></div>
+                                           <span class="uk-text-muted uk-text-small">AAR</span>
+                                           <h2 class="uk-margin-remove" id="peity_live_text">46</h2>
+                                       </div>
+                                   </div>-->
+                        </div>
+
+                        <div class="md-card md-card-collapsed">
+                            <div class="md-card-toolbar">
+                                <div class="md-card-toolbar-actions">
+                                    <!--<i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>-->
+                                    <i class="md-icon material-icons md-card-toggle md-color-grey-700">&#xE316;</i>
+                                    <!--<i class="md-icon material-icons md-card-close">&#xE14C;</i>-->
+                                </div>
+                                <h3 class="md-card-toolbar-heading-text">
+                                    Surveys
+                                </h3>
+                            </div>
+                            <div class="md-card-content">
+                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show"
+                                     data-uk-grid-margin="" id="hierarchical-show"
+                                     data-show-delay="500"><!--hierarchical_show-->
+                                    <div class="">
+                                        <div class="container" id="container"></div>
+                                        <figure class="highcharts-figure">
+                                        </figure>
+                                        <div class="uk-overflow-container" style="height:200px;">
+                                            <table id="faculty_comment_table" class="uk-table uk-text-nowrap">
+                                                <thead style="background:#004979; color:white;">
+                                                    <tr>
+                                                        <th style="color:white;">Comments</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="color:black;">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <div id="course" class="container"></div>
+                                        <figure class="highcharts-figure">
+                                        </figure>
+                                        <div class="uk-overflow-container" style="height: 200px;">
+                                            <table id="course_comment_table" class="uk-table uk-text-nowrap">
+                                                <thead style="background:#004979; color:white;">
+                                                    <tr>
+                                                        <th style="color:white;">Comments</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="color:black;">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- <div>
+                                         &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                         <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                             <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                 <h2 class="uk-margin-remove">
+                                                     <span class="countUpMe">0
+                                                         <noscript>12456</noscript>
+                                                     </span>
+                                                 </h2>
+                                                 <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                             </div>
+                                             <div class="md-card-overlay-content">
+                                                 <div class="uk-clearfix md-card-overlay-header">
+                                                     <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                     <h3>
+                                                         Publications
+                                                     </h3>
+                                                 </div>
+                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             </div>
+                                         </div>
+                                     </div>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--  <div class="md-card">
+                              <div class="md-card-content">
+                                  <h3 class="heading_a uk-margin-bottom">Surveys</h3>
+                                  <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="500">&lt;!&ndash;hierarchical_show&ndash;&gt;
+                                      <div class="">
+                                          <div class="container" id="container"></div>
+                                          <figure class="highcharts-figure">
+                                          </figure>
+                                          <div class="uk-overflow-container" style="height:200px;">
+                                              <table id="faculty_comment_table" class="uk-table uk-text-nowrap">
+                                                  <thead style="background:#004979; color:white;">
+                                                      <tr>
+                                                          <th style="color:white;">Comments</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody style="color:black;">
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                      <div class="">
+                                          <div id="course" class="container"></div>
+                                          <figure class="highcharts-figure">
+                                          </figure>
+                                          <div class="uk-overflow-container" style="height: 200px;">
+                                              <table id="course_comment_table" class="uk-table uk-text-nowrap">
+                                                  <thead style="background:#004979; color:white;">
+                                                      <tr>
+                                                          <th style="color:white;">Comments</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody style="color:black;">
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                      &lt;!&ndash; <div>
+                                           &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                           <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                               <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                   <h2 class="uk-margin-remove">
+                                                       <span class="countUpMe">0
+                                                           <noscript>12456</noscript>
+                                                       </span>
+                                                   </h2>
+                                                   <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                               </div>
+                                               <div class="md-card-overlay-content">
+                                                   <div class="uk-clearfix md-card-overlay-header">
+                                                       <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                       <h3>
+                                                           Publications
+                                                       </h3>
+                                                   </div>
+                                                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                               </div>
+                                           </div>
+                                       </div>&ndash;&gt;
+                                  </div>
+                              </div>
+                          </div>-->
+                        <!--  <div class="md-card">
+
+                             <div class="md-card-content">
+                                 <h3 class="heading_a uk-margin-bottom">Research</h3>
+
+                                 <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                   &lt;!&ndash;  <div class="">
+                                         <div class="container" id="publication"></div>
+
+                                         <figure class="highcharts-figure">
+
+                                         </figure>
+
+                                     </div>
+                                     <div class="">
+                                         <div id="patent" class="container"></div>
+
+                                         <figure class="highcharts-figure">
+
+                                         </figure>
+
+                                     </div>&ndash;&gt;
+
+                                    &lt;!&ndash; <div>
+                                         &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                         <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                             <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                 <h2 class="uk-margin-remove">
+                                                     <span class="countUpMe">0
+                                                         <noscript>12456</noscript>
+                                                     </span>
+                                                 </h2>
+                                                 <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                             </div>
+                                             <div class="md-card-overlay-content">
+                                                 <div class="uk-clearfix md-card-overlay-header">
+                                                     <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                     <h3>
+                                                         Publications
+                                                     </h3>
+                                                 </div>
+                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             </div>
+                                         </div>
+                                     </div>&ndash;&gt;
+                                 </div>
+
+                             </div>
+                         </div>
+
+                          <div class="md-card">
+
+                             <div class="md-card-content">
+                                 <h3 class="heading_a uk-margin-bottom">Projects</h3>
+
+                                 <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-12 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="120">
+                                   &lt;!&ndash;  <div class="">
+                                         <div class="container" id="project"></div>
+
+                                         <figure class="highcharts-figure">
+
+                                         </figure>
+
+                                     </div>&ndash;&gt;
+
+                                    &lt;!&ndash; <div>
+                                         &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                         <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                             <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                 <h2 class="uk-margin-remove">
+                                                     <span class="countUpMe">0
+                                                         <noscript>12456</noscript>
+                                                     </span>
+                                                 </h2>
+                                                 <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                             </div>
+                                             <div class="md-card-overlay-content">
+                                                 <div class="uk-clearfix md-card-overlay-header">
+                                                     <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                     <h3>
+                                                         Publications
+                                                     </h3>
+                                                 </div>
+                                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                             </div>
+                                         </div>
+                                     </div>&ndash;&gt;
+                                 </div>
+
+                             </div>
+                         </div>-->
+                    </div>
+                </div>
+                <!-- <script>
+&lt;!&ndash;function myFunction() {
+&lt;!&ndash;   var element = document.getElementById("myOverlay");&ndash;&gt;
+&lt;!&ndash;   element.classList.add("md-card-overlay-active");&ndash;&gt;
+}&ndash;&gt;
+       var $this = $(this);
+        // toggle card overlay
+        $this.on('click','.md-card-overlay-toggler', function(e) {
+                     console.log('fggg');
+            e.preventDefault();
+            if(!$(this).closest('.md-card').hasClass('md-card-overlay-active')) {
+                $(this)
+                    .html('&#xE5CD;')
+                    .closest('.md-card').addClass('md-card-overlay-active');
+            } else {
+                $(this)
+                    .html('&#xE5D4;')
+                    .closest('.md-card').removeClass('md-card-overlay-active');
+            }
+        });
+
+
+                 </script>-->
+                <script>
+                    WebFontConfig = {
+                    google: {
+                    families: [
+                    'Source+Code+Pro:400,700:latin',
+                    'Roboto:400,300,500,700,400italic:latin'
+                    ]
+                    }
+                    };
+                    (function() {
+                    var wf = document.createElement('script');
+                    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                    '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                    wf.type = 'text/javascript';
+                    wf.async = 'true';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(wf, s);
+                    })();
+                </script>
+                <t t-call-assets="odoocms_web.assets_aarsol_dashboard_portal" t-css="false"/>
+                <!-- <script src="/odoocms_faculty_portal/static/js/custom.js"/>-->
+                <script src="/odoocms_faculty_portal/static/js/feedback.js"/>
+                <!-- <script src="/odoocms_faculty_portal/static/js/research.js"/>-->
+
+            </body>
+        </t>
+    </template>
+    <template id="faculty_dashboard_new" name="Dashboard">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+                <link rel="stylesheet" href="/odoocms_faculty_portal/static/css/custom_dashboard.css" media="all"/>
+                <!-- <link rel="stylesheet" href="/odoocms_web/static/bowerComponents/select2/dist/css/select2.min.css"/>-->
+                <style>.uk-modal { z-index: 10; } .curve { border-radius: 5px 5px 5px 5px; overflow: hidden; } .md-card
+                    .md-card-toolbar-heading-text-resume { font: 500 18px/50px Roboto,sans-serif; color: #212121;
+                    margin: 0; float: left; overflow: hidden; height: 48px; } .md-card .md-card-toolbar { height: 48px;
+                    padding: 0 16px; border-bottom: 0px solid rgba(0,0,0,.12); background: #fff; } .floatright{ float:
+                    right; } .md-card .md-border{ border-bottom: 1px solid rgba(0,0,0,.12); background: #fff; } .t-16 {
+                    font-size: 1.2rem; line-height:1.6; margin-bottom: 0px; } .t-bold { font-weight: 600; } .t-14 {
+                    font-size: 1rem; line-height: 1.2; margin-bottom: 0px; } .t-normal { font-weight: 400; }
+                    .t-black--light { color: grey; } .uk-form-row+.uk-form-row-exp { margin-top: 12px; }
+                    .uk-form-row-exp-details { margin-top: 15px; }
+                </style>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_faculty_portal.f_main_layout"/>
+                <div id="page_content">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/faculty/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faculty/dashboard">Dashboard</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner" style="padding:15px 4px 100px;">
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <h3 class="heading_a uk-tab">Academics</h3>
+
+
+                                <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show"
+                                     data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                    <div class="uk-width-large-3-10">
+                                        <div class="user_heading_dash">
+                                            <div class="user_heading_avatar">
+
+                                                <div class="thumbnail">
+                                                    <!--                                                <img src="/odoocms_web/static/assets/img/avatars/avatar_11.png"-->
+                                                    <!--                                                     alt="user avatar"/>-->
+                                                    <img t-att-src="image_data_uri(faculty_staff.image_1920)" alt="user"
+                                                         t-if="faculty_staff and faculty_staff.image_1920"/>
+                                                </div>
+                                            </div>
+                                            <div class="user_heading_content" style="padding:2px 0;">
+                                                <h2 class="heading_b md-color-grey-900">
+                                                    <span class="uk-text-truncate" t-esc="faculty_staff.name"/>
+
+                                                    <span class="sub-heading md-color-grey-700"
+                                                          t-esc="faculty_staff.code"/>
+                                                    <span class="sub-heading md-color-grey-700"
+                                                          t-if="faculty_staff.designation.hr_desig_short_desc"
+                                                          t-esc="faculty_staff.designation.hr_desig_short_desc"/>
+                                                    <!--<span class="sub-heading md-color-grey-700"  t-esc="student.program_id.department_id.institute_id.name"/>-->
+                                                    <span class="sub-heading md-color-grey-700"
+                                                          t-if="faculty_staff.department.name"
+                                                          t-esc="faculty_staff.department.name"/>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="uk-width-large-4-10">
+                                        <div class="user_heading_content">
+                                            <span class="md-color-grey-900">Work Load:</span>
+                                            <t t-esc="workload.total_workload"/>
+                                            CH.
+                                            <!-- <t t-if="student.cgpa >= 3.0">
+                                                 <t t-if="student.cgpa >= 3.50">
+                                                     <span class="md-color-green-700">Excellent</span>
+                                                 </t>
+                                                 <t t-if="not student.cgpa >= 3.50">
+                                                     <span class="md-color-green-700">Good</span>
+                                                 </t>
+                                             </t>
+
+                                             <t t-if="not student.cgpa >= 3.0">
+                                                 <t t-if="student.cgpa >= 2.50">
+                                                     <span class="md-color-orange-800">Satisfactory</span>
+                                                 </t>
+                                                 <t t-if="not student.cgpa >= 2.50">
+                                                     <span class="md-color-deep-orange-A400">Unsatisfactory</span>
+                                                 </t>
+                                             </t>-->
+                                            -
+                                            <div>
+                                                <span class="md-color-grey-900">WL Details:</span>
+                                                <t t-foreach="faculty_staff.class_ids" t-as="work_load">
+                                                    <div class="uk-text-small">
+                                                        <span t-esc="work_load.class_id.code"/>
+                                                        |
+                                                        <span class="md-color-light-blue-600">Cr./Student Count:</span>
+                                                        <span t-esc="work_load.credits"/>
+                                                        /
+                                                        <span t-esc="work_load.student_count"/>
+                                                    </div>
+
+
+                                                </t>
+                                            </div>
+                                            <!-- CGPA:
+
+                                             <span t-if="student.cgpa" t-attf-class="'md-color-green-700' if student.cgpa > 3.0 else 'md-color-orange-800'">
+                                                 &lt;!&ndash;<t t-esc="student.cgpa"/>&ndash;&gt; -
+                                             </span>-->
+
+                                        </div>
+                                    </div>
+                                    <!-- <div class="uk-width-large-2-10">
+                                         <div class="user_heading_content">
+
+                                             Completed Cr. / Total Cr :
+                                             <t t-esc="completed_credits"/>
+                                             /
+                                             <t t-esc="student.batch_id.study_scheme_id.credits" t-if="student.batch_id.study_scheme_id.credits"/>
+                                             <div>Inprogress Cr :
+                                                 <t t-esc="inprogress_credits"/>
+                                             </div>
+                                             &lt;!&ndash;<span><t t-esc="inprogress_credits" /> CH.</span>&ndash;&gt;
+                                         </div>
+
+
+                                     </div>-->
+                                    <div class="uk-width-large-3-10">
+                                        <div class="user_heading_content">
+
+                                            <span class="md-color-grey-900">Today Classes:</span>
+                                            <t t-if="not today_classes">
+                                                <p>No class is schedule for today.</p>
+                                            </t>
+                                            <t t-if="today_classes">
+                                                <t t-foreach="today_classes" t-as="today_class">
+                                                    <div class="uk-text-small">
+                                                        <span class="md-color-grey-900">
+                                                            <t t-esc="today_class.class_id.name"/>
+                                                        </span>
+                                                        :
+                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.time_from * 60, 60))"/>
+                                                        Hrs -
+                                                        <t t-esc="'%02d:%02d' % (divmod(today_class.time_to * 60, 60))"/>
+                                                        Hrs.
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <!--<h3 class="heading_a uk-tab">Survey / Feedback Score</h3>-->
+                                <div class="md-card md-card-collapsed uk-margin-bottom">
+                                    <div class="md-card-toolbar">
+                                        <div class="md-card-toolbar-actions">
+                                            <!--<i class="md-icon material-icons md-card-fullscreen-activate">&#xE5D0;</i>-->
+                                            <i class="md-icon material-icons md-card-toggle md-color-grey-700">
+                                                &#xE316;
+                                            </i>
+                                            <!--<i class="md-icon material-icons md-card-close">&#xE14C;</i>-->
+                                        </div>
+                                        <h3 class="md-card-toolbar-heading-text">
+                                            Survey / Feedback Score
+                                        </h3>
+                                    </div>
+                                    <div class="md-card-content">
+                                        <a class="md-btn md-btn-warning md-btn-wave-light"
+                                           data-uk-modal="{target:'#modal_feedback_report'}">Download Reports
+                                        </a>
+                                        <div class="uk-modal" id="modal_feedback_report">
+                                            <div class="uk-modal-dialog uk-modal-dialog-large">
+                                                <form id="form_feedback_report" name="form_feedback_report"
+                                                      method="post" action="/faculty/feedback/report/p/download">
+                                                    <div class="uk-modal-header">
+                                                        <h3 class="uk-modal-title">
+                                                            Feedback Report
+                                                            <i class="material-icons" data-uk-tooltip="{pos:'top'}"
+                                                               title="Download Term Wise Feedback Report">&#xE8FD;
+                                                            </i>
+                                                        </h3>
+                                                    </div>
+                                                    <div class="md-card-content">
+                                                        <div class="uk-grid" data-uk-grid-margin="">
+                                                            <div class="uk-width-medium-2-2 uk-row-first">
+                                                                <div class="uk-form-row">
+                                                                    <input type="hidden" t-att-value="faculty_staff.id"
+                                                                           name="faculty_staff_id"/>
+                                                                    <select id="select_demo_1" class="md-input" name="survey_id">
+                                                                        <option value="">
+                                                                            Select...
+                                                                        </option>
+                                                                        <optgroup label="Teacher Evaluation Reports">
+                                                                            <t t-foreach="teacherEvaluationsSelfReport"
+                                                                               t-as="rec">
+                                                                                <option t-att-value="rec.id">
+                                                                                    <span>
+                                                                                        <t t-esc="rec.class_id.term_id.name"/>
+                                                                                        |
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        <t t-esc="rec.title"/>
+                                                                                    </span>
+
+                                                                                </option>
+                                                                            </t>
+                                                                        </optgroup>
+                                                                        <optgroup label="Course Evaluation Reports">
+                                                                            <t t-foreach="teacherEvaluationsCourseReport"
+                                                                               t-as="rec">
+                                                                                <option t-att-value="rec.id">
+                                                                                    <span>
+                                                                                        <t t-esc="rec.class_id.term_id.name"/>
+                                                                                        |
+                                                                                    </span>
+                                                                                    <span>
+                                                                                        <t t-esc="rec.title"/>
+                                                                                    </span>
+
+                                                                                </option>
+                                                                            </t>
+                                                                        </optgroup>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="uk-modal-footer uk-text-right">
+                                                        <button type="button" class="md-btn md-btn-flat uk-modal-close">
+                                                            Close
+                                                        </button>
+                                                        <button type="submit" class="md-btn md-btn-flat">Download</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-2 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show"
+                                             data-uk-grid-margin="" id="hierarchical-show"
+                                             data-show-delay="500"><!--hierarchical_show-->
+                                            <div class="">
+                                                <div class="container" id="container"></div>
+                                                <figure class="highcharts-figure">
+                                                </figure>
+                                                <div class="uk-overflow-container" style="height:400px;">
+                                                    <table id="faculty_comment_table" class="uk-table uk-text-nowrap">
+                                                        <thead style="background:#004979; color:white;">
+                                                            <tr>
+                                                                <th style="color:white;">Comments</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody style="color:black;">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="">
+                                                <div id="course" class="container"></div>
+                                                <figure class="highcharts-figure">
+                                                </figure>
+                                                <div class="uk-overflow-container" style="height: 400px;">
+                                                    <table id="course_comment_table" class="uk-table uk-text-nowrap">
+                                                        <thead style="background:#004979; color:white;">
+                                                            <tr>
+                                                                <th style="color:white;">Comments</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody style="color:black;">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- <div>
+                                                 &lt;!&ndash;                    <div id="myOverlay"  class="md-card md-card-test md-card-hover md-card-overlay ">&ndash;&gt;
+                                                 <div id="myOverlay" class="md-card  md-card-hover md-card-overlay ">
+                                                     <div class="md-card-content uk-flex uk-flex-center uk-flex-middle">
+                                                         <h2 class="uk-margin-remove">
+                                                             <span class="countUpMe">0
+                                                                 <noscript>12456</noscript>
+                                                             </span>
+                                                         </h2>
+                                                         <span class="peity_conversions_large peity_data">5,3,9,6,5,9,7</span>
+
+                                                     </div>
+                                                     <div class="md-card-overlay-content">
+                                                         <div class="uk-clearfix md-card-overlay-header">
+                                                             <i class="md-icon material-icons md-card-overlay-toggler">&#xE5D4;</i>
+                                                             <h3>
+                                                                 Publications
+                                                             </h3>
+                                                         </div>
+                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                                     </div>
+                                                 </div>
+                                             </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-12 uk-grid-width-medium-1-12 uk-grid-width-large-1-4  uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="100">
+                                    <t t-if="len(student.course_ids)>0">
+                                        <t t-foreach="student.course_ids" t-as="course">
+                                            <t t-if="course.primary_class_id.name">
+                                                &lt;!&ndash;                                                                t-attf-style="background:{{color[course_index]}}" &ndash;&gt;
+
+                                                <div>
+                                                    &lt;!&ndash; <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">
+                                                         <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>
+                                                        <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >
+                                                         <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>
+                                                            </div>
+                                                     </div>&ndash;&gt;
+                                                    <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/results/id/{{course.id}}">
+                                                        <span class="md-list-heading md-color-grey-900" t-esc="course.primary_class_id.name"/>
+                                                        <div class="">
+                                                            <span class="sub-heading md-color-blue-grey-600 " t-esc="str(course.course_id.code)"/>
+                                                            <b class="uk-text-small md-color-blue-grey-600">Credits :</b>
+                                                            <span class="md-list-heading md-color-blue-grey-600" t-esc="course.credits"/>
+                                                             <t t-if="course.state in ('lock','submit','disposal','approval','verify')">
+                                                                                         <span class="md-color-blue-grey-600" >Grading in progress</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('draft','current')">
+                                                                                         <span class="md-color-blue-grey-600">Active Class</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('done','notify')">
+                                                                                        <b class="uk-text-small">Marks | Grade :</b>
+                                                                                        <span>
+                                                                                            <b t-esc="course.normalized_marks"></b>
+                                                                                            |
+                                                                                            <b t-esc="course.grade"></b>
+                                                                                        </span>
+                                                                                    </t>
+                                                            <div class="uk-text-small">Attendance:<t t-esc="course.attendance_percentage"/>%
+                                                                <span t-attf-class="{{'uk-progress uk-progress-mini uk-progress-success uk-margin-remove' if course.attendance_percentage>=76 else 'uk-progress uk-progress-mini uk-progress-danger uk-margin-remove'}}">
+                                                                </span>
+                                                                <span class="uk-text-small"><t t-esc="course.term_id.name"/> </span>
+                                                            </div>
+
+                                                        </div>
+                                                        &lt;!&ndash;                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>&ndash;&gt;
+                                                        &lt;!&ndash;                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>&ndash;&gt;
+                                                    </a>
+
+                                                </div>
+
+
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <t t-if="not len(student.course_ids)>0">
+                                        <div style="margin-left:3%;">Result classes not available.</div>
+                                    </t>
+                                </div>-->
+                                <h3 class="heading_a uk-tab">News and Announcements</h3>
+                                <!--  <t t-if="not len(notifications) > 0">
+                                      <span>Stay tuned.</span>
+                                  </t>
+                                  <t t-foreach="notifications" t-as="notification">
+                                      <li style="max-height: 150px">
+                                          <div class="md-card">
+                                              <div style="height: 180px;">
+                                                  <img t-att-src="image_data_uri(notification.image)" alt="Image" t-if="notification.image"/>
+                                                  <img src="/odoocms_web/static/assets/img/nust.jpg" alt="" t-if="not notification.image"/>
+                                              </div>
+                                              <div class="md-card-content">
+                                                  <strong>
+                                                      <a href="/student/notifications">
+                                                          <span class="md-list-heading">
+                                                              <t t-esc="notification.name"/>
+                                                          </span>
+                                                      </a>
+                                                  </strong>
+                                                  <br/>
+                                                  <span class="uk-text-muted">
+                                                      <t t-esc="str(notification.date)[:19]"/>
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </li>
+                                  </t>-->
+                                <t t-if="not len(notifications) > 0">
+                                    <span>Stay tuned.</span>
+                                </t>
+                                <div class="uk-slidenav-position"
+                                     data-uk-slider="{center:true,autoplay: true,autoplayInterval: '5000'}">
+
+                                    <div class="uk-slider-container">
+                                        <ul class="uk-slider uk-slider-center uk-grid-width-medium-1-5 uk-grid-width-small-1-2">
+                                            <t t-foreach="notifications" t-as="notification">
+                                                <li style="padding:10px;">
+                                                    <div class="md-card">
+                                                        <div style="height: 180px;">
+                                                            <img t-att-src="image_data_uri(notification.image)"
+                                                                 alt="Image" t-if="notification.image"/>
+                                                            <img src="/odoocms_web/static/assets/img/superior1.jpg" alt=""
+                                                                 t-if="not notification.image"/>
+                                                        </div>
+                                                        <div class="md-card-content">
+                                                            <strong>
+                                                                <a href="/faculty/notifications">
+                                                                    <span class="md-list-heading">
+                                                                        <t t-esc="notification.name"/>
+                                                                    </span>
+                                                                </a>
+                                                            </strong>
+                                                            <br/>
+                                                            <span class="uk-text-muted">
+                                                                <t t-esc="str(notification.date)[:19]"/>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </t>
+                                        </ul>
+                                    </div>
+
+                                    <a href="#" class="uk-slidenav uk-slidenav-previous"
+                                       data-uk-slider-item="previous"></a>
+                                    <a href="#" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <!--<t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>-->
+                <t t-call-assets="odoocms_web.assets_aarsol_dashboard_portal" t-css="false"/>
+                <!-- <t t-call-assets="odoocms_web.assets_aarsol_dashboard_portal" t-css="false"/>-->
+                <!-- <script src="/odoocms_faculty_portal/static/js/custom.js"/>-->
+                <script src="/odoocms_faculty_portal/static/js/feedback.js"/>
+                <!--  <script src="/odoocms_web/static/bowerComponents/jquery-ui/jquery-ui.min.js"></script>
+                  <script src="/odoocms_web/static/bowerComponents/select2/dist/js/select2.min.js"></script>-->
+
+                <!-- <script src="/odoocms_student_portal/static/js/dashboard.js"/>-->
+            </body>
+        </t>
+    </template>
+</odoo>

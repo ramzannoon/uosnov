@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="datesheet_report_wiz_form" model="ir.ui.view">
+        <field name="name">datesheet.wiz</field>
+        <field name="model">datesheet.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Date Sheet Wiz">
+                <sheet>
+                        <field name="batch_ids" widget="many2many" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                </sheet>
+                <footer>
+                    <button name="print_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_datesheet_wiz" model="ir.actions.act_window">
+        <field name="name">DateSheet</field>
+        <field name="res_model">datesheet.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+     <menuitem
+            id="menu_datesheet_wiz"
+            name="Date Sheet"
+            action="action_datesheet_wiz"
+            parent="odoocms_exam_setup.menu_exam_setup_report"
+            sequence="1"/>
+
+</odoo>

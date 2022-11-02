@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="student_portal_result_classes" name="Result">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li >
+                                <a href="/student/results">Result Classes</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Results</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <div class="uk-width-large-1-12">
+                                    <div class="" data-uk-grid-margin="">
+                                        <div class="md-card-content">
+                                            <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                               <!-- <li class="uk-active" t-if="date_sheet">
+                                                    <a href="#" class="md-color-blue-500">Exams</a>
+                                                </li>-->
+                                                <li t-attf-class="{{'uk-active' if not date_sheet else ''}}">
+                                                    <a href="#" style="color:#008744;">Active Courses <!--<span t-if="term">(<t t-esc="term.name" /> )</span>--></a>
+                                                </li>
+                                                <li >
+                                                    <a href="#" style="color:#d62d20;">Previous Courses</a>
+                                                </li>
+                                            </ul>
+                                            <ul id="tabs_anim1" class="uk-switcher" style="padding: 0px 0px 0px 22px;">
+                                                <!--<li t-if="date_sheet">
+                                                    <div class="uk-overflow-container uk-margin-top">
+
+                                                        <h3 class="heading_a uk-margin-bottom uk-align-right"> &lt;!&ndash;{{invoice.id}}&ndash;&gt;
+                                                            <a class="md-btn md-btn-warning md-btn-wave-light" t-attf-href="/student/roll/number/download/{{student.id}}">Download Roll Number Slip</a>
+                                                        </h3>
+                                                    </div>
+                                                    <h3 class="heading_a uk-margin-bottom">Time Table</h3>
+                                                    <div class="uk-overflow-container">
+                                                        <table id="" class="uk-table uk-table-nowrap table_check">
+                                                            <thead class="md-bg-blue-grey-700">
+                                                                <tr>
+                                                                    <th class="md-color-grey-50 ">Sr no.</th>
+                                                                    <th class="md-color-grey-50 ">Subject</th>
+                                                                    <th class="md-color-grey-50 ">Code</th>
+                                                                    <th class="md-color-grey-50 ">Date</th>
+                                                                    <th class="md-color-grey-50 ">Time</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <t t-set="sr" t-value="0"/>
+                                                                <t t-foreach="date_sheet" t-as="exam">
+                                                                    <t t-set="sr" t-value="sr+1"/>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <t t-esc="sr"/>
+                                                                        </td>
+                                                                        <td>
+                                                                            <t t-esc="exam['name']"/>
+
+                                                                        </td>
+                                                                         <td>
+                                                                            <t t-esc="exam['code']"/>
+
+                                                                        </td>
+
+                                                                        <td>
+                                                                           &lt;!&ndash; <t t-esc="str(exam.date)[:19]"/>&ndash;&gt;
+                                                                             <t t-esc="exam['date']"/>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <t t-esc="exam['time_start']"/>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </t>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </li>-->
+                                                <li>
+                                                    <div class="uk-grid uk-grid-width-small-1-12 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 uk-margin-medium-top uk-margin-medium-bottom hierarchical_show" data-uk-grid-margin="" id="hierarchical-show" data-show-delay="280">
+                                                        <t t-if="len(student.course_ids)>0">
+                                                            <t t-foreach="student.course_ids" t-as="course">
+                                                                <t t-if="course.course_id.name">
+                                                                    <!--                                                                t-attf-style="background:{{color[course_index]}}" -->
+                                                                    <div style="padding-left:15px;">
+                                                                        <div class="md-card md-card-hover" style="height:122px;">
+                                                                            <div class="uk-badge md-bg-blue-50 md-color-grey-900 uk-position-absolute uk-position-bottom-right "> <!--uk-margin-left uk-margin-top-->
+                                                                                    <t t-esc="course.term_id.name"/>
+                                                                                </div>
+                                                                            <!-- <div data-uk-tooltip="{pos:'top'}" title="School of Electrical Eng and Comp Science"  class="md-card-head  uk-text-center uk-position-relative" style="height:100px;background-image: url('/odoocms_student_portal/static/seecs.jpeg')">
+                                                                                 <div class="uk-badge uk-badge-danger uk-position-absolute uk-position-top-right uk-margin-left uk-margin-top">SEECS</div>
+                                                                                <div class="uk-text-center uk-position-absolute uk-position-bottom-left" >
+                                                                                 <img data-uk-tooltip="{pos:'top'}" title="Faculty"  width="100" height="100%" src="/odoocms_student_portal/static/abc.jpeg" alt=""/>
+                                                                                    </div>
+                                                                             </div>-->
+                                                                            <a data-uk-tooltip="{pos:'top'}" title="Open class" t-attf-href="/student/results/id/{{course.id}}">
+                                                                                <h4 class="heading_c  md-color-grey-50 md-bg-blue-500" style="padding:2%; font-size: small; height:60px;">
+
+                                                                                   <!-- <t t-if="len(str(course.course_id.name)) >= 34">
+                                                                                        <span class="md-list-heading" t-esc="str(course.course_id.name)[:34]+'..'"></span>
+                                                                                    </t>-->
+                                                                                    <!--<t t-if="not len(str(course.course_id.name)) > 34">-->
+                                                                                        <span class="md-list-heading" t-esc="course.primary_class_id.name"></span>
+                                                                                    <!--</t>-->
+                                                                                    <span class="sub-heading md-color-grey-50" t-esc="str(course.course_id.code)"></span>
+
+                                                                                    <!--                                <span class="sub-heading" t-esc="sub.class_id.class_type" ></span>-->
+                                                                                    <!--                                <span class="sub-heading">Wed: 5:00-6:00, Thursday: 5:00-600</span>-->
+                                                                                </h4>
+                                                                            </a>
+                                                                            <div style="padding:2%;">
+                                                                                <div class="">
+                                                                                    <b class="uk-text-small">Credits :</b>
+                                                                                    <span class="md-list-heading" t-esc="course.credits"></span>
+                                                                                     <t t-if="course.state in ('lock','submit','disposal','approval','verify')">
+                                                                                         <span class="uk-badge md-bg-orange-800 " >Grading in progress</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('draft','current')">
+                                                                                         <span class="uk-badge md-bg-green-800">Class in progress</span>
+                                                                                    </t>
+                                                                                    <t t-if="course.state in ('done','notify')">
+                                                                                        <b class="uk-text-small">Marks | Grade :</b>
+                                                                                        <span>
+                                                                                            <b t-esc="course.normalized_marks"></b>
+                                                                                            |
+                                                                                            <b t-esc="course.grade"></b>
+                                                                                        </span>
+                                                                                    </t>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!--  <ul t-attf-class="{{color[course_index]}} md-color-grey-50 md-list md-list-addon  md-list-right classCards">
+                                                                              <li>
+                                                                                  <a t-attf-href="/student/results/id/{{course.id}}" class="md-list-addon-element">
+                                                                                      <i class="md-list-addon-icon material-icons md-color-grey-50" data-uk-tooltip="{pos:'top'}" title="Open class">&#xE163;</i>
+                                                                                  </a>
+                                                                                  <div class="md-list-content">
+                                                                                      <t t-if="len(str(course.course_id.name)) >= 34">
+                                                                                  <span class="md-list-heading" t-esc="str(course.course_id.name)[:34]+'..'"></span>
+                                                                                  </t>
+                                                                                  <t t-if="not len(str(course.course_id.name)) > 34">
+                                                                                          <span class="md-list-heading" t-esc="course.course_id.name"></span>
+                                                                                  </t>
+                                                                                      <span class="uk-text-small ">Course</span>
+                                                                                  </div>
+                                                                              </li>
+                                                                              <li>
+
+                                                                                  <div class="md-list-content">
+                                                                                      <span class="md-list-heading" t-esc="course.credits"></span>
+                                                                                      <span class="uk-text-small">Credits</span>
+
+                                                                                  </div>
+                                                                              </li>
+
+                                                                             &lt;!&ndash; <li>
+                                                                                  <div class="md-list-content">
+                                                                                      <span class="md-list-heading" t-esc="course.primary_class_id.grade_staff_id.name"></span>
+                                                                                      <span class="uk-text-small">Faculty Name</span>
+                                                                                  </div>
+                                                                              </li>&ndash;&gt;
+                                                                              <li>
+                                                                                  <div class="md-list-content">
+                                                                                      <t t-if="course.state == 'done'">
+                                                                                      <span> <b t-esc="course.normalized_marks" > </b> | <b t-esc="course.grade" ></b></span>
+                                                                                      </t>
+
+          &lt;!&ndash;                                                                            <span class="md-list-heading" t-esc="course.normalized_marks"></span>&ndash;&gt;
+                                                                                      <span class="uk-text-small">Marks | Grade</span>
+                                                                                  </div>
+                                                                              </li>
+          &lt;!&ndash;                                                                    <li>&ndash;&gt;
+          &lt;!&ndash;                                                                        <div class="md-list-content">&ndash;&gt;
+          &lt;!&ndash;                                                                            <span class="md-list-heading" t-esc="course.grade"></span>&ndash;&gt;
+          &lt;!&ndash;                                                                            <span class="uk-text-small">Grade</span>&ndash;&gt;
+          &lt;!&ndash;                                                                        </div>&ndash;&gt;
+          &lt;!&ndash;                                                                    </li>&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                    <li>&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                        <div class="md-list-content">&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                            <span class="md-list-heading">90%</span>&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                            <span class="uk-text-small">Attendance</span>&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                        </div>&ndash;&gt;
+                                                                              &lt;!&ndash;                                                                    </li>&ndash;&gt;
+                                                                          </ul>-->
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                        </t>
+                                                        <t t-if="not len(student.course_ids)>0">
+                                                            <div style="padding-left:15px;">Result classes not available.</div>
+                                                        </t>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="uk-overflow-container">
+                                                        <table class="uk-table uk-table-nowrap uk-table-align-vertical table_tree">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="uk-width-1-10 md-color-grey-800">Term</th>
+                                                                    <!--                                                                    <th class="uk-width-1-10 md-color-grey-800">Semester</th>-->
+                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Grade Points</th>
+                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Total Credits</th>
+                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">Earned Credits</th>
+                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">GPA</th>
+                                                                    <th class="uk-width-1-10 uk-text-center md-color-grey-800">CGPA</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <t t-if="len(student.term_ids)>0">
+                                                                    <t t-foreach="student.term_ids" t-as="term">
+                                                                        <tr class="table-parent-row show_child_row">
+                                                                            <td>
+                                                                                <a href="#" class="js-toggle-children-row toggle-childrens">
+                                                                                    <t t-esc="term.term_id.name"/>
+                                                                                </a>
+                                                                            </td>
+                                                                            <!-- <td>
+                                                                                     <t t-esc="term.semester_id.name"/>
+                                                                             </td>-->
+                                                                            <td class="uk-text-center">
+                                                                                <t t-esc="term.grade_points"/>
+                                                                            </td>
+                                                                            <td class="uk-text-center">
+                                                                                <t t-esc="term.credits"/>
+                                                                            </td>
+                                                                            <td class="uk-text-center">
+                                                                                <t t-esc="term.earned_credits"/>
+
+                                                                                <!--                                                        <span t-attf-class="uk-badge {{'uk&#45;&#45;badge-danger' if reg.state == 'rejected' else ''}}" t-esc="reg.state"/>-->
+                                                                            </td>
+                                                                            <td class="uk-text-center">
+                                                                                <t t-if="term.state in ('done')" t-esc="term.sgpa"/>
+                                                                            </td>
+                                                                            <td class="uk-text-center">
+                                                                                <t t-if="term.state in ('done')" t-esc="term.cgpa"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="table-child-row md-bg-blue-grey-800 md-color-grey-50">
+                                                                            <th>Course</th>
+                                                                            <th>Credits</th>
+                                                                            <th>Marks Obtained</th>
+                                                                            <th>Grade Pts</th>
+                                                                            <th>Mid Grade</th>
+                                                                            <th>Final Grade</th>
+                                                                        </tr>
+                                                                        <t t-foreach="term.student_course_ids" t-as="course">
+                                                                            <tr class="table-child-row">
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-esc="course.primary_class_id.name"/>
+                                                                                </td>
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-esc="course.credits"/>
+                                                                                </td>
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-if="course.state in ('notify')" t-esc="course.normalized_marks"/>
+                                                                                </td>
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-if="course.state in ('notify')" t-esc="course.grade_points"/>
+                                                                                </td>
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-esc="course.mid_grade"/>
+                                                                                </td>
+                                                                                <td class="uk-width-1-10 md-color-grey-800">
+                                                                                    <t t-if="course.state in ('notify')" t-esc="course.grade"/>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </t>
+                                                                    </t>
+                                                                </t>
+                                                                <t t-if="not len(student.term_ids)>0">
+                                                                    <tr>
+                                                                        <td>Record not found.</td>
+                                                                    </tr>
+                                                                </t>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+            </body>
+        </t>
+    </template>
+    <template id="student_portal_result_detail" name="Result Detail">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-js="false"/>
+            </t>
+            <body class="sidebar_main_swipe header_full">
+
+                <t t-call="odoocms_student_portal.student_portal_main_layout"/>
+
+
+                <div id="page_content" style="background:none;">
+                    <div id="top_bar">
+                        <ul id="breadcrumbs">
+                            <li>
+                                <a href="/student/profile">
+                                    <i class="material-icons">home</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/student/results">Result Classes</a>
+
+                            </li>
+                            <li>
+                                <a href="">Result Class</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div id="page_content_inner">
+                        <h3 class="heading_b uk-margin-bottom">Results</h3>
+                        <div class="md-card">
+                            <div class="md-card-content">
+                                <div class="uk-width-large-1-12">
+                                    <div class="" data-uk-grid-margin="">
+                                        <div class="md-card-content">
+                                            <ul class="uk-tab" data-uk-tab="{connect:'#tabs_anim1', animation:'scale'}">
+                                                <t t-set="com_count" t-value="0"/>
+                                                <t t-foreach="student_course.component_ids" t-as="component">
+                                                    <t t-set="com_count" t-value="com_count+1"/>
+                                                    <li t-attf-class="{{'uk-active' if com_count == 1 else ''}}">
+                                                        <a href="#">
+                                                            <t t-esc="component.class_id.component"/>
+                                                        </a>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                            <ul id="tabs_anim1" class="uk-switcher" style="padding: 0px 0px 0px 22px;">
+                                                <t t-foreach="student_course.component_ids" t-as="component">
+                                                    <li>
+                                                        <div class="uk-overflow-container">
+                                                            <table class="uk-table uk-table-nowrap uk-table-align-vertical table_tree">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="uk-width-1-10 md-color-grey-800">Assessment Type</th>
+                                                                        <th class="uk-width-1-10 md-color-grey-800">Obtained Percentage</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <t t-foreach="component.assessment_summary_ids" t-as="summary">
+                                                                        <tr class="table-parent-row show_child_row">
+                                                                            <td>
+                                                                                <a href="#" class="js-toggle-children-row toggle-childrens">
+                                                                                    <t t-esc="summary.assessment_component_id.assessment_type_name"/>
+                                                                                </a>
+                                                                            </td>
+                                                                            <td class="">
+                                                                                <!--<t t-esc="summary.percentage" t-options='{"widget": "float", "precision": 2}'/>-->
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="table-child-row md-bg-blue-grey-800 md-color-grey-50">
+                                                                            <th>Assessment</th>
+                                                                            <th>Max Mark</th>
+                                                                            <th>Obtained Marks</th>
+                                                                            <th>Class Average</th>
+                                                                            <th>Percentage</th>
+                                                                        </tr>
+                                                                       <!-- <t t-foreach="summary.assessment_lines" t-as="assessment">-->
+                                                                        <t t-foreach="summary.assessment_lines" t-as="assessment">
+
+                                                                            <t t-if="assessment.assessment_id.name and assessment.assessment_id.is_visible">
+                                                                               <!-- <t t-if="is_visible == True">-->
+                                                                                <tr class="table-child-row">
+                                                                                    <td class="uk-width-1-10 md-color-grey-800">
+                                                                                        <t t-esc="assessment.assessment_id.name"/>
+                                                                                    </td>
+                                                                                    <td class="uk-width-1-10 md-color-grey-800">
+                                                                                        <t t-esc="assessment.max_marks"/>
+                                                                                    </td>
+                                                                                    <td class="uk-width-1-10 md-color-grey-800">
+                                                                                        <t t-esc="assessment.obtained_marks" t-options='{"widget": "float", "precision": 2}'/>
+                                                                                    </td>
+                                                                                    <td class="uk-width-1-10 md-color-grey-800">
+                                                                                        <t t-esc="assessment.assessment_id.average" t-options='{"widget": "float", "precision": 2}'/>
+                                                                                    </td>
+                                                                                    <td class="uk-width-1-10 md-color-grey-800">
+                                                                                        <t t-esc="assessment.percentage" t-options='{"widget": "float", "precision": 2}'/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                  <!--  </t>-->
+                                                                            </t>
+                                                                        </t>
+                                                                    </t>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </li>
+                                                </t>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <t t-call-assets="odoocms_web.assets_aarsol_portal" t-css="false"/>
+
+
+                <!--  issues list functions -->
+
+
+                <!--            <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.min.js"></script>
+                            <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/jquery.tablesorter.widgets.min.js"></script>
+                            <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/widgets/widget-alignChar.min.js"></script>
+                            <script src="/odoocms_web/static/bowerComponents/tablesorter/dist/js/extras/jquery.tablesorter.pager.min.js"></script>
+                            <script src="/odoocms_web/static/assets/js/pages/pages_issues.min.js"></script>-->
+                <!--            <script src="/odoocms_web/static/assets/js/pages/components_animations.min.js"></script>-->
+                <script>
+                    $(function() {
+                    if(isHighDensity()) {
+                    $.getScript( "/odoocms_web/static/assets/js/custom/dense.min.js", function(data) {
+                    // enable hires images
+                    altair_helpers.retina_images();
+                    });
+                    }
+                    });
+                    $window.on('load', function() {
+                    // ie fixes
+                    altair_helpers.ie_fix();
+                    });
+                </script>
+
+
+            </body>
+        </t>
+    </template>
+</odoo>

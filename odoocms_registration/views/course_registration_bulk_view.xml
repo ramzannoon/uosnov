@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_course_registration_bulk_tree" model="ir.ui.view">
+            <field name="name">odoocms.course.registration.bulk.tree</field>
+            <field name="model">odoocms.course.registration.bulk</field>
+            <field name="arch" type="xml">
+                <tree string="Course Bulk Registration" delete="false">
+                    <field name="name"/>
+                    <field name="batch_id"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <field name="reg_date"/>
+                    <field name="date_effective"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_course_registration_bulk_form" model="ir.ui.view">
+            <field name="name">odoocms.course.registration.bulk.form</field>
+            <field name="model">odoocms.course.registration.bulk</field>
+            <field name="arch" type="xml">
+                <form string="Course Bulk Registration" delete="false">
+                    <header >
+                        <!--                        <button name="action_invoice" string="Make Invoice" type="object" class="oe_highlight"-->
+                        <!--                                attrs="{'invisible': [('can_invoice', '=', False)]}"-->
+                        <!--                                groups="odoocms.group_cms_manager"/>-->
+                        <button name="action_submit" string="Submit" type="object" class="oe_highlight" attrs="{'invisible':['|',('error','!=',False),('state','!=','draft')]}"/>
+                        <button name="action_approve" string="Approve" type="object" class="oe_highlight"
+                                groups="odoocms.group_cms_coordinator" states="submit"/> <!-- attrs="{'invisible': [('can_approve', '=', False)]}" -->
+                        <button name="action_reject" string="Reject" type="object" class="oe_highlight"
+                                states="submit"
+                                groups="odoocms.group_cms_coordinator"/>
+                        <button name="action_reset_draft" string="Reset to Draft" class="oe_highlight" states="rejected"
+                                type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approved"/>
+                        <field name="can_approve" invisible="1"/>
+                        <!--                        <field name="can_invoice" invisible="1"/>-->
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="batch_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="program_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="term_id" domain="[('enrollment_active','=',True)]"
+                                       options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                            <group>
+                                <field name="last_date"/>
+                                <field name="reg_date"/>
+                                <field name="date_effective" required="1"/>
+                                <field name="override_max_limit"/>
+                            </group>
+                        </group>
+                        <group>
+                            <h1>
+                                <field name="error" class="text-danger" readonly="1" attrs="{'invisible':[('error','=',False)]}" force_save="1"/>
+                            </h1>
+                        </group>
+
+                        <notebook>
+                            <page string='Students' attrs="{'invisible':[('error','!=',False)]}">
+                                <group>
+                                    <field name="student_ids" nolabel="1"
+                                           domain="[('state','in',('enroll','deffer')),('batch_id','=',batch_id)]"
+                                           options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                           context="{'search_default_section':1}"
+                                    />
+                                </group>
+                            </page>
+                            <page string='Courses' attrs="{'invisible':[('error','!=',False)]}">
+                                <group>
+                                    <field name="compulsory_course_ids" widget="many2many_tags" string="Compulsory Courses"
+                                           domain="[('id','in',comp_domain)]"
+                                           options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                           context="{
+                                                'search_default_academic_session':1,
+                                                'search_default_batch':1,
+                                                'search_default_section':1,}"
+                                    />
+
+                                    <field name="elective_course_ids" widget="many2many_tags" string="Elective Courses"
+                                           domain="[('id','in', elec_domain)]"
+                                           options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"
+                                    />
+
+
+                                </group>
+                            </page>
+                            <page string="Registration" attrs="{'invisible':['|',('error','!=',False),('registration_ids','=',False)]}">
+                                <group>
+                                    <field name="registration_ids" nolabel="1" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                        <!--                        <button name="get_courses" type="object" string="Get Courses" class="oe_highlight"/>-->
+
+                        <field name="comp_domain" invisible="1"/>
+                        <field name="elec_domain" invisible="1"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_course_registration_bulk_search" model="ir.ui.view">
+            <field name="name">odoocms.course.registration.bulk.search</field>
+            <field name="model">odoocms.course.registration.bulk</field>
+            <field name="arch" type="xml">
+                <search string="Course Bulk Registration">
+                    <field name="name"/>
+                    <field name="program_id"/>
+                    <field name="term_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_program" string="Program" domain="[]"
+                                context="{'group_by':'program_id'}"/>
+                        <filter name="group_by_semester" string="Academic Term" domain="[]"
+                                context="{'group_by':'term_id'}"/>
+                        <filter name="group_by_reg_date" string="Registration Date" domain="[]" context="{'group_by':'reg_date'}"/>
+                        <filter name="group_by_date_effective" string="Effective Date" domain="[]" context="{'group_by':'date_effective'}"/>
+                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="term_id" icon="fa-users"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_odoocms_course_registration_bulk" model="ir.actions.act_window">
+            <field name="name">Course Bulk Registration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.course.registration.bulk</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_odoocms_course_registration_bulk_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_course_registration_bulk"
+                name="Course Bulk Registration"
+                action="action_odoocms_course_registration_bulk"
+                parent="menu_odoocms_registration_registration"
+                sequence="20"/>
+
+    </data>
+</odoo>

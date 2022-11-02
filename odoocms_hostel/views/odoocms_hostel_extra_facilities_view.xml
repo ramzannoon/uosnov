@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_odoocms_hostel_extra_facility_category_form" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.extra.facility.category.form</field>
+        <field name="model">odoocms.hostel.extra.facility.category</field>
+        <field name="arch" type="xml">
+            <form string="Extra Facility Categories">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facility_category_tree" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.extra.facility.category.tree</field>
+        <field name="model">odoocms.hostel.extra.facility.category</field>
+        <field name="arch" type="xml">
+            <tree string="Extra Facility Categories" decoration-success="active == True">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facility_category_search" model="ir.ui.view">
+        <field name="name">odoocms.hostel.extra.facility.category.search</field>
+        <field name="model">odoocms.hostel.extra.facility.category</field>
+        <field name="arch" type="xml">
+            <search string="Extra Facility Categories">
+                <field name="name" string="Name"/>
+                <field name="code"/>
+
+                <group expand="0" string="Group By...">
+                    <filter name="group_by_active" string="Active" domain="[]" context="{'group_by':'active'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_view_odoocms_hostel_extra_facility_category" model="ir.actions.act_window">
+        <field name="name">Hostel Extra Facility Categories</field>
+        <field name="res_model">odoocms.hostel.extra.facility.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click Here to Create New Record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="odoocms_hostel_extra_facility_category_menu"
+            name="Hostel Extra Facility Categories"
+            parent="menu_odoocms_hostel_hostel_config"
+            action="action_view_odoocms_hostel_extra_facility_category"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="60"/>
+
+
+
+    <record id="view_odoocms_hostel_extra_facilities_form" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.extra.facilities.form</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <form string="Extra Facilities">
+                <header>
+                    <button name="action_approved" states="Draft" type="object" string="Approved" class="btn-primary"/>
+                    <button name="action_close" states="Approved" type="object" string="Close Request" class="btn-primary"/>
+                    <button name="action_rejected" states="Draft" type="object" string="Rejected" class="btn-primary"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="student_code" required="1" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="student_id" context="{'form_view_ref': 'odoocms_hostel.view_odoocms_hostel_student_form'}"
+                                   required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="session_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="program_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="hostel_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="room_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="room_type" required="1" attrs="{'readonly':[('state','!=','Draft')]}" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            <field name="request_date" required="1" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="approved_date" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <!--                            <field name="close_date" attrs="{'readonly':[('state','!=','Draft')]}"/>-->
+                            <field name="category_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <field name="amount" attrs="{'readonly':[('state','!=','Draft')]}"/>
+                            <!--                            <field name="amount" attrs="{'readonly':[('state','!=','Draft')], 'invisible':[('category_id','=',1)]}"/>-->
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facilities_tree" model="ir.ui.view">
+        <field name="name">view.odoocms.hostel.extra.facilities.tree</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <tree string="Extra Facilities"
+                  decoration-primary="state == 'Draft'"
+                  decoration-success="state == 'Approved'"
+                  decoration-info="state == 'Close'"
+                  decoration-danger="state == 'Rejected'">
+
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="student_code"/>
+                <field name="student_id"/>
+                <field name="program_id"/>
+                <field name="hostel_id"/>
+                <field name="room_id"/>
+                <field name="room_type"/>
+                <field name="category_id"/>
+                <field name="request_date"/>
+                <field name="approved_date"/>
+                <!--                 <field name="close_date"/>-->
+                <field name="state"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facilities_search" model="ir.ui.view">
+        <field name="name">odoocms.hostel.extra.facilities.search</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <search string="Extra Facilities">
+                <field name="name" string="Name"/>
+                <field name="student_code"/>
+                <field name="student_id"/>
+                <field name="category_id"/>
+
+                <group expand="0" string="Group By...">
+                    <filter name="group_by_student" string="Student" domain="[]" context="{'group_by':'student_id'}" />
+                    <filter name="group_by_hostel" string="Hostel" domain="[]" context="{'group_by':'hostel_id'}" />
+                    <filter name="group_by_room" string="Room" domain="[]" context="{'group_by':'room_id'}" />
+                    <separator/>
+                    <filter name="group_by_academic_session" string="Academic Session" domain="[]" context="{'group_by':'session_id'}" />
+                    <filter name="group_by_program" string="Program" domain="[]" context="{'group_by':'program_id'}" />
+                    <separator/>
+                    <filter name="group_by_date" string="Date" domain="[]" context="{'group_by':'request_date'}" />
+                    <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'state'}" />
+                    <filter name="group_by_category" string="Category" domain="[]" context="{'group_by':'category_id'}" />
+                </group>
+                <searchpanel>
+                    <field name="category_id" icon="fa-building"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facilities_pivot" model="ir.ui.view">
+        <field name="name">odoocms.hostel.extra.facilities.pivot</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <pivot string="Extra Facilities Analysis" display_quantity="true">
+                <field name="category_id" type="row"/>
+                <field name="request_date" type="col"/>
+                <field name="hostel_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facilities_graph" model="ir.ui.view">
+        <field name="name">odoocms.hostel.extra.facilities.graph</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <graph string="Extra Facilities Analysis">
+                <field name="category_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_odoocms_hostel_extra_facilities_calendar" model="ir.ui.view">
+        <field name="name">odoocms.hostel.extra.facilities.calendar.view</field>
+        <field name="model">odoocms.hostel.extra.facilities</field>
+        <field name="arch" type="xml">
+            <calendar string="Extra Facilities Calendar " date_start="request_date" color="state" hide_time="true" event_limit="5">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="session_id"/>
+                <field name="program_id"/>
+                <field name="request_date"/>
+                <field name="approved_date"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="action_view_odoocms_hostel_extra_facilities" model="ir.actions.act_window">
+        <field name="name">Hostel Extra Facilities</field>
+        <field name="res_model">odoocms.hostel.extra.facilities</field>
+        <field name="view_mode">tree,form,pivot,graph,calendar</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click Here to Create New Record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="odoocms_hostel_extra_facilities_menu"
+            name="Hostel Extra Facilities"
+            parent="menu_odoocms_hostel_general"
+            action="action_view_odoocms_hostel_extra_facilities"
+            groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+            sequence="50"/>
+</odoo>

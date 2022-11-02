@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_odoocms_receipt_fee_head_removal_form" model="ir.ui.view">
+            <field name="name">odoocms.receipt.fee.head.removal.form</field>
+            <field name="model">odoocms.receipt.fee.head.removal</field>
+            <field name="arch" type="xml">
+                <form string="Fee Head Removal">
+                    <header>
+                        <button name="action_approve" type="object" class="oe_highlight" string="Approve" states="draft" groups="account.group_account_manager"/>
+                        <button name="action_done" type="object" class="oe_highlight" string="Done" states="approve" groups="account.group_account_manager"/>
+                        <button name="action_reject" type="object" class="oe_highlight" string="Reject" states="draft" groups="account.group_account_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="date" required="1"/>
+                                <field name="fee_head_id" required="1" options="{'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="fee_receipts" string="Receipts">
+                                <field name="invoice_ids" domain="[('invoice_payment_state','not in', ['cancel','paid','in_payment']),('is_fee', '=', True),('is_scholarship_fee','!=', True)]"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field groups="base.group_user" name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_receipt_fee_head_removal_tree" model="ir.ui.view">
+            <field name="name">odoocms.receipt.fee.head.removal.tree</field>
+            <field name="model">odoocms.receipt.fee.head.removal</field>
+            <field name="arch" type="xml">
+                <tree string="Fee Head Removal" decoration-primary="state == 'draft'" decoration-success="state == 'lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="fee_head_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_receipt_fee_head_removal_search" model="ir.ui.view">
+            <field name="name">odoocms.receipt.fee.head.removal.search</field>
+            <field name="model">odoocms.receipt.fee.head.removal</field>
+            <field name="arch" type="xml">
+                <search string="Fee Head Removal">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="fee_head_id"/>
+                    <field name="state"/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_status" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <record id="action_receipt_fee_head_removal" model="ir.actions.act_window">
+            <field name="name">Receipt Fee Head Removal</field>
+            <field name="res_model">odoocms.receipt.fee.head.removal</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_odoocms_receipt_fee_head_removal"
+                action="action_receipt_fee_head_removal"
+                parent="menu_student_fee_request_root"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"
+                sequence="300"/>
+
+    </data>
+</odoo>

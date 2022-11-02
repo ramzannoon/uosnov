@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--           <record id="employee_portal_report"-->
+    <!--            model="hr.employee"-->
+    <!--            report_type="qweb-pdf"-->
+    <!--            string="Employee portal report"-->
+    <!--            report_name="odoocms_employee_portal.notice_report_template"-->
+    <!--            report_file="odoocms_employee_portal.notice_report_template"/>-->
+
+    <record id="paperformat_notice" model="report.paperformat">
+        <field name="name">Notice – Paper Format</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">35</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+
+    <report
+            id="employee_action_report"
+            string="Product Catalog"
+            model="hr.payslip"
+            report_type="qweb-pdf"
+            name="odoocms_employee_portal.report_payslip"
+            file="odoocms_employee_portal.report_payslip"/>
+
+
+        <report
+            id="student_leaving_report"
+            string="Student Leaving Report"
+            model="hr.payslip"
+            report_type="qweb-pdf"
+            name="odoocms_employee_portal.student_leaving_report_template"
+            file="odoocms_employee_portal.student_leaving_report_template"/>
+
+        <report
+            id="student_migration_report"
+            string="Student Migration Report"
+            model="hr.payslip"
+            report_type="qweb-pdf"
+            name="odoocms_employee_portal.student_migration_report_template"
+            file="odoocms_employee_portal.student_migration_report_template"/>
+
+
+
+
+
+<!--    print_report_name="'Payslip - %s' % (object.employee_id.name)-->
+
+
+
+
+    <!--  Report Action  -->
+    <!--    <record id="employee_portal_report" model="ir.actions.report">-->
+    <!--        <field name="name">Notice</field>-->
+    <!--        <field name="model">hr.payslip</field>-->
+    <!--        <field name="report_type">qweb-pdf</field>-->
+    <!--        <field name="report_name">odoocms_employee_portal.notice_report_template</field>-->
+    <!--        <field name="report_file">odoocms_employee_portal.notice_report_template</field>-->
+    <!--        <field name="paperformat_id" ref="paperformat_notice"/>-->
+    <!--        <field name="binding_type">report</field>-->
+    <!--    </record>-->
+
+
+    <!--    product.template-->
+
+</odoo>

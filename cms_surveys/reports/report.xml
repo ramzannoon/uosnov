@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <report
+            id="report_prepare_result"
+            string="Prepare Result"
+            model="survey.survey"
+            report_type="qweb-pdf"
+            name="cms_surveys.report_prepare_result_pdf"
+            file="cms_surveys.report_prepare_result_pdf"/>
+
+</odoo>

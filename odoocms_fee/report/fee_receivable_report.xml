@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_student_fee_receivable_report_form" model="ir.ui.view">
+            <field name="name">student.fee.receivable.report.form</field>
+            <field name="model">student.fee.receivable.report</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Fee Receivable Report">
+                    <p>
+                        This Wizard will generate Student Fee Receivable Report.
+                    </p>
+                    <group>
+                        <field name="institute_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                    </group>
+                    <group>
+                        <field name="campus_ids" widget="many2many_tags" options="{'no_create':True}"/>
+                    </group>
+                    <footer>
+                        <button name="make_excel" string="Generate Report" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- odoo CMS Fee Report Save Wizard -->
+        <record id="view_odoocms_fee_report_save_wizard_form" model="ir.ui.view">
+            <field name="name">odoocms.fee.report.save.wizard.form</field>
+            <field name="model">odoocms.fee.report.save.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Fee Save Report">
+                    <field name="name" invisible="1"/>
+                    <div>
+                        <h2>Report Generated</h2>
+                        <p>Here is the Excel Sheet:
+                            <field name="data" readonly="1" filename="name"/>
+                        </p>
+                    </div>
+                    <footer>
+                        <button string="Close" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_fee_receivable_report" model="ir.actions.act_window">
+            <field name="name">Fee Receivable Report</field>
+            <field name="res_model">student.fee.receivable.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_student_fee_receivable_report"
+                name="Fee Receivable Report"
+                action="action_odoocms_fee_receivable_report"
+                parent="odoocms_fee.menu_fee_reports"
+                sequence="300"
+                active="False"/>
+    </data>
+</odoo>

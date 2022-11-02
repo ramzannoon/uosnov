@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--*****  Amenities ***** -->
+        <record id="view_odoocms_hostel_amenities_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.amenities.tree</field>
+            <field name="model">odoocms.hostel.amenities</field>
+            <field name="arch" type="xml">
+                <tree string="Hostel Amenities" decoration-info="state=='draft'" decoration-success="state=='lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="state"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_amenities_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.amenities.form</field>
+            <field name="model">odoocms.hostel.amenities</field>
+            <field name="arch" type="xml">
+                <form string="Hostel Amenities">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="code" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_odoocms_hostel_amenities" model="ir.actions.act_window">
+            <field name="name">Hostel Amenities</field>
+            <field name="res_model">odoocms.hostel.amenities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create the your first Hostel amenities here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_amenities_menu"
+                name="Hostel Amenities"
+                parent="menu_odoocms_hostel_main_configuration"
+                action="action_odoocms_hostel_amenities"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="10"/>
+
+
+        <!--*****  Room Type ***** -->
+        <record id="view_odoocms_hostel_room_type_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.type.tree</field>
+            <field name="model">odoocms.hostel.room.type</field>
+            <field name="arch" type="xml">
+                <tree string="Room Types" decoration-info="state == 'draft'" decoration-success="state == 'lock'">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="per_month_rent"/>
+                    <field name="currency_id"/>
+                    <field name="per_month_rent_int"/>
+                    <field name="capacity" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_type_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.type.form</field>
+            <field name="model">odoocms.hostel.room.type</field>
+            <field name="arch" type="xml">
+                <form string="Room Types">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="code" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="capacity" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                            <group>
+                                <field name="per_month_rent" required="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                                <field name="currency_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="per_month_rent_int"/>
+                                <field name="active" invisible="1" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_type_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.type.search</field>
+            <field name="model">odoocms.hostel.room.type</field>
+            <field name="arch" type="xml">
+                <search string="Room Types">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="capacity"/>
+                    <field name="per_month_rent"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_odoocms_hostel_room_type" model="ir.actions.act_window">
+            <field name="name">Room Types</field>
+            <field name="res_model">odoocms.hostel.room.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Room Types here.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_room_type_menu"
+                name="Room Type"
+                parent="menu_odoocms_hostel_rooms_config"
+                action="action_odoocms_hostel_room_type"
+                groups="group_hostel_manager"
+                sequence="10"/>
+
+
+        <!-- ***** Rooms Management ***** -->
+        <record id="view_odoocms_rooms_tree" model="ir.ui.view">
+            <field name="name">odoocms.rooms.tree</field>
+            <field name="model">odoocms.rooms</field>
+            <field name="arch" type="xml">
+                <tree string="Rooms" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="room_no"/>
+                    <field name="prefix" string="Room Prefix"/>
+                    <field name="active" invisible="1"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_rooms_form" model="ir.ui.view">
+            <field name="name">odoocms.rooms.form</field>
+            <field name="model">odoocms.rooms</field>
+            <field name="arch" type="xml">
+                <form string="Rooms">
+                    <header>
+                        <button name="action_lock" type="object" class="oe_highlight" string="Lock" states="draft" groups="odoocms_hostel.group_hostel_manager"/>
+                        <button name="action_unlock" type="object" class="oe_highlight" string="UnLock" states="lock" groups="odoocms_hostel.group_hostel_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group col="4">
+                            <field name="name" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            <field name="room_no" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                            <field name="prefix" string="Room Prefix" attrs="{'readonly':[('state', '=', 'lock')]}"/>
+                        </group>
+                        <notebook>
+                            <page name="hostel_rooms" string="Hostel Rooms">
+                                <field name="hostel_room_ids" attrs="{'readonly':[('state', '=', 'lock')]}">
+                                    <tree>
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="hostel_id"/>
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="active" invisible="1"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_odoocms_rooms">
+            <field name="name">Rooms</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.rooms</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here Create Room.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_rooms_menu"
+                name="Rooms"
+                parent="menu_odoocms_hostel_rooms_config"
+                action="action_odoocms_rooms"
+                groups="group_hostel_manager"
+                sequence="20"/>
+
+
+        <!-- ***** Hostel Room ***** -->
+        <record id="view_odoocms_hostel_room_tree" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.tree</field>
+            <field name="model">odoocms.hostel.room</field>
+            <field name="arch" type="xml">
+                <tree string="Rooms" decoration-primary="active == False " decoration-success="active == True">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="room_type"/>
+                    <field name="hostel_id"/>
+                    <field name="room_capacity" sum="room_capacity_sum" string="Capacity"/>
+                    <field name="allocated_number" sum="allocated_sum" string="Allocated"/>
+                    <field name="vacancy" sum="vacancy_sum" string="Vacancy"/>
+                    <field name="per_month_rent"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="per_month_rent_int"/>
+                    <field name="active" invisible="1"/>
+                    <field name="room_blocked"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_form" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.form</field>
+            <field name="model">odoocms.hostel.room</field>
+            <field name="arch" type="xml">
+                <form string="Rooms">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="Vacant,Occupied"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group name="main">
+                            <group>
+                                <field name="room_id" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="room_type" required="1" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="per_month_rent" required="1"/>
+                                <field name="currency_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="per_month_rent_int"/>
+                                <field name="responsible" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+
+                            </group>
+                            <group>
+                                <field name="hostel_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="floor_no" domain="[('hostel_id','=',hostel_id)]" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                <field name="room_capacity" string="Capacity"/>
+                                <field name="allocated_number" string="Allocated"/>
+                                <field name="vacancy" string="Vacancy"/>
+                                <field name="room_blocked"/>
+                                <div class="alert alertdialog" style='color:red;' colspan="2" attrs="{'invisible':[('room_blocked', '!=', True)]}">
+                                    <p>
+                                        Be very careful when choosing this option, Blocked Rooms can not be Allocated to Student.
+                                    </p>
+                                </div>
+                                <field name="blockage_reason_id" attrs="{'invisible':[('room_blocked', '=', False)], 'required':[('room_blocked','=',True)]}"
+                                       options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Students">
+                                <field name="student_ids">
+                                    <tree string="Students" readonly="1" decoration-primary="active == False " decoration-success="active == True">
+                                        <field name="name"/>
+                                        <field name="id_number"/>
+                                        <field name="session_id"/>
+                                        <field name="career_id"/>
+                                        <field name="program_id"/>
+                                        <field name="hostel_state"/>
+                                        <field name="vacated_date"/>
+                                        <field name="hostel_id"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="active" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page
+                                    string="Room Amenities">
+                                <field name="amenity_ids">
+                                    <tree string="Room Amenities" editable="bottom">
+                                        <field name="amenity_id" options="{'no_quick_create':True,'no_create_edit':True,'no_create':True,}"/>
+                                        <field name="qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_search" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.search</field>
+            <field name="model">odoocms.hostel.room</field>
+            <field name="arch" type="xml">
+                <search string="Hostel Rooms">
+                    <field name="name" string="Name" filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                    <field name="code"/>
+                    <field name="per_month_rent"/>
+                    <newline/>
+                    <!--
+                    <filter string="Boys" name="filter_by_boys" domain="[('type', '=', 'Boys')]"/>
+                    <filter string="Girls" name="filter_by_girls" domain="[('type', '=', 'Girls')]"/>
+                    <filter string="Common" name="filter_by_common" domain="[('type', '=', 'Commons')]"/>
+                    -->
+                    <filter string="Blocked Rooms" name="filter_by_block_room" domain="[('room_blocked', '=', True)]"/>
+
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_hostel_type_id" string="Hostel Type" domain="[]" context="{'group_by':'hostel_type_id'}"/>
+                        <filter name="group_by_hostel_id" string="Hostel" domain="[]" context="{'group_by':'hostel_id'}"/>
+                        <filter name="group_by_floor_no" string="Floor No" domain="[]" context="{'group_by':'floor_no'}"/>
+                        <separator/>
+                        <filter name="group_by_room_id" string="Room No" domain="[]" context="{'group_by':'room_id'}"/>
+                        <filter name="group_by_room_type" string="Room Type" domain="[]" context="{'group_by':'room_type'}"/>
+                        <filter name="group_by_state" string="Status" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="state" icon="fa-building"/>
+                        <field name="room_type" icon="fa-building"/>
+                        <field name="hostel_id" icon="fa-building"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_pivot" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.pivot</field>
+            <field name="model">odoocms.hostel.room</field>
+            <field name="arch" type="xml">
+                <pivot string="Hostel Rooms" display_quantity="true">
+                    <field name="id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_odoocms_hostel_room_graph" model="ir.ui.view">
+            <field name="name">odoocms.hostel.room.graph</field>
+            <field name="model">odoocms.hostel.room</field>
+            <field name="arch" type="xml">
+                <graph string="Hostel Rooms">
+                    <field name="id"/>
+                </graph>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_odoocms_hostel_room">
+            <field name="name">Room</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">odoocms.hostel.room</field>
+            <field name="view_mode">tree,form,pivot,graph</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click Here To Create Room.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                id="odoocms_hostel_room_menu"
+                name="Hostel Rooms"
+                parent="menu_odoocms_hostel_general"
+                action="action_odoocms_hostel_room"
+                groups="group_hostel_manager,group_hostel_warden,group_hostel_user"
+                sequence="25"/>
+
+    </data>
+</odoo>

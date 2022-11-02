@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="admission_photo_upload" name="Admission Photo Upload">
+<!--        <h2><span t-esc="step_sequence"/>. <span t-esc="step_name"/></h2>-->
+        <h2><span t-esc="step_name"/></h2>
+        <fieldset>
+            <fieldset t-if="readonly2">
+                <div class="block-info">
+                    <legend style="color: #0393DC"><h4>Photo Upload</h4></legend>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+
+                            <!-- Upload  -->
+                            <div id="profile_photo_loading">
+                                <div>
+                                    <img src="/odoocms_admission_portal\static\images/loading.gif"
+                                         width="64px" height="64px"/>
+                                </div>
+                            </div>
+                            <div class="bgColor">
+                                <div id="profile_image_outer">
+                                    <div id="profile_image_target_layer">
+                                        <span>Click or Drag image here</span>
+                                    </div>
+                                    <img src="/odoocms_admission_portal\static\images/imageupload.png"
+                                         class="icon-choose-image"/>
+                                    <div class="icon-choose-image">
+                                        <input type="hidden" name="csrf_token"
+                                               t-att-value="request.csrf_token()"/>
+                                        <t t-if="student.image">
+                                            <input name="userImage" id="userImage"
+                                                   type="file" class="inputFile"
+                                                   onChange="showProfile_imagePreview(this);"
+                                                   t-att-disabled="readonly"
+                                                   accept="image/*"/>
+                                        </t>
+                                        <t t-if="not student.image">
+                                            <input name="userImage" id="userImage"
+                                                   type="file" class="inputFile"
+                                                   onChange="showProfile_imagePreview(this);"
+                                                   t-att-disabled="readonly" required="true"
+                                                   accept="image/*"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>Upload Profile Picture</span>
+                                    <div>
+                                        <small>Passport size picture with  Blue or White background</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section colm colm6">
+                            <div class="bgColor">
+                                <div id="profile_image_outer">
+                                    <div id="profile_image_target_layer2"/>
+                                    <t t-if="student.image">
+                                        <img id="uploaded_profile_image"
+                                             t-att-src="'data:image/png;base64,%s' % to_text(student.image)"
+                                             width="200px" height="200px"/>
+                                    </t>
+                                    <t t-if="not student.image">
+                                        <img id="uploaded_profile_image" width="200px"
+                                             height="200px"/>
+                                    </t>
+                                </div>
+                                <div>
+                                    <span>Uploaded Image Preview</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+
+    </template>
+</odoo>

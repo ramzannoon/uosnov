@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_student_default_project_tree" model="ir.ui.view">
+        <field name="name">odoocms.projects.tree</field>
+        <field name="model">odoocms.projects</field>
+        <field name="arch" type="xml">
+            <tree string="Student Default Project">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_student_project_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.project.tree</field>
+        <field name="model">odoocms.student.project</field>
+        <field name="arch" type="xml">
+            <tree string="Student Project">
+                <field name="project_number"/>
+                <field name="project_title"/>
+                <field name="supervisor"/>
+                <!--                <field name="effective_date"/>-->
+                <field name="state"/>
+                <field name="checklist_progress" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_student_default_project_form" model="ir.ui.view">
+        <field name="name">odoocms.projects.form</field>
+        <field name="model">odoocms.projects</field>
+        <field name="arch" type="xml">
+            <form string="Student Default Project">
+                <sheet>
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                    <group>
+                        <field name="code" required="1"/>
+                    </group>
+                    <notebook>
+                        <page name="description" string="Description">
+                            <group colspan="4">
+                                <field name="description" required="1"/>
+                                <field name="short_description"/>
+                                <field name="formal_description"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_student_project_form" model="ir.ui.view">
+        <field name="name">odoocms.student.project.form</field>
+        <field name="model">odoocms.student.project</field>
+        <field name="arch" type="xml">
+            <form string="Student Project">
+                <header>
+                    <!--                    <button name="action_send_email" type="object" string="Send By Email" class="oe_highlight" />-->
+                    <button name="action_confirm" type="object"
+                            groups="odoocms_spm.group_cms_student_project_management_coordinator"
+                            string="Confirm" class="oe_highlight" states="draft"/>
+                    <button name="action_accept"
+                            groups="odoocms_spm.group_cms_student_project_management_manager"
+                            type="object" string="Approve" class="oe_highlight" states="confirm"
+                            confirm="Are you sure?"/>
+                    <button name="action_reject"
+                            groups="odoocms_spm.group_cms_student_project_management_manager"
+                            type="object" string="Reject" class="oe_highlight"
+                            attrs="{'invisible': [('state','in',('accept','reject'))]}" confirm="Are you sure?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,accept"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="draft" bg_color="bg-primary"
+                            attrs="{'invisible': [('state', 'in', ['confirm','accept','reject'])]}"/>
+                    <widget name="web_ribbon" title="confirm" bg_color="bg-secondary"
+                            attrs="{'invisible': [('state', 'in', ['draft','accept','reject'])]}"/>
+                    <widget name="web_ribbon" title="accept" bg_color="bg-success"
+                            attrs="{'invisible': [('state', 'in', ['draft','confirm','reject'])]}"/>
+                    <widget name="web_ribbon" title="reject" bg_color="bg-danger"
+                            attrs="{'invisible': [('state', 'in', ['draft','confirm','accept'])]}"/>
+                    <group>
+                        <group>
+                            <field name="project_number"/>
+                            <field name="supervisor"/>
+                            <field name="co_supervisor"/>
+                            <field name="default_projects"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                            <field name="date_start"/>
+                        </group>
+                        <group>
+                            <field name="project_title"/>
+                            <!--                            <field name="effective_date"/>-->
+                            <field name="status"/>
+                            <field name="date_end"/>
+                            <field name="checklist_progress" widget="percentpie"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="Student Group" string="Student Group">
+                            <field name="student_ids"
+                                   domain="[('tag_ids.name','!=','Withdrawal'),('state','!=','draft')]"
+                                   widget="many2many" options="{'no_create': True}">
+                            </field>
+
+
+                        </page>
+                        <page name="GEC committee" string="GEC committee">
+                            <field name="faculty_ids" widget="many2many" options="{'no_create': True}"></field>
+                        </page>
+                        <page name="Documents" string="Documents">
+                            <field name="project_document_ids">
+                                <tree editable="bottom">
+                                    <field name="document_title"/>
+                                    <field name="document_code"/>
+                                    <field name="milestone_id"/>
+<!--                                    <field name="attachment_file"/>-->
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="MileStones" string="MileStones">
+                            <field name="selected_milestone_ids">
+                                <tree string="Mile stones" editable="bottom">
+                                    <field name="milestone_id"/>
+                                    <field name="name"/>
+                                    <field name="code"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="complition_status"
+                                           attrs="{'invisible':[('parent.state', 'in', ['draft','confirm','reject'])]}"/>
+                                    <field name="complition_date"
+                                           attrs="{'invisible':[('parent.state', 'in', ['draft','confirm','reject']),('complition_status', '=', False)]}"/>
+                                    <!--                                    attrs="{'invisible': []}"-->
+                                </tree>
+                            </field>
+                        </page>
+                        <page name="Feedbacks" string="Feedbacks">
+                            <field name="feedback_ids">
+                                <tree string="Mile stones" editable="bottom">
+                                    <field name="milestone_id"/>
+                                    <field name="feedback"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page name="description" string="Description">
+                            <group colspan="4">
+                                <field name="description"/>
+                                <field name="short_description"/>
+                                <field name="formal_description"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_student_project" model="ir.actions.act_window">
+        <field name="name">Student Project</field>
+        <field name="res_model">odoocms.student.project</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Project Here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_student_default_project" model="ir.actions.act_window">
+        <field name="name">Student Default Projects</field>
+        <field name="res_model">odoocms.projects</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Manage Your Default Projects Here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_student_project_management_manage_project"
+              name="Manage Projects"
+              parent="odoocms_spm.menu_student_project_management_main"
+              action="action_student_project"
+              sequence="1"/>
+
+    <menuitem id="menu_student_project_management_Default_project"
+              name="Default Projects"
+              parent="odoocms_spm.menu_student_project_management_configuration"
+              action="action_student_default_project"
+              sequence="1"/>
+
+</odoo>
+

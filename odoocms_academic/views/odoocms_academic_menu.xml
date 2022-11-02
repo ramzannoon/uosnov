@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+            id="menu_odoocms_academic_root"
+            name="Academics"
+            web_icon="odoocms_academic,static/description/icon.png"
+            groups="group_academic_manager,group_academic_user"
+            sequence="5"/>
+
+    <menuitem
+            id="menu_odoocms_students_root"
+            name="Students"
+            groups="odoocms.group_cms_user"
+            parent="menu_odoocms_academic_root"
+            sequence="10"/>
+
+    <menuitem
+            id="menu_odoocms_students"
+            parent="menu_odoocms_students_root"
+            name="Students"
+            action="odoocms.action_odoocms_student"
+            sequence="5"/>
+
+    <menuitem
+            id="menu_odoocms_faculty_root"
+            name="Faculty"
+            groups="odoocms.group_cms_user"
+            parent="menu_odoocms_academic_root"
+            sequence="15"/>
+
+    <menuitem
+            id="menu_odoocms_faculty_staff"
+            name="Faculty Staff"
+            parent="menu_odoocms_faculty_root"
+            action="odoocms.action_odoocms_faculty_staff"
+            sequence="10"/>
+
+
+    <menuitem
+            id="menu_odoocms_academic_main"
+            name="Academics"
+            parent="menu_odoocms_academic_root"
+            sequence="20"/>
+
+    <menuitem
+            id="menu_odoocms_component_class"
+            name="Component Classes"
+            parent="menu_odoocms_academic_main"
+            action="odoocms_registration.action_odoocms_class"
+            sequence="10"/>
+
+    ##################################################################### mine
+
+
+
+    ##################################################################### mine
+
+
+    <menuitem
+            id="menu_odoocms_academic_result"
+            name="Results"
+            parent="menu_odoocms_academic_main"
+            sequence="100"/>
+
+    <menuitem
+            id="menu_odoocms_academic_configuration"
+            parent="menu_odoocms_academic_root"
+            name="Configuration"
+            sequence="100"/>
+
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <act_window
+                id="odoocms_issue_invoice"
+                name="Issue To Students"
+                binding_model="account.move"
+                res_model="odoocms.issue.invoice"
+                binding_views="list,form" view_mode="form" target="new"
+                groups="odoocms_fee.group_fee_coordinator,odoocms_fee.group_fee_manager"/>
+
+        <record id="view_odoocms_issue_invoice_form" model="ir.ui.view">
+            <field name="name">odoocms.issue.invoice.form</field>
+            <field name="model">odoocms.issue.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Issue To Students">
+                    <notebook>
+                        <page string="Students" attrs="{'invisible': [('invoice_ids','=',[])]}">
+                            <group>
+                                <field name="invoice_ids" colspan="4" nolabel="1">
+                                    <tree string="Students">
+                                        <field name="partner_id" groups="base.group_user" invisible="1"/>
+                                        <field name="student_id"/>
+                                        <field name="invoice_date" string="Receipt Date"/>
+                                        <field name="name"/>
+                                        <field name="journal_id"/>
+                                        <field name="invoice_date_due"/>
+                                        <field name="amount_total_signed" string="Total" sum="Total"/>
+                                        <field name="receipt_type_ids" widget="many2many_tags"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+
+
+                    <footer>
+                        <button name="issue_invoice_to_students" string="Issue To Students" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

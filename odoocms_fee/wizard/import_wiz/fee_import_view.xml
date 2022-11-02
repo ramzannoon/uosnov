@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_odoocms_fee_import_wizard_form" model="ir.ui.view">
+			<field name="name">odoocms.fee.import.form.view</field>
+			<field name="model">odoocms.fee.import.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Fee Import">
+                    <group>
+                        <group>
+                            <field name="file" filename="name"/>
+                        </group>
+<!--                        <group>-->
+<!--                            <field name="register_only"/>-->
+<!--                            <field name="classes_only"/>-->
+<!--                        </group>-->
+                    </group>
+
+				    <footer>
+				        <button name="import_fee_data" string="Import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel" />
+				    </footer>
+				</form>
+			</field>
+		</record>
+
+         <record id="action_odoocms_fee_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import Fee</field>
+            <field name="res_model">odoocms.fee.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+<!--        <menuitem-->
+<!--                id="menu_odoocms_fee_import_wizard"-->
+<!--                name="Import Fee"-->
+<!--                action="action_odoocms_fee_import_wizard"-->
+<!--                parent="odoocms_fee.menu_odoocms_student_fee_payment_main"-->
+<!--                sequence="500"/>-->
+
+    </data>
+</odoo>

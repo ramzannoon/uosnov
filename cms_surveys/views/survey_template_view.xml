@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+
+        <record id="view_survey_types_form" model="ir.ui.view">
+            <field name="name">survey.types.form</field>
+            <field name="model">survey.types</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="form_type_seq_no"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_survey_types_tree" model="ir.ui.view">
+            <field name="name">survey.types.tree</field>
+            <field name="model">survey.types</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="form_type_seq_no"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_type">
+            <field name="name">Survey Type</field>
+            <field name="res_model">survey.types</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add new survey Types
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_survey_template">
+            <field name="name">Template</field>
+            <field name="res_model">survey.survey</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type', '=', 'template')]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new survey template
+                </p>
+                <p>
+                    You can create surveys template for different purposes:
+                </p>
+                <p>
+                    Design easily your survey template, send invitations and analyze answers.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_survey_template" name="Template" sequence="1"
+                  parent="survey.menu_surveys" groups="base.group_user"/>
+
+        <menuitem id="menu_survey_template_menu" name="Survey Template" sequence="10"
+                  parent="menu_survey_template"/>
+
+        <menuitem id="menu_survey_template_action" name="Templates" sequence="20"
+                  parent="menu_survey_template_menu" action="action_survey_template"/>
+
+        <!--        Survey Types-->
+        <menuitem id="menu_survey_type_action" name="Survey Types" sequence="30"
+                  parent="menu_survey_template_menu" action="action_survey_type"/>
+
+    </data>
+</odoo>

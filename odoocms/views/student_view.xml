@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_odoocms_student_kanban" model="ir.ui.view">
+        <field name="name">odoocms.student.kanban</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <kanban class="odoocms_student_kanban">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="city"/>
+                <field name="mobile"/>
+                <field name="state"/>
+                <field name="image_128"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click  o_res_partner_kanban">
+                            <div class="o_kanban_image">
+                                <t t-if="record.image_128.raw_value">
+                                    <img t-att-src="kanban_image('odoocms.student', 'image_128', record.id.raw_value)"
+                                         alt="Student"/>
+                                </t>
+                                <t t-if="!record.image_128.raw_value">
+                                    <img t-att-src='_s + "/base/static/src/img/avatar.png"' alt="Student"/>
+                                </t>
+                            </div>
+
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section oe_kanban_partner_categories"/>
+
+                                <ul>
+                                    <li t-if="record.contact_address.raw_value">
+                                        Address:
+                                        <field name="contact_address"/>
+                                    </li>
+                                    <li t-if="record.phone.raw_value">
+                                        Tel:
+                                        <field name="phone"/>
+                                    </li>
+                                    <li t-if="record.mobile.raw_value">
+                                        <i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/>
+                                        <field name="mobile"/>
+                                    </li>
+                                    <li t-if="record.email.raw_value">
+                                        <i class="fa fa-envelope" role="img" aria-label="Email" title="Email"/>
+                                        <a t-attf-href="mailto:#{record.email.value}">
+                                            <field name="email"/>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.tree</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <tree string="Student">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="gender" optional="show"/>
+                <field name="blood_group" optional="hide"/>
+                <field name="date_of_birth" optional="hide"/>
+                <field name="email" optional="hide"/>
+                <field name="mobile" optional="hide"/>
+                <field name="program_id" optional="hide"/>
+                <field name="state" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_form" model="ir.ui.view">
+        <field name="name">odoocms.student.form</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <form string="Student">
+                <header>
+                    <button type="object" name="create_user" string="Create User" groups="base.group_no_one"
+                            class="oe_highlight" attrs="{'invisible': [('user_id', '!=', False)]}"/>
+                    <button type="object" name="lock" string="Lock/Enroll" groups="odoocms.group_cms_user"
+                            class="oe_highlight" states="draft"/>
+                    <button type="object" name="confirm_btn" string="Confirm"
+                            class="oe_highlight" attrs="{'invisible': [('state2', '!=', 'draft')]}"/>
+                    <field name="state2" widget="statusbar"
+                           statusbar_visible="draft,enroll,cancel"/>
+                    <!--                    <field name="state" widget="statusbar"-->
+                    <!--                           statusbar_visible="draft,enroll,alumni,cancel,freeze"/>-->
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!--                        <button name="student_documents" type="object" widget="statinfo"-->
+                        <!--                                class="oe_stat_button" icon="fa-calendar" string="Documents">-->
+                        <!--                        </button>-->
+                        <button name="toggle_active" type="object" groups="odoocms.group_cms_manager"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="image_1920" widget='image' class="oe_avatar"
+                           options='{"zoom":true, "preview_image":"image_128"}'/>
+
+                    <div class="oe_title">
+                        <h3>
+                            <field name="code" readonly="1"/>
+                        </h3>
+
+                        <label for="first_name" class="oe_edit_only" string="Student Name"/>
+                        <h2>
+                            <table>
+                                <tr>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="first_name" required="1"
+                                               placeholder="First Name"/>
+                                    </td>
+                                    <td style="padding-right:10px;">
+                                        <field style="width:inherit;" name="last_name" placeholder="Last Name"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </h2>
+                    </div>
+                    <field style="margin-left: 10px;padding-right:10px;" name="tag_ids" widget="many2many_tags"
+                           options="{'color_field': 'color','create': true, 'create_edit': true}"
+                           string="Tags" placeholder="e.g. Medalist" readonly="1"/>
+
+
+                    <notebook>
+                        <page string="Personal Information" name="personal_information">
+                            <group>
+                                <group>
+                                    <field name="gender" required="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="religion_id"/>
+                                    <field name="marital_status"/>
+                                    <field name="nationality"/>
+                                    <field name="nationality_name" invisible="1"/>
+                                    <field name="domicile_id"/>
+                                </group>
+                                <group>
+                                    <field name="cnic"
+                                           attrs="{
+                                            'invisible':['|',('nationality','=',False),('nationality_name','!=','Pakistan')]
+                                     }"/>
+                                    <field name="cnic_expiry_date"
+                                           attrs="{
+                                            'invisible':['|',('nationality','=',False),('nationality_name','!=','Pakistan')]
+                                    }"/>
+
+                                    <field name="date_of_birth"/>
+                                    <field name="language_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                                    <field name="blood_group"/>
+                                    <field name="user_id" string="User"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <!--                                    <field name="import_identifier" invisible='1'/>-->
+                                </group>
+                                <group>
+                                    <field name="father_name"/>
+                                    <field name="father_status"/>
+                                    <field name="father_profession" attrs="{'invisible':[('father_status','=','deceased')]}"/>
+                                    <field name="father_income" attrs="{'invisible':[('father_status','=','deceased')]}"/>
+                                    <field name="father_cell" attrs="{'invisible':[('father_status','=','deceased')]}"/>
+                                    <field name="guardian_name"/>
+                                    <field name="guardian_mobile"/>
+                                    <field name="father_guardian_cnic"/>
+                                </group>
+                                <group>
+                                    <field name="mother_name"/>
+                                    <field name="mother_status"/>
+                                    <field name="mother_profession" attrs="{'invisible':[('mother_status','=','deceased')]}"/>
+                                    <field name="mother_income" attrs="{'invisible':[('mother_status','=','deceased')]}"/>
+                                    <field name="mother_cell" attrs="{'invisible':[('mother_status','=','deceased')]}"/>
+                                    <field name="notification_email"/>
+                                    <field name="sms_mobile"/>
+                                </group>
+                                <group>
+                                    <label for="emergency_contact" string="Emergency Contact"/>
+                                    <div name="div_address">
+                                        <field name="emergency_contact" placeholder="Name..."/>
+                                        <field name="emergency_mobile" placeholder="Mobile"/>
+                                        <field name="emergency_email" placeholder="Email"/>
+                                        <field name="emergency_address" placeholder="Address..."/>
+                                        <field name="emergency_city" placeholder="City"/>
+                                    </div>
+                                </group>
+                            </group>
+                            <group name="amenity_info">
+                                <field name="disability"/>
+                                <field name="disability_detail" attrs="{'invisible':[('disability','=',False)]}"/>
+                            </group>
+                        </page>
+                        <page string="Current Academic" name="academic_information">
+                            <group>
+                                <group name="academic_session">
+                                    <field name="session_id" required="1"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="career_id" required="1"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="institute_id"/>
+                                    <field name="program_id" domain="[('career_id','=',career_id)]"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="sc_program_id"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="campus_id"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="study_scheme_id"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                    <field name="minor_scheme_id"
+                                           domain="[('scheme_type','=','minor')]"
+                                           options="{'no_create': True, 'no_quick_create': True, 'no_create_edit' : True}"/>
+                                </group>
+                                <group name="academic_term">
+                                    <button name="get_student_id" type="object" string="Get Student ID"
+                                            class="oe_highlight"
+                                            attrs="{'invisible':[('id_number','!=',False)]}"/>
+                                    <field name="id_number" readonly="1"
+                                           attrs="{'invisible':[('id_number','=',False)]}"/>
+                                    <field name="entryID" readonly="1"/>
+                                    <field name="term_id"/>
+                                    <field name="semester_id"/>
+                                    <field name="discipline_id"/>
+                                </group>
+
+                            </group>
+
+                        </page>
+                        <page string="Contact Details">
+                            <group>
+                                <group>
+                                    <field name="email" widget="email"/>
+                                </group>
+                                <group>
+                                    <field name="mobile" widget="phone"/>
+                                    <field name="phone" widget="phone"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <label for="street" string="Present Address"/>
+                                    <div name="div_address">
+                                        <field name="street" placeholder="Street..."/>
+                                        <field name="street2" placeholder="Street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="country_id" placeholder="Country" class="oe_no_button"
+                                               options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+
+                                <field name="is_same_address" invisible="1"/>
+                                <group name="permanent_address" attrs="{'invisible': [('is_same_address','=', True)]}">
+                                    <label for="per_street" string="Permanent Address"/>
+                                    <div name="div_address">
+                                        <field name="per_street" placeholder="Street..."/>
+                                        <field name="per_street2" placeholder="Street2..."/>
+                                        <div class="address_format">
+                                            <field name="per_city" placeholder="City" style="width: 40%%"/>
+                                            <field name="per_state_id" class="oe_no_button" placeholder="State"
+                                                   style="width: 37%%" options='{"no_open": True}'/>
+                                            <field name="per_zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="per_country_id" placeholder="Country" string="Country"
+                                               class="oe_no_button" options='{"no_open": True}'/>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Visa Information" name="visa_info"
+                              attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')]}">
+                            <group>
+                                <group>
+                                    <field name="u_id_no"
+                                           attrs="{
+                                                'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')],
+                                                'required': [('nationality','!=',False),('nationality_name','!=','Pakistan')]}"
+                                    />
+                                    <field name="visa_issue_date"
+                                           attrs="{
+                                                'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')],
+                                                'required': [('nationality','!=',False),('nationality_name','!=','Pakistan')]}"
+                                    />
+                                    <field name="visa_expiry_date"
+                                           attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')]}"/>
+                                    <field name="visa_info"
+                                           attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')]}"/>
+                                </group>
+                                <group name="academic_semester">
+                                    <field name="passport_no"
+                                           attrs="{
+                                                'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')],
+                                                'required': [('nationality','!=',False),('nationality_name','!=','Pakistan')]}"
+                                    />
+                                    <field name="passport_issue_date"
+                                           attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')], 'required': [('nationality','!=',False),('nationality_name','!=','Pakistan')]}"/>
+                                    <field name="passport_expiry_date"
+                                           attrs="{'invisible':['|',('nationality','=',False),('nationality_name','=','Pakistan')]}"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Academic History">
+                            <group>
+                                <group>
+                                    <field name="admission_no"/>
+                                    <field name="merit_no"/>
+                                    <field name="urban_rural"/>
+                                    <field name="pc_cadet"/>
+                                    <field name="first_generation_studying"/>
+                                </group>
+                                <group>
+                                    <field name="net_stream"/>
+                                    <field name="inter_stream"/>
+                                    <field name="inter_stream"/>
+                                </group>
+                            </group>
+                            <field name="academic_ids">
+                                <tree string="Academic Info" editable="bottom"> <!-- create="false" delete="false" edit="false" -->
+                                    <field name="degree_level"/>
+                                    <field name="degree"/>
+                                    <field name="year"/>
+                                    <field name="board"/>
+                                    <field name="subjects"/>
+                                    <field name="total_marks"/>
+                                    <field name="obtained_marks"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!--                        <page string="Honor/Awards">-->
+                        <!--                            <field name="award_ids">-->
+                        <!--                                <tree string="Honor/Awards"-->
+                        <!--                                      editable="bottom"> &lt;!&ndash; create="false" delete="false" edit="false" &ndash;&gt;-->
+                        <!--                                    <field name="name"/>-->
+                        <!--                                    <field name="award_date"/>-->
+                        <!--                                    <field name="certificate"/>-->
+                        <!--                                </tree>-->
+                        <!--                            </field>-->
+                        <!--                        </page>-->
+
+                        <page string="Publications">
+                            <field name="publication_ids">
+                                <tree string="Publications"
+                                      editable="bottom"> <!-- create="false" delete="false" edit="false" -->
+                                    <field name="name"/>
+                                    <field name="topic"/>
+                                    <field name="date"/>
+                                    <field name="paper_attachment"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Extra Activites" name="extra_activities">
+                            <field name="extra_activity_ids">
+                                <tree string="Extra Activites" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="remarks"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_search" model="ir.ui.view">
+        <field name="name">odoocms.student.search</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <search string="Student">
+                <field name="name" string="Student"
+                       filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                <field name="tag_ids"/>
+                <field name="father_name"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="blood_group"/>
+                <field name="gender"/>
+                <field name="religion_id"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="state2" string="Status" domain="[]" context="{'group_by':'state2'}"/>
+                    <filter name="career" string="Career" domain="[]" context="{'group_by':'career_id'}"/>
+                    <filter name="session" string="Session" domain="[]" context="{'group_by':'session_id'}"/>
+                    <filter name="program" string="Program" domain="[]" context="{'group_by':'program_id'}"/>
+                    <filter name="term" string="Term" domain="[]" context="{'group_by':'term_id'}"/>
+                    <filter name="blood_group" string="Blood Group" domain="[]" context="{'group_by':'blood_group'}"/>
+                    <filter name="nationality" string="Nationality" domain="[]" context="{'group_by':'nationality'}"/>
+                    <filter name="gender" string="Gender" domain="[]" context="{'group_by':'gender'}"/>
+                    <filter name="religion" string='Religion' domain="[]" context="{'group_by':'religion_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="career_id" icon="fa-users"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_pivot" model="ir.ui.view">
+        <field name="name">odoocms.student.pivot</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <pivot string="Students" display_quantity="true">
+                <field name="id"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_graph" model="ir.ui.view">
+        <field name="name">odoocms.student.graph</field>
+        <field name="model">odoocms.student</field>
+        <field name="arch" type="xml">
+            <graph string="Students">
+                <field name="id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student</field>
+        <field name="view_mode">tree,form,kanban,pivot,graph</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to register new Student.</p>
+            <p>Manage all students registration process.</p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_student_comments_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.comments.tree</field>
+        <field name="model">odoocms.student.comment</field>
+        <field name="arch" type="xml">
+            <tree string="Student Comments">
+                <field name="message_ref"/>
+                <field name="student_id"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="notfication_date"/>
+                <field name="cms_ref"/>
+                <field name="program_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_comments_form" model="ir.ui.view">
+        <field name="name">odoocms.student.comments.form</field>
+        <field name="model">odoocms.student.comment</field>
+        <field name="arch" type="xml">
+            <form string="Student Comments" create="false" delete="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="message_ref"/>
+                        </group>
+                        <group>
+                        </group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="name"/>
+                            <field name="notfication_date"/>
+                            <field name="cms_ref"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="program_id"/>
+                            <field name="message_from"/>
+                        </group>
+                    </group>
+                    <label for="comment" string="Comment"/>
+                    <field name="comment"/>
+                </sheet>
+                <!--<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                     <field name="message_ids" widget="mail_thread"/>
+                 </div>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_comments_search" model="ir.ui.view">
+        <field name="name">odoocms.student.comments.search</field>
+        <field name="model">odoocms.student.comment</field>
+        <field name="arch" type="xml">
+            <search string="Student Comments">
+                <field name="name" string="Student"
+                       filter_domain="['|', ('name','ilike',self), ('code','ilike',self)]"/>
+                <field name="message_ref" string="Reference" filter_domain="[('message_ref','ilike',self)]"/>
+                <newline/>
+                <group expand="0" string="Group By...">
+                    <filter name="student" string='Student' domain="[]" context="{'group_by':'student_id'}"/>
+
+                    <filter name="program" string="Program" domain="[]" context="{'group_by':'program_id'}"/>
+                    <filter name="date" string='Date' domain="[]" context="{'group_by':'date'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_comments" model="ir.actions.act_window">
+        <field name="name">Student Comments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.comment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to register new Student Comment.</p>
+        </field>
+    </record>
+
+
+    <record id="view_odoocms_student_profilechange_attribute_form" model="ir.ui.view">
+        <field name="name">odoocms.student.profilechange.attribute.form</field>
+        <field name="model">odoocms.student.profilechange.attribute</field>
+        <field name="arch" type="xml">
+            <form string="Add Profile Change Attributes">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="field_name_id"
+                                   domain="[('model','=','odoocms.student'),('ttype','in',('char', 'integer','float', 'date')),('related','=',False)]"
+                                   options="{'no_create': True, 'no_quick_create':True, 'no_create_edit': True, 'limit': 10}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_profilechange_attribute_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.profilechange.attribute.tree</field>
+        <field name="model">odoocms.student.profilechange.attribute</field>
+        <field name="arch" type="xml">
+            <tree string="Attributes allowed for Student Profile Change">
+                <field name="name"/>
+                <field name="field_name_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_profilechange_attribute" model="ir.actions.act_window">
+        <field name="name">Students Profile Change Attributes</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.profilechange.attribute</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Click to register new Attributes.</p>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_process_pictures" model="ir.actions.server">
+        <field name="name">Process Pictures</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_student"/>
+        <field name="state">code</field>
+        <field name="code">action = model.process_images()</field>
+    </record>
+
+    <record id="view_odoocms_student_tag_category_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.tag.category.tree</field>
+        <field name="model">odoocms.student.tag.category</field>
+        <field name="arch" type="xml">
+            <tree string="Tag Category">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="multiple"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_odoocms_student_tag_category_form" model="ir.ui.view">
+        <field name="name">odoocms.student.tag.category.form</field>
+        <field name="model">odoocms.student.tag.category</field>
+        <field name="arch" type="xml">
+            <form string="Tag Category">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="multiple"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="group_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_odoocms_student_tag_tree" model="ir.ui.view">
+        <field name="name">odoocms.student.tag.tree</field>
+        <field name="model">odoocms.student.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Student Tags">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_odoocms_student_tag_form" model="ir.ui.view">
+        <field name="name">odoocms.student.tag.form</field>
+        <field name="model">odoocms.student.tag</field>
+        <field name="arch" type="xml">
+            <form string="Student Tags">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="code"/>
+                            <field name="exclude_fee"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="group_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="category_id"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <notebook>
+                        <page string="Students">
+                            <group>
+                                <field name="student_ids" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_odoocms_student_tag" model="ir.actions.act_window">
+        <field name="name">Student Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odoocms.student.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create First Tag here.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_odoocms_change_states" model="ir.actions.server">
+        <field name="name">Change States</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_odoocms_student"/>
+        <field name="binding_model_id" ref="model_odoocms_student"/>
+        <field name="state">code</field>
+        <field name="code">action = records.change_states()</field>
+    </record>
+
+    <menuitem
+            id="menu_odoocms_student_profilechange_attribute"
+            parent="menu_odoocms_configuration"
+            name="Profile Change Attribute Allowed"
+            groups="odoocms.group_cms_manager"
+            action="action_odoocms_student_profilechange_attribute"
+            sequence="25"/>
+
+    <menuitem
+            id="menu_odoocms_student_tag"
+            parent="menu_odoocms_configuration"
+            name="Student Tags"
+            action="action_odoocms_student_tag"
+            groups="base.group_system"
+            sequence="505"/>
+
+    <menuitem
+            id="menu_odoocms_students"
+            parent="menu_odoocms_students_root"
+            name="Students"
+            action="action_odoocms_student"
+            sequence="5"/>
+
+    <!--    parent="menu_odoocms_students_root"-->
+    <menuitem
+
+            id="menu_odoocms_student_comments"
+            parent="menu_odoocms_configuration"
+            name="Student Comments"
+            action="action_odoocms_student_comments"
+            sequence="100"/>
+
+<!--     <menuitem
+            id="menu_odoocms_students_process_images"
+            parent="menu_odoocms_configuration"
+            name="Process Students Pictures"
+            action="action_odoocms_student_process_pictures"
+            sequence="20"/> -->
+
+</odoo>

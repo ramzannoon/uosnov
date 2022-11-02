@@ -1,0 +1,221 @@
+<odoo>
+
+	<template id ="odoocms_admission.non_subsidized_form_report">
+		<t t-call="web.html_container">
+			<t t-call="web.basic_layout">
+				<t t-if="not company">
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+				
+				<div class="page" style="font-size: 12px;">
+					<table class="table table-bordered" style="width:100%;">
+						<tr>
+							<td style="width:20%;">
+								<table class="table table-bordered" style="width:100%;">
+									<tr>
+										<td colspan="5"> Entrance Test ID</td>
+									</tr>
+									<tr style="font-size:16px;font-weight:bold;text-align:center;">
+										<td><span t-esc="application_no[0]"/></td>
+										<td><span t-esc="application_no[1]"/></td>
+										<td><span t-esc="application_no[2]"/></td>
+										<td><span t-esc="application_no[3]"/></td>
+										<td><span t-esc="application_no[4]"/></td>
+									</tr>
+									<tr>
+										<td colspan="5" style="font-size:12px;font-weight:bold;">Form Submitted on:</td>
+									</tr>
+									<tr>
+										<td colspan="5">Open: Yes</td>
+									</tr>
+									<tr>
+										<td colspan="5">Self:</td>
+									</tr>
+								</table>
+							</td>
+							
+							<td style="width:60%;">
+								<table class="table table-bordered" style="width:100%;">
+									<tr style="text-align:center;font-size:16px;font-weight:bold;">
+										<td><span t-field="company.name"/> </td>
+									</tr>
+									<tr style="padding-top:50px;text-align:center;">
+										<td>
+                    						<img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;align:center" alt="Logo"/>
+            							</td>
+									</tr>
+									<tr style="padding-top:50px;text-align:center;">
+										<td><span t-field="application.register_id.name"/></td>
+									</tr>
+									<tr style="text-align:center;">
+										<td> <span t-field="application.academic_session_id.name"/></td>
+									</tr>
+								</table>
+							</td>
+							
+							<td style="width:20%;">
+								<table class="table table-bordered" style="width:100%;">
+									<tr style="padding-top:50px;text-align;center;">
+										<td style="text-align;center;font-size:12px;font-weight:bold;">S.No.:44</td>
+									</tr>
+									<tr>
+										<td>
+											<img t-if="application.image" t-att-src="'data:image/png;base64,%s' % to_text(application.image)" style="max-height:175px;align:middle"/>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+				 	<div class="col-xs-12" style="font-size:16px;font-weight:bold;text-align:center;">
+				 		NON-SUBSIDIZED FORM
+				 	</div>
+				 	
+					<!-- Personal BioData -->
+				 	<div class="col-xs-6" style="font-size:16px;font-weight:bold;">
+				 		Personal Biodata:
+				 	</div>
+				 	<div class="col-xs-6" style="font-size:14px;font-weight:bold;padding-bottom:5px;">
+				 		<span t-esc="bio_data['name']"/>
+						<t t-if="bio_data['gender'] == 'male'">
+							S/O
+						</t>
+						<t t-if="bio_data['gender'] == 'female'">
+							D/O
+						</t>
+						<span t-esc="bio_data['father']"/>
+				 	</div>
+				 	<div class="col-xs-12" style="font-size:13px;">
+				 		Mobile: <span style="padding-left:5px;" t-esc="bio_data['mobile']"/> Domicile: <span style="padding-left:5px;" t-esc="bio_data['domicile_id']"/>
+				 	</div>
+					
+					<!-- Academic Records -->
+				 	<div class="col-xs-6" style="font-size:12px;font-weight:bold;text-decoration: underline;">
+				 		Academic Records:
+				 	</div>
+				 	
+				 	<table class="table table-bordered">
+				 		<tr style="font-size:10px;page-break-inside: avoid;">
+				 			<th style="text-align:center;">Certificate</th>
+				 			<th style="text-align:center;">Board</th>
+				 			<th style="text-align:center;">Year</th>
+				 			<th style="text-align:center;">Marks Obt.</th>
+				 			<th style="text-align:center;">Total Marks</th>
+				 			<th style="text-align:center;">%Age</th>
+				 			
+				 		</tr>
+					 	<tbody>
+					 		<t t-foreach="acadmics" t-as="a">
+					 			<tr style="font-size:11px;page-break-inside: avoid;">
+					 				<td style="text-align:center;"><span t-esc="a.degree"/></td>
+					 				<td style="text-align:center;"><span t-esc="a.board"/></td>
+					 				<td style="text-align:center;"><span t-esc="a.year"/></td>
+					 				<td style="text-align:center;"><span t-esc="a.obtained_marks"/></td>
+					 				<td style="text-align:center;"><span t-esc="a.total_marks"/></td>
+					 				<td style="text-align:center;"><span t-esc="'{0:,.0f}'.format((a.obtained_marks/a.total_marks)*100)"/></td>
+					 			</tr>
+					 		</t>
+					 	</tbody>
+					 </table>
+					 <!-- Acadmic Records Ends -->	
+				
+					<!-- Preferences -->
+				 	<div class="col-xs-6" style="font-size:12px;font-weight:bold;text-decoration: underline;">
+				 		Your Order of Preferences (NON SUBSIDIZED):
+				 	</div>	
+
+				 	<table class="table table-bordered" style="width:100%">
+				 		<tr style="font-size:10px;page-break-inside: avoid;">
+				 			<td style="width:50%; padding-left:0px; padding-right:0px;padding-top:0px;padding-bottom:0px;">
+								<table width="100%">
+									<t t-foreach="table1" t-as="tb1">
+										<tr>
+											<td style="width:10%;text-align:center;">
+												<span t-esc="tb1_index + 1"/>
+											</td>
+											<td style="width:90%;text-align:left;">
+												<span t-esc="tb1['program']"/>
+											</td>
+										</tr>
+									</t>
+								</table>
+							</td>
+							<td style="width:50%;padding-left:0px; padding-right:0px;padding-top:0px;padding-bottom:0px;">
+								<table width="100%">
+									<t t-foreach="table2" t-as="tb2">
+										<tr>
+											<td style="width:10%;text-align:center;">
+												<span t-esc="tb2_index + 10"/>
+											</td>
+											<td style="width:90%;text-align:left;">
+												<span t-esc="tb2['program']"/>
+											</td>
+										</tr>
+									</t>
+								</table>
+							</td>
+
+				 		</tr>
+					 </table>
+
+					<!-- Adjustment of markds -->
+					<div class="col-xs-6" style="font-size:12px;font-weight:bold;text-decoration: underline;">
+				 		ADJUSTMENT OF MARKS
+				 	</div>
+					<table class="table table-bordered" style="width:100%">
+						<tr>
+							<td style="text-align:center;">SSC </td>
+							<td style="text-align:center;">Entrance Test </td>
+							<td style="text-align:center;">Hafiz </td>
+							<td style="text-align:center;">Intermediate </td>
+						</tr>
+						<tr>
+							<td style="text-align:center;"><span t-esc="application.ssc_marks"/></td>
+							<td style="text-align:center;"><span t-esc="application.entry_score"/></td>
+							<td style="text-align:center;"><span t-esc="application.hafiz_marks"/></td>
+							<td style="text-align:center;"><span t-esc="application.inter_marks"/></td>
+						</tr>
+					</table>
+
+					<table class="table table-bordered" style="width:60%">
+						<tr>
+							<td style="text-align:center;">Improvement </td>
+							<td style="text-align:center;">Add. Maths </td>
+							<td style="text-align:center;font-size:12px;font-weight:bold;">ADJUSTED MARKS </td>
+						</tr>
+						<tr>
+							<td style="text-align:center;"><span t-esc="-(application.improvement_deduction)"/></td>
+							<td style="text-align:center;"><span t-esc="-(application.additional_deduction)"/></td>
+							<td style="text-align:center;font-size:12px;font-weight:bold;"><span t-esc="application.adjusted_score"/></td>
+						</tr>
+					</table>
+
+
+					<div class="row">
+						<div class="col-xs-4 pull-left" style="font-size:12px;">
+				 			Form Submitted On: <span t-esc="date"></span>
+				 		</div>
+						<div class="col-xs-4 pull-left" style="font-size:12px;padding-left:35px;">
+				 			Checked By:-----------------------------------------------------------
+				 		</div>
+						<div class="col-xs-4 pull-right" style="font-size:12px;;padding-left:35px;">
+				 			Verified By:-----------------------------------------------------------
+				 		</div>
+				 	</div>
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
